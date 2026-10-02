@@ -1,0 +1,41 @@
+display_name: ChurchLib
+package_name: churchlib
+
+maintainer:
+  name: Siro Devs
+  email: sirodevske@gmail.com
+
+priority: optional
+
+section: x11
+
+installed_size: 15700
+
+dependencies:
+  - libsqlite3-dev
+
+essential: false
+
+icon: assets/icons/app_icon.png
+
+postuninstall_scripts:
+  - echo "We are sad to see you go. Please check back soon."
+
+keywords:
+  - ChurchLib
+  - SongLib
+  - BibleLib
+  - Songs
+  - Church
+  - Bible
+  - SongBook
+  - Songs of Worship
+  - Nyimbo za Injili
+  - Jack Siro
+
+generic_name: ChurchLib
+
+categories:
+  - Education
+
+startup_notify: false

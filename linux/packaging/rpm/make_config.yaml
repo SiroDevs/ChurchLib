@@ -1,0 +1,29 @@
+icon: assets/icons/app_icon.png
+summary: Your songbook and Bible, together, on the go
+group: Application/Education
+vendor: Siro Devs
+packager: Siro Devs
+packagerEmail: sirodevske@gmail.com
+license: GPLv3
+url: https://churchlib.siro.co.ke
+
+display_name: ChurchLib
+
+keywords:
+  - ChurchLib
+  - SongLib
+  - BibleLib
+  - Songs
+  - Church
+  - Bible
+  - SongBook
+  - Songs of Worship
+  - Nyimbo za Injili
+  - Jack Siro
+
+generic_name: ChurchLib
+
+categories:
+  - Education
+
+startup_notify: false
