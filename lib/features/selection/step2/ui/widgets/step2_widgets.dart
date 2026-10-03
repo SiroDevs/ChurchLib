@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 // Project imports:
-import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../common/utils/constants/app_assets.dart';
+import '../../../../../core/theme/theme_colors.dart';
 import '../../../../widgets/progress/advanced/advanced_progress.dart';
 import '../../../../widgets/progress/wave/wave_progress.dart';
 

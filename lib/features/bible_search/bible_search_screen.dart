@@ -5,17 +5,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../core/di/injectable.dart';
-import '../../core/theme/theme_colors.dart';
 import '../../common/utils/app_util.dart';
 import '../../common/utils/constants/pref_constants.dart';
+import '../../core/di/injectable.dart';
+import '../../core/theme/theme_colors.dart';
 import '../../data/models/bible/bible_search.dart';
 import '../../data/models/bible/bible_version.dart';
+import '../../domain/entities/bible/verse_display.dart';
 import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/bible/bible_tracking_repo.dart';
 import '../../domain/repos/pref_repo.dart';
-import '../../domain/entities/bible/verse_display.dart';
-import '../blocs/bloc/reader_cubit.dart';
+import '../bible_reader/bloc/reader_cubit.dart';
 
 /// Ported from biblelib-android's search feature. Searches run 400 ms after
 /// the last keystroke, only for queries of 3+ characters, against one

@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../common/utils/app_util.dart';
 import '../../core/theme/theme_data.dart';
 import '../../core/theme/theme_styles.dart';
-import '../../common/utils/app_util.dart';
 import '../../data/models/models.dart';
+import '../presentor/ui/presentor_screen.dart';
 import '../widgets/list_items/search_book_item.dart';
 import '../widgets/list_items/search_song_item.dart';
-import '../presentor/ui/presentor_screen.dart';
 import 'search_songs_utils.dart';
 
 /// Small screen search

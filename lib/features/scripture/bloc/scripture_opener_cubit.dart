@@ -2,8 +2,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../core/di/injectable.dart';
 import '../../../common/utils/constants/pref_constants.dart';
+import '../../../core/di/injectable.dart';
 import '../../../data/models/bible/bible_book.dart';
 import '../../../data/models/bible/bible_chapter.dart';
 import '../../../data/models/bible/scripture_item.dart';

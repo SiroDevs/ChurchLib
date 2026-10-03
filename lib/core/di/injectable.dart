@@ -10,6 +10,10 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
+import '../../common/utils/app_util.dart';
+import '../../common/utils/constants/app_constants.dart';
+import '../../data/sources/local/app_database.dart';
+import '../../data/sources/remote/bible/bible_api_service.dart';
 import '../../domain/repos/bible/bible_annotation_repo.dart';
 import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/bible/bible_repo_impl.dart';
@@ -17,11 +21,7 @@ import '../../domain/repos/bible/bible_tracking_repo.dart';
 import '../../domain/repos/bible/scripture_repo.dart';
 import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/database_repo_impl.dart';
-import '../../data/sources/local/app_database.dart';
-import '../../data/sources/remote/bible/bible_api_service.dart';
 import '../../features/scripture/bloc/scripture_queue_cubit.dart';
-import '../../common/utils/app_util.dart';
-import '../../common/utils/constants/app_constants.dart';
 import 'injectable.config.dart';
 
 final getIt = GetIt.instance;

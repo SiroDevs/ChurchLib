@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../core/theme/theme_colors.dart';
 import '../../common/utils/constants/app_assets.dart';
 import '../../common/utils/constants/app_constants.dart';
+import '../../core/theme/theme_colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

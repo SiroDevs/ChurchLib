@@ -1,11 +1,11 @@
 // Project imports:
-import '../../../core/di/injectable.dart';
 import '../../../common/utils/app_util.dart';
 import '../../../common/utils/constants/pref_constants.dart';
+import '../../../core/di/injectable.dart';
 import '../../../data/models/bible/bible_version.dart';
-import 'bible_repo.dart';
-import '../pref_repo.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';
+import '../pref_repo.dart';
+import 'bible_repo.dart';
 
 /// Max translations on first install / extra allowed when re-selecting —
 /// same limits as Android's `SelectionViewModel`.

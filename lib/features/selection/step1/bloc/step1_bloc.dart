@@ -6,14 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // Project imports:
-import '../../../../core/di/injectable.dart';
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/pref_constants.dart';
 import '../../../../common/utils/network_utils.dart';
+import '../../../../core/di/injectable.dart';
 import '../../../../data/models/book.dart';
+import '../../../../domain/entities/basic_model.dart';
 import '../../../../domain/repos/database_repo.dart';
 import '../../../../domain/repos/pref_repo.dart';
-import '../../../../domain/entities/basic_model.dart';
 import '../../../../domain/repos/song/song_selection_repo.dart';
 
 part 'step1_event.dart';

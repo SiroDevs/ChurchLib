@@ -1,9 +1,9 @@
 // Project imports:
-import '../../entities/bible/verse_display.dart';
 import '../../../data/models/bible/bible_book.dart';
 import '../../../data/models/bible/bible_chapter.dart';
 import '../../../data/models/bible/bible_version.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';
+import '../../entities/bible/verse_display.dart';
 
 /// BibleLib's data-layer contract — ported from biblelib-android's
 /// `BibleRepo`, split from its implementation the same way SongLib's

@@ -7,17 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../core/theme/theme_styles.dart';
 import '../../common/utils/app_util.dart';
+import '../../core/theme/theme_styles.dart';
 import '../../data/models/models.dart';
-import '../main/bloc/main_bloc.dart';
 import '../../l10n/app_localizations.dart';
-import '../widgets/list_items/search_book_item.dart';
-import '../widgets/list_items/search_song_item.dart';
 import '../common/app_intents.dart';
 import '../common/search_songs_utils.dart';
+import '../main/bloc/main_bloc.dart';
 import '../main/ui/main_screen.dart';
 import '../presentor/ui/presentor_screen.dart';
+import '../widgets/list_items/search_book_item.dart';
+import '../widgets/list_items/search_song_item.dart';
 
 part 'widgets/song_viewer.dart';
 part 'widgets/list_widgets.dart';

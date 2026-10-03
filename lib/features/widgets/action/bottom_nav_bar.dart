@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 // Project imports:
 import '../../../core/di/injectable.dart';
 import '../../../core/theme/theme_colors.dart';
-import '../../../domain/repos/pref_repo.dart';
 import '../../../domain/entities/basic_model.dart';
+import '../../../domain/repos/pref_repo.dart';
 import 'app_nav_icon.dart';
 
 /// Custom Bottom Navigation Bar that will handle the page to be displayed on the dashboard

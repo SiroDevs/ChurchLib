@@ -6,10 +6,10 @@ import 'package:window_manager/window_manager.dart';
 
 // Project imports:
 import 'app.dart';
-import 'core/di/injectable.dart';
 import 'common/utils/app_util.dart';
 import 'common/utils/env/environments.dart';
 import 'common/utils/env/flavor_config.dart';
+import 'core/di/injectable.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

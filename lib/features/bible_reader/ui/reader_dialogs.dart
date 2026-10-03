@@ -6,8 +6,8 @@ import '../../../core/di/injectable.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../data/models/bible/bible_note.dart';
 import '../../../domain/repos/bible/bible_annotation_repo.dart';
-import '../../blocs/bloc/reader_cubit.dart';
-import '../../biblelib/reader/verse_row.dart';
+import '../bloc/reader_cubit.dart';
+import 'verse_row.dart';
 
 /// Opens the note editor for one verse. Like Android's NotesScreen, the
 /// note saves when the dialog is closed (there's also an explicit Save

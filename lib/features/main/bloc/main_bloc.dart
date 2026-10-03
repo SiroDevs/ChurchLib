@@ -9,9 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // Project imports:
-import '../../../core/di/injectable.dart';
 import '../../../common/utils/app_util.dart';
 import '../../../common/utils/network_utils.dart';
+import '../../../core/di/injectable.dart';
 import '../../../data/models/models.dart';
 import '../../../domain/repos/database_repo.dart';
 import '../../../domain/repos/pref_repo.dart';

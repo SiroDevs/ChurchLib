@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import '../../../common/navigator/route_names.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';
 import '../bloc/bible_selection_bloc.dart';
-import '../../../common/navigator/route_names.dart';
 
 enum _Grouping { countries, languages, none }
 

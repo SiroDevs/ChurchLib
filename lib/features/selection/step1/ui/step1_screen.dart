@@ -6,19 +6,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 
 // Project imports:
-import '../../../../core/theme/theme_styles.dart';
+import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/app_assets.dart';
+import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/book.dart';
 import '../../../../domain/entities/basic_model.dart';
-import '../bloc/step1_bloc.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../common/navigator/route_names.dart';
+import '../../../common/theme_button.dart';
 import '../../../widgets/general/list_items.dart';
 import '../../../widgets/progress/custom_snackbar.dart';
 import '../../../widgets/progress/general_progress.dart';
 import '../../../widgets/progress/skeleton.dart';
-import '../../../common/theme_button.dart';
+import '../bloc/step1_bloc.dart';
 
 part 'widgets/step1_fab.dart';
 

@@ -6,23 +6,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../common/navigator/route_names.dart';
+import '../../common/utils/app_util.dart';
+import '../../common/utils/constants/pref_constants.dart';
 import '../../core/di/injectable.dart';
 import '../../core/theme/bloc/theme_bloc.dart';
 import '../../core/theme/theme_data.dart';
 import '../../core/theme/theme_fonts.dart';
 import '../../core/theme/theme_styles.dart';
-import '../../common/utils/app_util.dart';
-import '../../common/utils/constants/pref_constants.dart';
 import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/pref_repo.dart';
 import '../../l10n/app_localizations.dart';
-import '../../common/navigator/route_names.dart';
-import '../widgets/inputs/radio_input.dart';
-import '../widgets/progress/custom_snackbar.dart';
 import '../bible_screen/ui/bibles_screen.dart';
 import '../biblelib/bookmarks/bible_bookmarks_notes_screen.dart';
 import '../biblelib/history/bible_history_screen.dart';
+import '../widgets/inputs/radio_input.dart';
+import '../widgets/progress/custom_snackbar.dart';
 
 part 'settings_card.dart';
 

@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import '../../../common/navigator/route_names.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../data/models/bible/bible_version.dart';
 import '../../../domain/repos/bible/bible_selection_repo.dart';
-import '../../blocs/bloc/bibles_cubit.dart';
-import '../../../common/navigator/route_names.dart';
+import '../bloc/bibles_cubit.dart';
 
 /// Ported from biblelib-android's Bibles management screen: shows every
 /// selected translation with its status (downloaded, downloading, failed),

@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../core/theme/theme_colors.dart';
-import '../../common/utils/constants/app_assets.dart';
 import '../../common/navigator/route_names.dart';
+import '../../common/utils/constants/app_assets.dart';
+import '../../core/theme/theme_colors.dart';
 
 /// Shown once, right after every selected module (SongLib, BibleLib, or
 /// both) has finished its own setup step. SongLib's own step2 already

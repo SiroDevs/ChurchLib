@@ -11,27 +11,27 @@ import 'package:styled_widget/styled_widget.dart';
 import 'package:textstyle_extensions/textstyle_extensions.dart';
 
 // Project imports:
+import '../../../common/navigator/route_names.dart';
+import '../../../common/utils/app_util.dart';
+import '../../../common/utils/constants/app_assets.dart';
 import '../../../core/di/injectable.dart';
 import '../../../core/theme/bloc/theme_bloc.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_data.dart';
 import '../../../core/theme/theme_fonts.dart';
 import '../../../core/theme/theme_styles.dart';
-import '../../../common/utils/app_util.dart';
-import '../../../common/utils/constants/app_assets.dart';
 import '../../../data/models/models.dart';
-import '../../../domain/repos/pref_repo.dart';
 import '../../../data/sources/remote/api_service.dart';
-import '../bloc/main_bloc.dart';
+import '../../../domain/repos/pref_repo.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../../common/navigator/route_names.dart';
+import '../../likes/likes_screen.dart';
+import '../../settings/settings_screen.dart';
+import '../../songs/songs_screen.dart';
 import '../../widgets/general/fading_index_stack.dart';
 import '../../widgets/progress/custom_snackbar.dart';
 import '../../widgets/progress/general_progress.dart';
 import '../../widgets/progress/skeleton.dart';
-import '../../likes/likes_screen.dart';
-import '../../settings/settings_screen.dart';
-import '../../songs/songs_screen.dart';
+import '../bloc/main_bloc.dart';
 
 part 'widgets/search_widget.dart';
 part 'widgets/sidebar.dart';

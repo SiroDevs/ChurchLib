@@ -2,18 +2,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../core/di/injectable.dart';
 import '../../../common/utils/app_util.dart';
 import '../../../common/utils/constants/pref_constants.dart';
+import '../../../core/di/injectable.dart';
 import '../../../data/models/bible/bible_book.dart';
 import '../../../data/models/bible/bible_chapter.dart';
 import '../../../data/models/bible/bible_history.dart';
 import '../../../data/models/bible/bible_version.dart';
+import '../../../domain/entities/bible/verse_display.dart';
 import '../../../domain/repos/bible/bible_annotation_repo.dart';
 import '../../../domain/repos/bible/bible_repo.dart';
 import '../../../domain/repos/bible/bible_tracking_repo.dart';
 import '../../../domain/repos/pref_repo.dart';
-import '../../../domain/entities/bible/verse_display.dart';
 
 const _unset = Object();
 const readerDefaultFontSize = 18;

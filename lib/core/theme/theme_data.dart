@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../domain/repos/pref_repo.dart';
-import '../di/injectable.dart';
 import '../../common/utils/app_util.dart';
 import '../../common/utils/constants/app_constants.dart';
+import '../../domain/repos/pref_repo.dart';
+import '../di/injectable.dart';
 import 'theme_colors.dart';
 
 class AppTheme {

@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../../common/utils/app_util.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_styles.dart';
-import '../../../common/utils/app_util.dart';
 import '../../../data/models/book.dart';
 import '../../../domain/entities/basic_model.dart';
 

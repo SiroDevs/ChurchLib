@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../../core/di/injectable.dart';
+import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/app_constants.dart';
 import '../../../../common/utils/constants/pref_constants.dart';
+import '../../../../core/di/injectable.dart';
 import '../../../../domain/repos/pref_repo.dart';
-import '../step2/step2_bloc.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../common/navigator/route_names.dart';
 import '../../../widgets/progress/custom_snackbar.dart';
+import '../bloc/step2_bloc.dart';
 import 'widgets/step2_widgets.dart';
 
 class Step2Screen extends StatefulWidget {

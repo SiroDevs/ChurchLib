@@ -6,9 +6,9 @@ import 'package:styled_widget/styled_widget.dart';
 import 'package:textstyle_extensions/textstyle_extensions.dart';
 
 // Project imports:
+import '../../../common/utils/app_util.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
-import '../../../common/utils/app_util.dart';
 import '../../../data/models/songext.dart';
 import 'tag_item.dart';
 

@@ -2,8 +2,8 @@
 import 'dart:convert';
 
 // Project imports:
-import '../../../core/di/injectable.dart';
 import '../../../common/utils/constants/pref_constants.dart';
+import '../../../core/di/injectable.dart';
 import '../../../data/models/models.dart';
 import '../database_repo.dart';
 import '../pref_repo.dart';

@@ -8,20 +8,20 @@ import 'package:styled_widget/styled_widget.dart';
 import 'package:window_manager/window_manager.dart';
 
 // Project imports:
-import '../../../core/di/injectable.dart';
-import '../../../core/theme/theme_colors.dart';
 import '../../../common/utils/app_util.dart';
 import '../../../common/utils/constants/pref_constants.dart';
 import '../../../common/utils/font_utils.dart';
+import '../../../core/di/injectable.dart';
+import '../../../core/theme/theme_colors.dart';
 import '../../../data/models/models.dart';
 import '../../../domain/repos/pref_repo.dart';
-import '../bloc/presentor_bloc.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../common/app_intents.dart';
+import '../../common/theme_button.dart';
 import '../../widgets/action/fab_widget.dart';
 import '../../widgets/presentor/slide_container.dart';
 import '../../widgets/progress/custom_snackbar.dart';
-import '../../common/app_intents.dart';
-import '../../common/theme_button.dart';
+import '../bloc/presentor_bloc.dart';
 import '../common/presentor_utils.dart';
 import '../common/slide_utils.dart';
 

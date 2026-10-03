@@ -9,15 +9,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import '../../../common/navigator/route_names.dart';
 import '../../../core/di/injectable.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../data/models/bible/scripture_item.dart';
-import '../../../common/navigator/route_names.dart';
-import '../bloc/reader_cubit.dart';
 import '../../scripture/bloc/scripture_queue_cubit.dart';
-import '../../settings/settings_screen.dart';
 import '../../scripture/ui/scripture_lists_screen.dart';
 import '../../scripture/ui/scripture_opener_screen.dart';
+import '../../settings/settings_screen.dart';
+import '../bloc/reader_cubit.dart';
 import 'book_chapter_pickers.dart';
 import 'reader_dialogs.dart';
 import 'verse_row.dart';
