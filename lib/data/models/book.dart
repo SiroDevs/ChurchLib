@@ -1,7 +1,9 @@
+// Package imports:
 import 'package:froom/froom.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../core/utils/constants/app_constants.dart';
+// Project imports:
+import '../../common/utils/constants/app_constants.dart';
 
 part 'book.g.dart';
 

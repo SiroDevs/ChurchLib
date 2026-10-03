@@ -1,22 +1,27 @@
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Project imports:
+import '../../domain/repos/bible/bible_annotation_repo.dart';
+import '../../domain/repos/bible/bible_repo.dart';
+import '../../domain/repos/bible/bible_repo_impl.dart';
+import '../../domain/repos/bible/bible_tracking_repo.dart';
+import '../../domain/repos/bible/scripture_repo.dart';
+import '../../domain/repos/database_repo.dart';
+import '../../domain/repos/database_repo_impl.dart';
 import '../../data/sources/local/app_database.dart';
 import '../../data/sources/remote/bible/bible_api_service.dart';
-import '../../data/repositories/bible/bible_annotation_repository.dart';
-import '../../data/repositories/bible/bible_repository.dart';
-import '../../data/repositories/bible/bible_repository_impl.dart';
-import '../../data/repositories/bible/bible_tracking_repository.dart';
-import '../../data/repositories/database_repository_impl.dart';
-import '../../data/repositories/database_repository.dart';
-import '../../data/repositories/bible/scripture_repository.dart';
-import '../../presentation/blocs/scripture/scripture_queue_cubit.dart';
-import '../utils/app_util.dart';
-import '../utils/constants/app_constants.dart';
+import '../../features/blocs/scripture/scripture_queue_cubit.dart';
+import '../../common/utils/app_util.dart';
+import '../../common/utils/constants/app_constants.dart';
 import 'injectable.config.dart';
 
 final getIt = GetIt.instance;
@@ -44,34 +49,34 @@ abstract class RegisterModule {
       .build();
 
   @lazySingleton
-  DatabaseRepository provideDatabaseRepository(AppDatabase appDatabase) =>
-      DatabaseRepositoryImpl(appDatabase);
+  DatabaseRepo provideDatabaseRepo(AppDatabase appDatabase) =>
+      DatabaseRepoImpl(appDatabase);
 
   @lazySingleton
   BibleApiService provideBibleApiService() => BibleApiService();
 
   @lazySingleton
-  BibleRepository provideBibleRepository(
+  BibleRepo provideBibleRepo(
     AppDatabase appDatabase,
     BibleApiService bibleApiService,
   ) =>
-      BibleRepositoryImpl(appDatabase, bibleApiService);
+      BibleRepoImpl(appDatabase, bibleApiService);
 
   @lazySingleton
-  BibleTrackingRepository provideBibleTrackingRepository(
+  BibleTrackingRepo provideBibleTrackingRepo(
     AppDatabase appDatabase,
   ) =>
-      BibleTrackingRepository(appDatabase);
+      BibleTrackingRepo(appDatabase);
 
   @lazySingleton
-  BibleAnnotationRepository provideBibleAnnotationRepository(
+  BibleAnnotationRepo provideBibleAnnotationRepo(
     AppDatabase appDatabase,
   ) =>
-      BibleAnnotationRepository(appDatabase);
+      BibleAnnotationRepo(appDatabase);
 
   @lazySingleton
-  ScriptureRepository provideScriptureRepository(AppDatabase appDatabase) =>
-      ScriptureRepository(appDatabase);
+  ScriptureRepo provideScriptureRepo(AppDatabase appDatabase) =>
+      ScriptureRepo(appDatabase);
 
   /// Session-scoped: one shared instance for the Scripture Opener,
   /// Scripture Lists screens and the reader's floating queue widget.

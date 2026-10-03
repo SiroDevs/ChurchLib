@@ -1,17 +1,21 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+// Project imports:
 import 'core/auth/auth_bloc.dart';
 import 'core/di/injectable.dart';
-import 'core/theme/theme_data.dart';
-import 'data/repositories/auth_repository.dart';
-import 'data/repositories/pref_repository.dart';
-import 'core/utils/constants/pref_constants.dart';
-import 'presentation/l10n/app_localizations.dart';
-import 'presentation/navigator/main_navigator.dart';
-import 'presentation/navigator/route_names.dart';
 import 'core/theme/bloc/theme_bloc.dart';
+import 'core/theme/theme_data.dart';
+import 'common/utils/constants/pref_constants.dart';
+import 'domain/repos/auth_repo.dart';
+import 'domain/repos/pref_repo.dart';
+import 'features/l10n/app_localizations.dart';
+import 'features/navigator/main_navigator.dart';
+import 'features/navigator/route_names.dart';
 
 class MyApp extends StatefulWidget {
   final Widget? home;
@@ -25,12 +29,12 @@ class MyAppState extends State<MyApp> {
   final navigatorKey = MainNavigatorState.navigationKey;
   NavigatorState get navigator =>
       MainNavigatorState.navigationKey.currentState!;
-  late final AuthRepository _authRepo;
+  late final AuthRepo _authRepo;
 
   @override
   void initState() {
     super.initState();
-    _authRepo = AuthRepository();
+    _authRepo = AuthRepo();
   }
 
   @override
@@ -68,8 +72,8 @@ class AppViewState extends State<AppView> {
   final navigatorKey = MainNavigatorState.navigationKey;
   NavigatorState get navigator =>
       MainNavigatorState.navigationKey.currentState!;
-  // final _syncRepo = SyncRepository();
-  final _prefrepo = getIt<PrefRepository>();
+  // final _syncRepo = SongSyncRepo();
+  final _prefrepo = getIt<PrefRepo>();
 
   @override
   Widget build(BuildContext context) {

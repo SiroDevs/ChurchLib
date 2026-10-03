@@ -1,9 +1,12 @@
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:http/http.dart';
 
+// Project imports:
+import '../../../common/utils/constants/api_constants.dart';
 import 'api_service.dart';
-import '../../../core/utils/constants/api_constants.dart';
 
 class SelectionClient {
   /// Fetch all the books

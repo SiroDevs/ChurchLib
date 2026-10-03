@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // Project imports:
-import '../../data/repositories/auth_repository.dart';
+import '../../domain/repos/auth_repo.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  final AuthRepository _authRepo;
+  final AuthRepo _authRepo;
   late StreamSubscription<AuthStatus> _authStatusSubscription;
 
   @override

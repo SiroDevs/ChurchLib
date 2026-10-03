@@ -1,0 +1,115 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
+import '../screens/biblelib/bible_selection_screen.dart';
+import '../screens/biblelib/bibles/bibles_screen.dart';
+import '../screens/biblelib/bookmarks/bible_bookmarks_notes_screen.dart';
+import '../screens/biblelib/history/bible_history_screen.dart';
+import '../screens/biblelib/search/bible_search_screen.dart';
+import '../screens/home/church_home_screen.dart';
+import '../screens/seeding/seeding_screen.dart';
+import '../screens/selection/step1/step1_screen.dart';
+import '../screens/selection/step2/step2_screen.dart';
+import '../screens/settings/settings_screen.dart';
+import '../screens/splash/splash_screen.dart';
+import '../screens/welcome/welcome_screen.dart';
+import '../widgets/text_scale_factor.dart';
+import 'route_names.dart';
+
+class MainNavigator extends StatefulWidget {
+  final Widget? child;
+
+  const MainNavigator({this.child, super.key});
+
+  @override
+  MainNavigatorState createState() => MainNavigatorState();
+
+  static MainNavigationMixin of(BuildContext context,
+      {bool rootNavigator = false}) {
+    final navigator = rootNavigator
+        ? context.findRootAncestorStateOfType<MainNavigationMixin>()
+        : context.findAncestorStateOfType<MainNavigationMixin>();
+    assert(() {
+      if (navigator == null) {
+        throw FlutterError(
+            'MainNavigation operation requested with a context that does not include a MainNavigation.\n'
+            'The context used to push or pop routes from the MainNavigation must be that of a '
+            'widget that is a descendant of a MainNavigator widget.');
+      }
+      return true;
+    }());
+    return navigator!;
+  }
+}
+
+class MainNavigatorState extends State<MainNavigator> with MainNavigationMixin {
+  static final GlobalKey<NavigatorState> _navigationKey =
+      GlobalKey<NavigatorState>();
+  static final List<NavigatorObserver> _navigatorObservers = [];
+
+  static String get initialRoute => RouteNames.splash;
+
+  static GlobalKey<NavigatorState> get navigationKey => _navigationKey;
+
+  static List<NavigatorObserver> get navigatorObservers => _navigatorObservers;
+
+  NavigatorState get navigator => _navigationKey.currentState!;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextScaleFactor(
+      child: widget.child ?? const SizedBox.shrink(),
+    );
+  }
+
+  static Route? onGenerateRoute(RouteSettings settings) {
+    final strippedPath = settings.name?.replaceFirst('/', '');
+    final Map<String, WidgetBuilder> routes = {
+      '': (context) => const SplashScreen(),
+      RouteNames.splash: (context) => const SplashScreen(),
+      RouteNames.welcome: (context) => const WelcomeScreen(),
+      RouteNames.step1: (context) => const Step1Screen(),
+      RouteNames.step2: (context) => const Step2Screen(),
+      RouteNames.biblelibSetup: (context) => const BibleSelectionScreen(),
+      RouteNames.bibleSearch: (context) => const BibleSearchScreen(),
+      RouteNames.bibleHistory: (context) => const BibleHistoryScreen(),
+      RouteNames.bibleBookmarksNotes: (context) =>
+          const BibleBookmarksNotesScreen(),
+      RouteNames.bibles: (context) => const BiblesScreen(),
+      RouteNames.seeding: (context) => const SeedingScreen(),
+      RouteNames.main: (context) => const ChurchHomeScreen(),
+      RouteNames.settings: (context) => const SettingsScreen(),
+    };
+
+    defaultRoute(context) => const SplashScreen();
+
+    WidgetBuilder? getRouteBuilder(String routeName) {
+      if (routes.containsKey(routeName)) {
+        return routes[routeName];
+      } else {
+        return defaultRoute;
+      }
+    }
+
+    MaterialPageRoute<void> createMaterialPageRoute(
+        WidgetBuilder builder, RouteSettings settings) {
+      return MaterialPageRoute<void>(
+        builder: builder,
+        settings: settings,
+      );
+    }
+
+    WidgetBuilder? routeBuilder = getRouteBuilder(strippedPath!);
+    if (routeBuilder != null) {
+      return createMaterialPageRoute(routeBuilder, settings);
+    } else {
+      return null;
+    }
+  }
+}
+
+abstract class MainNavigation {}
+
+mixin MainNavigationMixin<T extends StatefulWidget> on State<T>
+    implements MainNavigation {}

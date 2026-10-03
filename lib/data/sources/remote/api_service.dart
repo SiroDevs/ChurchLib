@@ -1,13 +1,18 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-// ignore: depend_on_referenced_packages
+// Package imports:
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../core/utils/app_util.dart';
-import '../../../core/utils/constants/api_constants.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+// Project imports:
+import '../../../common/utils/app_util.dart';
+import '../../../common/utils/constants/api_constants.dart';
+
+// ignore: depend_on_referenced_packages
+
 
 Future<bool> isConnectedToInternet() async {
   try {

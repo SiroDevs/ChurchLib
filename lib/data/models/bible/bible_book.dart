@@ -1,7 +1,9 @@
+// Package imports:
 import 'package:froom/froom.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../core/utils/constants/bible_constants.dart';
+// Project imports:
+import '../../../common/utils/constants/bible_constants.dart';
 
 part 'bible_book.g.dart';
 

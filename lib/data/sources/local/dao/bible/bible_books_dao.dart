@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:froom/froom.dart';
 
-import '../../../../../core/utils/constants/bible_constants.dart';
+// Project imports:
+import '../../../../../common/utils/constants/bible_constants.dart';
 import '../../../../models/bible/bible_book.dart';
 
 /// Ported from biblelib-android's `BookDao`.

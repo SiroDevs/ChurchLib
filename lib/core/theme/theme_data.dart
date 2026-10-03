@@ -1,16 +1,18 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
-import '../utils/constants/app_constants.dart';
-import '../../data/repositories/pref_repository.dart';
-import '../utils/app_util.dart';
+// Project imports:
+import '../../domain/repos/pref_repo.dart';
 import '../di/injectable.dart';
+import '../../common/utils/app_util.dart';
+import '../../common/utils/constants/app_constants.dart';
 import 'theme_colors.dart';
 
 class AppTheme {
   AppTheme._();
 
   static String currentTheme() {
-    var prefRepo = getIt<PrefRepository>();
+    var prefRepo = getIt<PrefRepo>();
     return getThemeModeString(prefRepo.getThemeMode());
   }
 

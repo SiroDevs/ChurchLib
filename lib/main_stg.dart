@@ -1,11 +1,15 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:window_manager/window_manager.dart';
 
+// Project imports:
 import 'app.dart';
 import 'core/di/injectable.dart';
-import 'core/utils/app_util.dart';
-import 'core/utils/env/environments.dart';
-import 'core/utils/env/flavor_config.dart';
+import 'common/utils/app_util.dart';
+import 'common/utils/env/environments.dart';
+import 'common/utils/env/flavor_config.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

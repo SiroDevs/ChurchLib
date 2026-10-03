@@ -1,13 +1,18 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 
-// ignore: depend_on_referenced_packages
+// Package imports:
 import 'package:http/http.dart' as http;
 
-import '../../../../core/utils/app_util.dart';
-import '../../../../core/utils/constants/bible_api_constants.dart';
-import '../../../repositories/bible/retry_policy.dart';
+// Project imports:
+import '../../../../common/utils/app_util.dart';
+import '../../../../common/utils/constants/bible_api_constants.dart';
+import '../../../../domain/repos/bible/retry_policy.dart';
 import 'bible_dtos.dart';
+
+// ignore: depend_on_referenced_packages
+
 
 /// Thin GET client for the BibleLib static JSON API, matching the shape of
 /// [ApiConstants]/`api_service.dart`'s SongLib client, but scoped to
