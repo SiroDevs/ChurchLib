@@ -8,7 +8,7 @@ import '../../../core/theme/theme_colors.dart';
 import '../../../data/models/bible/scripture_item.dart';
 import '../../../domain/repos/bible/scripture_repo.dart';
 import '../../../domain/repos/pref_repo.dart';
-import '../../bible_reader/bloc/reader_cubit.dart';
+import '../../home/bible_reader/bloc/reader_cubit.dart';
 import '../bloc/scripture_queue_cubit.dart';
 
 /// Ported from biblelib-android's `ScriptureListDetailScreen` /

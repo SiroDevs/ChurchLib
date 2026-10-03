@@ -15,7 +15,7 @@ import '../../domain/entities/bible/verse_display.dart';
 import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/bible/bible_tracking_repo.dart';
 import '../../domain/repos/pref_repo.dart';
-import '../bible_reader/bloc/reader_cubit.dart';
+import '../home/bible_reader/bloc/reader_cubit.dart';
 
 /// Ported from biblelib-android's search feature. Searches run 400 ms after
 /// the last keystroke, only for queries of 3+ characters, against one

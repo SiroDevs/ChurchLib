@@ -18,7 +18,7 @@ import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/pref_repo.dart';
 import '../../l10n/app_localizations.dart';
-import '../bible_screen/ui/bibles_screen.dart';
+import 'bible_screen/ui/bibles_screen.dart';
 import '../biblelib/bookmarks/bible_bookmarks_notes_screen.dart';
 import '../biblelib/history/bible_history_screen.dart';
 import '../widgets/inputs/radio_input.dart';

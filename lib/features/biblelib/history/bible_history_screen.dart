@@ -10,7 +10,7 @@ import '../../../core/theme/theme_colors.dart';
 import '../../../data/models/bible/bible_history.dart';
 import '../../../data/models/bible/bible_search.dart';
 import '../../../domain/repos/bible/bible_tracking_repo.dart';
-import '../../bible_reader/bloc/reader_cubit.dart';
+import '../../home/bible_reader/bloc/reader_cubit.dart';
 
 /// Ported from biblelib-android's history feature: Reading and Searches
 /// tabs. Reading entries are grouped under "Today" / "Yesterday" / a date

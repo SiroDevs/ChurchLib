@@ -7,9 +7,9 @@ import '../../../core/theme/theme_colors.dart';
 import '../../../data/models/bible/bible_bookmark.dart';
 import '../../../data/models/bible/bible_note.dart';
 import '../../../domain/repos/bible/bible_annotation_repo.dart';
-import '../../bible_reader/bloc/reader_cubit.dart';
-import '../../bible_reader/ui/reader_dialogs.dart';
-import '../../bible_reader/ui/verse_row.dart' show parseHexColor;
+import '../../home/bible_reader/bloc/reader_cubit.dart';
+import '../../home/bible_reader/ui/reader_dialogs.dart';
+import '../../home/bible_reader/ui/verse_row.dart' show parseHexColor;
 
 /// Ported from biblelib-android's bookmark_notes feature: Bookmarks and
 /// Notes tabs, each with long-press multi-select and delete, and a tap

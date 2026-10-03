@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import '../../../core/theme/theme_colors.dart';
-import '../../bible_reader/ui/book_chapter_pickers.dart';
+import '../../home/bible_reader/ui/book_chapter_pickers.dart';
 import '../bloc/scripture_opener_cubit.dart';
 import '../bloc/scripture_search_row_state.dart';
 

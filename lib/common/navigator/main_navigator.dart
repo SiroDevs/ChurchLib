@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../features/bible_screen/ui/bibles_screen.dart';
+import '../../features/settings/bible_screen/ui/bibles_screen.dart';
 import '../../features/bible_search/bible_search_screen.dart';
-import '../../features/bible_selection/ui/bible_selection_screen.dart';
+import '../../features/selection/bible_selection/ui/bible_selection_screen.dart';
 import '../../features/biblelib/bookmarks/bible_bookmarks_notes_screen.dart';
 import '../../features/biblelib/history/bible_history_screen.dart';
-import '../../features/home/church_home_screen.dart';
-import '../../features/seeding/seeding_screen.dart';
+import '../../features/home/ui/church_home_screen.dart';
+import '../../features/selection/seeding/seeding_screen.dart';
 import '../../features/selection/step1/ui/step1_screen.dart';
 import '../../features/selection/step2/ui/step2_screen.dart';
 import '../../features/settings/settings_screen.dart';

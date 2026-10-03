@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../core/di/injectable.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../domain/repos/bible/scripture_repo.dart';
-import '../../bible_reader/bloc/reader_cubit.dart';
+import '../../home/bible_reader/bloc/reader_cubit.dart';
 import 'scripture_list_detail_screen.dart';
 
 class _ListSummary {

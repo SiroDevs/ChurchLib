@@ -10,7 +10,7 @@ import '../../../data/models/bible/scripture_item.dart';
 import '../../../domain/repos/bible/bible_repo.dart';
 import '../../../domain/repos/bible/scripture_repo.dart';
 import '../../../domain/repos/pref_repo.dart';
-import '../../bible_reader/bloc/reader_cubit.dart' show ReaderTarget;
+import '../../home/bible_reader/bloc/reader_cubit.dart' show ReaderTarget;
 import 'scripture_queue_cubit.dart';
 import 'scripture_search_row_state.dart';
 
