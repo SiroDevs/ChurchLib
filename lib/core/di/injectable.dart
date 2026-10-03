@@ -19,7 +19,7 @@ import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/database_repo_impl.dart';
 import '../../data/sources/local/app_database.dart';
 import '../../data/sources/remote/bible/bible_api_service.dart';
-import '../../features/blocs/scripture/scripture_queue_cubit.dart';
+import '../../features/scripture/bloc/scripture_queue_cubit.dart';
 import '../../common/utils/app_util.dart';
 import '../../common/utils/constants/app_constants.dart';
 import 'injectable.config.dart';

@@ -8,7 +8,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../features/l10n/app_localizations.dart';
+import '../../l10n/app_localizations.dart';
 
 enum IndicatorSide { start, end }
 

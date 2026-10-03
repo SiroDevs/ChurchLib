@@ -13,9 +13,9 @@ import 'core/theme/theme_data.dart';
 import 'common/utils/constants/pref_constants.dart';
 import 'domain/repos/auth_repo.dart';
 import 'domain/repos/pref_repo.dart';
-import 'features/l10n/app_localizations.dart';
-import 'features/navigator/main_navigator.dart';
-import 'features/navigator/route_names.dart';
+import 'l10n/app_localizations.dart';
+import 'common/navigator/main_navigator.dart';
+import 'common/navigator/route_names.dart';
 
 class MyApp extends StatefulWidget {
   final Widget? home;
