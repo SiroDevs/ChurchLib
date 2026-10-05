@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -31,7 +32,7 @@ part 'widgets/presentor_slide.dart';
 
 class PresentorScreen extends StatefulWidget {
   final SongExt song;
-  final Book book;
+  final SongBook book;
   final List<SongExt> songs;
 
   const PresentorScreen({
@@ -110,7 +111,7 @@ class PresentorScreenState extends State<PresentorScreen> {
                 return;
               }
               if (context.mounted) {
-                Navigator.pop(context, likeChanged);
+                context.pop(likeChanged);
               }
             },
             child: Scaffold(

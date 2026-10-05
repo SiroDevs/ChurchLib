@@ -3,13 +3,14 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../common/utils/app_util.dart';
 import '../../common/utils/constants/pref_constants.dart';
 import '../../core/di/injectable.dart';
 import '../../core/theme/theme_colors.dart';
-import '../../data/models/bible/bible_search.dart';
+import '../../data/models/shared/search_entry.dart';
 import '../../data/models/bible/bible_version.dart';
 import '../../domain/entities/bible/verse_display.dart';
 import '../../domain/repos/bible/bible_repo.dart';
@@ -41,7 +42,7 @@ class _BibleSearchScreenState extends State<BibleSearchScreen> {
   String _selectedAbbr = '';
   Map<String, String> _bookNames = {};
   List<VerseDisplay> _results = [];
-  List<BibleSearch> _history = [];
+  List<SearchEntry> _history = [];
   bool _isSearching = false;
   String _query = '';
 
@@ -239,8 +240,7 @@ class _BibleSearchScreenState extends State<BibleSearchScreen> {
               verse: _results[i],
               query: _query,
               bookName: _bookNames[_results[i].bookId] ?? _results[i].bookId,
-              onTap: () => Navigator.pop(
-                context,
+              onTap: () => context.pop(
                 ReaderTarget(
                   bibleAbbr: _selectedAbbr,
                   bookId: _results[i].bookId,
@@ -288,8 +288,8 @@ class _BibleSearchScreenState extends State<BibleSearchScreen> {
           ListTile(
             dense: true,
             leading: const Icon(Icons.history, size: 20),
-            title: Text(h.qry),
-            onTap: () => _searchFromHistory(h.qry),
+            title: Text(h.query),
+            onTap: () => _searchFromHistory(h.query),
           ),
       ],
     );

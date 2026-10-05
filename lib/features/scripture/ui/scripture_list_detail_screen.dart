@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../../common/utils/constants/pref_constants.dart';
@@ -90,8 +91,7 @@ class _ScriptureListDetailScreenState extends State<ScriptureListDetailScreen> {
     final first = _items.first;
     _queue.open(widget.listId, _name, _items, activeItemId: first.id);
     _prefs.setPrefString(PrefConstants.bibleLastVerseIdKey, first.verseId);
-    Navigator.pop(
-      context,
+    context.pop(
       ReaderTarget(
         bibleAbbr: first.bibleAbbr,
         bookId: first.bookId,

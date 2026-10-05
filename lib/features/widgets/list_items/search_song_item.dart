@@ -9,7 +9,7 @@ import 'package:textstyle_extensions/textstyle_extensions.dart';
 import '../../../common/utils/app_util.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
-import '../../../data/models/songext.dart';
+import '../../../data/models/song/songext.dart';
 import 'tag_item.dart';
 
 // ignore: must_be_immutable

@@ -2,11 +2,11 @@
 import '../../data/models/models.dart';
 
 abstract class DatabaseRepo {
-  Future<List<Book>> fetchBooks();
+  Future<List<SongBook>> fetchBooks();
 
-  Future<void> saveBook(Book book);
+  Future<void> saveBook(SongBook book);
 
-  Future<void> removeBook(Book book);
+  Future<void> removeBook(SongBook book);
 
   Future<void> removeAllBooks();
 
@@ -37,47 +37,47 @@ abstract class DatabaseRepo {
 
   Future<void> removeAllSongs();
 
-  Future<List<Draft>> fetchDrafts();
+  Future<List<SongDraft>> fetchSongDrafts();
 
-  Future<void> saveDraft(Draft draft);
+  Future<void> saveSongDraft(SongDraft draft);
 
-  Future<void> removeDraft(Draft draft);
+  Future<void> removeSongDraft(SongDraft draft);
 
-  Future<void> removeAllDrafts();
+  Future<void> removeAllSongDrafts();
 
-  Future<List<Edit>> fetchEdits();
+  Future<List<SongEdit>> fetchSongEdits();
 
-  Future<void> saveEdit(Edit edit);
+  Future<void> saveSongEdit(SongEdit edit);
 
-  Future<void> removeEdit(Edit edit);
+  Future<void> removeSongEdit(SongEdit edit);
 
-  Future<void> removeAllEdits();
+  Future<void> removeAllSongEdits();
 
-  Future<List<Listed>> fetchListeds();
+  Future<List<SongList>> fetchSongLists();
 
-  Future<List<ListedExt>> fetchListedExts();
+  Future<List<SongListExt>> fetchSongListExts();
 
-  Future<void> saveListed(Listed listed);
+  Future<void> saveSongList(SongList songList);
 
-  Future<void> removeListed(Listed listed);
+  Future<void> removeSongList(SongList songList);
 
-  Future<void> removeAllListeds();
+  Future<void> removeAllSongLists();
 
-  Future<List<Search>> fetchSearches();
+  Future<List<SearchEntry>> fetchSearches();
 
-  Future<void> saveSearch(Search search);
+  Future<void> saveSearch(SearchEntry search);
 
-  Future<void> removeSearch(Search search);
+  Future<void> removeSearch(SearchEntry search);
 
   Future<void> removeAllSearches();
 
-  Future<List<History>> fetchHistories();
+  Future<List<HistoryEntry>> fetchHistories();
 
   Future<List<HistoryExt>> fetchHistoryExts();
 
-  Future<void> saveHistory(History history);
+  Future<void> saveHistory(HistoryEntry history);
 
-  Future<void> removeHistory(History history);
+  Future<void> removeHistory(HistoryEntry history);
 
   Future<void> removeAllHistories();
 }

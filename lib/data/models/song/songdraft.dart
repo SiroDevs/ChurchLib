@@ -3,13 +3,13 @@ import 'package:froom/froom.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import '../../common/utils/constants/app_constants.dart';
+import '../../../common/utils/constants/song_constants.dart';
 
-part 'draft.g.dart';
+part 'songdraft.g.dart';
 
-@Entity(tableName: AppConstants.draftsTable)
+@Entity(tableName: SongConstants.draftsTable)
 @JsonSerializable()
-class Draft {
+class SongDraft {
   @PrimaryKey(autoGenerate: true)
   int? rid;
   int? songId;
@@ -23,7 +23,7 @@ class Draft {
   String? created;
   String? updated;
 
-  Draft({
+  SongDraft({
     this.rid,
     this.songId,
     this.songNo,
@@ -37,7 +37,7 @@ class Draft {
     this.updated,
   });
 
-  factory Draft.fromJson(Map<String, dynamic> json) => _$DraftFromJson(json);
+  factory SongDraft.fromJson(Map<String, dynamic> json) => _$SongDraftFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DraftToJson(this);
+  Map<String, dynamic> toJson() => _$SongDraftToJson(this);
 }

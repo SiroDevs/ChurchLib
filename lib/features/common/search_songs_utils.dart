@@ -1,6 +1,6 @@
 // Project imports:
 import '../../common/utils/app_util.dart';
-import '../../data/models/songext.dart';
+import '../../data/models/song/songext.dart';
 
 List<SongExt> filterSongsByQuery(String query, List<SongExt> songs) {
   try {

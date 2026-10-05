@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
@@ -13,9 +14,10 @@ import '../../data/models/models.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/app_intents.dart';
 import '../common/search_songs_utils.dart';
+import '../../common/navigator/app_routes.dart';
+import '../../common/navigator/route_names.dart';
 import '../home/song_search/bloc/song_search_bloc.dart';
 import '../home/song_search/ui/song_search_screen.dart';
-import '../presentor/ui/presentor_screen.dart';
 import '../widgets/list_items/search_book_item.dart';
 import '../widgets/list_items/search_song_item.dart';
 
@@ -68,7 +70,7 @@ class _SongsScreenState extends State<SongsScreen> {
 
   Future<void> onSongOpen() async {
     SongExt song = parent.selectedSong;
-    Book book = parent.books[0];
+    SongBook book = parent.books[0];
     try {
       parent.books.firstWhere(
         (b) => b.bookId == song.book,
@@ -78,12 +80,9 @@ class _SongsScreenState extends State<SongsScreen> {
       logger('Failed to get the book: $e');
     }
 
-    bool? result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            PresentorScreen(song: song, book: book, songs: parent.songs),
-      ),
+    bool? result = await context.pushNamed<bool>(
+      RouteNames.presentor,
+      extra: (song: song, book: book, songs: parent.songs) as PresentorArgs,
     );
 
     if (result == true) {

@@ -12,8 +12,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../common/utils/app_util.dart';
 import '../../../common/utils/date_util.dart';
 import '../../../core/di/injectable.dart';
-import '../../../data/models/history.dart';
-import '../../../data/models/songext.dart';
+import '../../../data/models/shared/entry_source.dart';
+import '../../../data/models/shared/history_entry.dart';
+import '../../../data/models/song/songext.dart';
 import '../../../domain/repos/database_repo.dart';
 import '../common/presentor_utils.dart';
 
@@ -58,7 +59,11 @@ class PresentorBloc extends Bloc<PresentorEvent, PresentorState> {
     Emitter<PresentorState> emit,
   ) async {
     await _dbRepo.saveHistory(
-      History(song: event.song.rid, created: getCurrentDate()),
+      HistoryEntry(
+        source: EntrySource.song,
+        refId: '${event.song.rid}',
+        occurredAt: DateTime.now().millisecondsSinceEpoch,
+      ),
     );
     emit(PresentorHistoryState());
   }

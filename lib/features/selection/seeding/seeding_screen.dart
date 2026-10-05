@@ -1,6 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:import 'package:go_router/go_router.dart';
+
 // Project imports:
 import '../../../common/navigator/route_names.dart';
 import '../../../common/utils/constants/app_assets.dart';
@@ -28,11 +30,7 @@ class _SeedingScreenState extends State<SeedingScreen> {
     // its actual seeding progress stream.
     Future.delayed(const Duration(milliseconds: 600), () {
       if (!mounted) return;
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        RouteNames.main,
-        (route) => false,
-      );
+      context.goNamed(RouteNames.main);
     });
   }
 

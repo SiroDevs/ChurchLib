@@ -2,18 +2,14 @@
 import 'package:froom/froom.dart';
 
 // Project imports:
-import '../../common/utils/constants/app_constants.dart';
+import '../../../common/utils/constants/song_constants.dart';
 
 @DatabaseView(
-  '${AppConstants.listedExtSql};',
-  viewName: AppConstants.listedsTableViews,
+  '${SongConstants.songExtSql};',
+  viewName: SongConstants.songsTableViews,
 )
-class ListedExt {
+class SongExt {
   int rid;
-  int parentid;
-  int position;
-  String created;
-  String updated;
   int book;
   int songId;
   int songNo;
@@ -25,12 +21,8 @@ class ListedExt {
   bool liked;
   String songbook;
 
-  ListedExt(
+  SongExt(
     this.rid,
-    this.parentid,
-    this.position,
-    this.created,
-    this.updated,
     this.book,
     this.songId,
     this.songNo,
@@ -42,4 +34,11 @@ class ListedExt {
     this.liked,
     this.songbook,
   );
+}
+
+class SongExtSort {
+  int bookNo;
+  List<SongExt> songs;
+
+  SongExtSort(this.bookNo, this.songs);
 }

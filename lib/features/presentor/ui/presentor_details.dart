@@ -148,7 +148,7 @@ class PresentorDetailsState extends State<PresentorDetails> {
             child: Actions(
               actions: <Type, Action<Intent>>{
                 CloseIntent: CallbackAction<CloseIntent>(
-                  onInvoke: (intent) => Navigator.pop(context, true),
+                  onInvoke: (intent) => context.pop(true),
                 ),
                 PreviousIntent: CallbackAction<PreviousIntent>(
                   onInvoke: (intent) => setPreviousSlide(),

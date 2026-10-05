@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../../core/di/injectable.dart';
@@ -143,14 +144,13 @@ class _BibleBookmarksNotesScreenState extends State<BibleBookmarksNotesScreen>
   }
 
   void _openInReader(String abbr, String bookId, String chapterId) {
-    Navigator.pop(
-      context,
+    context.pop(
       ReaderTarget(bibleAbbr: abbr, bookId: bookId, chapterId: chapterId),
     );
   }
 
   Future<void> _editNote(BibleNote note) async {
-    await showNoteEditor(
+    await showNoteSongEditor(
       context,
       NotesRequest(
         bibleAbbr: note.bibleAbbr,

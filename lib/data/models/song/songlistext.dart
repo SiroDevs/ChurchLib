@@ -2,14 +2,18 @@
 import 'package:froom/froom.dart';
 
 // Project imports:
-import '../../common/utils/constants/app_constants.dart';
+import '../../../common/utils/constants/song_constants.dart';
 
 @DatabaseView(
-  '${AppConstants.historyExtSql};',
-  viewName: AppConstants.historiesTableViews,
+  '${SongConstants.listExtSql};',
+  viewName: SongConstants.listsTableViews,
 )
-class HistoryExt {
+class SongListExt {
   int rid;
+  int parentid;
+  int position;
+  String created;
+  String updated;
   int book;
   int songId;
   int songNo;
@@ -21,8 +25,12 @@ class HistoryExt {
   bool liked;
   String songbook;
 
-  HistoryExt(
+  SongListExt(
     this.rid,
+    this.parentid,
+    this.position,
+    this.created,
+    this.updated,
     this.book,
     this.songId,
     this.songNo,

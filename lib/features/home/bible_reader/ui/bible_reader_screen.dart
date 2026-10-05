@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../../../common/navigator/route_names.dart';
@@ -14,9 +15,6 @@ import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/bible/scripture_item.dart';
 import '../../../scripture/bloc/scripture_queue_cubit.dart';
-import '../../../scripture/ui/scripture_lists_screen.dart';
-import '../../../scripture/ui/scripture_opener_screen.dart';
-import '../../../settings/settings_screen.dart';
 import '../bloc/reader_cubit.dart';
 import 'book_chapter_pickers.dart';
 import 'reader_dialogs.dart';
@@ -185,7 +183,7 @@ class _ReaderViewState extends State<_ReaderView> {
   Future<void> _openNote(BuildContext context, NotesRequest? request) async {
     if (request == null) return;
     final cubit = context.read<ReaderCubit>();
-    await showNoteEditor(context, request);
+    await showNoteSongEditor(context, request);
     await cubit.refreshNotedVerses();
   }
 
@@ -299,19 +297,17 @@ class _TopBar extends StatelessWidget {
 
   Future<void> _openTarget(BuildContext context, String route) async {
     final cubit = context.read<ReaderCubit>();
-    final target = await Navigator.pushNamed<ReaderTarget>(context, route);
+    final target = await context.pushNamed<ReaderTarget>(route);
     if (target != null) await cubit.openTarget(target);
   }
 
   Future<void> _openScriptureOpener(BuildContext context) async {
     final cubit = context.read<ReaderCubit>();
-    final target = await Navigator.push<ReaderTarget>(
-      context,
-      MaterialPageRoute(
-        builder: (_) => ScriptureOpenerScreen(
-          bibleAbbr: state.activeBibleAbbr,
-          bibleName: state.activeBible,
-        ),
+    final target = await context.pushNamed<ReaderTarget>(
+      RouteNames.scriptureOpener,
+      extra: (
+        bibleAbbr: state.activeBibleAbbr,
+        bibleName: state.activeBible,
       ),
     );
     if (target != null) await cubit.openTarget(target);
@@ -319,9 +315,8 @@ class _TopBar extends StatelessWidget {
 
   Future<void> _openScriptureLists(BuildContext context) async {
     final cubit = context.read<ReaderCubit>();
-    final target = await Navigator.push<ReaderTarget>(
-      context,
-      MaterialPageRoute(builder: (_) => const ScriptureListsScreen()),
+    final target = await context.pushNamed<ReaderTarget>(
+      RouteNames.scriptureLists,
     );
     if (target != null) await cubit.openTarget(target);
   }
@@ -353,7 +348,7 @@ class _TopBar extends StatelessWidget {
                       if (book != null) cubit.selectBook(book);
                     },
               icon: const Icon(Icons.menu_book_outlined, size: 18),
-              label: Text(state.activeBook?.name ?? 'Book'),
+              label: Text(state.activeBook?.name ?? 'SongBook'),
             ),
             OutlinedButton(
               onPressed: state.chapters.isEmpty
@@ -445,7 +440,7 @@ class _TopBar extends StatelessWidget {
             ),
             IconButton(
               tooltip: 'Manage Bibles',
-              onPressed: () => Navigator.pushNamed(context, RouteNames.bibles),
+              onPressed: () => context.pushNamed(RouteNames.bibles),
               icon: const Icon(Icons.library_books_outlined),
             ),
             const VerticalDivider(width: 16, indent: 8, endIndent: 8),
@@ -464,10 +459,7 @@ class _TopBar extends StatelessWidget {
             const VerticalDivider(width: 16, indent: 8, endIndent: 8),
             IconButton(
               tooltip: 'Settings',
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const SettingsScreen()),
-              ),
+              onPressed: () => context.pushNamed(RouteNames.settings),
               icon: const Icon(Icons.settings_outlined),
             ),
           ],
@@ -614,7 +606,7 @@ class _SelectionBar extends StatelessWidget {
       case BookmarkChoice.withNotes:
         final request = await cubit.confirmBookmarkWithNotes();
         if (request != null && context.mounted) {
-          await showNoteEditor(context, request);
+          await showNoteSongEditor(context, request);
           await cubit.refreshNotedVerses();
         }
       case null:
@@ -626,7 +618,7 @@ class _SelectionBar extends StatelessWidget {
     final cubit = context.read<ReaderCubit>();
     final request = cubit.openNotesForSelection();
     if (request == null) return;
-    await showNoteEditor(context, request);
+    await showNoteSongEditor(context, request);
     await cubit.refreshNotedVerses();
   }
 

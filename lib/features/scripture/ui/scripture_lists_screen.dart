@@ -2,14 +2,15 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
+import '../../../common/navigator/route_names.dart';
 import '../../../core/di/injectable.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../domain/repos/bible/scripture_repo.dart';
 import '../../home/bible_reader/bloc/reader_cubit.dart';
-import 'scripture_list_detail_screen.dart';
 
 class _ListSummary {
   final int id;
@@ -92,13 +93,11 @@ class _ScriptureListsScreenState extends State<ScriptureListsScreen> {
   }
 
   Future<void> _open(_ListSummary summary) async {
-    final target = await Navigator.push<ReaderTarget>(
-      context,
-      MaterialPageRoute(
-        builder: (_) => ScriptureListDetailScreen(listId: summary.id),
-      ),
+    final target = await context.pushNamed<ReaderTarget>(
+      RouteNames.scriptureListDetail,
+      pathParameters: {'listId': '${summary.id}'},
     );
-    if (target != null && mounted) Navigator.pop(context, target);
+    if (target != null && mounted) context.pop(target);
     await _load();
   }
 

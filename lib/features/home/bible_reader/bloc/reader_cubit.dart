@@ -7,7 +7,6 @@ import '../../../../common/utils/constants/pref_constants.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/bible/bible_book.dart';
 import '../../../../data/models/bible/bible_chapter.dart';
-import '../../../../data/models/bible/bible_history.dart';
 import '../../../../data/models/bible/bible_version.dart';
 import '../../../../domain/entities/bible/verse_display.dart';
 import '../../../../domain/repos/bible/bible_annotation_repo.dart';
@@ -454,16 +453,14 @@ class ReaderCubit extends Cubit<ReaderState> {
     final book = state.activeBook;
     if (book == null) return;
     await _tracking.recordReading(
-      BibleHistory(
-        bibleAbbr: abbr,
-        bibleName: state.activeBible,
-        bookId: book.id,
-        bookName: book.name,
-        chapterId: chapter.id,
-        chapterRef: chapter.reference,
-        verseNumber: verses.isEmpty ? 1 : verses.first.number,
-        readAt: DateTime.now().millisecondsSinceEpoch,
-      ),
+      bibleAbbr: abbr,
+      bibleName: state.activeBible,
+      bookId: book.id,
+      bookName: book.name,
+      chapterId: chapter.id,
+      chapterRef: chapter.reference,
+      verseNumber: verses.isEmpty ? 1 : verses.first.number,
+      readAt: DateTime.now().millisecondsSinceEpoch,
     );
   }
 
@@ -477,16 +474,14 @@ class ReaderCubit extends Cubit<ReaderState> {
     if (chapter == null || book == null) return;
     _prefs.setPrefString(PrefConstants.bibleLastVerseIdKey, verseId);
     await _tracking.recordReading(
-      BibleHistory(
-        bibleAbbr: state.activeBibleAbbr,
-        bibleName: state.activeBible,
-        bookId: book.id,
-        bookName: book.name,
-        chapterId: chapter.id,
-        chapterRef: chapter.reference,
-        verseNumber: verseNumber,
-        readAt: DateTime.now().millisecondsSinceEpoch,
-      ),
+      bibleAbbr: state.activeBibleAbbr,
+      bibleName: state.activeBible,
+      bookId: book.id,
+      bookName: book.name,
+      chapterId: chapter.id,
+      chapterRef: chapter.reference,
+      verseNumber: verseNumber,
+      readAt: DateTime.now().millisecondsSinceEpoch,
     );
   }
 

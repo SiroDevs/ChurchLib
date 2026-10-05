@@ -10,7 +10,7 @@ import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/pref_constants.dart';
 import '../../../../common/utils/network_utils.dart';
 import '../../../../core/di/injectable.dart';
-import '../../../../data/models/song.dart';
+import '../../../../data/models/song/song.dart';
 import '../../../../domain/repos/database_repo.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../domain/repos/song/song_selection_repo.dart';

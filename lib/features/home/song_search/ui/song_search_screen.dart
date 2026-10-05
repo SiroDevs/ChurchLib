@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:dartx/dartx.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:textstyle_extensions/textstyle_extensions.dart';
 
@@ -50,7 +51,7 @@ class HomeScreenState extends State<SongSearchScreen> {
 
   bool periodicSyncStarted = false;
   int selectedPage = 0, selectedBook = 0;
-  List<Book> books = [];
+  List<SongBook> books = [];
   late SongExt selectedSong;
   List<SongExt> songs = [], likes = [], filtered = [];
   PageController pageController = PageController();
@@ -102,11 +103,7 @@ class HomeScreenState extends State<SongSearchScreen> {
             CustomSnackbar.show(context, feedbackMessage(state.feedback, l10n));
           } else if (state is ResettedState) {
             CustomSnackbar.show(context, l10n.redirectingYou);
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RouteNames.step1,
-              (route) => false,
-            );
+            context.goNamed(RouteNames.step1);
           }
         },
         builder: (context, state) {
@@ -119,7 +116,7 @@ class HomeScreenState extends State<SongSearchScreen> {
                       //ListTabPc(vm),
                       SongsScreen(parent: this, isBigScreen: true),
                       LikesScreen(books: books),
-                      //DraftsTabPc(vm),
+                      //SongDraftsTabPc(vm),
                       //const HelpDeskScreen(),
                       const SettingsScreen(),
                     ],

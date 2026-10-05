@@ -19,14 +19,14 @@ import '../song_search/ui/song_search_screen.dart';
 /// SongLib's own SongSearchScreen already has an internal sidebar for
 /// search/likes/settings within SongLib itself — this bottom bar is a
 /// level above that, for switching between the two apps entirely.
-class ChurchHomeScreen extends StatefulWidget {
-  const ChurchHomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<ChurchHomeScreen> createState() => _ChurchHomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _ChurchHomeScreenState extends State<ChurchHomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   late final bool _songlibEnabled;
   late final bool _biblelibEnabled;
   int _index = 0;

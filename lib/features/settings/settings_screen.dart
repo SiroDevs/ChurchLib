@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
@@ -18,9 +19,6 @@ import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/pref_repo.dart';
 import '../../l10n/app_localizations.dart';
-import 'bible_screen/ui/bibles_screen.dart';
-import '../biblelib/bookmarks/bible_bookmarks_notes_screen.dart';
-import '../biblelib/history/bible_history_screen.dart';
 import '../widgets/inputs/radio_input.dart';
 import '../widgets/progress/custom_snackbar.dart';
 
@@ -133,28 +131,17 @@ class SettingsScreenState extends State<SettingsScreen> {
             subtitle: const Text(
               'Choose your primary Bible and parallel translations',
             ),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const BiblesScreen()),
-            ),
+            onTap: () => context.pushNamed(RouteNames.bibles),
           ),
           ListTile(
             leading: const Icon(Icons.history),
             title: const Text('Reading & search history'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const BibleHistoryScreen()),
-            ),
+            onTap: () => context.pushNamed(RouteNames.bibleHistory),
           ),
           ListTile(
             leading: const Icon(Icons.bookmarks_outlined),
             title: const Text('Bookmarks & notes'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => const BibleBookmarksNotesScreen(),
-              ),
-            ),
+            onTap: () => context.pushNamed(RouteNames.bibleBookmarksNotes),
           ),
           ListTile(
             leading: const Icon(Icons.restart_alt),
@@ -208,11 +195,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _prefRepo.clearData();
       if (!mounted) return;
       CustomSnackbar.show(context, l10n.redirectingYou);
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        RouteNames.step1,
-        (route) => false,
-      );
+      context.goNamed(RouteNames.step1);
     } catch (e) {
       logger('Unable to reset SongLib: $e');
     }
@@ -263,11 +246,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _clearBibleLibPrefs();
       if (!mounted) return;
       CustomSnackbar.show(context, l10n.redirectingYou);
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        RouteNames.biblelibSetup,
-        (route) => false,
-      );
+      context.goNamed(RouteNames.biblelibSetup);
     } catch (e) {
       logger('Unable to reset BibleLib: $e');
     }
@@ -275,20 +254,12 @@ class SettingsScreenState extends State<SettingsScreen> {
 
   void onAddSongLib() {
     _prefRepo.setPrefBool(PrefConstants.songlibModuleEnabledKey, true);
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      RouteNames.step1,
-      (route) => false,
-    );
+    context.goNamed(RouteNames.step1);
   }
 
   void onAddBibleLib() {
     _prefRepo.setPrefBool(PrefConstants.biblelibModuleEnabledKey, true);
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      RouteNames.biblelibSetup,
-      (route) => false,
-    );
+    context.goNamed(RouteNames.biblelibSetup);
   }
 
   Future<void> onResetChurchLib() async {
@@ -307,11 +278,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _prefRepo.removeKeyPair(PrefConstants.songlibModuleEnabledKey);
       _prefRepo.removeKeyPair(PrefConstants.biblelibModuleEnabledKey);
       if (!mounted) return;
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        RouteNames.welcome,
-        (route) => false,
-      );
+      context.goNamed(RouteNames.welcome);
     } catch (e) {
       logger('Unable to reset ChurchLib: $e');
     }

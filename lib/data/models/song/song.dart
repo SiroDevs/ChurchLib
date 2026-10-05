@@ -3,39 +3,42 @@ import 'package:froom/froom.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import '../../common/utils/constants/app_constants.dart';
+import '../../../common/utils/constants/song_constants.dart';
 
-part 'edit.g.dart';
+part 'song.g.dart';
 
-@Entity(tableName: AppConstants.editsTable)
+@Entity(tableName: SongConstants.songsTable)
 @JsonSerializable()
-class Edit {
+class Song {
   @PrimaryKey(autoGenerate: true)
   int? rid;
-  String? song;
   int? book;
+  int? songId;
   int? songNo;
   String? title;
   String? alias;
   String? content;
-  String? key;
+  int? views;
+  int? likes;
+  bool? liked;
   String? created;
   String? updated;
 
-  Edit({
-    this.rid,
-    this.song,
+  Song({
     this.book,
+    this.songId,
     this.songNo,
     this.title,
     this.alias,
     this.content,
-    this.key,
+    this.views,
+    this.likes,
+    this.liked,
     this.created,
     this.updated,
   });
 
-  factory Edit.fromJson(Map<String, dynamic> json) => _$EditFromJson(json);
+  factory Song.fromJson(Map<String, dynamic> json) => _$SongFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EditToJson(this);
+  Map<String, dynamic> toJson() => _$SongToJson(this);
 }

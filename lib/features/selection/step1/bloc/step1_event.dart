@@ -6,6 +6,6 @@ sealed class Step1Event with _$Step1Event {
 
   const factory Step1Event.submit(
     String selectedBooksIds,
-    List<Book> books,
+    List<SongBook> books,
   ) = SaveBooks;
 }

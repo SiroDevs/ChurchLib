@@ -6,7 +6,7 @@ sealed class SongSearchEvent with _$SongSearchEvent {
 
   const factory SongSearchEvent.sync() = SyncData;
 
-  const factory SongSearchEvent.filter(Book book) = FilterData;
+  const factory SongSearchEvent.filter(SongBook book) = FilterData;
   
   const factory SongSearchEvent.reset() = ResetData;
   

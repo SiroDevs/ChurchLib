@@ -1,11 +1,13 @@
 // Project imports:
-import '../../../data/models/bible/bible_history.dart';
-import '../../../data/models/bible/bible_search.dart';
+import '../../../data/models/shared/entry_source.dart';
+import '../../../data/models/shared/history_entry.dart';
+import '../../../data/models/shared/search_entry.dart';
 import '../../../data/sources/local/app_database.dart';
 
 /// Ported from biblelib-android's `TrackingRepo`: one history row per
 /// (bible, chapter, day) that is updated as the reader scrolls, plus a
-/// pruned recent-search list.
+/// pruned recent-search list. Uses the shared `history_entries` /
+/// `search_entries` tables, scoped to [EntrySource.bible].
 class BibleTrackingRepo {
   final AppDatabase _appDB;
 
@@ -18,41 +20,69 @@ class BibleTrackingRepo {
     return '${d.year}$m$day';
   }
 
-  Future<void> recordReading(BibleHistory entry) async {
-    final dayKey = _dayKey(entry.readAt);
-    final existing = await _appDB.bibleHistoriesDao.findForDay(
-      entry.bibleAbbr,
-      entry.chapterId,
+  /// [chapterId] becomes the row's [HistoryEntry.refId].
+  Future<void> recordReading({
+    required String bibleAbbr,
+    required String bibleName,
+    required String bookId,
+    required String bookName,
+    required String chapterId,
+    required String chapterRef,
+    int? verseNumber,
+    required int readAt,
+  }) async {
+    final dayKey = _dayKey(readAt);
+    final existing = await _appDB.historiesDao.findForDay(
+      EntrySource.bible,
+      chapterId,
       dayKey,
     );
     if (existing != null) {
-      existing.bibleName = entry.bibleName;
-      existing.bookName = entry.bookName;
-      existing.chapterRef = entry.chapterRef;
-      existing.verseNumber = entry.verseNumber ?? existing.verseNumber;
-      await _appDB.bibleHistoriesDao.update(existing);
+      existing.bibleName = bibleName;
+      existing.bookName = bookName;
+      existing.chapterRef = chapterRef;
+      existing.verseNumber = verseNumber ?? existing.verseNumber;
+      await _appDB.historiesDao.updateHistory(existing);
     } else {
-      entry.dayKey = dayKey;
-      await _appDB.bibleHistoriesDao.insert(entry);
-      await _appDB.bibleHistoriesDao.pruneOld();
+      await _appDB.historiesDao.insertHistory(
+        HistoryEntry(
+          source: EntrySource.bible,
+          refId: chapterId,
+          bibleAbbr: bibleAbbr,
+          bibleName: bibleName,
+          bookId: bookId,
+          bookName: bookName,
+          chapterRef: chapterRef,
+          verseNumber: verseNumber,
+          dayKey: dayKey,
+          occurredAt: readAt,
+        ),
+      );
+      await _appDB.historiesDao.pruneOld(EntrySource.bible, 200);
     }
   }
 
-  Future<List<BibleHistory>> getReadingHistory() =>
-      _appDB.bibleHistoriesDao.getRecent();
+  Future<List<HistoryEntry>> getReadingHistory() =>
+      _appDB.historiesDao.fetchRecent(EntrySource.bible, 100);
 
-  Future<void> clearHistory() => _appDB.bibleHistoriesDao.deleteAll();
+  Future<void> clearHistory() =>
+      _appDB.historiesDao.deleteAllHistories(EntrySource.bible);
 
   Future<void> recordSearch(String qry) async {
-    await _appDB.bibleSearchesDao.deleteByQuery(qry);
-    await _appDB.bibleSearchesDao.insert(
-      BibleSearch(qry: qry, queriedAt: DateTime.now().millisecondsSinceEpoch),
+    await _appDB.searchesDao.deleteByQuery(EntrySource.bible, qry);
+    await _appDB.searchesDao.insertSearch(
+      SearchEntry(
+        source: EntrySource.bible,
+        query: qry,
+        queriedAt: DateTime.now().millisecondsSinceEpoch,
+      ),
     );
-    await _appDB.bibleSearchesDao.pruneOld();
+    await _appDB.searchesDao.pruneOld(EntrySource.bible, 50);
   }
 
-  Future<List<BibleSearch>> getSearchHistory() =>
-      _appDB.bibleSearchesDao.getRecent();
+  Future<List<SearchEntry>> getSearchHistory() =>
+      _appDB.searchesDao.fetchRecent(EntrySource.bible, 50);
 
-  Future<void> clearSearchHistory() => _appDB.bibleSearchesDao.deleteAll();
+  Future<void> clearSearchHistory() =>
+      _appDB.searchesDao.deleteAllSearches(EntrySource.bible);
 }

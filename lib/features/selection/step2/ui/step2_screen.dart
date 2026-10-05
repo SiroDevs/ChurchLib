@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../../../common/navigator/route_names.dart';
@@ -55,11 +56,7 @@ class Step2ScreenState extends State<Step2Screen> {
             final nextRoute = (biblelibEnabled && !biblelibDone)
                 ? RouteNames.biblelibSetup
                 : RouteNames.seeding;
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              nextRoute,
-              (route) => false,
-            );
+            context.goNamed(nextRoute);
           }
         },
         builder: (context, state) {

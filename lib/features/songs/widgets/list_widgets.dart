@@ -1,7 +1,7 @@
 part of '../songs_screen.dart';
 
 class BooksList extends StatelessWidget {
-  final List<Book> books;
+  final List<SongBook> books;
   final int selectedBook;
   const BooksList({super.key, required this.books, this.selectedBook = 0});
 
@@ -16,7 +16,7 @@ class BooksList extends StatelessWidget {
         itemCount: books.length,
         separatorBuilder: (context, index) => const SizedBox(width: 5),
         itemBuilder: (context, index) {
-          final Book book = books[index];
+          final SongBook book = books[index];
           return SearchBookItem(
             text: book.title!,
             isSelected: selectedBook == index,

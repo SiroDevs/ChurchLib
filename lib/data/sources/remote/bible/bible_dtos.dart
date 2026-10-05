@@ -66,7 +66,7 @@ class BibleInfoDto {
 
   Map<String, dynamic> toJson() => _$BibleInfoDtoToJson(this);
 
-  /// First listed country's name, or "Other" — ported from
+  /// First songList country's name, or "Other" — ported from
   /// Android's `BibleInfoDto.primaryCountryName()`.
   String get primaryCountryName {
     final first = countries.isNotEmpty ? countries.first.name : '';
@@ -91,9 +91,9 @@ class BookDto {
   });
 
   factory BookDto.fromJson(Map<String, dynamic> json) =>
-      _$BookDtoFromJson(json);
+      _$SongBookDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BookDtoToJson(this);
+  Map<String, dynamic> toJson() => _$SongBookDtoToJson(this);
 }
 
 @JsonSerializable()

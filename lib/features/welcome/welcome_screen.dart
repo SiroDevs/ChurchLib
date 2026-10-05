@@ -1,6 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:import 'package:go_router/go_router.dart';
+
 // Project imports:
 import '../../common/navigator/route_names.dart';
 import '../../common/utils/constants/app_assets.dart';
@@ -36,7 +38,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     // it always runs first (its step1/step2 flow already exists); BibleLib
     // setup (once it has its own module) runs after, chained from step2.
     final nextRoute = _songlib ? RouteNames.step1 : RouteNames.biblelibSetup;
-    Navigator.pushNamedAndRemoveUntil(context, nextRoute, (route) => false);
+    context.goNamed(nextRoute);
   }
 
   @override

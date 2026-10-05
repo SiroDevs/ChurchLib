@@ -8,7 +8,7 @@ import 'package:share_plus/share_plus.dart';
 // Project imports:
 import '../../../common/utils/app_util.dart';
 import '../../../common/utils/constants/app_constants.dart';
-import '../../../data/models/songext.dart';
+import '../../../data/models/song/songext.dart';
 import '../../widgets/presentor/presentor.dart';
 
 Future<Map<String, dynamic>> loadSong(SongExt song) async {

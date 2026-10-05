@@ -1,22 +1,24 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
+import '../../common/navigator/app_routes.dart';
+import '../../common/navigator/route_names.dart';
 import '../../common/utils/app_util.dart';
 import '../../core/theme/theme_data.dart';
 import '../../core/theme/theme_styles.dart';
 import '../../data/models/models.dart';
-import '../presentor/ui/presentor_screen.dart';
 import '../widgets/list_items/search_book_item.dart';
 import '../widgets/list_items/search_song_item.dart';
 import 'search_songs_utils.dart';
 
 /// Small screen search
 class SongsSearch extends SearchDelegate<List> {
-  final List<Book> books;
+  final List<SongBook> books;
   final List<SongExt> songs;
   final double? height;
-  Book setBook = Book();
+  SongBook setBook = SongBook();
   SongsSearch(BuildContext context, this.books, this.songs, this.height);
 
   @override
@@ -106,21 +108,16 @@ class SongsSearch extends SearchDelegate<List> {
                     height: height!,
                     isSearching: true,
                     onTap: () {
-                      Book book = books[0];
+                      SongBook book = books[0];
                       try {
                         book = books.firstWhere((b) => b.bookId == result.book);
                       } catch (e) {
                         logger('Failed to get the book: $e');
                       }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PresentorScreen(
-                            song: result,
-                            book: book,
-                            songs: songs,
-                          ),
-                        ),
+                      context.pushNamed(
+                        RouteNames.presentor,
+                        extra: (song: result, book: book, songs: songs)
+                            as PresentorArgs,
                       );
                     },
                   );

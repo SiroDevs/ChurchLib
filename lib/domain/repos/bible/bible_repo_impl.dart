@@ -133,7 +133,7 @@ class BibleRepoImpl implements BibleRepo {
                 }
               }
             } catch (e) {
-              logger('⚠️ Book $bookId failed for $abbr, continuing: $e');
+              logger('⚠️ SongBook $bookId failed for $abbr, continuing: $e');
             }
 
             completedBooks++;

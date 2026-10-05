@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 // Project imports:
 import '../../../../common/utils/app_util.dart';
-import '../../../../common/utils/constants/bible_api_constants.dart';
+import '../../../../common/utils/constants/api_constants.dart';
 import '../../../../domain/repos/bible/retry_policy.dart';
 import 'bible_dtos.dart';
 
@@ -26,7 +26,7 @@ import 'bible_dtos.dart';
 /// - `{path}/verses/{bookId}/{chapter}.json`   -> [ChapterContentDto]
 class BibleApiService {
   Future<dynamic> _getJson(String path) async {
-    final endpoint = '${BibleApiConstants.bibleApi}/$path';
+    final endpoint = '${ApiConstants.bibleApi}/$path';
     logger('BibleLib Api Request [GET]: $endpoint');
 
     final response = await http.get(Uri.parse(endpoint)).timeout(

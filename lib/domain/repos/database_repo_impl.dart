@@ -10,17 +10,17 @@ class DatabaseRepoImpl implements DatabaseRepo {
   DatabaseRepoImpl(this._appDB);
 
   @override
-  Future<List<Book>> fetchBooks() async {
+  Future<List<SongBook>> fetchBooks() async {
     return _appDB.booksDao.fetchBooks();
   }
 
   @override
-  Future<void> removeBook(Book book) async {
+  Future<void> removeBook(SongBook book) async {
     return _appDB.booksDao.deleteBook(book);
   }
 
   @override
-  Future<void> saveBook(Book book) async {
+  Future<void> saveBook(SongBook book) async {
     return _appDB.booksDao.insertBook(book);
   }
 
@@ -88,94 +88,94 @@ class DatabaseRepoImpl implements DatabaseRepo {
   }
 
   @override
-  Future<List<Edit>> fetchEdits() async {
-    return _appDB.editsDao.fetchEdits();
+  Future<List<SongEdit>> fetchSongEdits() async {
+    return _appDB.editsDao.fetchSongEdits();
   }
 
   @override
-  Future<void> removeEdit(Edit edit) async {
-    return _appDB.editsDao.deleteEdit(edit);
+  Future<void> removeSongEdit(SongEdit edit) async {
+    return _appDB.editsDao.deleteSongEdit(edit);
   }
 
   @override
-  Future<void> saveEdit(Edit edit) async {
-    return _appDB.editsDao.insertEdit(edit);
+  Future<void> saveSongEdit(SongEdit edit) async {
+    return _appDB.editsDao.insertSongEdit(edit);
   }
 
   @override
-  Future<void> removeAllEdits() async {
-    return _appDB.editsDao.deleteAllEdits();
+  Future<void> removeAllSongEdits() async {
+    return _appDB.editsDao.deleteAllSongEdits();
   }
 
   @override
-  Future<List<Draft>> fetchDrafts() async {
-    return _appDB.draftsDao.fetchDrafts();
+  Future<List<SongDraft>> fetchSongDrafts() async {
+    return _appDB.draftsDao.fetchSongDrafts();
   }
 
   @override
-  Future<void> removeDraft(Draft draft) async {
-    return _appDB.draftsDao.deleteDraft(draft);
+  Future<void> removeSongDraft(SongDraft draft) async {
+    return _appDB.draftsDao.deleteSongDraft(draft);
   }
 
   @override
-  Future<void> saveDraft(Draft draft) async {
-    return _appDB.draftsDao.insertDraft(draft);
+  Future<void> saveSongDraft(SongDraft draft) async {
+    return _appDB.draftsDao.insertSongDraft(draft);
   }
 
   @override
-  Future<void> removeAllDrafts() async {
-    return _appDB.draftsDao.deleteAllDrafts();
+  Future<void> removeAllSongDrafts() async {
+    return _appDB.draftsDao.deleteAllSongDrafts();
   }
 
   @override
-  Future<List<Listed>> fetchListeds() async {
-    return _appDB.listedsDao.fetchListeds();
+  Future<List<SongList>> fetchSongLists() async {
+    return _appDB.songListsDao.fetchSongLists();
   }
 
   @override
-  Future<List<ListedExt>> fetchListedExts() async {
-    final Stream<List<ListedExt>> streams = _appDB.listedsDao.fetchListedExts();
+  Future<List<SongListExt>> fetchSongListExts() async {
+    final Stream<List<SongListExt>> streams = _appDB.songListsDao.fetchSongListExts();
     return await streams.first;
   }
 
   @override
-  Future<void> removeListed(Listed listed) async {
-    return _appDB.listedsDao.deleteListed(listed);
+  Future<void> removeSongList(SongList songList) async {
+    return _appDB.songListsDao.deleteSongList(songList);
   }
 
   @override
-  Future<void> saveListed(Listed listed) async {
-    return _appDB.listedsDao.insertListed(listed);
+  Future<void> saveSongList(SongList songList) async {
+    return _appDB.songListsDao.insertSongList(songList);
   }
 
   @override
-  Future<void> removeAllListeds() async {
-    return _appDB.listedsDao.deleteAllListeds();
+  Future<void> removeAllSongLists() async {
+    return _appDB.songListsDao.deleteAllSongLists();
   }
 
   @override
-  Future<List<Search>> fetchSearches() async {
-    return _appDB.searchesDao.fetchSearches();
+  Future<List<SearchEntry>> fetchSearches() async {
+    return _appDB.searchesDao.fetchRecent(EntrySource.song, 50);
   }
 
   @override
-  Future<void> removeSearch(Search search) async {
+  Future<void> removeSearch(SearchEntry search) async {
     return _appDB.searchesDao.deleteSearch(search);
   }
 
   @override
-  Future<void> saveSearch(Search search) async {
+  Future<void> saveSearch(SearchEntry search) async {
     return _appDB.searchesDao.insertSearch(search);
   }
 
   @override
   Future<void> removeAllSearches() async {
-    return _appDB.searchesDao.deleteAllSearches();
+    return _appDB.searchesDao.deleteAllSearches(EntrySource.song);
   }
 
   @override
-  Future<List<History>> fetchHistories() async {
-    return _appDB.historiesDao.fetchHistories();
+  Future<List<HistoryEntry>> fetchHistories() async {
+    return _appDB.historiesDao.fetchRecent(EntrySource.song, 100);
   }
 
   @override
@@ -186,17 +186,17 @@ class DatabaseRepoImpl implements DatabaseRepo {
   }
 
   @override
-  Future<void> removeHistory(History history) async {
+  Future<void> removeHistory(HistoryEntry history) async {
     return _appDB.historiesDao.deleteHistory(history);
   }
 
   @override
-  Future<void> saveHistory(History history) async {
+  Future<void> saveHistory(HistoryEntry history) async {
     return _appDB.historiesDao.insertHistory(history);
   }
 
   @override
   Future<void> removeAllHistories() async {
-    return _appDB.historiesDao.deleteAllHistories();
+    return _appDB.historiesDao.deleteAllHistories(EntrySource.song);
   }
 }

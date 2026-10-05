@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 import '../../../common/utils/app_util.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_styles.dart';
-import '../../../data/models/book.dart';
+import '../../../data/models/song/songbook.dart';
 import '../../../domain/entities/basic_model.dart';
 
 var locale = 'en';
 
 class BookItem extends StatelessWidget {
-  final Selectable<Book> item;
+  final Selectable<SongBook> item;
   final Function()? onPressed;
 
   const BookItem({super.key, required this.item, this.onPressed});
@@ -67,15 +67,15 @@ class BookItem extends StatelessWidget {
   }
 }
 
-/*class ListedItem extends StatelessWidget {
-  final Listed listed;
+/*class SongListItem extends StatelessWidget {
+  final SongList songList;
   final double height;
   final bool isSelected;
   final Function()? onPressed;
 
-  const ListedItem({
+  const SongListItem({
     Key? key,
-    required this.listed,
+    required this.songList,
     required this.height,
     this.isSelected = false,
     this.onPressed,
@@ -83,7 +83,7 @@ class BookItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateValue = DateTime.parse(listed.updatedAt!);
+    final dateValue = DateTime.parse(songList.updatedAt!);
     final String lastUpdate = timeago.format(dateValue);
 
     return Padding(
@@ -106,7 +106,7 @@ class BookItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              listed.title!,
+              songList.title!,
               maxLines: 1,
               style: TextStyle(
                 fontSize: height * 0.0261,
@@ -115,9 +115,9 @@ class BookItem extends StatelessWidget {
             ),
             Divider(color: ThemeColors.accent, height: height * 0.0049),
             const SizedBox(height: 5),
-            listed.description!.isNotEmpty
+            songList.description!.isNotEmpty
                 ? Text(
-                    listed.description!,
+                    songList.description!,
                     maxLines: 1,
                     style: TextStyle(
                       fontSize: height * 0.015,
@@ -129,7 +129,7 @@ class BookItem extends StatelessWidget {
                 const Spacer(),
                 TagView(
                   tagText:
-                      '${listed.song!} song${listed.song! == 1 ? '' : 's'}',
+                      '${songList.song!} song${songList.song! == 1 ? '' : 's'}',
                   height: height,
                 ),
                 TagView(tagText: 'Updated $lastUpdate', height: height),
@@ -146,12 +146,12 @@ class BookItem extends StatelessWidget {
 // ignore: must_be_immutable
 
 // ignore: must_be_immutable
-/*class DraftItem extends StatelessWidget {
-  final Draft draft;
+/*class SongDraftItem extends StatelessWidget {
+  final SongDraft draft;
   final double height;
   final Function()? onPressed;
 
-  DraftItem({
+  SongDraftItem({
     Key? key,
     required this.draft,
     required this.height,
@@ -177,7 +177,7 @@ class BookItem extends StatelessWidget {
     versesText = verses.length == 1 ? versesText : '${versesText}s';
 
     return Hero(
-      tag: 'DraftIndex_${draft.id}',
+      tag: 'SongDraftIndex_${draft.id}',
       child: GestureDetector(
         onTap: onPressed,
         child: Card(

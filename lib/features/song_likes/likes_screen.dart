@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../common/utils/app_util.dart';
-import '../../data/models/book.dart';
-import '../../data/models/songext.dart';
+import '../../data/models/song/songbook.dart';
+import '../../data/models/song/songext.dart';
+import '../../common/navigator/app_routes.dart';
+import '../../common/navigator/route_names.dart';
 import '../home/song_search/bloc/song_search_bloc.dart';
-import '../presentor/ui/presentor_screen.dart';
 import '../widgets/list_items/search_song_item.dart';
 import '../widgets/progress/general_progress.dart';
 
 class LikesScreen extends StatelessWidget {
-  final List<Book> books;
+  final List<SongBook> books;
 
   const LikesScreen({super.key, required this.books});
 
@@ -31,21 +33,16 @@ class LikesScreen extends StatelessWidget {
                 song: like,
                 height: 50,
                 onTap: () {
-                  Book book = books[0];
+                  SongBook book = books[0];
                   try {
                     book = books.firstWhere((b) => b.bookId == like.book);
                   } catch (e) {
                     logger('Failed to get the book: $e');
                   }
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PresentorScreen(
-                        song: like,
-                        book: book,
-                        songs: state.songs,
-                      ),
-                    ),
+                  context.pushNamed(
+                    RouteNames.presentor,
+                    extra: (song: like, book: book, songs: state.songs)
+                        as PresentorArgs,
                   );
                 },
               );

@@ -12,8 +12,8 @@ class Step1State with _$Step1State {
 
   const factory Step1State.fetched(
     String selectedBooksIds,
-    List<Book> books,
-    List<Selectable<Book>> booksListing,
+    List<SongBook> books,
+    List<Selectable<SongBook>> booksListing,
   ) = Step1FetchedState;
 
   const factory Step1State.saved(String selectedBooks) = Step1SavedState;

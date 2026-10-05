@@ -10,7 +10,7 @@ import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/pref_constants.dart';
 import '../../../../common/utils/network_utils.dart';
 import '../../../../core/di/injectable.dart';
-import '../../../../data/models/book.dart';
+import '../../../../data/models/song/songbook.dart';
 import '../../../../domain/entities/basic_model.dart';
 import '../../../../domain/repos/database_repo.dart';
 import '../../../../domain/repos/pref_repo.dart';
@@ -38,7 +38,7 @@ class Step1Bloc extends Bloc<Step1Event, Step1State> {
         PrefConstants.selectedBooksKey,
       );
       List<String> selectedBooksNumbers = [];
-      List<Selectable<Book>> booksListing = [];
+      List<Selectable<SongBook>> booksListing = [];
 
       if (selectedBooksIds.isNotEmpty) {
         selectedBooksNumbers = selectedBooksIds.split(",");
@@ -49,13 +49,13 @@ class Step1Bloc extends Bloc<Step1Event, Step1State> {
             List<dynamic> dataList = List<Map<String, dynamic>>.from(
               jsonDecode(resp.body),
             );
-            var books = dataList.map((item) => Book.fromJson(item)).toList();
+            var books = dataList.map((item) => SongBook.fromJson(item)).toList();
             for (final book in books) {
               bool setSelected = false;
               if (selectedBooksNumbers.contains(book.bookNo.toString())) {
                 setSelected = true;
               }
-              booksListing.add(Selectable<Book>(book, setSelected));
+              booksListing.add(Selectable<SongBook>(book, setSelected));
             }
             emit(Step1FetchedState(selectedBooksIds, books, booksListing));
             break;

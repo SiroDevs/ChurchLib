@@ -2,29 +2,29 @@
 import 'package:froom/froom.dart';
 
 // Project imports:
-import '../../../../../common/utils/constants/app_constants.dart';
-import '../../../../models/song.dart';
-import '../../../../models/songext.dart';
+import '../../../../../common/utils/constants/song_constants.dart';
+import '../../../../models/song/song.dart';
+import '../../../../models/song/songext.dart';
 
 @dao
 abstract class SongsDao {
-  @Query('SELECT * FROM ${AppConstants.songsTable} WHERE rid = :rid')
+  @Query('SELECT * FROM ${SongConstants.songsTable} WHERE rid = :rid')
   Future<Song?> findSongById(int rid);
 
-  @Query('SELECT * FROM ${AppConstants.songsTableViews}')
+  @Query('SELECT * FROM ${SongConstants.songsTableViews}')
   Stream<List<SongExt>> fetchAllSongs();
 
-  @Query('SELECT * FROM ${AppConstants.songsTableViews} WHERE book = :bid')
+  @Query('SELECT * FROM ${SongConstants.songsTableViews} WHERE book = :bid')
   Stream<List<SongExt>> fetchSongs(int bid);
 
-  @Query('SELECT * FROM ${AppConstants.songsTableViews} WHERE liked = 1')
+  @Query('SELECT * FROM ${SongConstants.songsTableViews} WHERE liked = 1')
   Stream<List<SongExt>> fetchLikes();
 
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertSong(Song song);
 
   @Query(
-    'UPDATE ${AppConstants.songsTable} '
+    'UPDATE ${SongConstants.songsTable} '
     'SET title = :title, content = :content, liked = :liked, updated = :updated WHERE rid = :rid',
   )
   Future<void> updateSong(
@@ -36,7 +36,7 @@ abstract class SongsDao {
   );
 
   @Query(
-    'UPDATE ${AppConstants.songsTable} '
+    'UPDATE ${SongConstants.songsTable} '
     'SET title = :title, alias = :alias, content = :content WHERE songId = :songId',
   )
   Future<void> syncSong(
@@ -49,6 +49,6 @@ abstract class SongsDao {
   @delete
   Future<void> deleteSong(Song song);
 
-  @Query("DELETE FROM ${AppConstants.songsTable}")
+  @Query("DELETE FROM ${SongConstants.songsTable}")
   Future<void> deleteAllSongs();
 }

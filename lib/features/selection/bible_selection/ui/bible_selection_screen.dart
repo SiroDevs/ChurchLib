@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../../../common/navigator/route_names.dart';
@@ -45,11 +46,7 @@ class _BibleSelectionViewState extends State<_BibleSelectionView> {
       listenWhen: (p, c) => p.phase != c.phase,
       listener: (context, state) {
         if (state.phase == BibleSelectionPhase.saved) {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            RouteNames.seeding,
-            (route) => false,
-          );
+          context.goNamed(RouteNames.seeding);
         }
       },
       builder: (context, state) {

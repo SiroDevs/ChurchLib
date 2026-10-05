@@ -7,17 +7,17 @@ class SongSearchState with _$SongSearchState {
   const factory SongSearchState.loaded() = LoadedState;
 
   const factory SongSearchState.fetched(
-    List<Book> books,
+    List<SongBook> books,
     List<SongExt> songs,
   ) = DataFetchedState;
 
   const factory SongSearchState.synced(
-    List<Book> books,
+    List<SongBook> books,
     List<SongExt> songs,
   ) = DataSyncedState;
 
   const factory SongSearchState.filtered(
-    Book book,
+    SongBook book,
     List<SongExt> songs,
     List<SongExt> likes,
   ) = FilteredState;

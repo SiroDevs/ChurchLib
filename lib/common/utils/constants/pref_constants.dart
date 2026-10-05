@@ -44,7 +44,7 @@ class PrefConstants {
   static const biblelibModuleEnabledKey = 'module_biblelib_enabled';
 
   static const dateInstalledKey = 'date_installed';
-  static const notDraftKey = 'not_draft';
+  static const notSongDraftKey = 'not_draft';
   static const onboardedCheckKey = 'on_boarded';
   static const predistinatedBooksKey = 'predestinated_books';
   static const selectedBooksKey = 'selected_books';

@@ -3,13 +3,13 @@ import 'package:froom/froom.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import '../../common/utils/constants/app_constants.dart';
+import '../../../common/utils/constants/song_constants.dart';
 
-part 'book.g.dart';
+part 'songbook.g.dart';
 
-@Entity(tableName: AppConstants.booksTable)
+@Entity(tableName: SongConstants.booksTable)
 @JsonSerializable()
-class Book {
+class SongBook {
   @PrimaryKey(autoGenerate: true)
   int? rid;
   int? bookId;
@@ -22,7 +22,7 @@ class Book {
   String? created;
   String? updated;
 
-  Book({
+  SongBook({
     this.bookId,
     this.title,
     this.subTitle,
@@ -34,8 +34,8 @@ class Book {
     this.updated,
   });
 
-  factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
+  factory SongBook.fromJson(Map<String, dynamic> json) => _$SongBookFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BookToJson(this);
+  Map<String, dynamic> toJson() => _$SongBookToJson(this);
 }
 

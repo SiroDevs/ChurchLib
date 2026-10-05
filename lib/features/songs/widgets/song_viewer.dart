@@ -2,7 +2,7 @@ part of '../songs_screen.dart';
 
 class SongViewer extends StatefulWidget {
   final SongExt song;
-  final List<Book> books;
+  final List<SongBook> books;
   final List<SongExt> songs;
   const SongViewer({
     super.key,
@@ -25,7 +25,7 @@ class SongViewerState extends State<SongViewer> {
   }
 
   Future<void> onPresent() async {
-    Book book = widget.books[0];
+    SongBook book = widget.books[0];
     try {
       widget.books.firstWhere(
         (b) => b.bookId == widget.song.book,
@@ -35,15 +35,10 @@ class SongViewerState extends State<SongViewer> {
       logger('Failed to get the book: $e');
     }
 
-    bool? result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PresentorScreen(
-          song: widget.song,
-          book: book,
-          songs: widget.songs,
-        ),
-      ),
+    bool? result = await context.pushNamed<bool>(
+      RouteNames.presentor,
+      extra: (song: widget.song, book: book, songs: widget.songs)
+          as PresentorArgs,
     );
 
     if (result == true) {

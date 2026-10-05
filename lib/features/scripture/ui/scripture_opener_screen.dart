@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../../core/theme/theme_colors.dart';
@@ -118,7 +119,7 @@ class _ScriptureOpenerView extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 8),
                                 _FieldButton(
-                                  label: 'Book',
+                                  label: 'SongBook',
                                   value: active.bookLabel,
                                   onTap: () => _pickBook(context, active),
                                 ),
@@ -149,7 +150,7 @@ class _ScriptureOpenerView extends StatelessWidget {
                                               final target =
                                                   cubit.openScripture(active.key);
                                               if (target != null) {
-                                                Navigator.pop(context, target);
+                                                context.pop(target);
                                               }
                                             }
                                           : null,
@@ -171,7 +172,7 @@ class _ScriptureOpenerView extends StatelessWidget {
                                                 final ok = await cubit
                                                     .addToQueueAndClose(active.key);
                                                 if (ok && context.mounted) {
-                                                  Navigator.pop(context);
+                                                  context.pop();
                                                 }
                                               }
                                             : null,
@@ -183,7 +184,7 @@ class _ScriptureOpenerView extends StatelessWidget {
                                                 final target = await cubit
                                                     .addToQueueAndFinish(active.key);
                                                 if (target != null && context.mounted) {
-                                                  Navigator.pop(context, target);
+                                                  context.pop(target);
                                                 }
                                               }
                                             : null,

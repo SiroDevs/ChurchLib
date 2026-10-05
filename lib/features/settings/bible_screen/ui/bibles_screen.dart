@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../../../common/navigator/route_names.dart';
@@ -31,7 +32,7 @@ class _BiblesView extends StatelessWidget {
   const _BiblesView();
 
   Future<void> _addMore(BuildContext context) async {
-    await Navigator.pushNamed(context, RouteNames.biblelibSetup);
+    await context.pushNamed(RouteNames.biblelibSetup);
     if (context.mounted) context.read<BiblesCubit>().load();
   }
 

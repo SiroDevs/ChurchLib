@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_alert/flutter_platform_alert.dart';
+import 'package:go_router/go_router.dart';
 
 // Project imports:
 import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/app_assets.dart';
 import '../../../../core/theme/theme_styles.dart';
-import '../../../../data/models/book.dart';
+import '../../../../data/models/song/songbook.dart';
 import '../../../../domain/entities/basic_model.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../common/theme_button.dart';
@@ -30,10 +31,10 @@ class Step1Screen extends StatefulWidget {
 }
 
 class Step1ScreenState extends State<Step1Screen> {
-  List<Book> booksSelected = [];
-  List<Selectable<Book>> booksListing = [];
+  List<SongBook> booksSelected = [];
+  List<Selectable<SongBook>> booksListing = [];
 
-  void onBookSelected(int index, List<Selectable<Book>> listing) {
+  void onBookSelected(int index, List<Selectable<SongBook>> listing) {
     try {
       setState(() {
         final book = listing[index];
@@ -59,7 +60,7 @@ class Step1ScreenState extends State<Step1Screen> {
       child: BlocConsumer<Step1Bloc, Step1State>(
         listener: (context, state) {
           if (state is Step1SavedState) {
-            Navigator.pushNamed(context, RouteNames.step2);
+            context.pushNamed(RouteNames.step2);
           } else if (state is Step1FailureState) {
             CustomSnackbar.show(context, feedbackMessage(state.feedback, l10n));
           } else if (state is Step1FetchedState) {

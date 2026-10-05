@@ -12,23 +12,23 @@ import 'verse_row.dart';
 /// Opens the note editor for one verse. Like Android's NotesScreen, the
 /// note saves when the dialog is closed (there's also an explicit Save
 /// button); callers should refresh note indicators once this completes.
-Future<void> showNoteEditor(BuildContext context, NotesRequest request) {
+Future<void> showNoteSongEditor(BuildContext context, NotesRequest request) {
   return showDialog<void>(
     context: context,
     barrierDismissible: false,
-    builder: (_) => _NoteEditorDialog(request: request),
+    builder: (_) => _NoteSongEditorDialog(request: request),
   );
 }
 
-class _NoteEditorDialog extends StatefulWidget {
+class _NoteSongEditorDialog extends StatefulWidget {
   final NotesRequest request;
-  const _NoteEditorDialog({required this.request});
+  const _NoteSongEditorDialog({required this.request});
 
   @override
-  State<_NoteEditorDialog> createState() => _NoteEditorDialogState();
+  State<_NoteSongEditorDialog> createState() => _NoteSongEditorDialogState();
 }
 
-class _NoteEditorDialogState extends State<_NoteEditorDialog> {
+class _NoteSongEditorDialogState extends State<_NoteSongEditorDialog> {
   final _repo = getIt<BibleAnnotationRepo>();
   final _controller = TextEditingController();
   bool _loading = true;

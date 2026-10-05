@@ -2,13 +2,14 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
 import '../../../core/di/injectable.dart';
 import '../../../core/theme/theme_colors.dart';
-import '../../../data/models/bible/bible_history.dart';
-import '../../../data/models/bible/bible_search.dart';
+import '../../../data/models/shared/history_entry.dart';
+import '../../../data/models/shared/search_entry.dart';
 import '../../../domain/repos/bible/bible_tracking_repo.dart';
 import '../../home/bible_reader/bloc/reader_cubit.dart';
 
@@ -25,7 +26,7 @@ class BibleHistoryScreen extends StatefulWidget {
 
 class _HistoryGroup {
   final String dateLabel;
-  final List<BibleHistory> entries;
+  final List<HistoryEntry> entries;
   _HistoryGroup(this.dateLabel, this.entries);
 }
 
@@ -36,7 +37,7 @@ class _BibleHistoryScreenState extends State<BibleHistoryScreen>
 
   bool _isLoading = true;
   List<_HistoryGroup> _reading = [];
-  List<BibleSearch> _searches = [];
+  List<SearchEntry> _searches = [];
 
   @override
   void initState() {
@@ -63,15 +64,15 @@ class _BibleHistoryScreenState extends State<BibleHistoryScreen>
     });
   }
 
-  List<_HistoryGroup> _groupByDate(List<BibleHistory> entries) {
+  List<_HistoryGroup> _groupByDate(List<HistoryEntry> entries) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
     final fmt = DateFormat('MMMM d, yyyy');
 
-    final groups = <String, List<BibleHistory>>{};
+    final groups = <String, List<HistoryEntry>>{};
     for (final e in entries) {
-      final d = DateTime.fromMillisecondsSinceEpoch(e.readAt);
+      final d = DateTime.fromMillisecondsSinceEpoch(e.occurredAt);
       final day = DateTime(d.year, d.month, d.day);
       final label = day == today
           ? 'Today'
@@ -193,19 +194,18 @@ class _BibleHistoryScreenState extends State<BibleHistoryScreen>
                 color: ThemeColors.primary.withValues(alpha: 0.6),
               ),
               title: Text(
-                '${entry.chapterRef}${entry.verseNumber != null ? ':${entry.verseNumber}' : ''}',
+                '${entry.chapterRef ?? ''}${entry.verseNumber != null ? ':${entry.verseNumber}' : ''}',
               ),
               subtitle: Text(
-                '${entry.bibleName.isNotEmpty ? entry.bibleName : entry.bibleAbbr.toUpperCase()} '
-                '· ${fmt.format(DateTime.fromMillisecondsSinceEpoch(entry.readAt))}',
+                '${(entry.bibleName?.isNotEmpty ?? false) ? entry.bibleName! : (entry.bibleAbbr ?? '').toUpperCase()} '
+                '· ${fmt.format(DateTime.fromMillisecondsSinceEpoch(entry.occurredAt))}',
                 style: const TextStyle(fontSize: 12, color: ThemeColors.grey),
               ),
-              onTap: () => Navigator.pop(
-                context,
+              onTap: () => context.pop(
                 ReaderTarget(
-                  bibleAbbr: entry.bibleAbbr,
-                  bookId: entry.bookId,
-                  chapterId: entry.chapterId,
+                  bibleAbbr: entry.bibleAbbr ?? '',
+                  bookId: entry.bookId ?? '',
+                  chapterId: entry.refId,
                 ),
               ),
             ),
@@ -233,7 +233,7 @@ class _BibleHistoryScreenState extends State<BibleHistoryScreen>
         final s = _searches[i];
         return ListTile(
           leading: const Icon(Icons.search, color: ThemeColors.mediumGrey),
-          title: Text(s.qry),
+          title: Text(s.query),
           subtitle: Text(
             fmt.format(DateTime.fromMillisecondsSinceEpoch(s.queriedAt)),
             style: const TextStyle(fontSize: 12),

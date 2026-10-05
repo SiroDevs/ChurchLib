@@ -192,7 +192,7 @@ class _VerseRowState extends State<VerseRow> {
                     IconButton(
                       visualDensity: VisualDensity.compact,
                       iconSize: 18,
-                      tooltip: widget.hasNote ? 'Edit note' : 'Add note',
+                      tooltip: widget.hasNote ? 'SongEdit note' : 'Add note',
                       onPressed: widget.onOpenNote,
                       icon: Icon(
                         widget.hasNote

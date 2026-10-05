@@ -2,10 +2,10 @@
 import 'package:froom/froom.dart';
 
 // Project imports:
-import '../../common/utils/constants/app_constants.dart';
+import '../../../common/utils/constants/song_constants.dart';
 
-@Entity(tableName: AppConstants.listedsTable)
-class Listed {
+@Entity(tableName: SongConstants.listsTable)
+class SongList {
   @PrimaryKey(autoGenerate: true)
   int? rid;
   int? parentid;
@@ -16,7 +16,7 @@ class Listed {
   String? created;
   String? updated;
 
-  Listed({
+  SongList({
     this.rid,
     this.parentid,
     this.song,
