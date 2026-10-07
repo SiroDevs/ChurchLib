@@ -13,7 +13,6 @@ import '../../../common/utils/app_util.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../common/widgets/list_items/search_book_item.dart';
 import '../../../common/widgets/list_items/search_song_item.dart';
-import '../../../common/widgets/search/search_songs_utils.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
@@ -25,14 +24,9 @@ part 'widgets/song_viewer.dart';
 part 'widgets/list_widgets.dart';
 
 class SongsScreen extends StatefulWidget {
-  final bool isBigScreen;
   final HomeScreenState parent;
 
-  const SongsScreen({
-    super.key,
-    required this.parent,
-    this.isBigScreen = false,
-  });
+  const SongsScreen({super.key, required this.parent});
 
   @override
   State<SongsScreen> createState() => _SongsScreenState();
@@ -41,28 +35,21 @@ class SongsScreen extends StatefulWidget {
 class _SongsScreenState extends State<SongsScreen> {
   late SongSearchBloc bloc;
   late HomeScreenState parent;
-  late FocusNode searchFocus;
-  late TextEditingController searchController;
 
   @override
   void initState() {
     super.initState();
     parent = widget.parent;
     bloc = context.read<SongSearchBloc>();
-    searchFocus = FocusNode();
-    searchController = TextEditingController();
   }
 
   @override
   void dispose() {
-    searchFocus.dispose();
-    searchController.dispose();
-
     super.dispose();
   }
 
   Future<void> onSongSelect(SongExt song, bool shouldOpen) async {
-    setState(() => parent.selectedSong = song);
+    parent.selectSong(song);
     if (shouldOpen) {
       onSongOpen();
     }
@@ -90,43 +77,34 @@ class _SongsScreenState extends State<SongsScreen> {
     }
   }
 
-  void _onSearch(String query) {
-    setState(() {
-      parent.filtered = query.isEmpty
-          ? parent.songs
-          : filterSongsByQuery(query.toLowerCase(), parent.songs);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, dimens) {
+        final outline = Theme.of(context).colorScheme.outlineVariant;
         var bigScreenView = Row(
           children: [
-            Scaffold(
-              appBar: AppBar(
-                title: SearchWidget(
-                  searchFocus: searchFocus,
-                  searchController: searchController,
-                  onSearch: _onSearch,
+            Expanded(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border(right: BorderSide(color: outline)),
+                ),
+                child: Column(
+                  children: [
+                    BooksList(
+                      books: parent.books,
+                      selectedBook: parent.selectedBook,
+                    ),
+                    SongsList(
+                      selectedSong: parent.selectedSong,
+                      songs: parent.filtered,
+                      onTap: onSongSelect,
+                      isBigScreen: true,
+                    ).expanded(),
+                  ],
                 ),
               ),
-              body: Column(
-                children: [
-                  BooksList(
-                    books: parent.books,
-                    selectedBook: parent.selectedBook,
-                  ),
-                  SongsList(
-                    selectedSong: parent.selectedSong,
-                    songs: parent.filtered,
-                    onTap: onSongSelect,
-                    isBigScreen: true,
-                  ).expanded(),
-                ],
-              ),
-            ).width(dimens.maxWidth / 2.2),
+            ),
             SongViewer(
               song: parent.selectedSong,
               books: parent.books,
@@ -143,7 +121,7 @@ class _SongsScreenState extends State<SongsScreen> {
           child: Actions(
             actions: <Type, Action<Intent>>{
               SearchIntent: CallbackAction<SearchIntent>(
-                onInvoke: (intent) => searchFocus.requestFocus(),
+                onInvoke: (intent) => parent.searchFocus.requestFocus(),
               ),
               OpenIntent: CallbackAction<OpenIntent>(
                 onInvoke: (intent) => onSongOpen(),

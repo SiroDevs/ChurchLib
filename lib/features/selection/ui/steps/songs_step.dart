@@ -19,8 +19,6 @@ import '../../../../common/widgets/state/skeleton.dart';
 import '../../bloc/selection_bloc.dart';
 import '../widgets/selection_title.dart';
 
-/// Asks for confirmation (or explains that nothing is ticked) before the
-/// flow moves on from the songbooks step. Used by the bottom navigation bar.
 Future<void> confirmSongbooks(
   BuildContext context,
   SelectionState state,
@@ -85,7 +83,6 @@ class _SongsStepState extends State<SongsStep> {
       },
     );
 
-    // One responsive grid for every screen size: as many columns as fit.
     final grid = GridView.builder(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 360,

@@ -21,9 +21,6 @@ class AppAssets {
   static const String imgBg = '$assetsImages/bg.jpg';
   static const String imgBgBw = '$assetsImages/bgBW.jpg';
 
-  /// Splash backgrounds. One is picked at random on every launch (never the
-  /// same one twice in a row) — see `SplashScreen`. Drop a new image into
-  /// `assets/images` and add it here to include it in the rotation.
   static const List<String> splashBackgrounds = [
     '$assetsImages/bridge.jpg',
     '$assetsImages/eagle.jpg',

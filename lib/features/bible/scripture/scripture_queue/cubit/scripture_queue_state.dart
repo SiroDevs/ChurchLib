@@ -13,8 +13,6 @@ class ScriptureQueueState {
     this.activeItemId,
   });
 
-  /// True while a queue is open and should be shown in place of the
-  /// chapter navigation bar.
   bool get isOpen => items.isNotEmpty;
 
   ScriptureItem? get activeItem =>

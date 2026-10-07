@@ -7,10 +7,6 @@ import '../../../common/utils/constants/bible_constants.dart';
 
 part 'bible_version.g.dart';
 
-/// A downloadable Bible translation. Ported from biblelib-android's
-/// `BibleEntity` (`bibles` table) — [abbreviation] is the natural primary
-/// key there (e.g. "KJV", "NIV"), kept as-is here since froom/sqflite
-/// handles a non-autoincrement String primary key fine.
 @Entity(tableName: BibleConstants.biblesTable)
 @JsonSerializable()
 class BibleVersion {

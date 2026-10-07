@@ -1,7 +1,3 @@
-/// Route names for go_router — every [GoRoute] is registered with a
-/// matching `name:`, so call sites navigate with `context.goNamed(...)` /
-/// `context.pushNamed(...)` instead of hard-coded path strings. See
-/// `app_routes.dart`.
 class RouteNames {
   RouteNames._();
 

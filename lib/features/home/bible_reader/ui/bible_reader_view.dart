@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:math' as math;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
 import '../../../bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
+import '../../main/shell/app_module.dart';
+import '../../main/shell/app_shell.dart';
 import '../cubit/bible_reader_cubit.dart';
 import 'widgets/dialogs/export.dart';
 import 'widgets/toolbars/export.dart';
@@ -32,8 +35,50 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
   final _verseKeys = <String, GlobalKey>{};
   Timer? _scrollReportTimer;
 
+  static const _autoTick = Duration(milliseconds: 16);
+  static const _autoPixelsPerTick = 2.5;
+  static const _autoMinSpeed = 0.25;
+  static const _autoMaxSpeed = 4.0;
+  static const _autoSpeedStep = 0.25;
+  Timer? _autoScrollTimer;
+  bool _autoScrolling = false;
+  double _autoSpeed = _autoMinSpeed;
+
+  void _toggleAutoScroll() =>
+      _autoScrolling ? _stopAutoScroll() : _startAutoScroll();
+
+  void _startAutoScroll() {
+    _autoScrollTimer?.cancel();
+    setState(() => _autoScrolling = true);
+    _autoScrollTimer = Timer.periodic(_autoTick, (_) {
+      if (!_scrollController.hasClients) return;
+      final pos = _scrollController.position;
+      if (pos.pixels >= pos.maxScrollExtent) {
+        _stopAutoScroll();
+        return;
+      }
+      _scrollController.jumpTo(
+        math.min(
+          pos.maxScrollExtent,
+          pos.pixels + _autoPixelsPerTick * _autoSpeed,
+        ),
+      );
+    });
+  }
+
+  void _stopAutoScroll() {
+    _autoScrollTimer?.cancel();
+    _autoScrollTimer = null;
+    if (mounted && _autoScrolling) setState(() => _autoScrolling = false);
+  }
+
+  void _changeSpeed(double delta) => setState(
+    () => _autoSpeed = (_autoSpeed + delta).clamp(_autoMinSpeed, _autoMaxSpeed),
+  );
+
   @override
   void dispose() {
+    _autoScrollTimer?.cancel();
     _scrollReportTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
@@ -54,6 +99,7 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
   }
 
   void _onStateChanged(BuildContext context, BibleReaderState state) {
+    _stopAutoScroll();
     final target = state.restoreVerseId;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -113,28 +159,56 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
               (!identical(p.verses, c.verses) && c.restoreVerseId != null),
           listener: _onStateChanged,
           builder: (context, state) {
-            return Scaffold(
-              body: SafeArea(
-                child: Column(
-                  children: [
-                    state.isSelectionMode
-                        ? SelectionBar(state: state)
-                        : TopBar(state: state),
-                    if (state.isLoading && state.verses.isNotEmpty)
-                      const LinearProgressIndicator(
-                        minHeight: 2,
-                        color: ThemeColors.primary,
+            return AppShell(
+              module: AppModule.biblelib,
+              sidebarItems: bibleSidebarItems(context),
+              titleBar: state.isSelectionMode
+                  ? SelectionBar(state: state)
+                  : BibleTitleBar(state: state),
+              body: Column(
+                children: [
+                  if (state.isLoading && state.verses.isNotEmpty)
+                    const LinearProgressIndicator(
+                      minHeight: 2,
+                      color: ThemeColors.primary,
+                    ),
+                  Expanded(
+                    child: Listener(
+                      onPointerDown: (_) => _stopAutoScroll(),
+                      child: ColoredBox(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
+                        child: _buildBody(context, state),
                       ),
-                    Expanded(child: _buildBody(context, state)),
-                    if (state.activeChapter != null)
-                      BlocBuilder<ScriptureQueueCubit, ScriptureQueueState>(
-                        bloc: getIt<ScriptureQueueCubit>(),
-                        builder: (context, queueState) => queueState.isOpen
-                            ? ScriptureQueueBar(queueState: queueState)
-                            : ChapterNavBar(state: state),
-                      ),
-                  ],
-                ),
+                    ),
+                  ),
+                  if (state.activeChapter != null)
+                    BlocBuilder<ScriptureQueueCubit, ScriptureQueueState>(
+                      bloc: getIt<ScriptureQueueCubit>(),
+                      builder: (context, queueState) => queueState.isOpen
+                          ? ScriptureQueueBar(queueState: queueState)
+                          : BibleBottomBar(
+                              state: state,
+                              autoScrolling: _autoScrolling,
+                              autoScrollSpeed: _autoSpeed,
+                              onToggleAutoScroll: _toggleAutoScroll,
+                              onSpeedUp: () => _changeSpeed(_autoSpeedStep),
+                              onSpeedDown: () => _changeSpeed(-_autoSpeedStep),
+                              onPrevious: () => cubit.navigateChapter(-1),
+                              onNext: () => cubit.navigateChapter(1),
+                              onPickChapter: () async {
+                                final chapter = await showChapterPicker(
+                                  context,
+                                  bookName: state.activeBook?.name ?? '',
+                                  chapters: state.chapters,
+                                  activeChapterId: state.activeChapter?.id,
+                                );
+                                if (chapter != null) cubit.selectChapter(chapter);
+                              },
+                            ),
+                    ),
+                ],
               ),
             );
           },
@@ -192,16 +266,16 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
           key: _viewportKey,
           controller: _scrollController,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 860),
+          child: SizedBox(
+              width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (state.activeBook != null && state.activeChapter != null)
                     Text(
                       state.activeChapter!.reference,
-                      style: const TextStyle(
-                        fontSize: 24,
+                      style: TextStyle(
+                        fontSize: state.fontSize * 1.1,
                         fontWeight: FontWeight.bold,
                         color: ThemeColors.primary,
                       ),
@@ -244,6 +318,6 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
             ),
           ),
         ),
-      ).center();
+      );
   }
 }

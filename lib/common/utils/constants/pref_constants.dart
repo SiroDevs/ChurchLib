@@ -25,7 +25,7 @@ class PrefConstants {
   static const bibleLastBookIdKey = 'bible_last_book_id';
   static const bibleLastChapterIdKey = 'bible_last_chapter_id';
   static const bibleLastVerseIdKey = 'bible_last_verse_id';
-  static const bibleFontSizeKey = 'bible_font_size_sp';
+  static const bibleFontSizeKey = 'bible_font_size_sp_v2';
   static const bibleMultiBibleEnabledKey = 'bible_multi_bible_enabled';
 
   static const songlibModuleEnabledKey = 'module_songlib_enabled';
@@ -42,7 +42,5 @@ class PrefConstants {
   static const donationCheckKey = 'donation_check';
   static const wakeLockCheckKey = 'wake_lock_check';
 
-  /// Index (+1, so 0 means "none yet") of the splash background shown on the
-  /// previous launch, so the next launch never repeats it.
   static const splashBgIndexKey = 'splash_bg_index';
 }

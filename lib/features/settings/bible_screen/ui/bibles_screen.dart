@@ -12,10 +12,6 @@ import '../../../../data/models/bible/bible_version.dart';
 import '../../../../domain/repos/bible/bible_selection_repo.dart';
 import '../bloc/bibles_cubit.dart';
 
-/// Ported from biblelib-android's Bibles management screen: shows every
-/// selected translation with its status (downloaded, downloading, failed),
-/// a primary badge, per-row actions, and a section for choosing which
-/// translations appear in the reader's parallel view.
 class BiblesScreen extends StatelessWidget {
   const BiblesScreen({super.key});
 
@@ -401,7 +397,6 @@ class _SecondarySection extends StatelessWidget {
 class _SecondaryTile extends StatelessWidget {
   final BibleVersion bible;
 
-  /// -1 when not selected as a secondary Bible.
   final int index;
   final int total;
   final bool enabled;

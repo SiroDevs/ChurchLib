@@ -2,9 +2,6 @@
 import '../../utils/app_util.dart';
 import '../../../data/models/song/songext.dart';
 
-/// Matches [query] against a song's number, title, alias and content —
-/// comma-separated query words all have to match (in any order), each
-/// against any of the three text fields.
 List<SongExt> filterSongsByQuery(String query, List<SongExt> songs) {
   return songs.where((song) {
     if (isNumeric(query) && song.songNo == int.parse(query)) {

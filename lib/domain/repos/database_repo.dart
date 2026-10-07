@@ -8,7 +8,6 @@ abstract class DatabaseRepo {
 
   Future<void> removeBook(SongBook book);
 
-  /// Removes the songbook with this server `bookId`.
   Future<void> removeBookByBookId(int bookId);
 
   Future<void> removeAllBooks();
@@ -38,7 +37,6 @@ abstract class DatabaseRepo {
 
   Future<void> removeSong(Song song);
 
-  /// Removes every song of the songbook with this `bookId`.
   Future<void> removeSongsByBook(int bookId);
 
   Future<void> removeAllSongs();

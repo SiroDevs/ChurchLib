@@ -9,22 +9,16 @@ import 'package:skeleton_loader/skeleton_loader.dart';
 import '../../../core/theme/theme_colors.dart';
 
 class LineProgress extends StatelessWidget {
-  /// height or width of the linear percentindicator
   final double progressSize;
 
-  /// progress value of the linear percentindicator
   final int progressVl;
 
-  /// Color of the border for the widget
   final Color borderColor;
 
-  /// Progress Color of the indicator
   final Color progressColor;
 
-  /// Background Color for the widget
   final Color backgroundColor;
 
-  /// Background Color for the widget
   final bool isVertical;
 
   const LineProgress({

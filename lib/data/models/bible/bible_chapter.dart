@@ -7,8 +7,6 @@ import '../../../common/utils/constants/bible_constants.dart';
 
 part 'bible_chapter.g.dart';
 
-/// A chapter within a [BibleBook]. Ported from biblelib-android's
-/// `ChapterEntity` (`chapters` table).
 @Entity(
   tableName: BibleConstants.chaptersTable,
   primaryKeys: ['id', 'bibleAbbr'],

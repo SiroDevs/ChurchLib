@@ -66,9 +66,6 @@ class PresentOnPcState extends State<PresentOnPc> with TickerProviderStateMixin 
               onPressed: () => widget.onSelect!(index),
               child: Text(
                 widget.infos![index],
-                /*style: TextStyles.Btn.bold
-                    .size(30)
-                    .textColor(isSelected ? Colors.white : Colors.black),*/
               ),
             ),
           );

@@ -7,13 +7,6 @@ import '../../../common/utils/constants/bible_constants.dart';
 
 part 'bible_bookmark.g.dart';
 
-/// A bookmarked verse. Ported from biblelib-android's `BookmarkEntity`
-/// (`bookmarks` table).
-///
-/// [colorHex] is null for a "quick" single-verse bookmark (swipe action) —
-/// shown in the reader as a small bookmark icon next to the verse. When a
-/// color is set (chosen via the multi-select highlight flow) the verse row
-/// is rendered with that color as a background wash.
 @Entity(
   tableName: BibleConstants.bookmarksTable,
   primaryKeys: ['verseId', 'bibleAbbr'],

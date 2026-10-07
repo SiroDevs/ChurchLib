@@ -7,11 +7,6 @@ import '../../../common/utils/constants/bible_constants.dart';
 
 part 'bible_verse_cache.g.dart';
 
-/// Cached verse content for one chapter. Ported from biblelib-android's
-/// `VerseEntity` (`verses` table) — despite the name, Android stores one
-/// row per *chapter* here, with all of that chapter's verses packed into
-/// [contentJson], not one row per verse. Kept identical here so the same
-/// parsing/caching logic can be ported later without a schema mismatch.
 @Entity(
   tableName: BibleConstants.versesTable,
   primaryKeys: ['chapterId', 'bibleAbbr'],

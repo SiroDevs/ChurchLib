@@ -3,13 +3,11 @@ import '../../../data/models/bible/bible_bookmark.dart';
 import '../../../data/models/bible/bible_note.dart';
 import '../../../data/sources/local/app_database.dart';
 
-/// Ported from biblelib-android's `AnnotationRepo`.
 class BibleAnnotationRepo {
   final AppDatabase _appDB;
 
   BibleAnnotationRepo(this._appDB);
 
-  /// verseId -> colorHex (null for a quick, uncolored bookmark).
   Future<Map<String, String?>> getBookmarksForChapter(
     String abbr,
     String chapterId,

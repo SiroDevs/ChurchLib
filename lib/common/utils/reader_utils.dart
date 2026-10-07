@@ -8,20 +8,12 @@ import '../../domain/repos/bible/bible_tracking_repo.dart';
 import '../../domain/repos/pref_repo.dart';
 import 'constants/pref_constants.dart';
 
-// ---------------------------------------------------------------------------
-// Font size
-// ---------------------------------------------------------------------------
-
-const readerDefaultFontSize = 18;
-const readerMinFontSize = 12;
-const readerMaxFontSize = 40;
+const readerDefaultFontSize = 26;
+const readerMinFontSize = 14;
+const readerMaxFontSize = 56;
 
 int clampReaderFontSize(int size) =>
     size.clamp(readerMinFontSize, readerMaxFontSize);
-
-// ---------------------------------------------------------------------------
-// Preferences
-// ---------------------------------------------------------------------------
 
 String readerLastBibleAbbr(PrefRepo prefs) =>
     prefs.getPrefString(PrefConstants.bibleLastBibleAbbrKey);
@@ -40,13 +32,11 @@ bool readerMultiBibleEnabled(PrefRepo prefs) => prefs.getPrefBool(
       defaultValue: true,
     );
 
-/// The stored font size, or [readerDefaultFontSize] when none is saved.
 int readerStoredFontSize(PrefRepo prefs) {
   final stored = prefs.getPrefInt(PrefConstants.bibleFontSizeKey);
   return stored > 0 ? stored : readerDefaultFontSize;
 }
 
-/// Secondary (parallel) Bible abbreviations, stored as a CSV.
 List<String> readerSecondaryBibles(PrefRepo prefs) {
   final csv = prefs.getPrefString(PrefConstants.bibleSecondaryKey);
   return csv.isEmpty ? [] : csv.split(',').where((e) => e.isNotEmpty).toList();
@@ -61,7 +51,6 @@ void saveReaderMultiBibleEnabled(PrefRepo prefs, bool enabled) =>
 void saveReaderLastVerseId(PrefRepo prefs, String verseId) =>
     prefs.setPrefString(PrefConstants.bibleLastVerseIdKey, verseId);
 
-/// Remembers where the reader is so it can resume there next time.
 void saveReaderPosition(
   PrefRepo prefs, {
   required String bibleAbbr,
@@ -73,7 +62,6 @@ void saveReaderPosition(
   prefs.setPrefString(PrefConstants.bibleLastChapterIdKey, chapterId);
 }
 
-/// Makes [abbr] the primary Bible and drops it from the secondary list.
 void saveReaderPrimaryBible(
   PrefRepo prefs, {
   required String abbr,
@@ -87,16 +75,9 @@ void saveReaderPrimaryBible(
   );
 }
 
-// ---------------------------------------------------------------------------
-// Resolving what to load
-// ---------------------------------------------------------------------------
-
-/// The item matching [test], or the first item when nothing matches.
 T firstWhereOrFirst<T>(List<T> items, bool Function(T) test) =>
     items.firstWhere(test, orElse: () => items.first);
 
-/// Picks the Bible to open: the requested one, else the last-read one, else
-/// the first available. [bibles] must not be empty.
 ({String abbr, String name}) resolveReaderBible({
   required List<BibleVersion> bibles,
   required String requestedAbbr,
@@ -110,7 +91,6 @@ T firstWhereOrFirst<T>(List<T> items, bool Function(T) test) =>
   return (abbr: abbr, name: name);
 }
 
-/// The scroll target for the verse a caller asked to open, if any.
 ScrollTarget? initialReaderScrollTarget({
   required String verseId,
   required String searchQuery,
@@ -122,9 +102,6 @@ ScrollTarget? initialReaderScrollTarget({
   );
 }
 
-/// Decides which verse to scroll to once a chapter has loaded: an explicit
-/// target wins, then the first verse (when forced), then the last-read verse
-/// on the very first load.
 ScrollTarget? resolveReaderScrollTarget({
   required ScrollTarget? explicit,
   required bool forceFirst,
@@ -140,9 +117,6 @@ ScrollTarget? resolveReaderScrollTarget({
   return null;
 }
 
-/// Abbreviations of the parallel Bibles to show next to [primaryAbbr]: the
-/// user's downloaded secondary list, falling back to every other downloaded
-/// Bible.
 List<String> parallelBibleAbbrs({
   required String primaryAbbr,
   required List<BibleVersion> savedBibles,
@@ -164,10 +138,6 @@ List<String> parallelBibleAbbrs({
       .toList();
 }
 
-// ---------------------------------------------------------------------------
-// History tracking
-// ---------------------------------------------------------------------------
-
 Future<void> recordReaderPosition(
   BibleTrackingRepo tracking, {
   required String bibleAbbr,
@@ -188,17 +158,12 @@ Future<void> recordReaderPosition(
   );
 }
 
-// ---------------------------------------------------------------------------
-// Selection, bookmarks & notes
-// ---------------------------------------------------------------------------
-
 Set<String> toggleVerseSelection(Set<String> selected, String verseId) {
   final next = {...selected};
   if (!next.remove(verseId)) next.add(verseId);
   return next;
 }
 
-/// The selected verses, in verse-number order.
 List<VerseDisplay> selectedVersesSorted(
   List<VerseDisplay> verses,
   Set<String> selectedIds,
@@ -238,11 +203,6 @@ NotesRequest buildNotesRequest({
   );
 }
 
-// ---------------------------------------------------------------------------
-// Sharing
-// ---------------------------------------------------------------------------
-
-/// Share text for the selected verses, or null when none are selected.
 String? buildVerseSelectionShareText({
   required List<VerseDisplay> selected,
   required List<VerseDisplay> chapterVerses,
@@ -258,7 +218,6 @@ String? buildVerseSelectionShareText({
   return buildShareText(reference, body, bibleName, language);
 }
 
-/// Share text for the whole chapter, or null when it has no verses.
 String? buildChapterShareText({
   required List<VerseDisplay> chapterVerses,
   required BibleBook? book,
@@ -278,7 +237,6 @@ String? buildChapterShareText({
   );
 }
 
-/// "Book Chapter:" (or "Book " when the chapter has no usable number).
 String referencePrefix(
   BibleBook? book,
   BibleChapter? chapter,
@@ -304,7 +262,6 @@ String buildShareText(
   return '$reference\n\n$body\n\n— $footnote';
 }
 
-/// Collapses verse numbers into ranges, e.g. `[1,2,3,5]` -> `1-3, 5`.
 String formatVerseRange(List<int> numbers) {
   if (numbers.isEmpty) return '';
   final sorted = [...numbers]..sort();

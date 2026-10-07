@@ -7,8 +7,6 @@ import '../../../common/utils/constants/bible_constants.dart';
 
 part 'bible_note.g.dart';
 
-/// A user note attached to a verse. Ported from biblelib-android's
-/// `NoteEntity` (`notes` table).
 @Entity(
   tableName: BibleConstants.notesTable,
   primaryKeys: ['verseId', 'bibleAbbr'],

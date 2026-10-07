@@ -51,10 +51,6 @@ class MyAppState extends State<MyApp> {
   }
 }
 
-/// Builds the router (once, from the [AuthBloc] this widget is under) and
-/// renders it via [MaterialApp.router] — replaces the old imperative
-/// navigator; see `common/navigator/app_router.dart` for the onboarding
-/// redirect that used to live in this widget's `BlocListener`.
 class AppView extends StatefulWidget {
   const AppView({super.key});
 

@@ -3,15 +3,11 @@ import '../../../data/models/bible/scripture_item.dart';
 import '../../../data/models/bible/scripture_list.dart';
 import '../../../data/sources/local/app_database.dart';
 
-/// Ported from biblelib-android's `ScriptureRepo`.
 class ScriptureRepo {
   final AppDatabase _appDB;
 
   ScriptureRepo(this._appDB);
 
-  /// Saves a new list from freshly-built items (their `listId`/`sortOrder`
-  /// are set here, like Android does before inserting). Returns the new
-  /// list's id.
   Future<int> saveList(List<ScriptureItem> items, {String? name}) async {
     if (items.isEmpty) {
       throw ArgumentError('Cannot save an empty scripture list');

@@ -58,8 +58,6 @@ class _BiblesStepState extends State<BiblesStep> {
     );
   }
 
-  /// Search box and the grouping strip share one row when there is room;
-  /// on narrow screens the strip drops under the search box.
   Widget _searchAndStrip() {
     final search = TextField(
       onChanged: (v) => setState(() => _query = v),

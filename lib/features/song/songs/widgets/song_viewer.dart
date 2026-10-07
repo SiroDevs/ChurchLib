@@ -24,6 +24,20 @@ class SongViewerState extends State<SongViewer> {
     bloc = context.read<SongSearchBloc>();
   }
 
+  Future<void> onCopy() async {
+    final song = widget.song;
+    final verses = song.content.split("##").map((v) => v.replaceAll("#", "\n"));
+    final text = '${songItemTitle(song.songNo, song.title)}\n\n${verses.join("\n\n")}';
+    await Clipboard.setData(ClipboardData(text: text));
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Song copied to clipboard'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   Future<void> onPresent() async {
     SongBook book = widget.books[0];
     try {
@@ -52,42 +66,19 @@ class SongViewerState extends State<SongViewer> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${songItemTitle(widget.song.songNo, widget.song.title)} - ${refineTitle(widget.song.songbook)}',
+          songViewerTitle(widget.song),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
-        actions: <Widget>[
+        actions: [
           Tooltip(
             message: l10n.copySong,
-            child: InkWell(
-              onTap: () {},
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Icon(Icons.copy),
-              ),
+            child: IconButton(
+              onPressed: onCopy,
+              icon: const Icon(Icons.copy),
             ),
           ),
-          Tooltip(
-            message: widget.song.liked ? l10n.songDislike : l10n.songLike,
-            child: InkWell(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Icon(
-                  widget.song.liked ? Icons.favorite : Icons.favorite_border,
-                ),
-              ),
-            ),
-          ),
-          Tooltip(
-            message: l10n.projectSong,
-            child: InkWell(
-              onTap: onPresent,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Icon(Icons.north_east),
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 6),
         ],
       ),
       body: ListView.builder(
@@ -103,6 +94,68 @@ class SongViewerState extends State<SongViewer> {
           );
         },
       ),
+      bottomNavigationBar: Material(
+        color: Theme.of(context).colorScheme.secondaryContainer,
+        child: SafeArea(
+          top: false,
+          child: SizedBox(
+            height: 56,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _ActionButton(
+                  icon: widget.song.liked
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  label: widget.song.liked ? 'Liked' : 'Like',
+                  tooltip: widget.song.liked
+                      ? l10n.songDislike
+                      : l10n.songLike,
+                  onTap: () {},
+                ),
+                _ActionButton(
+                  icon: Icons.north_east,
+                  label: 'Present',
+                  tooltip: l10n.projectSong,
+                  onTap: onPresent,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
+}
+
+class _ActionButton extends StatelessWidget {
+  const _ActionButton({
+    required this.icon,
+    required this.label,
+    required this.tooltip,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final String tooltip;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: TextButton.icon(
+        onPressed: onTap,
+        icon: Icon(icon, size: 20),
+        label: Text(label),
+      ),
+    );
+  }
+}
+
+String songViewerTitle(SongExt song) {
+  final title = songItemTitle(song.songNo, song.title);
+  final book = refineTitle(song.songbook);
+  return book.isEmpty ? title : '$title · $book';
 }

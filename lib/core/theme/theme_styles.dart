@@ -13,22 +13,16 @@ class AppDurations {
 }
 
 class Sizes {
-  /// extra small size = 5
   static const double xs = 5;
 
-  /// small size = 10
   static const double sm = 10;
 
-  /// medium size = 15
   static const double m = 15;
 
-  /// large size = 20
   static const double l = 20;
 
-  /// extra large size = 30
   static const double xl = 30;
 
-  /// extra extra large size = 50
   static const double xxl = 50;
 }
 
@@ -41,7 +35,6 @@ class Insets {
 
   static const double scale = 1;
 
-  /// Dynamic insets, may get scaled with the device size
   static double mGutter = m * gutterScale;
 
   static double lGutter = l * gutterScale;
@@ -83,28 +76,24 @@ class Corners {
 
   static const double dialog = 12;
 
-  /// Xs
   static const double s3 = 3;
 
   static BorderRadius get s3Border => BorderRadius.all(s3Radius);
 
   static Radius get s3Radius => const Radius.circular(s3);
 
-  /// Small
   static const double s5 = 5;
 
   static BorderRadius get s5Border => BorderRadius.all(s5Radius);
 
   static Radius get s5Radius => const Radius.circular(s5);
 
-  /// Medium
   static const double s8 = 8;
 
   static const BorderRadius s8Border = BorderRadius.all(s8Radius);
 
   static const Radius s8Radius = Radius.circular(s8);
 
-  /// Large
   static const double s10 = 10;
 
   static BorderRadius get s10Border => BorderRadius.all(s10Radius);

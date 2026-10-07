@@ -7,20 +7,12 @@ import '../../../data/sources/remote/bible/bible_dtos.dart';
 import '../pref_repo.dart';
 import 'bible_repo.dart';
 
-/// Max translations on first install / extra allowed when re-selecting —
-/// same limits as Android's `SelectionViewModel`.
 const bibleFirstInstallMax = 7;
 const bibleAdditionalAllowed = 5;
 
-/// How many non-primary translations are auto-marked as "secondary" (shown
-/// alongside the primary in the reader). Android: `DEFAULT_SECONDARY_BIBLES`.
 const _defaultSecondaryBibles = 2;
 const bibleMaxSecondaryBibles = 5;
 
-/// Ported from biblelib-android's `SelectionBookkeeping.kt` and
-/// `FirstTimeSelectionController.kt`. The first selected translation is the
-/// "primary": it is downloaded with visible progress before the user
-/// reaches the reader. The rest download quietly in the background.
 class BibleSelectionRepo {
   final BibleRepo _bibleRepo = getIt<BibleRepo>();
   final PrefRepo _prefRepo = getIt<PrefRepo>();
@@ -38,8 +30,6 @@ class BibleSelectionRepo {
   Future<List<BibleInfoDto>> fetchAvailable() =>
       _bibleRepo.fetchAvailableBibles();
 
-  /// Persists the user's choice: deletes translations they dropped, stores
-  /// selection prefs, and writes `bible_bibles` rows (not yet downloaded).
   Future<void> persistSelection(List<BibleInfoDto> selected) async {
     final primary = selected.first;
     final newAbbrs = selected.map((e) => e.abbreviation).toSet();
@@ -91,8 +81,6 @@ class BibleSelectionRepo {
     ]);
   }
 
-  /// Downloads the primary translation (reporting progress), marks BibleLib
-  /// as loaded, then starts the remaining translations in the background.
   Future<void> downloadPrimaryAndQueueSecondaries(
     List<BibleInfoDto> selected, {
     required Future<void> Function(String step, double progress) onProgress,
@@ -121,9 +109,6 @@ class BibleSelectionRepo {
 
   Future<void> restart(String abbr) => _bibleRepo.clearBibleContent(abbr);
 
-  /// Fire-and-forget, one translation at a time so the primary reader
-  /// stays responsive. Failures leave the row flagged `downloadFailed`
-  /// (set by the repository) for the Bibles screen to retry later.
   void _downloadSecondariesInBackground(List<String> abbrs) {
     Future(() async {
       for (final abbr in abbrs) {

@@ -7,9 +7,6 @@ import '../../../common/utils/constants/bible_constants.dart';
 
 part 'bible_book.g.dart';
 
-/// A book (e.g. Genesis, Matthew) within one [BibleVersion]. Ported from
-/// biblelib-android's `BookEntity` (`books` table) — composite key
-/// (id, bibleAbbr) since the same book id repeats across translations.
 @Entity(
   tableName: BibleConstants.booksTable,
   primaryKeys: ['id', 'bibleAbbr'],

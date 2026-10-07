@@ -14,19 +14,22 @@ import '../bloc/bookmarks_notes_cubit.dart';
 import 'widgets/bookmarks_notes_tabs.dart';
 
 class BookmarksNotesScreen extends StatelessWidget {
-  const BookmarksNotesScreen({super.key});
+  final int initialTab;
+
+  const BookmarksNotesScreen({super.key, this.initialTab = 0});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => BookmarksNotesCubit(),
-      child: const _BookmarksNotesView(),
+      child: _BookmarksNotesView(initialTab: initialTab),
     );
   }
 }
 
 class _BookmarksNotesView extends StatefulWidget {
-  const _BookmarksNotesView();
+  final int initialTab;
+  const _BookmarksNotesView({required this.initialTab});
 
   @override
   State<_BookmarksNotesView> createState() =>
@@ -40,7 +43,11 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: widget.initialTab.clamp(0, 1),
+    );
   }
 
   @override

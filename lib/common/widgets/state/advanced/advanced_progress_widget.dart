@@ -1,7 +1,5 @@
 part of 'advanced_progress.dart';
 
-/// Advanced progress widget.
-/// Represents two progress, primary and secondary.
 class AdvancedProgress extends StatelessWidget {
   const AdvancedProgress({
     super.key,
@@ -25,61 +23,40 @@ class AdvancedProgress extends StatelessWidget {
     this.child,
   });
 
-  /// Total radius for whole widget.
   final double radius;
 
-  /// Value for primary progress.
   final double? primaryValue;
 
-  /// Value for secondary progress.
   final double? secondaryValue;
 
-  /// Secondary progress width.
   final double secondaryWidth;
 
-  /// Progress start angle.
   final double startAngle;
 
-  /// Progress degrees from [startAngle].
   final double maxDegrees;
 
-  /// Gap between primary and secondary progress.
   final double progressGap;
 
-  /// Primary progress division.
   final int division;
 
-  /// Amount of levels on primary progress.
   final int? levelAmount;
 
-  /// Width of levels on primary progress.
   final double levelLowWidth;
 
-  /// Height of low levels on primary progress.
   final double levelLowHeight;
 
-  /// Height of high levels managed by [division] on primary progress.
   final double levelHighHeight;
 
-  /// Width of levels on primary progress.
   final double levelHighWidth;
 
-  /// True if need to begin and end with high level.
   final bool levelHighBeginEnd;
 
-  /// Primary color that used as a color for progress of first in gradient.
-  /// User for primary and secondary progress.
   final Color? primaryColor;
 
-  /// Secondary color that used last in gradient.
-  /// User for primary and secondary progress.
   final Color? secondaryColor;
 
-  /// Tertiary color that used for inactive part of progress.
-  /// User for primary and secondary progress.
   final Color? tertiaryColor;
 
-  /// Child widget.
   final Widget? child;
 
   @override

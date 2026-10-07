@@ -3,7 +3,6 @@ import '../../data/models/models.dart';
 import '../../data/sources/local/app_database.dart';
 import 'database_repo.dart';
 
-/// Implementor of Database Repo
 class DatabaseRepoImpl implements DatabaseRepo {
   final AppDatabase _appDB;
 

@@ -27,7 +27,6 @@ class PaginationHandler {
 
   void scrollListener() {
     if (!stopLoading) {
-      //load more data
       if (scrollController.offset >=
               scrollController.position.maxScrollExtent * boundaryOffset &&
           !isLoading) {

@@ -15,31 +15,22 @@ class ThemeFonts {
 }
 
 class FontSizes {
-  /// font size 10
   static const double s10 = 10;
 
-  /// font size 12
   static const double s12 = 12;
 
-  /// font size 14
   static const double s14 = 14;
 
-  /// font size 16
   static const double s16 = 16;
 
-  /// font size 18
   static const double s18 = 18;
 
-  /// font size 20
   static const double s20 = 20;
 
-  /// font size 22
   static const double s22 = 22;
 
-  /// font size 25
   static const double s25 = 25;
 
-  /// font size 30
   static const double s30 = 30;
 }
 

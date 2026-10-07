@@ -27,7 +27,6 @@ enum PageType { lists, search, likes, drafts, helpdesk, settings }
 List<PageType> pages = [
   PageType.search,
   PageType.likes,
-  PageType.settings,
 ];
 
 class PageItem {

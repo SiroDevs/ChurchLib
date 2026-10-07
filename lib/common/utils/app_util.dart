@@ -31,7 +31,6 @@ String getThemeModeString(ThemeMode themeMode) {
   }
 }
 
-/// Filter out unwanted characters
 String? filterString(String input) {
   RegExp regex = RegExp(r': (.+?) :');
   RegExpMatch? match = regex.firstMatch(input);

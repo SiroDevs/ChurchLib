@@ -5,16 +5,12 @@ import 'package:flutter/material.dart';
 import 'wave.dart';
 
 class WaveProgressIndicator extends ProgressIndicator {
-  ///The width of the border, if this is set [borderColor] must also be set.
   final double? borderWidth;
 
-  ///The color of the border, if this is set [borderWidth] must also be set.
   final Color? borderColor;
 
-  ///The widget to show in the center of the progress indicator.
   final Widget? center;
 
-  ///The direction the liquid travels.
   final Axis direction;
 
   WaveProgressIndicator({

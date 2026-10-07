@@ -78,8 +78,6 @@ abstract class RegisterModule {
   ScriptureRepo provideScriptureRepo(AppDatabase appDatabase) =>
       ScriptureRepo(appDatabase);
 
-  /// Session-scoped: one shared instance for the Scripture Opener,
-  /// Scripture Lists screens and the reader's floating queue widget.
   @lazySingleton
   ScriptureQueueCubit provideScriptureQueueCubit() => ScriptureQueueCubit();
 }

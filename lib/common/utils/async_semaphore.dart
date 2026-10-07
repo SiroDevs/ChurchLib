@@ -2,12 +2,6 @@
 import 'dart:async';
 import 'dart:collection';
 
-/// Bounds how many `withPermit` blocks run concurrently, mirroring
-/// Kotlin's `kotlinx.coroutines.sync.Semaphore` usage in Android's
-/// `BibleRepo.downloadBible` (`Semaphore(MAX_CONCURRENT_BOOK_BATCHES)`).
-/// No external package needed — Dart has no built-in equivalent, but the
-/// pattern is simple: a counter of free permits and a FIFO queue of
-/// waiters.
 class AsyncSemaphore {
   int _available;
   final Queue<Completer<void>> _waiters = Queue();

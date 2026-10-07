@@ -8,7 +8,6 @@ import '../../../domain/entities/basic_model.dart';
 import '../../../domain/repos/pref_repo.dart';
 import 'app_nav_icon.dart';
 
-/// Custom Bottom Navigation Bar that will handle the page to be displayed on the dashboard
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     required this.selectedIndex,
@@ -27,7 +26,6 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  /// This is used for the swipe drag gesture on the bottom nav bar
   PrefRepo prefrepo = getIt<PrefRepo>();
   bool bottomNavBarSwipeGestures = false;
   bool bottomNavBarDoubleTapGestures = false;

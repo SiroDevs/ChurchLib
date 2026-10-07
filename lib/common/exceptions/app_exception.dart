@@ -4,7 +4,6 @@ class AppException implements Exception {
     this.debugString = "",
   ]);
 
-  /// This MUST be a user friendly error message
   final String message;
 
   final String debugString;

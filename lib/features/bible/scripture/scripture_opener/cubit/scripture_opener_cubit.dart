@@ -110,8 +110,6 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
         ));
   }
 
-  /// Opens the searched scripture right away, without touching the saved
-  /// queue.
   ReaderTarget? openScripture(String rowKey) {
     final row = state.rows.where((r) => r.key == rowKey).firstOrNull;
     if (row == null || !row.isComplete) return null;
@@ -121,8 +119,6 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
     return target;
   }
 
-  /// Locks the current row into the queue and reveals a fresh blank row
-  /// beneath it.
   void addToQueue(String rowKey) {
     final row = state.rows.where((r) => r.key == rowKey).firstOrNull;
     if (row == null || !row.isComplete) return;

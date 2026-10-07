@@ -21,12 +21,12 @@ class ScrollTarget {
 }
 
 const readerHighlightColors = [
-  '#FFF59D', // yellow
-  '#A5D6A7', // green
-  '#90CAF9', // blue
-  '#F48FB1', // pink
-  '#FFCC80', // orange
-  '#CE93D8', // purple
+  '#FFF59D',
+  '#A5D6A7',
+  '#90CAF9',
+  '#F48FB1',
+  '#FFCC80',
+  '#CE93D8',
 ];
 
 class NotesRequest {

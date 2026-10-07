@@ -12,7 +12,6 @@ import '../list_items/search_book_item.dart';
 import '../list_items/search_song_item.dart';
 import 'search_songs_utils.dart';
 
-/// Small screen search
 class SongsSearch extends SearchDelegate<List> {
   final List<SongBook> books;
   final List<SongExt> songs;

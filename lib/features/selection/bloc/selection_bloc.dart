@@ -42,7 +42,6 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
   final _songRepo = SongSelectionRepo();
   final _bibleRepo = BibleSelectionRepo();
 
-  // ── initial state ────────────────────────────────────────────────────────
   static SelectionState _initial(PrefRepo prefs, SelectionStepType? only) {
     if (only != null) return SelectionState(steps: [only]);
 
@@ -284,8 +283,6 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
     }
 
     if (songs.isNotEmpty) {
-      // Only now that the download worked: drop any earlier copy of these
-      // books' songs so nothing ends up twice.
       for (final id in _savedBookIds()) {
         await _dbRepo.removeSongsByBook(id);
       }
@@ -327,7 +324,6 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
         _ => state.songsFeedback,
       };
 
-  // ── bibles ───────────────────────────────────────────────────────────────
   List<BibleInfoDto> get _selectedDtos => [
         for (final abbr in state.selectedAbbrs)
           ...state.availableBibles.where((b) => b.abbreviation == abbr),

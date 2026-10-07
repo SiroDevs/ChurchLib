@@ -7,9 +7,6 @@ import '../../../common/utils/constants/bible_constants.dart';
 
 part 'scripture_item.g.dart';
 
-/// A single book/chapter/verse reference belonging to a [ScriptureList].
-/// Ported from biblelib-android's `ScriptureItemEntity`
-/// (`scripture_items` table).
 @Entity(
   tableName: BibleConstants.scriptureItemsTable,
   indices: [Index(value: ['listId'])],
@@ -29,7 +26,6 @@ class ScriptureItem {
   String verseId;
   int verseNumber;
 
-  /// Display label, e.g. "Genesis 1:1".
   String reference;
   int sortOrder;
   int addedAt;

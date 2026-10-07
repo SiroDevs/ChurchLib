@@ -19,17 +19,16 @@ Future<bool> isConnectedToInternet() async {
     // ignore: unrelated_type_equality_checks
     if (connectivityResult == ConnectivityResult.none) return false;
 
-    const exampleHost = 'example.com'; // Or use your server
+    const exampleHost = 'example.com';
     final result = await InternetAddress.lookup(exampleHost);
     return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
   } on SocketException catch (_) {
     return false;
   } catch (_) {
-    return false; // Handle other exceptions
+    return false;
   }
 }
 
-/// Http get request
 Future<http.Response> makeApiGetRequest(
   String endpoint,
   Map<String, String> headers,
@@ -66,7 +65,6 @@ Future<http.Response> makeApiGetRequest(
   }
 }
 
-/// Http patch request
 Future<http.Response> makeApiPatchRequest(
   String endpoint,
   Map<String, String> headers,
@@ -105,7 +103,6 @@ Future<http.Response> makeApiPatchRequest(
   }
 }
 
-/// Http post resquest
 Future<http.Response> makeApiPostRequest(
   String endpoint,
   Map<String, String> headers,
@@ -144,7 +141,6 @@ Future<http.Response> makeApiPostRequest(
   }
 }
 
-/// Http put request
 Future<http.Response> makeApiPutRequest(
   String endpoint,
   Map<String, String> headers,
@@ -183,7 +179,6 @@ Future<http.Response> makeApiPutRequest(
   }
 }
 
-/// Http delete request
 Future<http.Response> makeApiDeleteRequest(
   String endpoint,
   Map<String, String> headers,

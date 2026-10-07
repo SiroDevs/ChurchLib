@@ -111,10 +111,6 @@ Future<void> copySong(SongExt song) async {
     await Clipboard.setData(
       ClipboardData(text: getSongContent(song) + AppConstants.fromApp),
     );
-    /*showToast(
-      text: '${song.title} copied!',
-      state: ToastStates.success,
-    );*/
   } catch (e) {
     logger('Error during copying song: $e');
   }
@@ -129,10 +125,6 @@ Future<void> copyVerse(String songTitle, String songBook, String lyrics) async {
             '\n\n$songTitle,\n$songBook',
       ),
     );
-    /*showToast(
-      text: 'Verse copied',
-      state: ToastStates.success,
-    );*/
   } catch (e) {
     logger('Error during copying verse: $e');
   }

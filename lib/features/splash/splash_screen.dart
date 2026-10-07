@@ -18,11 +18,8 @@ import '../../core/di/injectable.dart';
 import '../../core/theme/theme_colors.dart';
 import '../../domain/repos/pref_repo.dart';
 
-/// How long the splash stays up before handing over to the router, which
-/// then decides between Home and the first-run Selection flow.
 const _splashDuration = Duration(milliseconds: 2800);
 
-/// Soft shadows that keep text legible on top of any of the photos.
 const _textShadows = [
   Shadow(color: Colors.black87, blurRadius: 6, offset: Offset(0, 2)),
   Shadow(color: Colors.black54, blurRadius: 18),
@@ -54,8 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
-  /// Random background that is never the same as the previous launch's:
-  /// the last index is kept in prefs and excluded from the draw.
   String _pickBackground() {
     final images = AppAssets.splashBackgrounds;
     if (images.length == 1) return images.first;
@@ -141,7 +136,6 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background photo, fading in once decoded.
           Image.asset(
             _background,
             fit: BoxFit.cover,
@@ -152,7 +146,6 @@ class _SplashScreenState extends State<SplashScreen> {
               child: child,
             ),
           ),
-          // Scrim so the foreground reads well on bright photos.
           const DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -201,8 +194,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-/// The app icon with a soft drop shadow that follows the icon's own outline
-/// (a plain BoxShadow would draw a rectangle around the transparent PNG).
 class _ShadowedIcon extends StatelessWidget {
   final double size;
   const _ShadowedIcon({required this.size});

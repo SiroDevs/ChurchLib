@@ -8,10 +8,8 @@ import 'package:card_swiper/card_swiper.dart';
 import '../../../core/theme/theme_colors.dart';
 
 class PageSwiper extends SwiperPlugin {
-  /// Distance between pagination and the container
   final EdgeInsetsGeometry margin;
 
-  /// Build the widget
   final SwiperPlugin builder;
 
   final Key? key;

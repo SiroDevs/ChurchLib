@@ -5,38 +5,29 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:dartx/dartx.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:styled_widget/styled_widget.dart';
-import 'package:textstyle_extensions/textstyle_extensions.dart';
 
 // Project imports:
 import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/app_util.dart';
-import '../../../../common/utils/constants/app_assets.dart';
-import '../../../../core/di/injectable.dart';
-import '../../../../core/theme/bloc/theme_bloc.dart';
-import '../../../../core/theme/theme_colors.dart';
-import '../../../../core/theme/theme_data.dart';
-import '../../../../core/theme/theme_fonts.dart';
 import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
-import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../song/likes/likes_screen.dart';
-import '../../../settings/settings_screen.dart';
 import '../../../../common/widgets/general/fading_index_stack.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
 import '../../../../common/widgets/state/skeleton.dart';
+import '../../../../common/widgets/search/search_songs_utils.dart';
 import '../../../song/songs/songs_screen.dart';
+import '../../../song/likes/likes_screen.dart';
+import '../../main/shell/app_module.dart';
+import '../../main/shell/app_shell.dart';
+import '../../main/shell/shell_nav_item.dart';
 import '../bloc/song_search_bloc.dart';
 
 part 'widgets/search_widget.dart';
-part 'widgets/sidebar.dart';
-part 'widgets/sidebar_btn.dart';
 
 class SongSearchScreen extends StatefulWidget {
   const SongSearchScreen({super.key});
@@ -58,6 +49,9 @@ class HomeScreenState extends State<SongSearchScreen> {
 
   PageType currentPage = PageType.search;
 
+  final FocusNode searchFocus = FocusNode();
+  final TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -67,7 +61,19 @@ class HomeScreenState extends State<SongSearchScreen> {
   @override
   void dispose() {
     _syncTimer?.cancel();
+    searchFocus.dispose();
+    searchController.dispose();
     super.dispose();
+  }
+
+  void selectSong(SongExt song) => setState(() => selectedSong = song);
+
+  void onSearch(String query) {
+    setState(() {
+      filtered = query.isEmpty
+          ? songs
+          : filterSongsByQuery(query.toLowerCase(), songs);
+    });
   }
 
   void startPeriodicSync() {
@@ -106,38 +112,60 @@ class HomeScreenState extends State<SongSearchScreen> {
           }
         },
         builder: (context, state) {
-          var homeView = Stack(
-            children: [
-              FadingIndexedStack(
-                    duration: AppDurations.slow,
-                    index: pages.indexOf(currentPage),
-                    children: <Widget>[
-                      SongsScreen(parent: this, isBigScreen: true),
-                      LikesScreen(books: books),
-                      const SettingsScreen(),
-                    ],
-                  )
-                  .positioned(
-                    left: 250,
-                    right: 0,
-                    bottom: 0,
-                    top: 0,
-                    animate: true,
-                  )
-                  .animate(.35.seconds, Curves.bounceIn),
-              Sidebar(
-                    pageType: currentPage,
-                    onSelect: (page) => {setState(() => currentPage = page)},
-                  )
-                  .positioned(
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: 250,
-                    animate: true,
-                  )
-                  .animate(.35.seconds, Curves.easeOut),
+          final onSearchPage = currentPage == PageType.search;
+          final homeView = AppShell(
+            module: AppModule.songlib,
+            sidebarItems: [
+              ShellNavItem(
+                Icons.search,
+                l10n.searchTitle,
+                isSelected: onSearchPage,
+                onPressed: () => setState(() => currentPage = PageType.search),
+              ),
+              ShellNavItem(
+                Icons.favorite,
+                l10n.likesTitle,
+                isSelected: currentPage == PageType.likes,
+                onPressed: () => setState(() => currentPage = PageType.likes),
+              ),
             ],
+            titleBar: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: onSearchPage
+                          ? SearchWidget(
+                              searchFocus: searchFocus,
+                              searchController: searchController,
+                              onSearch: onSearch,
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(left: 6),
+                              child: Text(
+                                l10n.likesTitle,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+                const Expanded(child: SizedBox.shrink()),
+              ],
+            ),
+            body: FadingIndexedStack(
+              duration: AppDurations.slow,
+              index: pages.indexOf(currentPage),
+              children: <Widget>[
+                SongsScreen(parent: this),
+                LikesScreen(books: books),
+              ],
+            ),
           );
           return switch (state) {
             FailureState() => Scaffold(

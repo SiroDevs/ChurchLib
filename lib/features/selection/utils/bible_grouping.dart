@@ -2,7 +2,6 @@
 import '../../../data/sources/remote/bible/bible_dtos.dart';
 import 'region_mapper.dart';
 
-/// How the Bibles list is grouped. [regions] is the default, as in BibleLib.
 enum GroupingMode {
   regions('Regions'),
   countries('Countries'),
@@ -80,7 +79,6 @@ List<GridEntry> buildEntries(
       GroupingMode.regions => _regionEntries(bibles, expanded, countryFilters),
     };
 
-// ── ordering ────────────────────────────────────────────────────────────────
 int _languagePriority(String language) {
   if (language.toLowerCase() == 'unspecified') return 1 << 30;
   final i = _priorityLanguages
@@ -116,7 +114,6 @@ List<MapEntry<String, List<BibleInfoDto>>> _sortCountries(
         return p != 0 ? p : a.key.toLowerCase().compareTo(b.key.toLowerCase());
       });
 
-// ── builders ────────────────────────────────────────────────────────────────
 List<GridEntry> _languageEntries(
   List<BibleInfoDto> bibles,
   Map<String, bool> expanded,

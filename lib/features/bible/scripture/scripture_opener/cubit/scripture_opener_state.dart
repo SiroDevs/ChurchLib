@@ -15,8 +15,6 @@ class ScriptureOpenerState {
     this.rows = const [],
   });
 
-  /// The one unlocked row — where the user is currently building a
-  /// reference. Ported from Android's `activeRow`.
   ScriptureSearchRowState? get activeRow =>
       rows.where((r) => !r.locked).lastOrNull;
 

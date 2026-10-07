@@ -4,9 +4,6 @@ class BiblesState {
   final List<BibleVersion> bibles;
   final String primaryAbbr;
 
-  /// abbr -> 0.0-1.0, only for bibles currently downloading in this
-  /// session (desktop has no background worker to observe, so this only
-  /// reflects downloads started from this screen).
   final Map<String, double> downloadProgress;
   final Set<String> retrying;
   final bool isLoading;

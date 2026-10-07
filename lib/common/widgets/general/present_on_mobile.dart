@@ -9,7 +9,6 @@ import '../../../core/theme/theme_colors.dart';
 
 enum IndicatorSide { start, end }
 
-/// A vertical tab widget for flutter
 class PresentOnMobile extends StatefulWidget {
   final Key? key;
   final int? index;

@@ -1,17 +1,13 @@
 part of 'selection_bloc.dart';
 
-/// Most Bibles / songbooks that can be picked in one go.
 const maxBibleSelections = 10;
 const maxSongbookSelections = 10;
 
 enum SelectionStepType {
-  /// Which app(s) to set up — SongLib, BibleLib or both.
   modules('Apps'),
 
-  /// Pick songbooks. Nothing is saved until the last step is confirmed.
   songs('Songs'),
 
-  /// Pick Bibles. Songs and Bibles are saved together once this is confirmed.
   bibles('Bibles');
 
   const SelectionStepType(this.label);
@@ -51,42 +47,30 @@ class SelectionState extends Equatable {
     this.bibleProgress = 0,
   });
 
-  // ── flow ──
-  /// The steps this run needs, in order. A first install is
-  /// `[modules, songbooks?, bibles?]`, so one app gives 2 steps and both
-  /// gives 3. Re-running one module from Settings has just that step.
   final List<SelectionStepType> steps;
   final int index;
   final bool songlib;
   final bool biblelib;
 
-  /// Everything is downloaded; "getting ready" shows and Home opens next.
   final bool finishing;
 
-  /// The save run (songs, then Bibles) is in progress or waiting on a retry;
-  /// one progress screen covers both, only its text changes.
   final bool saveActive;
 
-  /// Which parts the current save run covers.
   final bool planSongs;
   final bool planBible;
 
-  // ── songbooks ──
   final LoadStatus booksStatus;
   final List<SongBook> books;
   final Set<int> selectedBookIds;
   final String booksError;
 
-  // ── songs download ──
   final SongsPhase songsPhase;
   final int songsProgress;
   final String songsFeedback;
   final String songsError;
 
-  // ── bibles ──
   final BibleStatus bibleStatus;
 
-  /// Every available translation; the first of [selectedAbbrs] is primary.
   final List<BibleInfoDto> availableBibles;
   final List<String> selectedAbbrs;
   final int maxSelections;
@@ -96,7 +80,6 @@ class SelectionState extends Equatable {
 
   SelectionStepType? get current => index < steps.length ? steps[index] : null;
 
-  /// Nothing is saved before the final step, so going back is always safe.
   bool get canGoBack => index > 0 && !saveActive && !finishing;
 
   List<SongBook> get selectedBooks => [
@@ -106,8 +89,6 @@ class SelectionState extends Equatable {
 
   bool get canProceedBibles => selectedAbbrs.isNotEmpty;
 
-  /// Overall save progress, 0..1. When songs and Bibles are saved in the
-  /// same run each takes half of the ring.
   double get saveProgress {
     final songs = songsPhase == SongsPhase.done
         ? 1.0

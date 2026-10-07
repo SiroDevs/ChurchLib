@@ -25,7 +25,9 @@ import '../../common/widgets/state/custom_snackbar.dart';
 part 'settings_card.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  final bool embedded;
+
+  const SettingsScreen({super.key, this.embedded = false});
 
   @override
   State<SettingsScreen> createState() => SettingsScreenState();
@@ -59,6 +61,18 @@ class SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  void _push(String routeName) {
+    final router = GoRouter.of(context);
+    if (widget.embedded) Navigator.of(context).pop();
+    router.pushNamed(routeName);
+  }
+
+  void _goToSelection() {
+    final router = GoRouter.of(context);
+    if (widget.embedded) Navigator.of(context).pop();
+    router.goNamed(RouteNames.selection);
+  }
+
   @override
   Widget build(BuildContext context) {
     l10n = AppLocalizations.of(context)!;
@@ -70,7 +84,7 @@ class SettingsScreenState extends State<SettingsScreen> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.appSettings)),
+      appBar: widget.embedded ? null : AppBar(title: Text(l10n.appSettings)),
       body: LayoutBuilder(
         builder: (context, dimens) {
           final axisCount = (dimens.maxWidth / 500).round();
@@ -131,17 +145,17 @@ class SettingsScreenState extends State<SettingsScreen> {
             subtitle: const Text(
               'Choose your primary Bible and parallel translations',
             ),
-            onTap: () => context.pushNamed(RouteNames.bibles),
+            onTap: () => _push(RouteNames.bibles),
           ),
           ListTile(
             leading: const Icon(Icons.history),
             title: const Text('Reading & search history'),
-            onTap: () => context.pushNamed(RouteNames.bibleHistory),
+            onTap: () => _push(RouteNames.bibleHistory),
           ),
           ListTile(
             leading: const Icon(Icons.bookmarks_outlined),
             title: const Text('Bookmarks & notes'),
-            onTap: () => context.pushNamed(RouteNames.bibleBookmarksNotes),
+            onTap: () => _push(RouteNames.bibleBookmarksNotes),
           ),
           ListTile(
             leading: const Icon(Icons.restart_alt),
@@ -195,7 +209,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _prefRepo.clearData();
       if (!mounted) return;
       CustomSnackbar.show(context, l10n.redirectingYou);
-      context.goNamed(RouteNames.selection);
+      _goToSelection();
     } catch (e) {
       logger('Unable to reset SongLib: $e');
     }
@@ -246,7 +260,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _clearBibleLibPrefs();
       if (!mounted) return;
       CustomSnackbar.show(context, l10n.redirectingYou);
-      context.goNamed(RouteNames.selection);
+      _goToSelection();
     } catch (e) {
       logger('Unable to reset BibleLib: $e');
     }
@@ -254,12 +268,12 @@ class SettingsScreenState extends State<SettingsScreen> {
 
   void onAddSongLib() {
     _prefRepo.setPrefBool(PrefConstants.songlibModuleEnabledKey, true);
-    context.goNamed(RouteNames.selection);
+    _goToSelection();
   }
 
   void onAddBibleLib() {
     _prefRepo.setPrefBool(PrefConstants.biblelibModuleEnabledKey, true);
-    context.goNamed(RouteNames.selection);
+    _goToSelection();
   }
 
   Future<void> onResetChurchLib() async {
@@ -278,7 +292,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _prefRepo.removeKeyPair(PrefConstants.songlibModuleEnabledKey);
       _prefRepo.removeKeyPair(PrefConstants.biblelibModuleEnabledKey);
       if (!mounted) return;
-      context.goNamed(RouteNames.selection);
+      _goToSelection();
     } catch (e) {
       logger('Unable to reset ChurchLib: $e');
     }

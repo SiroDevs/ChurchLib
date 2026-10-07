@@ -11,7 +11,6 @@ import '../../../data/models/song/song.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/sources/remote/song/selection_client.dart';
 
-/// The songlive API answered with a non-200 status.
 class SongApiException implements Exception {
   const SongApiException(this.statusCode);
   final int statusCode;
@@ -23,13 +22,10 @@ class SongApiException implements Exception {
 class SongSelectionRepo {
   final _selectionClient = SelectionClient();
 
-  /// Fetch all books
   Future<Response> getBooks() async => await _selectionClient.getBooks();
 
-  /// Fetch  all songs
   Future<Response> getSongs() async => await _selectionClient.getSongs();
 
-  /// Fetch one page of songs by book ids
   Future<Response> getSongsByBooks(
     String bookIds, {
     int page = 1,
@@ -42,8 +38,6 @@ class SongSelectionRepo {
     );
   }
 
-  /// Every songbook the server offers. Throws [SongApiException] on a
-  /// non-200 answer.
   Future<List<SongBook>> fetchBooks() async {
     final resp = await _selectionClient.getBooks();
     if (resp.statusCode != 200) throw SongApiException(resp.statusCode);
@@ -56,9 +50,6 @@ class SongSelectionRepo {
     ];
   }
 
-  /// All songs of the given books (comma separated `bookId`s), following the
-  /// API's pagination until the last page. Throws [SongApiException] on a
-  /// non-200 answer. [onPage] reports `(fetched so far, total if known)`.
   Future<List<Song>> fetchSongsByBooks(
     String bookIds, {
     void Function(int fetched, int? total)? onPage,
@@ -78,7 +69,7 @@ class SongSelectionRepo {
       var hasMore = false;
       int? total;
       if (decoded is List) {
-        data = decoded; // older, unpaged shape
+        data = decoded;
       } else {
         data = decoded['data'] as List;
         final pagination = decoded['pagination'];

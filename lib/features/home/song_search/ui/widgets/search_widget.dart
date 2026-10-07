@@ -18,30 +18,21 @@ class SearchWidget extends StatelessWidget {
       controller: searchController,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.search, color: ThemeColors.primaryDark),
-        suffixIcon: InkWell(
-          onTap: () {
+        hintText: 'Search a song by title or words',
+        isDense: true,
+        prefixIcon: const Icon(Icons.search),
+        suffixIcon: IconButton(
+          tooltip: 'Clear',
+          icon: const Icon(Icons.clear),
+          onPressed: () {
             searchController!.clear();
             onSearch('');
           },
-          child: const Icon(Icons.clear, color: ThemeColors.primaryDark),
-        ),
-        isDense: true,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.white),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.white),
         ),
       ),
-      style: const TextStyle(fontSize: 18, color: ThemeColors.primaryDark),
+      style: const TextStyle(fontSize: 16),
       textInputAction: TextInputAction.done,
       onChanged: (String query) => onSearch(query),
-    ).decorated(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
     );
   }
 }

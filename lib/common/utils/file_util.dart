@@ -26,7 +26,6 @@ String getShortPath(String path) {
   return path;
 }
 
-/// Downloads directory
 Future<String> downloadDir() async {
   Directory directory = Directory('/');
   if (Platform.isMacOS) {
@@ -42,16 +41,13 @@ Future<String> downloadDir() async {
     directory = Directory('/storage/emulated/0/Download');
   }
   if (await directory.exists()) {
-    //if folder already exists return path
     return directory.path;
   } else {
-    //if folder not exists create folder and then return its path
     final Directory directoryNew = await directory.create(recursive: true);
     return directoryNew.path;
   }
 }
 
-/// Songlib directory
 Future<String> britamDirx() async {
   Directory directory = Directory('/');
   if (Platform.isMacOS) {
@@ -67,10 +63,8 @@ Future<String> britamDirx() async {
     directory = Directory('/storage/emulated/0/Documents/Songlib');
   }
   if (await directory.exists()) {
-    //if folder already exists return path
     return directory.path;
   } else {
-    //if folder not exists create folder and then return its path
     final Directory directoryNew = await directory.create(recursive: true);
     return directoryNew.path;
   }

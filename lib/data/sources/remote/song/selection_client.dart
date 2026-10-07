@@ -9,7 +9,6 @@ import '../../../../common/utils/constants/api_constants.dart';
 import 'api_service.dart';
 
 class SelectionClient {
-  /// Fetch all the books
   Future<Response> getBooks() async {
     return await makeApiGetRequest(
       ApiConstants.books,
@@ -19,7 +18,6 @@ class SelectionClient {
     );
   }
 
-  /// Fetch all songs
   Future<Response> getSongs() async {
     return await makeApiGetRequest(
       ApiConstants.songs,
@@ -29,9 +27,6 @@ class SelectionClient {
     );
   }
 
-  /// Fetch one page of songs for the given book ids (comma separated
-  /// `bookId`s). The v2 API answers with
-  /// `{data: [...], pagination: {page, limit, total, totalPages, hasMore}}`.
   Future<Response> getSongsByBooks(
     String booksId, {
     int page = 1,

@@ -4,10 +4,6 @@ import '../../../data/models/shared/history_entry.dart';
 import '../../../data/models/shared/search_entry.dart';
 import '../../../data/sources/local/app_database.dart';
 
-/// Ported from biblelib-android's `TrackingRepo`: one history row per
-/// (bible, chapter, day) that is updated as the reader scrolls, plus a
-/// pruned recent-search list. Uses the shared `history_entries` /
-/// `search_entries` tables, scoped to [EntrySource.bible].
 class BibleTrackingRepo {
   final AppDatabase _appDB;
 
@@ -20,7 +16,6 @@ class BibleTrackingRepo {
     return '${d.year}$m$day';
   }
 
-  /// [chapterId] becomes the row's [HistoryEntry.refId].
   Future<void> recordReading({
     required String bibleAbbr,
     required String bibleName,

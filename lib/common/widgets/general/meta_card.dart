@@ -1,7 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-/// UI Widget for displaying metadata.
 class MetaCard extends StatelessWidget {
   final String _title;
   final Widget _children;

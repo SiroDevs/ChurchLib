@@ -94,8 +94,6 @@ class SelectionProgress extends StatelessWidget {
       );
     }
 
-    // Songs and Bibles share one progress animation (the key never changes
-    // between them); only the words around the ring change.
     final songsStage = state.planSongs &&
         (state.songsPhase == SongsPhase.idle ||
             state.songsPhase == SongsPhase.fetching ||

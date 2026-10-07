@@ -10,9 +10,6 @@ class SongSyncRepo {
   final _dbRepo = getIt<DatabaseRepo>();
   final _selectRepo = SongSelectionRepo();
 
-  /// Pulls every page of songs for the selected books and applies what
-  /// changed: new songs are added, edited ones updated. Returns whether
-  /// anything changed.
   Future<bool> syncData() async {
     final selectedBooks =
         _prefRepo.getPrefString(PrefConstants.selectedBooksKey);

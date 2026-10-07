@@ -4,15 +4,8 @@ enum ExpandedField { none, book, chapter, verse }
 
 int _rowKeySeq = 0;
 
-/// Unique enough for one Scripture Opener session (no `uuid` package in
-/// this project) — a monotonic counter plus a timestamp.
 String _newRowKey() => '${DateTime.now().microsecondsSinceEpoch}-${_rowKeySeq++}';
 
-/// State for a single "book / chapter / verse" search row inside the
-/// Scripture Opener. A row becomes [locked] once its scripture has been
-/// added to the queue, at which point it renders as a compact read-only
-/// summary and a fresh blank row appears beneath it. Ported from Android's
-/// `ScriptureSearchRowState`.
 class ScriptureSearchRowState {
   final String key;
   final bool locked;

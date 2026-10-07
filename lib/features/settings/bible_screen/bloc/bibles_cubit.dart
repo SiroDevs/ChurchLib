@@ -12,11 +12,6 @@ import '../../../../domain/repos/pref_repo.dart';
 
 part 'bibles_state.dart';
 
-/// Ported from biblelib-android's `BiblesViewModel`. Android observes a
-/// WorkManager queue for background download progress; there's no such
-/// queue here, so retry/restart download directly in this cubit and
-/// stream their own progress, same as `SelectionBloc` does for the
-/// primary during setup.
 class BiblesCubit extends Cubit<BiblesState> {
   BiblesCubit() : super(const BiblesState()) {
     load();
@@ -86,10 +81,8 @@ class BiblesCubit extends Cubit<BiblesState> {
     }
   }
 
-  /// Retry a translation that failed or was never downloaded.
   void retryDownload(String abbr) => _download(abbr);
 
-  /// Clear a translation's partial content and download it again.
   Future<void> restartDownload(String abbr) async {
     emit(state.copyWith(retrying: {...state.retrying, abbr}));
     await _bibleRepo.clearBibleContent(abbr);

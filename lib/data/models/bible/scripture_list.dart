@@ -7,11 +7,6 @@ import '../../../common/utils/constants/bible_constants.dart';
 
 part 'scripture_list.g.dart';
 
-/// A named collection of scriptures built via the Scripture Opener, e.g.
-/// for a sermon or a devotional reading plan. [name] defaults to the
-/// reference of the first scripture added, but can be renamed by the user.
-/// Ported from biblelib-android's `ScriptureListEntity`
-/// (`scripture_lists` table).
 @Entity(tableName: BibleConstants.scriptureListsTable)
 @JsonSerializable()
 class ScriptureList {

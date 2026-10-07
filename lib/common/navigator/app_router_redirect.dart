@@ -5,15 +5,6 @@ import '../../domain/repos/pref_repo.dart';
 import '../utils/constants/pref_constants.dart';
 import 'route_names.dart';
 
-/// Gate the whole app behind "is setup finished?".
-///
-/// * `/splash` is never redirected — it shows itself for a moment and then
-///   navigates to `/main`, which lands here and is routed on.
-/// * Until every module the user picked has its data loaded, everything
-///   goes to the single Selection flow (module pick → songbooks → Bibles;
-///   the screen works out which steps are still needed from the prefs).
-/// * Once loaded, the Selection screen bounces to Home and every other
-///   route (settings, search, ...) is left untouched.
 String? appRouterRedirect(GoRouterState state) {
   final loc = state.matchedLocation;
   const splash = '/${RouteNames.splash}';

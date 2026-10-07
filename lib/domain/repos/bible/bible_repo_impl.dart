@@ -15,8 +15,6 @@ import '../../entities/bible/verse_display.dart';
 import 'bible_repo.dart';
 import 'retry_policy.dart';
 
-/// Same book-fetch concurrency cap Android uses
-/// (`BibleRepo.MAX_CONCURRENT_BOOK_BATCHES`).
 const _maxConcurrentBookBatches = 20;
 
 class BibleRepoImpl implements BibleRepo {
@@ -191,12 +189,6 @@ class BibleRepoImpl implements BibleRepo {
     return verseEntities;
   }
 
-  /// Walks a chapter's content tree, collecting verse text under each
-  /// `tag`/"verse" marker into [VerseDisplay]s. Ported field-for-field
-  /// from Android's `BibleRepo.extractVerses` — a "verse" tag sets the
-  /// current verse number/id, and subsequent "text" nodes (until the next
-  /// verse tag) are appended to that verse, since a verse can be split
-  /// across several text runs (e.g. around inline formatting).
   List<VerseDisplay> _extractVerses(ChapterContentDto content) {
     final verses = <VerseDisplay>[];
     var currentVerseNumber = 0;
