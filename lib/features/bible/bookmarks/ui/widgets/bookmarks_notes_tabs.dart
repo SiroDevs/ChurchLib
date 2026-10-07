@@ -7,11 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../data/models/bible/bible_note.dart';
-import '../../../../home/bible_reader/ui/widgets/verses/verse_row.dart' show parseHexColor;
-import '../../bloc/bible_bookmarks_notes_cubit.dart';
+import '../../../reader/ui/widgets/verses/verse_row.dart' show parseHexColor;
+import '../../bloc/bookmarks_notes_cubit.dart';
 
 class BookmarksTab extends StatelessWidget {
-  final BibleBookmarksNotesState state;
+  final BookmarksNotesState state;
   final void Function(String abbr, String bookId, String chapterId) onOpen;
 
   const BookmarksTab({super.key, required this.state, required this.onOpen});
@@ -42,7 +42,7 @@ class BookmarksTab extends StatelessWidget {
         final chapterNumber = b.chapterId.contains('.')
             ? b.chapterId.substring(b.chapterId.indexOf('.') + 1)
             : b.chapterId;
-        final cubit = context.read<BibleBookmarksNotesCubit>();
+        final cubit = context.read<BookmarksNotesCubit>();
         return ListTile(
           selected: selected,
           selectedTileColor: ThemeColors.primary.withValues(alpha: 0.1),
@@ -66,7 +66,7 @@ class BookmarksTab extends StatelessWidget {
 }
 
 class NotesTab extends StatelessWidget {
-  final BibleBookmarksNotesState state;
+  final BookmarksNotesState state;
   final void Function(BibleNote note) onEdit;
 
   const NotesTab({super.key, required this.state, required this.onEdit});
@@ -94,7 +94,7 @@ class NotesTab extends StatelessWidget {
         final key = bookmarksNotesKey(n.bibleAbbr, n.verseId);
         final selected = state.selectedNoteKeys.contains(key);
         final selectionMode = state.selectedNoteKeys.isNotEmpty;
-        final cubit = context.read<BibleBookmarksNotesCubit>();
+        final cubit = context.read<BookmarksNotesCubit>();
         return ListTile(
           selected: selected,
           selectedTileColor: ThemeColors.primary.withValues(alpha: 0.1),

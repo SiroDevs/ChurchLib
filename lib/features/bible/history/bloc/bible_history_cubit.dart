@@ -8,35 +8,7 @@ import '../../../../data/models/shared/history_entry.dart';
 import '../../../../data/models/shared/search_entry.dart';
 import '../../../../domain/repos/bible/bible_tracking_repo.dart';
 
-class HistoryGroup {
-  final String dateLabel;
-  final List<HistoryEntry> entries;
-  HistoryGroup(this.dateLabel, this.entries);
-}
-
-class BibleHistoryState {
-  final bool isLoading;
-  final List<HistoryGroup> reading;
-  final List<SearchEntry> searches;
-
-  const BibleHistoryState({
-    this.isLoading = true,
-    this.reading = const [],
-    this.searches = const [],
-  });
-
-  BibleHistoryState copyWith({
-    bool? isLoading,
-    List<HistoryGroup>? reading,
-    List<SearchEntry>? searches,
-  }) {
-    return BibleHistoryState(
-      isLoading: isLoading ?? this.isLoading,
-      reading: reading ?? this.reading,
-      searches: searches ?? this.searches,
-    );
-  }
-}
+part 'bible_history_state.dart';
 
 class BibleHistoryCubit extends Cubit<BibleHistoryState> {
   final _tracking = getIt<BibleTrackingRepo>();

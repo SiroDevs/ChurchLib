@@ -10,7 +10,7 @@ import '../../../common/utils/app_util.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
 import '../../../common/navigator/route_names.dart';
-import '../../home/song_search/bloc/song_search_bloc.dart';
+import '../search/bloc/song_search_bloc.dart';
 import '../../../common/widgets/list_items/search_song_item.dart';
 import '../../../common/widgets/state/general_progress.dart';
 

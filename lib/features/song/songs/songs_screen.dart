@@ -18,8 +18,8 @@ import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../home/song_search/bloc/song_search_bloc.dart';
-import '../../home/song_search/ui/song_search_screen.dart';
+import '../search/bloc/song_search_bloc.dart';
+import '../search/ui/song_search_screen.dart';
 
 part 'widgets/song_viewer.dart';
 part 'widgets/list_widgets.dart';
