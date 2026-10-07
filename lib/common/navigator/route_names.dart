@@ -6,15 +6,12 @@ class RouteNames {
   RouteNames._();
 
   static const splash = 'splash';
-  static const welcome = 'welcome';
-  static const step1 = 'step1';
-  static const step2 = 'step2';
+  static const selection = 'selection';
   static const biblelibSetup = 'biblelib_setup';
   static const bibleSearch = 'bible_search';
   static const bibleHistory = 'bible_history';
   static const bibleBookmarksNotes = 'bible_bookmarks_notes';
   static const bibles = 'bibles';
-  static const seeding = 'seeding';
   static const main = 'main';
   static const settings = 'settings';
   static const presentor = 'presentor';

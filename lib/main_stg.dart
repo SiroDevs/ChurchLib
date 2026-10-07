@@ -1,12 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:window_manager/window_manager.dart';
-
 // Project imports:
 import 'app.dart';
 import 'common/utils/app_util.dart';
+import 'common/utils/app_window.dart';
 import 'common/utils/env/environments.dart';
 import 'common/utils/env/flavor_config.dart';
 import 'core/di/injectable.dart';
@@ -24,16 +22,6 @@ Future<void> main() async {
   );
   logger('Starting app from main_stg.dart');
   await configureDependencies(Environments.staging);
-
-  await windowManager.ensureInitialized();
-  WindowOptions windowOptions = const WindowOptions(
-    alwaysOnTop: false,
-    titleBarStyle: TitleBarStyle.normal,
-  );
-
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-  });
-
+  await AppWindow.show();
   runApp(const MyApp());
 }

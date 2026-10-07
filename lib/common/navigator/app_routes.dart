@@ -1,22 +1,19 @@
 import 'package:go_router/go_router.dart';
 
 import '../../data/models/models.dart';
-import '../../features/bible_search/bible_search_screen.dart';
-import '../../features/biblelib/bookmarks/bible_bookmarks_notes_screen.dart';
-import '../../features/biblelib/history/bible_history_screen.dart';
+import '../../features/bible/search/ui/bible_search_screen.dart';
+import '../../features/bible/bookmarks/ui/bible_bookmarks_notes_screen.dart';
+import '../../features/bible/history/ui/bible_history_screen.dart';
 import '../../features/home/ui/home_screen.dart';
-import '../../features/presentor/ui/presentor_screen.dart';
-import '../../features/scripture/ui/scripture_list_detail_screen.dart';
-import '../../features/scripture/ui/scripture_lists_screen.dart';
-import '../../features/scripture/ui/scripture_opener_screen.dart';
-import '../../features/selection/bible_selection/ui/bible_selection_screen.dart';
-import '../../features/selection/seeding/seeding_screen.dart';
-import '../../features/selection/step1/ui/step1_screen.dart';
-import '../../features/selection/step2/ui/step2_screen.dart';
+import '../../features/song/presentor/ui/presentor_screen.dart';
+import '../../features/bible/scripture/ui/scripture_list_detail_screen.dart';
+import '../../features/bible/scripture/ui/scripture_lists_screen.dart';
+import '../../features/bible/scripture/ui/scripture_opener_screen.dart';
+import '../../features/selection/bloc/selection_bloc.dart';
+import '../../features/selection/ui/selection_screen.dart';
 import '../../features/settings/bible_screen/ui/bibles_screen.dart';
 import '../../features/settings/settings_screen.dart';
 import '../../features/splash/splash_screen.dart';
-import '../../features/welcome/welcome_screen.dart';
 import 'route_names.dart';
 
 /// Extra payload for the [RouteNames.presentor] route — a record instead
@@ -34,24 +31,14 @@ final List<RouteBase> appRoutes = [
     builder: (_, __) => const SplashScreen(),
   ),
   GoRoute(
-    path: '/${RouteNames.welcome}',
-    name: RouteNames.welcome,
-    builder: (_, __) => const WelcomeScreen(),
-  ),
-  GoRoute(
-    path: '/${RouteNames.step1}',
-    name: RouteNames.step1,
-    builder: (_, __) => const Step1Screen(),
-  ),
-  GoRoute(
-    path: '/${RouteNames.step2}',
-    name: RouteNames.step2,
-    builder: (_, __) => const Step2Screen(),
+    path: '/${RouteNames.selection}',
+    name: RouteNames.selection,
+    builder: (_, __) => const SelectionScreen(),
   ),
   GoRoute(
     path: '/${RouteNames.biblelibSetup}',
     name: RouteNames.biblelibSetup,
-    builder: (_, __) => const BibleSelectionScreen(),
+    builder: (_, __) => const SelectionScreen(only: SelectionStepType.bibles),
   ),
   GoRoute(
     path: '/${RouteNames.bibleSearch}',
@@ -72,11 +59,6 @@ final List<RouteBase> appRoutes = [
     path: '/${RouteNames.bibles}',
     name: RouteNames.bibles,
     builder: (_, __) => const BiblesScreen(),
-  ),
-  GoRoute(
-    path: '/${RouteNames.seeding}',
-    name: RouteNames.seeding,
-    builder: (_, __) => const SeedingScreen(),
   ),
   GoRoute(
     path: '/${RouteNames.main}',

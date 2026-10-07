@@ -14,8 +14,6 @@ abstract class HistoriesDao {
   )
   Future<List<HistoryEntry>> fetchRecent(String source, int limit);
 
-  /// One row per (source, refId, dayKey) — used to update today's entry
-  /// in place instead of inserting a new one on every verse scrolled.
   @Query(
     'SELECT * FROM ${SongConstants.historiesTable} WHERE source = :source '
     'AND refId = :refId AND dayKey = :dayKey LIMIT 1',

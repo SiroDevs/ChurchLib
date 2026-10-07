@@ -5,7 +5,6 @@ import 'package:froom/froom.dart';
 import '../../../../../common/utils/constants/bible_constants.dart';
 import '../../../../models/bible/bible_note.dart';
 
-/// Ported from biblelib-android's `NoteDao`.
 @dao
 abstract class BibleNotesDao {
   @Query(

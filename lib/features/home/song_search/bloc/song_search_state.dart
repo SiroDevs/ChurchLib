@@ -1,61 +1,72 @@
 part of 'song_search_bloc.dart';
 
-@freezed
-class SongSearchState with _$SongSearchState {
-  const factory SongSearchState.initial() = _MainState;
+sealed class SongSearchState extends Equatable {
+  const SongSearchState();
 
-  const factory SongSearchState.loaded() = LoadedState;
-
-  const factory SongSearchState.fetched(
-    List<SongBook> books,
-    List<SongExt> songs,
-  ) = DataFetchedState;
-
-  const factory SongSearchState.synced(
-    List<SongBook> books,
-    List<SongExt> songs,
-  ) = DataSyncedState;
-
-  const factory SongSearchState.filtered(
-    SongBook book,
-    List<SongExt> songs,
-    List<SongExt> likes,
-  ) = FilteredState;
-
-  const factory SongSearchState.fetching() = FetchingState;
-
-  const factory SongSearchState.filtering() = FilteringState;
-
-  const factory SongSearchState.success() = SuccessState;
-
-  const factory SongSearchState.reset() = ResettedState;
-
-  const factory SongSearchState.failure(String feedback) = FailureState;
-
-  const factory SongSearchState.noInternet() = NoInternetState;
-  
   @override
-  List<DiagnosticsNode> debugDescribeChildren() {
-    throw UnimplementedError();
-  }
-  
+  List<Object?> get props => [];
+}
+
+class _MainState extends SongSearchState {
+  const _MainState();
+}
+
+class LoadedState extends SongSearchState {
+  const LoadedState();
+}
+
+class DataFetchedState extends SongSearchState {
+  const DataFetchedState(this.books, this.songs);
+  final List<SongBook> books;
+  final List<SongExt> songs;
+
   @override
-  DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style}) {
-    throw UnimplementedError();
-  }
-  
+  List<Object?> get props => [books, songs];
+}
+
+class DataSyncedState extends SongSearchState {
+  const DataSyncedState(this.books, this.songs);
+  final List<SongBook> books;
+  final List<SongExt> songs;
+
   @override
-  String toStringDeep({String prefixLineOne = '', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65}) {
-    throw UnimplementedError();
-  }
-  
+  List<Object?> get props => [books, songs];
+}
+
+class FilteredState extends SongSearchState {
+  const FilteredState(this.book, this.songs, this.likes);
+  final SongBook book;
+  final List<SongExt> songs;
+  final List<SongExt> likes;
+
   @override
-  String toStringShallow({String joiner = ', ', DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
-    throw UnimplementedError();
-  }
-  
+  List<Object?> get props => [book, songs, likes];
+}
+
+class FetchingState extends SongSearchState {
+  const FetchingState();
+}
+
+class FilteringState extends SongSearchState {
+  const FilteringState();
+}
+
+class SuccessState extends SongSearchState {
+  const SuccessState();
+}
+
+class ResettedState extends SongSearchState {
+  const ResettedState();
+}
+
+class FailureState extends SongSearchState {
+  const FailureState(this.feedback);
+  final String feedback;
+
   @override
-  String toStringShort() {
-    throw UnimplementedError();
-  }
+  List<Object?> get props => [feedback];
+}
+
+class NoInternetState extends SongSearchState {
+  const NoInternetState();
 }

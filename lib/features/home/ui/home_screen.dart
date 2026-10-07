@@ -9,16 +9,6 @@ import '../../../domain/repos/pref_repo.dart';
 import '../bible_reader/ui/bible_reader_screen.dart';
 import '../song_search/ui/song_search_screen.dart';
 
-/// ChurchLib's top-level home shell. Reads which modules the user enabled
-/// during setup:
-/// - both enabled -> bottom NavigationBar to switch between SongLib and
-///   BibleLib, each keeping its own state via IndexedStack
-/// - exactly one enabled -> that module's screen fills the whole window,
-///   no bottom bar
-///
-/// SongLib's own SongSearchScreen already has an internal sidebar for
-/// search/likes/settings within SongLib itself — this bottom bar is a
-/// level above that, for switching between the two apps entirely.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -47,12 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final bothEnabled = _songlibEnabled && _biblelibEnabled;
 
-    // Only one module active: no bottom bar, that module fills the window.
     if (!bothEnabled) {
       if (_songlibEnabled) return const SongSearchScreen();
       if (_biblelibEnabled) return const BibleReaderScreen();
-      // Neither enabled shouldn't be reachable (welcome screen requires at
-      // least one), but fall back to SongLib rather than a blank screen.
       return const SongSearchScreen();
     }
 

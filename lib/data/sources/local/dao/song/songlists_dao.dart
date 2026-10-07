@@ -3,8 +3,8 @@ import 'package:froom/froom.dart';
 
 // Project imports:
 import '../../../../../common/utils/constants/song_constants.dart';
-import '../../../../models/song/songList.dart';
-import '../../../../models/song/songListext.dart';
+import '../../../../models/song/songlist.dart';
+import '../../../../models/song/songlistext.dart';
 
 @dao
 abstract class SongListsDao {

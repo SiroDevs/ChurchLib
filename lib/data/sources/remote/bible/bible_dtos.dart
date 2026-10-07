@@ -36,9 +36,6 @@ class BibleCountryDto {
   Map<String, dynamic> toJson() => _$BibleCountryDtoToJson(this);
 }
 
-/// One entry from `{group}/info.json`. `path` is the folder segment used
-/// to fetch that translation's books/chapters/verses; falls back to
-/// [abbreviation] when blank, same as Android's `resolvePath`.
 @JsonSerializable()
 class BibleInfoDto {
   final String name;
@@ -66,8 +63,6 @@ class BibleInfoDto {
 
   Map<String, dynamic> toJson() => _$BibleInfoDtoToJson(this);
 
-  /// First songList country's name, or "Other" — ported from
-  /// Android's `BibleInfoDto.primaryCountryName()`.
   String get primaryCountryName {
     final first = countries.isNotEmpty ? countries.first.name : '';
     return first.trim().isNotEmpty ? first : 'Other';
@@ -91,9 +86,9 @@ class BookDto {
   });
 
   factory BookDto.fromJson(Map<String, dynamic> json) =>
-      _$SongBookDtoFromJson(json);
+      _$BookDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SongBookDtoToJson(this);
+  Map<String, dynamic> toJson() => _$BookDtoToJson(this);
 }
 
 @JsonSerializable()
@@ -118,15 +113,6 @@ class ChapterDto {
   Map<String, dynamic> toJson() => _$ChapterDtoToJson(this);
 }
 
-/// A node in a chapter's rendered content tree (`{path}/verses/{book}/{n}.json`).
-/// Mirrors Android's `ContentItemDto` — a `tag` node of name "verse" marks
-/// where a new verse begins; `text` nodes carry the actual words, tagged
-/// with a `verseId` attr; nodes can nest arbitrarily via [items].
-///
-/// [attrs] is parsed manually (not via json_serializable) because the
-/// source JSON's attribute values are sometimes numbers or booleans, not
-/// just strings — ported from Android's `LenientAttrsAdapter`, which
-/// coerces every value to its string form rather than failing to parse.
 class ContentItemDto {
   final String? name;
   final String type;
@@ -177,8 +163,6 @@ class ContentItemDto {
   }
 }
 
-/// Full content for one chapter (`{path}/verses/{book}/{n}.json`). Manually
-/// implemented, like [ContentItemDto], rather than code-generated.
 class ChapterContentDto {
   final String id;
   final String bibleId;

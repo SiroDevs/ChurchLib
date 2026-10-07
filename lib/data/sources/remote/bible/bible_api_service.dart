@@ -11,19 +11,6 @@ import '../../../../common/utils/constants/api_constants.dart';
 import '../../../../domain/repos/bible/retry_policy.dart';
 import 'bible_dtos.dart';
 
-// ignore: depend_on_referenced_packages
-
-
-/// Thin GET client for the BibleLib static JSON API, matching the shape of
-/// [ApiConstants]/`api_service.dart`'s SongLib client, but scoped to
-/// BibleLib's own base URL and endpoints — ported 1:1 from
-/// biblelib-android's `BibleLibService` (Retrofit interface):
-///
-/// - `info.json`                               -> list of group names
-/// - `{group}/info.json`                       -> list of [BibleInfoDto]
-/// - `{path}/books.json`                       -> list of [BookDto]
-/// - `{path}/chapters.json`                    -> bookId -> [ChapterDto]
-/// - `{path}/verses/{bookId}/{chapter}.json`   -> [ChapterContentDto]
 class BibleApiService {
   Future<dynamic> _getJson(String path) async {
     final endpoint = '${ApiConstants.bibleApi}/$path';
@@ -66,8 +53,6 @@ class BibleApiService {
         .toList();
   }
 
-  /// `{path}/chapters.json` is a map of bookId -> list of chapters, not a
-  /// flat list — kept as-is to match the source data shape.
   Future<Map<String, List<ChapterDto>>> getChapters(String path) async {
     final json = await _getJson('$path/chapters.json') as Map<String, dynamic>;
     return json.map(

@@ -1,12 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:window_manager/window_manager.dart';
-
 // Project imports:
 import 'app.dart';
 import 'common/utils/app_util.dart';
+import 'common/utils/app_window.dart';
 import 'common/utils/env/environments.dart';
 import 'common/utils/env/flavor_config.dart';
 import 'core/di/injectable.dart';
@@ -24,18 +22,6 @@ Future<void> main() async {
   );
   logger('Starting app from main.dart');
   await configureDependencies(Environments.production);
-
-  await windowManager.ensureInitialized();
-  WindowOptions windowOptions = const WindowOptions(
-    fullScreen: false,
-    alwaysOnTop: false,
-    titleBarStyle: TitleBarStyle.normal,
-  );
-
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.maximize();
-    await windowManager.show();
-  });
-
+  await AppWindow.showMaximized();
   runApp(const MyApp());
 }

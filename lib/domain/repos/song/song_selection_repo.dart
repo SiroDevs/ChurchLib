@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:http/http.dart';
 
 // Project imports:
-import '../../../data/sources/remote/selection_client.dart';
+import '../../../data/sources/remote/song/selection_client.dart';
 
 class SongSelectionRepo {
   final _selectionClient = SelectionClient();

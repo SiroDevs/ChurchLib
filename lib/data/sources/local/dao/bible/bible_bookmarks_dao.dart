@@ -5,7 +5,6 @@ import 'package:froom/froom.dart';
 import '../../../../../common/utils/constants/bible_constants.dart';
 import '../../../../models/bible/bible_bookmark.dart';
 
-/// Ported from biblelib-android's `BookmarkDao`.
 @dao
 abstract class BibleBookmarksDao {
   @Query(

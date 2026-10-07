@@ -56,7 +56,7 @@ class BiblesState {
 /// Ported from biblelib-android's `BiblesViewModel`. Android observes a
 /// WorkManager queue for background download progress; there's no such
 /// queue here, so retry/restart download directly in this cubit and
-/// stream their own progress, same as `BibleSelectionBloc` does for the
+/// stream their own progress, same as `SelectionBloc` does for the
 /// primary during setup.
 class BiblesCubit extends Cubit<BiblesState> {
   BiblesCubit() : super(const BiblesState()) {

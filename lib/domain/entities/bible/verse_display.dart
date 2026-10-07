@@ -1,6 +1,3 @@
-/// One verse ready for display, extracted from a chapter's raw content
-/// tree. A list of these, JSON-encoded, is what's cached in
-/// [BibleVerseCache.contentJson] — ported from Android's `VerseDisplay`.
 class VerseDisplay {
   final String verseId;
   final int number;

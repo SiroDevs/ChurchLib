@@ -5,7 +5,6 @@ import 'package:froom/froom.dart';
 import '../../../../../common/utils/constants/bible_constants.dart';
 import '../../../../models/bible/scripture_list.dart';
 
-/// Ported from biblelib-android's `ScriptureListDao`.
 @dao
 abstract class ScriptureListsDao {
   @Insert()

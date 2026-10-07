@@ -5,7 +5,6 @@ import 'package:froom/froom.dart';
 import '../../../../../common/utils/constants/bible_constants.dart';
 import '../../../../models/bible/bible_version.dart';
 
-/// Ported from biblelib-android's `BibleDao`.
 @dao
 abstract class BibleVersionsDao {
   @Query(
@@ -24,9 +23,6 @@ abstract class BibleVersionsDao {
 
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertAll(List<BibleVersion> records);
-
-  // @delete
-  // Future<void> delete(BibleVersion bible);
 
   @Query('DELETE FROM ${BibleConstants.biblesTable} WHERE abbreviation = :abbr')
   Future<void> deleteByAbbr(String abbr);

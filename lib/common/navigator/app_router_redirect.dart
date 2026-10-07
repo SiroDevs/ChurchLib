@@ -5,25 +5,22 @@ import '../../domain/repos/pref_repo.dart';
 import '../utils/constants/pref_constants.dart';
 import 'route_names.dart';
 
-const _onboardingPaths = {
-  '/${RouteNames.splash}',
-  '/${RouteNames.welcome}',
-  '/${RouteNames.step1}',
-  '/${RouteNames.step2}',
-  '/${RouteNames.biblelibSetup}',
-  '/${RouteNames.seeding}',
-};
-
-/// Gate the whole app behind "is setup finished?" — same decision tree
-/// [AppViewState] used to run once per [AuthBloc] emission via an
-/// imperative `pushNamedAndRemoveUntil`. As a go_router `redirect`, this
-/// instead runs on every navigation attempt, so once [isLoaded] it must
-/// stop being an unconditional destination and become a guard: only
-/// intercept someone stuck on an onboarding screen, otherwise return null
-/// and let normal navigation (settings, search, ...) through untouched.
+/// Gate the whole app behind "is setup finished?".
+///
+/// * `/splash` is never redirected — it shows itself for a moment and then
+///   navigates to `/main`, which lands here and is routed on.
+/// * Until every module the user picked has its data loaded, everything
+///   goes to the single Selection flow (module pick → songbooks → Bibles;
+///   the screen works out which steps are still needed from the prefs).
+/// * Once loaded, the Selection screen bounces to Home and every other
+///   route (settings, search, ...) is left untouched.
 String? appRouterRedirect(GoRouterState state) {
-  final prefs = getIt<PrefRepo>();
   final loc = state.matchedLocation;
+  const splash = '/${RouteNames.splash}';
+  const selection = '/${RouteNames.selection}';
+  if (loc == splash) return null;
+
+  final prefs = getIt<PrefRepo>();
 
   final hasChosenModules = prefs.keyExists(
         PrefConstants.songlibModuleEnabledKey,
@@ -35,7 +32,6 @@ String? appRouterRedirect(GoRouterState state) {
   final biblelibEnabled = prefs.getPrefBool(
     PrefConstants.biblelibModuleEnabledKey,
   );
-  final songlibSelected = prefs.getPrefBool(PrefConstants.dataIsSelectedKey);
   final songlibLoaded = prefs.getPrefBool(PrefConstants.dataIsLoadedKey);
   final biblelibLoaded = prefs.getPrefBool(
     PrefConstants.biblelibDataLoadedKey,
@@ -46,14 +42,7 @@ String? appRouterRedirect(GoRouterState state) {
       (!biblelibEnabled || biblelibLoaded);
 
   if (isLoaded) {
-    return _onboardingPaths.contains(loc) ? '/${RouteNames.main}' : null;
+    return loc == selection ? '/${RouteNames.main}' : null;
   }
-  if (!hasChosenModules) return '/${RouteNames.welcome}';
-  if (songlibEnabled && !songlibLoaded) {
-    return songlibSelected ? '/${RouteNames.step2}' : '/${RouteNames.step1}';
-  }
-  if (biblelibEnabled && !biblelibLoaded) {
-    return '/${RouteNames.biblelibSetup}';
-  }
-  return '/${RouteNames.seeding}';
+  return loc == selection ? null : selection;
 }

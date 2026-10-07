@@ -1,13 +1,22 @@
 part of 'song_search_bloc.dart';
 
-@freezed
-sealed class SongSearchEvent with _$SongSearchEvent {
-  const factory SongSearchEvent.fetch() = FetchData;
+sealed class SongSearchEvent {
+  const SongSearchEvent();
+}
 
-  const factory SongSearchEvent.sync() = SyncData;
+class FetchData extends SongSearchEvent {
+  const FetchData();
+}
 
-  const factory SongSearchEvent.filter(SongBook book) = FilterData;
-  
-  const factory SongSearchEvent.reset() = ResetData;
-  
+class SyncData extends SongSearchEvent {
+  const SyncData();
+}
+
+class FilterData extends SongSearchEvent {
+  const FilterData(this.book);
+  final SongBook book;
+}
+
+class ResetData extends SongSearchEvent {
+  const ResetData();
 }

@@ -25,20 +25,16 @@ import 'dao/song/songs_dao.dart';
 
 part 'app_database.g.dart';
 
-
 @Database(
   version: 1,
   entities: [
-    // Shared
     HistoryEntry,
     SearchEntry,
-    // SongLib
     SongBook,
     SongDraft,
     SongEdit,
     SongList,
     Song,
-    // BibleLib
     BibleBook,
     BibleBookmark,
     BibleChapter,
@@ -48,21 +44,18 @@ part 'app_database.g.dart';
     ScriptureItem,
     ScriptureList,
   ],
-  views: [HistoryExt, SongListExt, SongExt],
+  views: [HistoryExt, SongExt, SongListExt],
 )
 abstract class AppDatabase extends FroomDatabase {
-  // Shared
   HistoriesDao get historiesDao;
   SearchesDao get searchesDao;
 
-  // SongLib
   SongBooksDao get booksDao;
   SongDraftsDao get draftsDao;
   SongEditsDao get editsDao;
   SongListsDao get songListsDao;
   SongsDao get songsDao;
 
-  // BibleLib
   BibleBooksDao get bibleBooksDao;
   BibleBookmarksDao get bibleBookmarksDao;
   BibleChaptersDao get bibleChaptersDao;

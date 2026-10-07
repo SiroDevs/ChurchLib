@@ -22,16 +22,16 @@ import '../../../../core/theme/theme_data.dart';
 import '../../../../core/theme/theme_fonts.dart';
 import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/models.dart';
-import '../../../../data/sources/remote/api_service.dart';
+import '../../../../data/sources/remote/song/api_service.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../song_likes/likes_screen.dart';
+import '../../../song/likes/likes_screen.dart';
 import '../../../settings/settings_screen.dart';
-import '../../../songs/songs_screen.dart';
-import '../../../widgets/general/fading_index_stack.dart';
-import '../../../widgets/progress/custom_snackbar.dart';
-import '../../../widgets/progress/general_progress.dart';
-import '../../../widgets/progress/skeleton.dart';
+import '../../../../common/widgets/general/fading_index_stack.dart';
+import '../../../../common/widgets/state/custom_snackbar.dart';
+import '../../../../common/widgets/state/general_progress.dart';
+import '../../../../common/widgets/state/skeleton.dart';
+import '../../../song/songs/songs_screen.dart';
 import '../bloc/song_search_bloc.dart';
 
 part 'widgets/search_widget.dart';
@@ -93,7 +93,6 @@ class HomeScreenState extends State<SongSearchScreen> {
             books = state.books;
             songs = state.songs;
             _bloc.add(FilterData(books[selectedBook]));
-            //if (!periodicSyncStarted) startPeriodicSync();
           } else if (state is FilteredState) {
             likes = state.likes;
             filtered = state.songs;
@@ -103,7 +102,7 @@ class HomeScreenState extends State<SongSearchScreen> {
             CustomSnackbar.show(context, feedbackMessage(state.feedback, l10n));
           } else if (state is ResettedState) {
             CustomSnackbar.show(context, l10n.redirectingYou);
-            context.goNamed(RouteNames.step1);
+            context.goNamed(RouteNames.selection);
           }
         },
         builder: (context, state) {
@@ -113,11 +112,8 @@ class HomeScreenState extends State<SongSearchScreen> {
                     duration: AppDurations.slow,
                     index: pages.indexOf(currentPage),
                     children: <Widget>[
-                      //ListTabPc(vm),
                       SongsScreen(parent: this, isBigScreen: true),
                       LikesScreen(books: books),
-                      //SongDraftsTabPc(vm),
-                      //const HelpDeskScreen(),
                       const SettingsScreen(),
                     ],
                   )
@@ -143,8 +139,8 @@ class HomeScreenState extends State<SongSearchScreen> {
                   .animate(.35.seconds, Curves.easeOut),
             ],
           );
-          return state.maybeWhen(
-            failure: (feedback) => Scaffold(
+          return switch (state) {
+            FailureState() => Scaffold(
               body: EmptyState(
                 title: l10n.problemDisplaySongs,
                 showRetry: true,
@@ -152,11 +148,9 @@ class HomeScreenState extends State<SongSearchScreen> {
                 onRetry: () => context.read<SongSearchBloc>().add(const ResetData()),
               ),
             ),
-            fetching: () => Scaffold(body: HomeLoading()),
-            orElse: () => homeView,
-            filtered: (book, songs, likes) => homeView,
-            synced: (book, songs) => homeView,
-          );
+            FetchingState() => Scaffold(body: HomeLoading()),
+            _ => homeView,
+          };
         },
       ),
     );

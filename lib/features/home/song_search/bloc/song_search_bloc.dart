@@ -1,12 +1,9 @@
 // Dart imports:
 import 'dart:async';
 
-// Flutter imports:
-import 'package:flutter/foundation.dart';
-
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
 // Project imports:
 import '../../../../common/utils/app_util.dart';
@@ -20,7 +17,6 @@ import '../../../../domain/repos/song/song_sync_repo.dart';
 part 'song_search_event.dart';
 part 'song_search_state.dart';
 
-part 'song_search_bloc.freezed.dart';
 
 class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
   SongSearchBloc() : super(const _MainState()) {
@@ -46,7 +42,7 @@ class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
         emit(LoadedState());
       }
     } else {
-      emit(NoInternetState());
+      emit(const NoInternetState());
     }
   }
 

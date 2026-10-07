@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class ThemeColors {
   ThemeColors._();
-  // General colors
   static const black2 = Color(0xFF202124);
   static const grey = Color(0xB3000000);
   static const mediumGrey = Color(0x80000000);
@@ -22,7 +21,6 @@ class ThemeColors {
   static const Color trafficRed = Color.fromARGB(255, 246, 0, 1);
   static const Color trafficGreen = Color.fromARGB(255, 0, 247, 0);
 
-  // Theme Colors
   static const primary = Color(0xFFB86918);
   static const primary1 = Color(0xFFF57C00);
   static const primary2 = Color(0xFFBF360C);

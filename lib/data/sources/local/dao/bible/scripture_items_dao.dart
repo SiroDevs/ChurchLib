@@ -5,7 +5,6 @@ import 'package:froom/froom.dart';
 import '../../../../../common/utils/constants/bible_constants.dart';
 import '../../../../models/bible/scripture_item.dart';
 
-/// Ported from biblelib-android's `ScriptureItemDao`.
 @dao
 abstract class ScriptureItemsDao {
   @Insert(onConflict: OnConflictStrategy.abort)

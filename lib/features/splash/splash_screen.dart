@@ -1,17 +1,79 @@
+// Dart imports:
+import 'dart:async';
+import 'dart:math';
+import 'dart:ui' as ui;
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:go_router/go_router.dart';
+
 // Project imports:
+import '../../common/navigator/route_names.dart';
 import '../../common/utils/constants/app_assets.dart';
 import '../../common/utils/constants/app_constants.dart';
+import '../../common/utils/constants/pref_constants.dart';
+import '../../core/di/injectable.dart';
 import '../../core/theme/theme_colors.dart';
+import '../../domain/repos/pref_repo.dart';
 
-class SplashScreen extends StatelessWidget {
+/// How long the splash stays up before handing over to the router, which
+/// then decides between Home and the first-run Selection flow.
+const _splashDuration = Duration(milliseconds: 2800);
+
+/// Soft shadows that keep text legible on top of any of the photos.
+const _textShadows = [
+  Shadow(color: Colors.black87, blurRadius: 6, offset: Offset(0, 2)),
+  Shadow(color: Colors.black54, blurRadius: 18),
+];
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  late final String _background = _pickBackground();
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer(_splashDuration, () {
+      if (!mounted) return;
+      context.goNamed(RouteNames.main);
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  /// Random background that is never the same as the previous launch's:
+  /// the last index is kept in prefs and excluded from the draw.
+  String _pickBackground() {
+    final images = AppAssets.splashBackgrounds;
+    if (images.length == 1) return images.first;
+
+    final prefs = getIt<PrefRepo>();
+    final last = prefs.getPrefInt(PrefConstants.splashBgIndexKey) - 1;
+    final candidates = [
+      for (var i = 0; i < images.length; i++)
+        if (i != last) i,
+    ];
+    final index = candidates[Random().nextInt(candidates.length)];
+    prefs.setPrefInt(PrefConstants.splashBgIndexKey, index + 1);
+    return images[index];
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var withLoveFromRow = const Row(
+    const withLoveFromRow = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
@@ -20,12 +82,14 @@ class SplashScreen extends StatelessWidget {
             fontSize: 30,
             letterSpacing: 5,
             fontWeight: FontWeight.bold,
-            color: ThemeColors.primary,
+            color: ThemeColors.accent1,
+            shadows: _textShadows,
           ),
         ),
         Icon(
           Icons.favorite_rounded,
-          color: ThemeColors.primaryDark,
+          color: ThemeColors.primary1,
+          shadows: _textShadows,
         ),
         Text(
           ' from',
@@ -33,13 +97,14 @@ class SplashScreen extends StatelessWidget {
             fontSize: 30,
             letterSpacing: 5,
             fontWeight: FontWeight.bold,
-            color: ThemeColors.primary,
+            color: ThemeColors.accent1,
+            shadows: _textShadows,
           ),
         ),
       ],
     );
 
-    var appDevelopers = const Row(
+    const appDevelopers = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
@@ -47,14 +112,16 @@ class SplashScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: ThemeColors.primaryDark,
+            color: ThemeColors.accent3,
+            shadows: _textShadows,
           ),
         ),
         Text(
           ' & ',
           style: TextStyle(
             fontSize: 20,
-            color: ThemeColors.primary,
+            color: ThemeColors.accent1,
+            shadows: _textShadows,
           ),
         ),
         Text(
@@ -62,44 +129,104 @@ class SplashScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: ThemeColors.primaryDark,
+            color: ThemeColors.accent3,
+            shadows: _textShadows,
           ),
         ),
       ],
     );
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Spacer(),
-            Image.asset(AppAssets.iconApp, height: 200, width: 200),
-            const SizedBox(height: 10),
-            const Text(
-              AppConstants.appTitle,
-              style: TextStyle(
-                fontSize: 50,
-                letterSpacing: 5,
-                fontWeight: FontWeight.bold,
-                color: ThemeColors.primary,
+      backgroundColor: ThemeColors.primaryDark2,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Background photo, fading in once decoded.
+          Image.asset(
+            _background,
+            fit: BoxFit.cover,
+            frameBuilder: (context, child, frame, wasSyncLoaded) =>
+                AnimatedOpacity(
+              opacity: wasSyncLoaded || frame != null ? 1 : 0,
+              duration: const Duration(milliseconds: 400),
+              child: child,
+            ),
+          ),
+          // Scrim so the foreground reads well on bright photos.
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0x40000000), Color(0x20000000), Color(0x99000000)],
               ),
             ),
-            const SizedBox(height: 5),
-            const Spacer(),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 50),
-              child: Divider(
-                color: ThemeColors.primaryDark,
-                thickness: 2,
-                height: 50,
-              ),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Spacer(),
+                const _ShadowedIcon(size: 200),
+                const SizedBox(height: 10),
+                const Text(
+                  AppConstants.appTitle,
+                  style: TextStyle(
+                    fontSize: 50,
+                    letterSpacing: 5,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColors.accent1,
+                    shadows: _textShadows,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                const Spacer(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  child: Divider(
+                    color: Colors.white70,
+                    thickness: 2,
+                    height: 50,
+                  ),
+                ),
+                withLoveFromRow,
+                appDevelopers,
+                const SizedBox(height: 20),
+              ],
             ),
-            withLoveFromRow,
-            appDevelopers,
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+/// The app icon with a soft drop shadow that follows the icon's own outline
+/// (a plain BoxShadow would draw a rectangle around the transparent PNG).
+class _ShadowedIcon extends StatelessWidget {
+  final double size;
+  const _ShadowedIcon({required this.size});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Transform.translate(
+          offset: const Offset(0, 8),
+          child: ImageFiltered(
+            imageFilter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Image.asset(
+              AppAssets.iconApp,
+              height: size,
+              width: size,
+              color: Colors.black.withValues(alpha: 0.65),
+              colorBlendMode: BlendMode.srcIn,
+            ),
+          ),
+        ),
+        Image.asset(AppAssets.iconApp, height: size, width: size),
+      ],
     );
   }
 }

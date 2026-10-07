@@ -19,8 +19,8 @@ import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/pref_repo.dart';
 import '../../l10n/app_localizations.dart';
-import '../widgets/inputs/radio_input.dart';
-import '../widgets/progress/custom_snackbar.dart';
+import '../../common/widgets/inputs/radio_input.dart';
+import '../../common/widgets/state/custom_snackbar.dart';
 
 part 'settings_card.dart';
 
@@ -195,7 +195,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _prefRepo.clearData();
       if (!mounted) return;
       CustomSnackbar.show(context, l10n.redirectingYou);
-      context.goNamed(RouteNames.step1);
+      context.goNamed(RouteNames.selection);
     } catch (e) {
       logger('Unable to reset SongLib: $e');
     }
@@ -246,7 +246,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _clearBibleLibPrefs();
       if (!mounted) return;
       CustomSnackbar.show(context, l10n.redirectingYou);
-      context.goNamed(RouteNames.biblelibSetup);
+      context.goNamed(RouteNames.selection);
     } catch (e) {
       logger('Unable to reset BibleLib: $e');
     }
@@ -254,19 +254,19 @@ class SettingsScreenState extends State<SettingsScreen> {
 
   void onAddSongLib() {
     _prefRepo.setPrefBool(PrefConstants.songlibModuleEnabledKey, true);
-    context.goNamed(RouteNames.step1);
+    context.goNamed(RouteNames.selection);
   }
 
   void onAddBibleLib() {
     _prefRepo.setPrefBool(PrefConstants.biblelibModuleEnabledKey, true);
-    context.goNamed(RouteNames.biblelibSetup);
+    context.goNamed(RouteNames.selection);
   }
 
   Future<void> onResetChurchLib() async {
     final ok = await _confirm(
       'Reset ChurchLib?',
       "This erases everything — songbooks, Bibles, bookmarks, notes and "
-      "settings — and takes you back to the welcome screen. This can't be undone.",
+      "settings — and takes you back to the setup screen. This can't be undone.",
     );
     if (!ok || !mounted) return;
     try {
@@ -278,7 +278,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       _prefRepo.removeKeyPair(PrefConstants.songlibModuleEnabledKey);
       _prefRepo.removeKeyPair(PrefConstants.biblelibModuleEnabledKey);
       if (!mounted) return;
-      context.goNamed(RouteNames.welcome);
+      context.goNamed(RouteNames.selection);
     } catch (e) {
       logger('Unable to reset ChurchLib: $e');
     }
