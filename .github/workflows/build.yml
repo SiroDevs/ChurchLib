@@ -1,268 +1,698 @@
+```yaml
 name: Build & Release
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    tags:
+      - "v*"
+
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+
   workflow_dispatch:
 
 permissions:
   contents: read
 
 env:
+  FLUTTER_VERSION: "3.47.6"
   FLUTTER_CHANNEL: stable
   ENTRY: lib/main.dart
   APP_NAME: ChurchLib
   PKG_NAME: churchlib
 
-jobs:
-  windows:
-    name: Windows ${{ matrix.arch }}
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - { arch: x64,   runner: windows-latest,  experimental: false }
-          - { arch: arm64, runner: windows-11-arm,  experimental: true }
-    continue-on-error: ${{ matrix.experimental }}
-    steps:
-      - uses: actions/checkout@v4
+# ============================================================
+# WINDOWS
+# ============================================================
 
-      - uses: subosito/flutter-action@v2
+jobs:
+
+  windows-x64:
+    name: Windows x64
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.47.6'
-          channel: 'stable'
-          architecture: ${{ matrix.arch }}
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: x64
           cache: true
 
-      - name: Read version from pubspec
-        id: ver
+      - name: Flutter diagnostics
         shell: pwsh
         run: |
-          $line = (Select-String -Path pubspec.yaml -Pattern '^version:\s*(.+)$').Matches[0].Groups[1].Value.Trim()
-          "version=$($line.Split('+')[0])" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          flutter --version
+          flutter doctor -v
 
-      - name: Build
+      - name: Read version
+        id: version
+        shell: pwsh
+        run: |
+          $line = (
+            Select-String `
+              -Path pubspec.yaml `
+              -Pattern '^version:\s*(.+)$'
+          ).Matches[0].Groups[1].Value.Trim()
+
+          $version = $line.Split('+')[0]
+
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Prepare
         shell: pwsh
         run: |
           flutter config --enable-windows-desktop
           flutter pub get
           flutter gen-l10n
-          flutter build windows --release -t $env:ENTRY --no-tree-shake-icons
-
-      - name: Locate build output
-        id: out
-        shell: pwsh
-        run: |
-          $dir = (Get-ChildItem build/windows -Directory | Select-Object -First 1).FullName
-          $rel = Join-Path $dir "runner/Release"
-          if (-not (Test-Path $rel)) { throw "Release folder not found under $dir" }
-          "release=$rel" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-
-      - name: Install Inno Setup (if missing)
-        shell: pwsh
-        run: |
-          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
-          if (-not (Test-Path $iscc)) { choco install innosetup -y --no-progress }
-
-      - name: Build User + System installers
-        shell: pwsh
-        run: |
-          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
-          New-Item -ItemType Directory -Force dist | Out-Null
-          foreach ($mode in "user","system") {
-            & $iscc `
-              "/DMyAppVersion=${{ steps.ver.outputs.version }}" `
-              "/DSourceDir=${{ steps.out.outputs.release }}" `
-              "/DRepoRoot=$env:GITHUB_WORKSPACE" `
-              "/DOutputDir=$env:GITHUB_WORKSPACE\dist" `
-              "/DArch=${{ matrix.arch }}" `
-              "/DInstallMode=$mode" `
-              windows/packaging/churchlib.iss
-            if ($LASTEXITCODE -ne 0) { throw "Inno Setup ($mode) failed" }
-          }
-
-      - name: Build .zip
-        shell: pwsh
-        run: |
-          Compress-Archive -Path "${{ steps.out.outputs.release }}\*" `
-            -DestinationPath "dist/${{ env.APP_NAME }}-win32-${{ matrix.arch }}.zip"
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: windows-${{ matrix.arch }}
-          path: dist/*
-          if-no-files-found: error
-
-  # ───────── macOS: Universal .dmg ─────────
-  macos:
-    name: macOS Universal (.dmg)
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.47.6'
-          channel: 'stable'
-          cache: true
 
       - name: Build
+        shell: pwsh
         run: |
-          flutter config --enable-macos-desktop
-          flutter pub get
-          flutter gen-l10n
-          flutter build macos --release -t "$ENTRY" --no-tree-shake-icons
+          flutter build windows `
+            --release `
+            -t $env:ENTRY `
+            --no-tree-shake-icons
 
-      - name: Create DMG
+      - name: Verify build
+        shell: pwsh
         run: |
-          brew install create-dmg
-          mkdir -p dist
-          create-dmg \
-            --volname "${APP_NAME}" \
-            --window-pos 200 120 --window-size 800 400 --icon-size 100 \
-            --icon "${APP_NAME}.app" 200 190 --hide-extension "${APP_NAME}.app" \
-            --app-drop-link 600 185 \
-            "dist/${APP_NAME}-darwin-universal.dmg" \
-            "build/macos/Build/Products/Release/${APP_NAME}.app"
+          $release = "build/windows/x64/runner/Release"
 
-      - uses: actions/upload-artifact@v4
+          if (-not (Test-Path $release)) {
+            Write-Host "Windows build directory:"
+            Get-ChildItem build/windows -Recurse -Directory
+            throw "Windows x64 Release directory not found"
+          }
+
+          Get-ChildItem $release
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+
+          if (-not (Test-Path $iscc)) {
+            choco install innosetup -y --no-progress
+          }
+
+      - name: Build installers
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          $source = "$env:GITHUB_WORKSPACE\build\windows\x64\runner\Release"
+          $output = "$env:GITHUB_WORKSPACE\dist"
+
+          New-Item -ItemType Directory -Force $output | Out-Null
+
+          foreach ($mode in @("user", "system")) {
+            & $iscc `
+              "/DMyAppVersion=$env:VERSION" `
+              "/DSourceDir=$source" `
+              "/DRepoRoot=$env:GITHUB_WORKSPACE" `
+              "/DOutputDir=$output" `
+              "/DArch=x64" `
+              "/DInstallMode=$mode" `
+              "$env:GITHUB_WORKSPACE\windows\packaging\churchlib.iss"
+
+            if ($LASTEXITCODE -ne 0) {
+              throw "Inno Setup failed for $mode installation"
+            }
+          }
+
+      - name: Build ZIP
+        shell: pwsh
+        run: |
+          Compress-Archive `
+            -Path "build/windows/x64/runner/Release/*" `
+            -DestinationPath "dist/${{ env.PKG_NAME }}-windows-x64.zip"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: macos-universal
+          name: windows-x64
           path: dist/*
           if-no-files-found: error
 
-  # ───────── Linux: .deb, .rpm, .tar.gz  (x64 + Arm64) ─────────
+  windows-arm64:
+    name: Windows ARM64
+    runs-on: windows-11-arm
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: x64
+          cache: true
+
+      - name: Bootstrap ARM64 Dart SDK
+        shell: pwsh
+        run: |
+          $flutterRoot = $env:FLUTTER_ROOT
+
+          $stamp = Join-Path `
+            $flutterRoot `
+            "bin\cache\dart-sdk\revision"
+
+          if (Test-Path $stamp) {
+            Remove-Item $stamp -Force
+          }
+
+          & "$flutterRoot\bin\internal\update_dart_sdk.ps1"
+
+      - name: Verify Flutter
+        shell: pwsh
+        run: |
+          flutter --version
+          flutter doctor -v
+
+          Write-Host "PROCESSOR_ARCHITECTURE=$env:PROCESSOR_ARCHITECTURE"
+
+      - name: Read version
+        id: version
+        shell: pwsh
+        run: |
+          $line = (
+            Select-String `
+              -Path pubspec.yaml `
+              -Pattern '^version:\s*(.+)$'
+          ).Matches[0].Groups[1].Value.Trim()
+
+          $version = $line.Split('+')[0]
+
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Prepare
+        shell: pwsh
+        run: |
+          flutter config --enable-windows-desktop
+          flutter pub get
+          flutter gen-l10n
+
+      - name: Build
+        shell: pwsh
+        run: |
+          flutter build windows `
+            --release `
+            -t $env:ENTRY `
+            --no-tree-shake-icons
+
+      - name: Verify build
+        shell: pwsh
+        run: |
+          $release = "build/windows/arm64/runner/Release"
+
+          if (-not (Test-Path $release)) {
+            Write-Host "Windows build directory:"
+            Get-ChildItem build/windows -Recurse -Directory
+            throw "Windows ARM64 Release directory not found"
+          }
+
+          Get-ChildItem $release
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+
+          if (-not (Test-Path $iscc)) {
+            choco install innosetup -y --no-progress
+          }
+
+      - name: Build installers
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          $source = "$env:GITHUB_WORKSPACE\build\windows\arm64\runner\Release"
+          $output = "$env:GITHUB_WORKSPACE\dist"
+
+          New-Item -ItemType Directory -Force $output | Out-Null
+
+          foreach ($mode in @("user", "system")) {
+            & $iscc `
+              "/DMyAppVersion=$env:VERSION" `
+              "/DSourceDir=$source" `
+              "/DRepoRoot=$env:GITHUB_WORKSPACE" `
+              "/DOutputDir=$output" `
+              "/DArch=arm64" `
+              "/DInstallMode=$mode" `
+              "$env:GITHUB_WORKSPACE\windows\packaging\churchlib.iss"
+
+            if ($LASTEXITCODE -ne 0) {
+              throw "Inno Setup failed for $mode installation"
+            }
+          }
+
+      - name: Build ZIP
+        shell: pwsh
+        run: |
+          Compress-Archive `
+            -Path "build/windows/arm64/runner/Release/*" `
+            -DestinationPath "dist/${{ env.PKG_NAME }}-windows-arm64.zip"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-arm64
+          path: dist/*
+          if-no-files-found: error
+
+# ============================================================
+# LINUX
+# ============================================================
+
   linux:
-    name: Linux ${{ matrix.arch }} (deb, rpm, tar.gz)
+    name: Linux ${{ matrix.arch }}
     runs-on: ${{ matrix.runner }}
+
     strategy:
       fail-fast: false
       matrix:
         include:
-          - { arch: x64,   runner: ubuntu-24.04 }
-          - { arch: arm64, runner: ubuntu-24.04-arm }   # free on public repos only
-    steps:
-      - uses: actions/checkout@v4
+          - arch: x64
+            runner: ubuntu-24.04
 
-      - name: Install system dependencies
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Linux dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev \
-            libsqlite3-dev libstdc++-12-dev rpm patchelf fakeroot dpkg-dev
 
-      - uses: subosito/flutter-action@v2
+          sudo apt-get install -y \
+            clang \
+            cmake \
+            ninja-build \
+            pkg-config \
+            libgtk-3-dev \
+            liblzma-dev \
+            libsqlite3-dev \
+            libstdc++-12-dev \
+            rpm \
+            patchelf \
+            fakeroot \
+            dpkg-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.47.6'
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
           architecture: ${{ matrix.arch }}
           cache: true
+
+      - name: Flutter diagnostics
+        run: |
+          flutter --version
+          flutter doctor -v
 
       - name: Prepare
         run: |
           flutter config --enable-linux-desktop
           flutter pub get
           flutter gen-l10n
+
           dart pub global activate flutter_distributor
           echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
 
-      - name: Package deb + rpm
+      - name: Build Linux application
         run: |
-          for target in deb rpm; do
-            flutter_distributor package \
-              --platform linux --targets "$target" \
-              --build-target "$ENTRY" \
-              --flutter-build-args=no-tree-shake-icons
-          done
+          flutter build linux \
+            --release \
+            -t "$ENTRY" \
+            --no-tree-shake-icons
 
-      - name: Collect deb, rpm and build .tar.gz
+      - name: Verify Linux build
+        run: |
+          BUNDLE="build/linux/${{ matrix.arch }}/release/bundle"
+
+          if [ ! -d "$BUNDLE" ]; then
+            echo "Linux build directory:"
+            find build/linux -maxdepth 5 -type d || true
+            echo "Expected: $BUNDLE"
+            exit 1
+          fi
+
+          ls -lah "$BUNDLE"
+
+      - name: Build DEB
+        run: |
+          flutter_distributor package \
+            --platform linux \
+            --targets deb \
+            --build-target "$ENTRY" \
+            --flutter-build-args=no-tree-shake-icons
+
+      - name: Build RPM
+        run: |
+          flutter_distributor package \
+            --platform linux \
+            --targets rpm \
+            --build-target "$ENTRY" \
+            --flutter-build-args=no-tree-shake-icons
+
+      - name: Collect packages
         run: |
           mkdir -p out
-          deb=$(find dist -name '*.deb' | head -1)
-          rpm=$(find dist -name '*.rpm' | head -1)
-          [ -n "$deb" ] && [ -n "$rpm" ] || { echo "deb/rpm not produced"; find dist; exit 1; }
-          cp "$deb" "out/${PKG_NAME}-linux-${{ matrix.arch }}.deb"
-          cp "$rpm" "out/${PKG_NAME}-linux-${{ matrix.arch }}.rpm"
 
-          bundle=$(find build/linux -type d -path '*release/bundle' | head -1)
-          [ -d "$bundle" ] || { echo "bundle dir not found"; exit 1; }
-          rm -rf stage && mkdir -p stage
-          cp -r "$bundle" "stage/${APP_NAME}"
-          tar -czf "out/${PKG_NAME}-linux-${{ matrix.arch }}.tar.gz" -C stage "${APP_NAME}"
+          DEB=$(find dist -type f -name "*.deb" | head -1)
+          RPM=$(find dist -type f -name "*.rpm" | head -1)
+
+          if [ -z "$DEB" ]; then
+            echo "DEB package was not produced"
+            find dist -type f || true
+            exit 1
+          fi
+
+          if [ -z "$RPM" ]; then
+            echo "RPM package was not produced"
+            find dist -type f || true
+            exit 1
+          fi
+
+          cp "$DEB" \
+            "out/${PKG_NAME}-linux-${{ matrix.arch }}.deb"
+
+          cp "$RPM" \
+            "out/${PKG_NAME}-linux-${{ matrix.arch }}.rpm"
+
+          echo "Linux packages:"
           ls -lh out
 
-      - uses: actions/upload-artifact@v4
+      - name: Build tar.gz
+        run: |
+          BUNDLE="build/linux/${{ matrix.arch }}/release/bundle"
+
+          mkdir -p stage
+
+          cp -r "$BUNDLE" "stage/${APP_NAME}"
+
+          tar -czf \
+            "out/${PKG_NAME}-linux-${{ matrix.arch }}.tar.gz" \
+            -C stage \
+            "${APP_NAME}"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
           name: linux-${{ matrix.arch }}
           path: out/*
           if-no-files-found: error
 
-  # ───────── Linux: Snap (x64 + Arm64) ─────────
-  snap:
-    name: Snap ${{ matrix.arch }}
-    runs-on: ${{ matrix.runner }}
-    continue-on-error: true            # snap builds are the most fragile; don't block releases
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - { arch: x64,   runner: ubuntu-24.04 }
-          - { arch: arm64, runner: ubuntu-24.04-arm }
+# ============================================================
+# macOS
+# ============================================================
+
+  macos-x64:
+    name: macOS Intel x64
+    runs-on: macos-26-intel
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set snap version from pubspec
-        run: |
-          v=$(grep -E '^version:' pubspec.yaml | head -1 | awk '{print $2}' | cut -d+ -f1)
-          sed -i "s/^version: git.*/version: '$v'/" snap/snapcraft.yaml
-
-      - uses: snapcore/action-build@v1
-        id: build
-
-      - name: Rename
-        run: |
-          mkdir -p out
-          cp "${{ steps.build.outputs.snap }}" "out/${PKG_NAME}-linux-${{ matrix.arch }}.snap"
-
-      - uses: actions/upload-artifact@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          name: snap-${{ matrix.arch }}
-          path: out/*
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: x64
+          cache: true
+
+      - name: Prepare
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+          flutter gen-l10n
+
+      - name: Build
+        run: |
+          flutter build macos \
+            --release \
+            -t "$ENTRY" \
+            --no-tree-shake-icons
+
+      - name: Find app
+        id: app
+        run: |
+          APP=$(find build/macos/Build/Products/Release \
+            -maxdepth 1 \
+            -name "*.app" \
+            -type d \
+            | head -1)
+
+          if [ -z "$APP" ]; then
+            echo "No macOS app found"
+            find build/macos/Build/Products/Release -maxdepth 2
+            exit 1
+          fi
+
+          echo "path=$APP" >> "$GITHUB_OUTPUT"
+
+      - name: Create DMG
+        run: |
+          brew install create-dmg
+
+          mkdir -p dist
+
+          create-dmg \
+            --volname "${APP_NAME}" \
+            --window-pos 200 120 \
+            --window-size 800 400 \
+            --icon-size 100 \
+            --icon "$(basename "${{ steps.app.outputs.path }}")" 200 190 \
+            --hide-extension "$(basename "${{ steps.app.outputs.path }}")" \
+            --app-drop-link 600 185 \
+            "dist/${PKG_NAME}-macos-x64.dmg" \
+            "${{ steps.app.outputs.path }}"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-x64
+          path: dist/*
           if-no-files-found: error
 
-      # To publish to the Snap Store, add a SNAPCRAFT_STORE_CREDENTIALS secret and uncomment:
-      # - uses: snapcore/action-publish@v1
-      #   if: startsWith(github.ref, 'refs/tags/v')
-      #   env:
-      #     SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
-      #   with:
-      #     snap: ${{ steps.build.outputs.snap }}
-      #     release: stable
 
-  # ───────── Release ─────────
+  macos-arm64:
+    name: macOS Apple Silicon ARM64
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: arm64
+          cache: true
+
+      - name: Prepare
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+          flutter gen-l10n
+
+      - name: Build
+        run: |
+          flutter build macos \
+            --release \
+            -t "$ENTRY" \
+            --no-tree-shake-icons
+
+      - name: Find app
+        id: app
+        run: |
+          APP=$(find build/macos/Build/Products/Release \
+            -maxdepth 1 \
+            -name "*.app" \
+            -type d \
+            | head -1)
+
+          if [ -z "$APP" ]; then
+            echo "No macOS app found"
+            find build/macos/Build/Products/Release -maxdepth 2
+            exit 1
+          fi
+
+          echo "path=$APP" >> "$GITHUB_OUTPUT"
+
+      - name: Create DMG
+        run: |
+          brew install create-dmg
+
+          mkdir -p dist
+
+          create-dmg \
+            --volname "${APP_NAME}" \
+            --window-pos 200 120 \
+            --window-size 800 400 \
+            --icon-size 100 \
+            --icon "$(basename "${{ steps.app.outputs.path }}")" 200 190 \
+            --hide-extension "$(basename "${{ steps.app.outputs.path }}")" \
+            --app-drop-link 600 185 \
+            "dist/${PKG_NAME}-macos-arm64.dmg" \
+            "${{ steps.app.outputs.path }}"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-arm64
+          path: dist/*
+          if-no-files-found: error
+
+
+  macos-universal:
+    name: macOS Universal
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: arm64
+          cache: true
+
+      - name: Prepare
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+          flutter gen-l10n
+
+      - name: Build Universal
+        run: |
+          flutter build macos \
+            --release \
+            -t "$ENTRY" \
+            --no-tree-shake-icons
+
+          APP=$(find build/macos/Build/Products/Release \
+            -maxdepth 1 \
+            -name "*.app" \
+            -type d \
+            | head -1)
+
+          if [ -z "$APP" ]; then
+            echo "No macOS app found"
+            exit 1
+          fi
+
+          echo "APP=$APP" >> "$GITHUB_ENV"
+
+      - name: Verify architecture
+        run: |
+          echo "Checking universal binary..."
+
+          MAIN_BINARY="$APP/Contents/MacOS/$(basename "$APP" .app)"
+
+          file "$MAIN_BINARY"
+          lipo -info "$MAIN_BINARY"
+
+      - name: Create DMG
+        run: |
+          brew install create-dmg
+
+          mkdir -p dist
+
+          create-dmg \
+            --volname "${APP_NAME}" \
+            --window-pos 200 120 \
+            --window-size 800 400 \
+            --icon-size 100 \
+            --icon "$(basename "$APP")" 200 190 \
+            --hide-extension "$(basename "$APP")" \
+            --app-drop-link 600 185 \
+            "dist/${PKG_NAME}-macos-universal.dmg" \
+            "$APP"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-universal
+          path: dist/*
+          if-no-files-found: error
+
+# ============================================================
+# GITHUB RELEASE
+# ============================================================
+
   release:
     name: Publish GitHub Release
-    needs: [windows, macos, linux, snap]
-    if: ${{ always() && startsWith(github.ref, 'refs/tags/v') && needs.linux.result == 'success' }}
+
+    needs:
+      - windows-x64
+      - windows-arm64
+      - linux
+      - macos-x64
+      - macos-arm64
+      - macos-universal
+
+    if: >
+      startsWith(github.ref, 'refs/tags/v') &&
+      needs.windows-x64.result == 'success' &&
+      needs.windows-arm64.result == 'success' &&
+      needs.linux.result == 'success' &&
+      needs.macos-x64.result == 'success' &&
+      needs.macos-arm64.result == 'success' &&
+      needs.macos-universal.result == 'success'
+
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
+
     steps:
-      - uses: actions/download-artifact@v4
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
           merge-multiple: true
 
-      - name: Checksums
+      - name: List release artifacts
+        run: |
+          find artifacts -type f -maxdepth 2 -print
+          echo
+          ls -lah artifacts
+
+      - name: Generate checksums
         run: |
           cd artifacts
           sha256sum * > SHA256SUMS.txt
-          ls -lh
 
-      - uses: softprops/action-gh-release@v2
+          echo "Checksums:"
+          cat SHA256SUMS.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/*
+          files: |
+            artifacts/*
           generate_release_notes: true
