@@ -6,11 +6,11 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../../common/utils/constants/pref_constants.dart';
-import '../../../../core/di/injectable.dart';
-import '../../../../core/theme/theme_colors.dart';
-import '../../../../domain/entities/bible/bible_reader.dart';
-import '../../../../domain/repos/pref_repo.dart';
+import '../../../../../common/utils/constants/pref_constants.dart';
+import '../../../../../core/di/injectable.dart';
+import '../../../../../core/theme/theme_colors.dart';
+import '../../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../../domain/repos/pref_repo.dart';
 import '../cubit/scripture_list_detail_cubit.dart';
 import '../../scripture_queue/cubit/scripture_queue_cubit.dart';
 

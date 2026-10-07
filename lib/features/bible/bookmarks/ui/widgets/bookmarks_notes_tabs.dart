@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../data/models/bible/bible_note.dart';
-import '../../../reader/ui/widgets/verses/verse_row.dart' show parseHexColor;
+import '../../../../home/bible_reader/ui/widgets/verses/verse_row.dart' show parseHexColor;
 import '../../bloc/bookmarks_notes_cubit.dart';
 
 class BookmarksTab extends StatelessWidget {

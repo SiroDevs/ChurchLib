@@ -20,6 +20,11 @@ class DatabaseRepoImpl implements DatabaseRepo {
   }
 
   @override
+  Future<void> removeBookByBookId(int bookId) async {
+    return _appDB.booksDao.deleteBookByBookId(bookId);
+  }
+
+  @override
   Future<void> saveBook(SongBook book) async {
     return _appDB.booksDao.insertBook(book);
   }
@@ -54,6 +59,11 @@ class DatabaseRepoImpl implements DatabaseRepo {
   @override
   Future<void> removeSong(Song song) async {
     return _appDB.songsDao.deleteSong(song);
+  }
+
+  @override
+  Future<void> removeSongsByBook(int bookId) async {
+    return _appDB.songsDao.deleteSongsByBook(bookId);
   }
 
   @override

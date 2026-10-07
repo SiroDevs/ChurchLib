@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../common/utils/constants/pref_constants.dart';
-import '../../core/di/injectable.dart';
-import '../../core/theme/theme_colors.dart';
-import '../../domain/repos/pref_repo.dart';
-import '../bible/reader/ui/bible_reader_screen.dart';
-import '../song/search/ui/song_search_screen.dart';
+import '../../../common/utils/constants/pref_constants.dart';
+import '../../../core/di/injectable.dart';
+import '../../../core/theme/theme_colors.dart';
+import '../../../domain/repos/pref_repo.dart';
+import '../bible_reader/ui/bible_reader_screen.dart';
+import '../song_search/ui/song_search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

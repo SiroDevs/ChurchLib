@@ -22,6 +22,9 @@ abstract class SongBooksDao {
   @delete
   Future<void> deleteBook(SongBook book);
 
+  @Query("DELETE FROM ${SongConstants.booksTable} WHERE bookId = :bookId")
+  Future<void> deleteBookByBookId(int bookId);
+
   @Query("DELETE FROM ${SongConstants.booksTable}")
   Future<void> deleteAllBooks();
 }

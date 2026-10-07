@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:convert';
-
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -136,6 +133,15 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
   }
 
   // ── songbooks ────────────────────────────────────────────────────────────
+  /// Songbooks are identified by their server `bookId` everywhere (API
+  /// requests, the saved selection and `songs.book`), as on Android.
+  Set<int> _savedBookIds() => _prefRepo
+      .getPrefString(PrefConstants.selectedBooksKey)
+      .split(',')
+      .map((e) => int.tryParse(e.trim()))
+      .whereType<int>()
+      .toSet();
+
   Future<void> _onBooksRequested(
     BooksRequested event,
     Emitter<SelectionState> emit,
@@ -146,31 +152,26 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
       return;
     }
     try {
-      final resp = await _songRepo.getBooks();
-      if (resp.statusCode != 200) {
-        emit(
-          state.copyWith(
-            booksStatus: LoadStatus.failure,
-            booksError: resp.statusCode.toString(),
-          ),
-        );
-        return;
-      }
-      final dataList = List<Map<String, dynamic>>.from(jsonDecode(resp.body));
-      final books = dataList.map((item) => SongBook.fromJson(item)).toList();
+      final books = await _songRepo.fetchBooks();
 
       // Tick what was chosen on an earlier run.
-      final saved = _prefRepo.getPrefString(PrefConstants.selectedBooksKey);
-      final savedNos = saved.isEmpty ? <String>{} : saved.split(',').toSet();
+      final saved = _savedBookIds();
       emit(
         state.copyWith(
           booksStatus: LoadStatus.loaded,
           books: books,
-          selectedBookNos: {
+          selectedBookIds: {
             for (final b in books)
-              if (b.bookNo != null && savedNos.contains(b.bookNo.toString()))
-                b.bookNo!,
+              if (b.bookId != null && saved.contains(b.bookId)) b.bookId!,
           },
+        ),
+      );
+    } on SongApiException catch (e) {
+      logger('Books request failed: $e');
+      emit(
+        state.copyWith(
+          booksStatus: LoadStatus.failure,
+          booksError: e.statusCode.toString(),
         ),
       );
     } catch (e) {
@@ -180,9 +181,9 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
   }
 
   void _onBookToggled(BookToggled event, Emitter<SelectionState> emit) {
-    final selected = {...state.selectedBookNos};
-    if (!selected.remove(event.bookNo)) selected.add(event.bookNo);
-    emit(state.copyWith(selectedBookNos: selected));
+    final selected = {...state.selectedBookIds};
+    if (!selected.remove(event.bookId)) selected.add(event.bookId);
+    emit(state.copyWith(selectedBookIds: selected));
   }
 
   Future<void> _onBooksConfirmed(
@@ -194,14 +195,25 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
 
     emit(state.copyWith(booksStatus: LoadStatus.loading));
     try {
-      var ids = '';
+      final newIds = {for (final b in selected) b.bookId!};
+
+      // Songbooks that were un-ticked go, together with their songs.
+      for (final existing in await _dbRepo.fetchBooks()) {
+        final id = existing.bookId;
+        if (id != null && !newIds.contains(id)) {
+          await _dbRepo.removeSongsByBook(id);
+          await _dbRepo.removeBookByBookId(id);
+        }
+      }
+      // Re-saving a kept book replaces its row instead of duplicating it.
       for (final book in selected) {
-        ids = '$ids${book.bookNo},';
+        await _dbRepo.removeBookByBookId(book.bookId!);
         await _dbRepo.saveBook(book);
       }
-      ids = ids.substring(0, ids.length - 1);
-      _prefRepo.setPrefString(PrefConstants.selectedBooksKey, ids);
+
+      _prefRepo.setPrefString(PrefConstants.selectedBooksKey, newIds.join(','));
       _prefRepo.setPrefBool(PrefConstants.dataIsSelectedKey, true);
+      _prefRepo.setPrefBool(PrefConstants.dataIsLoadedKey, false);
       _prefRepo.setPrefBool(PrefConstants.slideVerticalKey, true);
     } catch (e) {
       logger('Unable to save books: $e');
@@ -218,23 +230,22 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
       return;
     }
 
+    final selectedBooks = _prefRepo.getPrefString(
+      PrefConstants.selectedBooksKey,
+    );
     final List<Song> songs;
     try {
-      final selectedBooks = _prefRepo.getPrefString(
-        PrefConstants.selectedBooksKey,
+      // Every page of the songs of the selected books.
+      songs = await _songRepo.fetchSongsByBooks(selectedBooks);
+    } on SongApiException catch (e) {
+      logger('Songs request failed: $e');
+      emit(
+        state.copyWith(
+          songsPhase: SongsPhase.failed,
+          songsError: e.statusCode.toString(),
+        ),
       );
-      final resp = await _songRepo.getSongsByBooks(selectedBooks);
-      if (resp.statusCode != 200) {
-        emit(
-          state.copyWith(
-            songsPhase: SongsPhase.failed,
-            songsError: resp.statusCode.toString(),
-          ),
-        );
-        return;
-      }
-      final dataList = List<Map<String, dynamic>>.from(jsonDecode(resp.body));
-      songs = dataList.map((item) => Song.fromJson(item)).toList();
+      return;
     } catch (e) {
       logger('Error log: $e');
       emit(state.copyWith(songsPhase: SongsPhase.failed, songsError: '100'));
@@ -242,6 +253,12 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
     }
 
     if (songs.isNotEmpty) {
+      // Only now that the download worked: drop any earlier copy of these
+      // books' songs so nothing ends up twice.
+      for (final id in _savedBookIds()) {
+        await _dbRepo.removeSongsByBook(id);
+      }
+
       var index = 0;
       for (final song in songs) {
         try {
@@ -255,7 +272,9 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
           );
           await _dbRepo.saveSong(song);
           index++;
-        } catch (_) {}
+        } catch (e) {
+          logger('Unable to save song ${song.songId}: $e');
+        }
       }
       _prefRepo.setPrefBool(PrefConstants.dataIsLoadedKey, true);
       _prefRepo.setPrefBool(PrefConstants.wakeLockCheckKey, true);

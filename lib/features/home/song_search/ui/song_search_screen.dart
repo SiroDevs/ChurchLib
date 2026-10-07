@@ -25,13 +25,13 @@ import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../likes/likes_screen.dart';
+import '../../../song/likes/likes_screen.dart';
 import '../../../settings/settings_screen.dart';
 import '../../../../common/widgets/general/fading_index_stack.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
 import '../../../../common/widgets/state/skeleton.dart';
-import '../../songs/songs_screen.dart';
+import '../../../song/songs/songs_screen.dart';
 import '../bloc/song_search_bloc.dart';
 
 part 'widgets/search_widget.dart';

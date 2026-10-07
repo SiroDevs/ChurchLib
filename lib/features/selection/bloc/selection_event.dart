@@ -26,8 +26,8 @@ class BooksRequested extends SelectionEvent {
 }
 
 class BookToggled extends SelectionEvent {
-  const BookToggled(this.bookNo);
-  final int bookNo;
+  const BookToggled(this.bookId);
+  final int bookId;
 }
 
 /// Save the ticked songbooks, then download their songs.

@@ -39,7 +39,7 @@ class _SongbooksStepState extends State<SongbooksStep> {
   }
 
   Future<void> _proceed(SelectionState state, AppLocalizations l10n) async {
-    if (state.selectedBookNos.isNotEmpty) {
+    if (state.selectedBookIds.isNotEmpty) {
       final result = await FlutterPlatformAlert.showCustomAlert(
         windowTitle: l10n.doneSelecting,
         text: l10n.doneSelectingBody,
@@ -69,15 +69,15 @@ class _SongbooksStepState extends State<SongbooksStep> {
     Widget item(SongBook book) => BookItem(
           item: Selectable<SongBook>(
             book,
-            state.selectedBookNos.contains(book.bookNo),
+            state.selectedBookIds.contains(book.bookId),
           ),
           onPressed: () {
-            final no = book.bookNo;
-            if (no == null) {
-              logger('Book without a number: ${book.title}');
+            final id = book.bookId;
+            if (id == null) {
+              logger('Book without an id: ${book.title}');
               return;
             }
-            bloc.add(BookToggled(no));
+            bloc.add(BookToggled(id));
           },
         );
 

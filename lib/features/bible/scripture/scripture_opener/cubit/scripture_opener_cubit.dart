@@ -2,16 +2,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../../common/utils/constants/pref_constants.dart';
-import '../../../../core/di/injectable.dart';
-import '../../../../data/models/bible/bible_book.dart';
-import '../../../../data/models/bible/bible_chapter.dart';
-import '../../../../data/models/bible/scripture_item.dart';
-import '../../../../domain/entities/bible/bible_reader.dart';
-import '../../../../domain/entities/bible/verse_display.dart';
-import '../../../../domain/repos/bible/bible_repo.dart';
-import '../../../../domain/repos/bible/scripture_repo.dart';
-import '../../../../domain/repos/pref_repo.dart';
+import '../../../../../common/utils/constants/pref_constants.dart';
+import '../../../../../core/di/injectable.dart';
+import '../../../../../data/models/bible/bible_book.dart';
+import '../../../../../data/models/bible/bible_chapter.dart';
+import '../../../../../data/models/bible/scripture_item.dart';
+import '../../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../../domain/entities/bible/verse_display.dart';
+import '../../../../../domain/repos/bible/bible_repo.dart';
+import '../../../../../domain/repos/bible/scripture_repo.dart';
+import '../../../../../domain/repos/pref_repo.dart';
 import '../../scripture_queue/cubit/scripture_queue_cubit.dart';
 
 part 'scripture_opener_state.dart';

@@ -7,9 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
-import '../../../../common/navigator/route_names.dart';
-import '../../../../core/theme/theme_colors.dart';
-import '../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../../common/navigator/route_names.dart';
+import '../../../../../core/theme/theme_colors.dart';
+import '../../../../../domain/entities/bible/bible_reader.dart';
 import '../cubit/scripture_lists_cubit.dart';
 
 class ScriptureListsScreen extends StatelessWidget {

@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 // Project imports:
-import '../../../../core/theme/theme_colors.dart';
-import '../../reader/ui/widgets/dialogs/book_picker_dialog.dart';
-import '../../reader/ui/widgets/dialogs/chapter_picker_dialog.dart';
-import '../../reader/ui/widgets/dialogs/verse_picker_dialog.dart';
+import '../../../../../core/theme/theme_colors.dart';
+import '../../../../home/bible_reader/ui/widgets/dialogs/book_picker_dialog.dart';
+import '../../../../home/bible_reader/ui/widgets/dialogs/chapter_picker_dialog.dart';
+import '../../../../home/bible_reader/ui/widgets/dialogs/verse_picker_dialog.dart';
 import '../cubit/scripture_opener_cubit.dart';
 
 class ScriptureOpenerScreen extends StatelessWidget {

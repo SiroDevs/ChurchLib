@@ -41,9 +41,7 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
       emit(state.copyWith(isLoading: true, error: null));
       final bibles = await _bibleRepo.getBibles();
       if (bibles.isEmpty) {
-        emit(
-          state.copyWith(isLoading: false, error: 'No Bibles downloaded yet.'),
-        );
+        emit(state.copyWith(isLoading: false, error: 'No Bibles downloaded yet.'));
         return;
       }
 
@@ -55,15 +53,13 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
 
       _isFirstLoad = resumePosition;
 
-      emit(
-        state.copyWith(
-          savedBibles: bibles,
-          activeBible: name,
-          activeBibleAbbr: abbr,
-          fontSize: readerStoredFontSize(_prefs),
-          multiBibleReaderEnabled: readerMultiBibleEnabled(_prefs),
-        ),
-      );
+      emit(state.copyWith(
+        savedBibles: bibles,
+        activeBible: name,
+        activeBibleAbbr: abbr,
+        fontSize: readerStoredFontSize(_prefs),
+        multiBibleReaderEnabled: readerMultiBibleEnabled(_prefs),
+      ));
 
       await _loadBooks(
         abbr,
@@ -90,19 +86,17 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
   }) async {
     final books = await _bibleRepo.getLocalBooks(abbr);
     if (books.isEmpty) {
-      emit(
-        state.copyWith(
-          isLoading: false,
-          error: 'Bible data not available. Please wait for the download to complete.',
-        ),
-      );
+      emit(state.copyWith(
+        isLoading: false,
+        error:
+            'Bible data not available. Please wait for the download to complete.',
+      ));
       return;
     }
 
     final resolvedBookId = bookId.isEmpty ? readerLastBookId(_prefs) : bookId;
-    final resolvedChapterId = chapterId.isEmpty
-        ? readerLastChapterId(_prefs)
-        : chapterId;
+    final resolvedChapterId =
+        chapterId.isEmpty ? readerLastChapterId(_prefs) : chapterId;
 
     final targetBook = firstWhereOrFirst(books, (b) => b.id == resolvedBookId);
     emit(state.copyWith(books: books, activeBook: targetBook));
@@ -125,12 +119,10 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
   }) async {
     final chapters = await _bibleRepo.getLocalChapters(abbr, book.id);
     if (chapters.isEmpty) {
-      emit(
-        state.copyWith(
-          isLoading: false,
-          error: 'No chapters found for ${book.name}',
-        ),
-      );
+      emit(state.copyWith(
+        isLoading: false,
+        error: 'No chapters found for ${book.name}',
+      ));
       return;
     }
     final target = firstWhereOrFirst(chapters, (c) => c.id == chapterId);
@@ -172,20 +164,15 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
     emit(state.copyWith(isLoading: true, error: null));
     final verses = await _bibleRepo.getLocalVerses(abbr, chapter.id);
     if (verses == null) {
-      emit(
-        state.copyWith(
-          isLoading: false,
-          error: 'Verses not cached. Please ensure download is complete.',
-        ),
-      );
+      emit(state.copyWith(
+        isLoading: false,
+        error: 'Verses not cached. Please ensure download is complete.',
+      ));
       return;
     }
 
     final parallel = await _loadParallel(abbr, chapter.id);
-    final bookmarks = await _annotations.getBookmarksForChapter(
-      abbr,
-      chapter.id,
-    );
+    final bookmarks = await _annotations.getBookmarksForChapter(abbr, chapter.id);
     final noted = await _annotations.getNotedVerseIds(abbr, chapter.id);
     final target = resolveReaderScrollTarget(
       explicit: scrollTarget,
@@ -196,22 +183,20 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
     );
     _isFirstLoad = false;
 
-    emit(
-      state.copyWith(
-        isLoading: false,
-        verses: verses,
-        parallelVerses: parallel,
-        activeChapter: chapter,
-        activeBibleAbbr: abbr,
-        bookmarks: bookmarks,
-        notedVerseIds: noted,
-        selectedVerseIds: const {},
-        pendingHighlightColor: null,
-        multiBibleReaderEnabled: readerMultiBibleEnabled(_prefs),
-        restoreVerseId: target?.verseId,
-        highlightQuery: target?.highlightQuery,
-      ),
-    );
+    emit(state.copyWith(
+      isLoading: false,
+      verses: verses,
+      parallelVerses: parallel,
+      activeChapter: chapter,
+      activeBibleAbbr: abbr,
+      bookmarks: bookmarks,
+      notedVerseIds: noted,
+      selectedVerseIds: const {},
+      pendingHighlightColor: null,
+      multiBibleReaderEnabled: readerMultiBibleEnabled(_prefs),
+      restoreVerseId: target?.verseId,
+      highlightQuery: target?.highlightQuery,
+    ));
 
     await _recordVersesLoaded(abbr, chapter, verses);
   }
@@ -281,10 +266,7 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
     selectChapter(state.chapters[nextIdx]);
   }
 
-  Future<void> selectChapter(
-    BibleChapter chapter, {
-    ScrollTarget? scrollTarget,
-  }) {
+  Future<void> selectChapter(BibleChapter chapter, {ScrollTarget? scrollTarget}) {
     return _loadVerses(
       state.activeBibleAbbr,
       chapter,
@@ -294,9 +276,11 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
   }
 
   Future<void> selectBook(BibleBook book) async {
-    emit(
-      state.copyWith(activeBook: book, chapters: const [], verses: const []),
-    );
+    emit(state.copyWith(
+      activeBook: book,
+      chapters: const [],
+      verses: const [],
+    ));
     await _loadChapters(
       state.activeBibleAbbr,
       book,
@@ -308,10 +292,8 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
   Future<void> setPrimaryBible(String abbr) async {
     final chapter = state.activeChapter;
     if (chapter == null) return;
-    final name = firstWhereOrFirst(
-      state.savedBibles,
-      (b) => b.abbreviation == abbr,
-    ).name;
+    final name =
+        firstWhereOrFirst(state.savedBibles, (b) => b.abbreviation == abbr).name;
 
     saveReaderPrimaryBible(_prefs, abbr: abbr, name: name);
     emit(state.copyWith(activeBible: name, activeBibleAbbr: abbr));
@@ -341,30 +323,23 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
 
     if (state.bookmarks.containsKey(verseId)) {
       await _annotations.removeBookmarks(abbr, [verseId]);
-      emit(
-        state.copyWith(bookmarks: withoutBookmark(state.bookmarks, verseId)),
-      );
+      emit(state.copyWith(bookmarks: withoutBookmark(state.bookmarks, verseId)));
     } else {
       await _annotations.setBookmarks(abbr, [verseId], bookId, chapterId);
-      emit(
-        state.copyWith(
-          bookmarks: withBookmarks(state.bookmarks, [verseId], null),
-        ),
-      );
+      emit(state.copyWith(bookmarks: withBookmarks(state.bookmarks, [verseId], null)));
     }
   }
 
   void toggleVerseSelected(String verseId) {
-    emit(
-      state.copyWith(
-        selectedVerseIds: toggleVerseSelection(state.selectedVerseIds, verseId),
-      ),
-    );
+    emit(state.copyWith(
+      selectedVerseIds: toggleVerseSelection(state.selectedVerseIds, verseId),
+    ));
   }
 
-  void clearSelection() => emit(
-    state.copyWith(selectedVerseIds: const {}, pendingHighlightColor: null),
-  );
+  void clearSelection() => emit(state.copyWith(
+        selectedVerseIds: const {},
+        pendingHighlightColor: null,
+      ));
 
   void chooseHighlightColor(String colorHex) =>
       emit(state.copyWith(pendingHighlightColor: colorHex));
@@ -376,11 +351,11 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
       selectedVersesSorted(state.verses, state.selectedVerseIds);
 
   NotesRequest _buildNotesRequest(VerseDisplay verse) => buildNotesRequest(
-    bibleAbbr: state.activeBibleAbbr,
-    verse: verse,
-    book: state.activeBook,
-    chapter: state.activeChapter,
-  );
+        bibleAbbr: state.activeBibleAbbr,
+        verse: verse,
+        book: state.activeBook,
+        chapter: state.activeChapter,
+      );
 
   NotesRequest? notesRequestForVerse(String verseId) {
     for (final v in state.verses) {
@@ -410,13 +385,11 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
       chapterId,
       colorHex: color,
     );
-    emit(
-      state.copyWith(
-        bookmarks: withBookmarks(state.bookmarks, ids, color),
-        selectedVerseIds: const {},
-        pendingHighlightColor: null,
-      ),
-    );
+    emit(state.copyWith(
+      bookmarks: withBookmarks(state.bookmarks, ids, color),
+      selectedVerseIds: const {},
+      pendingHighlightColor: null,
+    ));
   }
 
   Future<void> confirmBookmarkOnly() => _applyHighlight();
@@ -440,19 +413,19 @@ class BibleReaderCubit extends Cubit<BibleReaderState> {
   }
 
   String? buildSelectionShareText() => buildVerseSelectionShareText(
-    selected: _selectedVersesSorted,
-    chapterVerses: state.verses,
-    book: state.activeBook,
-    chapter: state.activeChapter,
-    bibleName: state.activeBible,
-    language: state.activeBibleLanguage,
-  );
+        selected: _selectedVersesSorted,
+        chapterVerses: state.verses,
+        book: state.activeBook,
+        chapter: state.activeChapter,
+        bibleName: state.activeBible,
+        language: state.activeBibleLanguage,
+      );
 
   String? buildActiveChapterShareText() => buildChapterShareText(
-    chapterVerses: state.verses,
-    book: state.activeBook,
-    chapter: state.activeChapter,
-    bibleName: state.activeBible,
-    language: state.activeBibleLanguage,
-  );
+        chapterVerses: state.verses,
+        book: state.activeBook,
+        chapter: state.activeChapter,
+        bibleName: state.activeBible,
+        language: state.activeBibleLanguage,
+      );
 }

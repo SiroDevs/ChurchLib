@@ -110,6 +110,7 @@ T firstWhereOrFirst<T>(List<T> items, bool Function(T) test) =>
   return (abbr: abbr, name: name);
 }
 
+/// The scroll target for the verse a caller asked to open, if any.
 ScrollTarget? initialReaderScrollTarget({
   required String verseId,
   required String searchQuery,

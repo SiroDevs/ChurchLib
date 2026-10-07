@@ -29,7 +29,7 @@ class SelectionState extends Equatable {
     this.finishing = false,
     this.booksStatus = LoadStatus.idle,
     this.books = const [],
-    this.selectedBookNos = const {},
+    this.selectedBookIds = const {},
     this.booksError = '',
     this.songsPhase = SongsPhase.idle,
     this.songsProgress = 0,
@@ -59,7 +59,7 @@ class SelectionState extends Equatable {
   // ── songbooks ──
   final LoadStatus booksStatus;
   final List<SongBook> books;
-  final Set<int> selectedBookNos;
+  final Set<int> selectedBookIds;
   final String booksError;
 
   // ── songs download ──
@@ -85,7 +85,7 @@ class SelectionState extends Equatable {
 
   List<SongBook> get selectedBooks => [
         for (final b in books)
-          if (selectedBookNos.contains(b.bookNo)) b,
+          if (selectedBookIds.contains(b.bookId)) b,
       ];
 
   bool get canProceedBibles => selectedAbbrs.isNotEmpty;
@@ -98,7 +98,7 @@ class SelectionState extends Equatable {
     bool? finishing,
     LoadStatus? booksStatus,
     List<SongBook>? books,
-    Set<int>? selectedBookNos,
+    Set<int>? selectedBookIds,
     String? booksError,
     SongsPhase? songsPhase,
     int? songsProgress,
@@ -120,7 +120,7 @@ class SelectionState extends Equatable {
         finishing: finishing ?? this.finishing,
         booksStatus: booksStatus ?? this.booksStatus,
         books: books ?? this.books,
-        selectedBookNos: selectedBookNos ?? this.selectedBookNos,
+        selectedBookIds: selectedBookIds ?? this.selectedBookIds,
         booksError: booksError ?? this.booksError,
         songsPhase: songsPhase ?? this.songsPhase,
         songsProgress: songsProgress ?? this.songsProgress,
@@ -144,7 +144,7 @@ class SelectionState extends Equatable {
         finishing,
         booksStatus,
         books,
-        selectedBookNos,
+        selectedBookIds,
         booksError,
         songsPhase,
         songsProgress,

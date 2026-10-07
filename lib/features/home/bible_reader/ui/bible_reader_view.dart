@@ -13,7 +13,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
-import '../../scripture_queue/cubit/scripture_queue_cubit.dart';
+import '../../../bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
 import '../cubit/bible_reader_cubit.dart';
 import 'widgets/dialogs/export.dart';
 import 'widgets/toolbars/export.dart';
