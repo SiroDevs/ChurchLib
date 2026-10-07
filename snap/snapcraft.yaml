@@ -1,0 +1,25 @@
+name: churchlib
+title: ChurchLib
+summary: Your songbook and Bible, together, on the go
+description: |
+  ChurchLib combines SongLib (church songbook/hymns) and BibleLib
+  (multi-translation Bible reader) in one offline-first desktop app.
+version: git          # replaced by CI with the pubspec version
+base: core24
+grade: stable
+confinement: strict
+license: GPL-3.0
+
+apps:
+  churchlib:
+    command: ChurchLib
+    extensions: [gnome]
+    plugs: [network, home, removable-media]
+
+parts:
+  churchlib:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart
+    build-packages: [libsqlite3-dev]
+    stage-packages: [libsqlite3-0]

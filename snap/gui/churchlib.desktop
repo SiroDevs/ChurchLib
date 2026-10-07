@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=ChurchLib
+Comment=Your songbook and Bible, together, on the go
+Exec=churchlib
+Icon=${SNAP}/meta/gui/churchlib.png
+Terminal=false
+Type=Application
+Categories=Education;
+Keywords=ChurchLib;SongLib;BibleLib;Songs;Church;Bible;SongBook;
