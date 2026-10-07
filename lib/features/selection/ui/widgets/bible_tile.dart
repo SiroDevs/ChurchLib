@@ -27,7 +27,18 @@ class BibleTile extends StatelessWidget {
     final disabled = !selected && atLimit;
     return Opacity(
       opacity: disabled ? 0.45 : 1,
-      child: CheckboxListTile(
+      child: Card(
+        margin: const EdgeInsets.all(3),
+        elevation: selected ? 3 : 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(
+            color: selected ? ThemeColors.primary : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: CheckboxListTile(
         value: selected,
         activeColor: ThemeColors.primary,
         controlAffinity: ListTileControlAffinity.leading,
@@ -38,7 +49,13 @@ class BibleTile extends StatelessWidget {
                 .add(BibleToggled(bible.abbreviation)),
         title: Row(
           children: [
-            Flexible(child: Text(bible.name)),
+            Flexible(
+              child: Text(
+                bible.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
             if (isPrimary) ...[
               const SizedBox(width: 8),
               Container(
@@ -60,9 +77,12 @@ class BibleTile extends StatelessWidget {
           ],
         ),
         subtitle: Text(
-          '${bible.abbreviation} · ${bible.language.name}',
+          '${bible.abbreviation.toUpperCase()} · ${bible.language.name}',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(fontSize: 12),
         ),
+      ),
       ),
     );
   }

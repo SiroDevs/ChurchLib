@@ -12,7 +12,9 @@ import '../../domain/repos/pref_repo.dart';
 import '../../l10n/app_localizations.dart';
 
 class ThemeButton extends StatefulWidget {
-  const ThemeButton({super.key});
+  final bool showLabel;
+
+  const ThemeButton({super.key, this.showLabel = false});
 
   @override
   State<ThemeButton> createState() => ThemeButtonState();
@@ -43,14 +45,19 @@ class ThemeButtonState extends State<ThemeButton> {
     l10n = AppLocalizations.of(context)!;
     var isDark = Theme.of(context).brightness == Brightness.dark;
 
+    final icon = Icon(isDark ? Icons.light_mode : Icons.dark_mode);
+    void toggle() => onThemeChanged(isDark ? ThemeMode.light : ThemeMode.dark);
+
+    if (widget.showLabel) {
+      return TextButton.icon(
+        icon: icon,
+        label: Text(isDark ? 'Light mode' : 'Dark mode'),
+        onPressed: toggle,
+      );
+    }
     return Tooltip(
       message: isDark ? "Switch to Light Mode" : "Switch to Dark Mode",
-      child: IconButton(
-        icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
-        onPressed: () => {
-          onThemeChanged(isDark ? ThemeMode.light : ThemeMode.dark),
-        },
-      ),
+      child: IconButton(icon: icon, onPressed: toggle),
     );
   }
 }

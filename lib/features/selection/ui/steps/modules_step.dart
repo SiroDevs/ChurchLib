@@ -8,86 +8,62 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../common/utils/constants/app_assets.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../bloc/selection_bloc.dart';
-import '../widgets/steps/step_action_bar.dart';
 
-class ModulesStep extends StatefulWidget {
+class ModulesStep extends StatelessWidget {
   const ModulesStep({super.key});
 
   @override
-  State<ModulesStep> createState() => _ModulesStepState();
-}
-
-class _ModulesStepState extends State<ModulesStep> {
-  late bool _songlib = context.read<SelectionBloc>().state.songlib;
-  late bool _biblelib = context.read<SelectionBloc>().state.biblelib;
-
-  bool get _canContinue => _songlib || _biblelib;
-
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 480),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(AppAssets.iconApp, height: 96, width: 96),
-                    const SizedBox(height: 24),
-                    const Text(
-                      'Welcome to ChurchLib',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColors.primary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      "Choose what you'd like set up. You can always add "
-                      'the other one later from Settings.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: ThemeColors.grey),
-                    ),
-                    const SizedBox(height: 32),
-                    _ModuleTile(
-                      title: 'SongLib',
-                      subtitle: 'Church songbook & hymns, offline',
-                      icon: AppAssets.iconSonglib,
-                      selected: _songlib,
-                      onChanged: (v) => setState(() => _songlib = v),
-                    ),
-                    const SizedBox(height: 16),
-                    _ModuleTile(
-                      title: 'BibleLib',
-                      subtitle: 'Multi-translation Bible reader',
-                      icon: AppAssets.iconBiblelib,
-                      selected: _biblelib,
-                      onChanged: (v) => setState(() => _biblelib = v),
-                    ),
-                  ],
+    final bloc = context.read<SelectionBloc>();
+    return BlocBuilder<SelectionBloc, SelectionState>(
+      buildWhen: (p, c) => p.songlib != c.songlib || p.biblelib != c.biblelib,
+      builder: (context, state) => Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 480),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(AppAssets.iconApp, height: 96, width: 96),
+                const SizedBox(height: 24),
+                const Text(
+                  'Welcome to ChurchLib',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColors.primary,
+                  ),
                 ),
-              ),
+                const SizedBox(height: 8),
+                const Text(
+                  "Choose what you'd like set up. You can always add "
+                  'the other one later from Settings.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15, color: ThemeColors.grey),
+                ),
+                const SizedBox(height: 32),
+                _ModuleTile(
+                  title: 'SongLib',
+                  subtitle: 'Church songbook & hymns, offline',
+                  icon: AppAssets.iconSonglib,
+                  selected: state.songlib,
+                  onChanged: (v) => bloc.add(ModulesToggled(songlib: v)),
+                ),
+                const SizedBox(height: 16),
+                _ModuleTile(
+                  title: 'BibleLib',
+                  subtitle: 'Multi-translation Bible reader',
+                  icon: AppAssets.iconBiblelib,
+                  selected: state.biblelib,
+                  onChanged: (v) => bloc.add(ModulesToggled(biblelib: v)),
+                ),
+              ],
             ),
           ),
         ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 528),
-          child: StepActionBar(
-            label: 'Continue',
-            onPressed: _canContinue
-                ? () => context.read<SelectionBloc>().add(
-                      ModulesChosen(songlib: _songlib, biblelib: _biblelib),
-                    )
-                : null,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

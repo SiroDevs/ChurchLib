@@ -18,23 +18,16 @@ import '../../../domain/repos/song/song_selection_repo.dart';
 part 'selection_event.dart';
 part 'selection_state.dart';
 
-/// The one bloc behind the Selection screen: the app choice, songbook
-/// selection + songs download, and Bible selection + download, plus the
-/// step-by-step flow that strings them together.
-///
-/// Which steps are needed is worked out from the prefs, so the same bloc
-/// serves a fresh install, a resumed install, and "add SongLib / BibleLib"
-/// or a module reset from Settings. Pass [only] to run a single step
-/// (Settings → Bibles → add more uses `SelectionStepType.bibles`).
 class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
   SelectionBloc({this.only}) : super(_initial(getIt<PrefRepo>(), only)) {
     on<SelectionStarted>(_onStarted);
+    on<ModulesToggled>(_onModulesToggled);
     on<ModulesChosen>(_onModulesChosen);
     on<SelectionBackPressed>(_onBack);
     on<BooksRequested>(_onBooksRequested);
     on<BookToggled>(_onBookToggled);
     on<BooksConfirmed>(_onBooksConfirmed);
-    on<SongsDownloadRetried>((_, emit) => _downloadSongs(emit));
+    on<SongsDownloadRetried>((_, emit) => _runSave(emit, finish: _finishAfterSave));
     on<BiblesRequested>(_onBiblesRequested);
     on<BibleToggled>(_onBibleToggled);
     on<BiblesConfirmed>(_onBiblesConfirmed);
@@ -70,24 +63,37 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
       biblelib: biblelib,
       steps: [
         if (songlib && !songSelected && !songLoaded)
-          SelectionStepType.songbooks,
+          SelectionStepType.songs,
         if (biblelib && !bibleLoaded) SelectionStepType.bibles,
       ],
     );
   }
 
-  // ── flow ─────────────────────────────────────────────────────────────────
+  bool _finishAfterSave = true;
+  bool _booksPersisted = false;
+
   Future<void> _onStarted(
     SelectionStarted event,
     Emitter<SelectionState> emit,
   ) async {
-    // An earlier run chose its songbooks but never finished downloading the
-    // songs: pick that up again straight away instead of asking again.
     final resume = only == null &&
         _prefRepo.getPrefBool(PrefConstants.songlibModuleEnabledKey) &&
         _prefRepo.getPrefBool(PrefConstants.dataIsSelectedKey) &&
         !_prefRepo.getPrefBool(PrefConstants.dataIsLoadedKey);
-    if (resume) await _downloadSongs(emit);
+    if (!resume) return;
+    _booksPersisted = true;
+    _finishAfterSave = state.steps.isEmpty;
+    emit(state.copyWith(planSongs: true, planBible: false));
+    await _runSave(emit, finish: _finishAfterSave);
+  }
+
+  void _onModulesToggled(ModulesToggled event, Emitter<SelectionState> emit) {
+    emit(
+      state.copyWith(
+        songlib: event.songlib ?? state.songlib,
+        biblelib: event.biblelib ?? state.biblelib,
+      ),
+    );
   }
 
   void _onModulesChosen(ModulesChosen event, Emitter<SelectionState> emit) {
@@ -106,7 +112,7 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
         index: 1,
         steps: [
           SelectionStepType.modules,
-          if (event.songlib) SelectionStepType.songbooks,
+          if (event.songlib) SelectionStepType.songs,
           if (event.biblelib) SelectionStepType.bibles,
         ],
       ),
@@ -114,27 +120,45 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
   }
 
   void _onBack(SelectionBackPressed event, Emitter<SelectionState> emit) {
-    if (state.canGoBack) emit(state.copyWith(index: 0));
+    if (state.canGoBack) emit(state.copyWith(index: state.index - 1));
   }
 
-  /// A download step finished: move on, or finish when it was the last one.
-  void _completed(SelectionStepType type, Emitter<SelectionState> emit) {
-    if (state.finishing) return;
-    if (state.current == type) {
-      if (state.index + 1 < state.steps.length) {
-        emit(state.copyWith(index: state.index + 1));
-      } else {
-        emit(state.copyWith(finishing: true));
-      }
-    } else if (state.steps.isEmpty) {
-      // Resumed songs download with no step left to show.
+  Future<void> _next(Emitter<SelectionState> emit) async {
+    if (state.index + 1 < state.steps.length) {
+      emit(state.copyWith(index: state.index + 1));
+      return;
+    }
+    _finishAfterSave = true;
+    emit(
+      state.copyWith(
+        planSongs: state.steps.contains(SelectionStepType.songs),
+        planBible: state.steps.contains(SelectionStepType.bibles),
+      ),
+    );
+    await _runSave(emit, finish: true);
+  }
+
+  Future<void> _runSave(
+    Emitter<SelectionState> emit, {
+    required bool finish,
+    _BibleRun? bibleRun,
+  }) async {
+    emit(state.copyWith(saveActive: true));
+
+    if (state.planSongs && state.songsPhase != SongsPhase.done) {
+      if (!await _saveSongs(emit)) return;
+    }
+    if (state.planBible && state.bibleStatus != BibleStatus.saved) {
+      if (!await _saveBible(emit, bibleRun ?? _confirmedBibleRun)) return;
+    }
+
+    if (finish) {
       emit(state.copyWith(finishing: true));
+    } else {
+      emit(state.copyWith(saveActive: false));
     }
   }
 
-  // ── songbooks ────────────────────────────────────────────────────────────
-  /// Songbooks are identified by their server `bookId` everywhere (API
-  /// requests, the saved selection and `songs.book`), as on Android.
   Set<int> _savedBookIds() => _prefRepo
       .getPrefString(PrefConstants.selectedBooksKey)
       .split(',')
@@ -154,8 +178,9 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
     try {
       final books = await _songRepo.fetchBooks();
 
-      // Tick what was chosen on an earlier run.
-      final saved = _savedBookIds();
+      final saved = state.selectedBookIds.isNotEmpty
+          ? state.selectedBookIds
+          : _savedBookIds();
       emit(
         state.copyWith(
           booksStatus: LoadStatus.loaded,
@@ -163,7 +188,7 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
           selectedBookIds: {
             for (final b in books)
               if (b.bookId != null && saved.contains(b.bookId)) b.bookId!,
-          },
+          }.take(maxSongbookSelections).toSet(),
         ),
       );
     } on SongApiException catch (e) {
@@ -182,7 +207,10 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
 
   void _onBookToggled(BookToggled event, Emitter<SelectionState> emit) {
     final selected = {...state.selectedBookIds};
-    if (!selected.remove(event.bookId)) selected.add(event.bookId);
+    if (!selected.remove(event.bookId)) {
+      if (selected.length >= maxSongbookSelections) return;
+      selected.add(event.bookId);
+    }
     emit(state.copyWith(selectedBookIds: selected));
   }
 
@@ -190,44 +218,48 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
     BooksConfirmed event,
     Emitter<SelectionState> emit,
   ) async {
-    final selected = state.selectedBooks;
-    if (selected.isEmpty) return;
-
-    emit(state.copyWith(booksStatus: LoadStatus.loading));
-    try {
-      final newIds = {for (final b in selected) b.bookId!};
-
-      // Songbooks that were un-ticked go, together with their songs.
-      for (final existing in await _dbRepo.fetchBooks()) {
-        final id = existing.bookId;
-        if (id != null && !newIds.contains(id)) {
-          await _dbRepo.removeSongsByBook(id);
-          await _dbRepo.removeBookByBookId(id);
-        }
-      }
-      // Re-saving a kept book replaces its row instead of duplicating it.
-      for (final book in selected) {
-        await _dbRepo.removeBookByBookId(book.bookId!);
-        await _dbRepo.saveBook(book);
-      }
-
-      _prefRepo.setPrefString(PrefConstants.selectedBooksKey, newIds.join(','));
-      _prefRepo.setPrefBool(PrefConstants.dataIsSelectedKey, true);
-      _prefRepo.setPrefBool(PrefConstants.dataIsLoadedKey, false);
-      _prefRepo.setPrefBool(PrefConstants.slideVerticalKey, true);
-    } catch (e) {
-      logger('Unable to save books: $e');
-    }
-    emit(state.copyWith(booksStatus: LoadStatus.loaded));
-    await _downloadSongs(emit);
+    if (state.selectedBookIds.isEmpty) return;
+    await _next(emit);
   }
 
-  // ── songs download ───────────────────────────────────────────────────────
-  Future<void> _downloadSongs(Emitter<SelectionState> emit) async {
+  Future<void> _persistBooks() async {
+    final selected = state.selectedBooks;
+    final newIds = {for (final b in selected) b.bookId!};
+
+    for (final existing in await _dbRepo.fetchBooks()) {
+      final id = existing.bookId;
+      if (id != null && !newIds.contains(id)) {
+        await _dbRepo.removeSongsByBook(id);
+        await _dbRepo.removeBookByBookId(id);
+      }
+    }
+    for (final book in selected) {
+      await _dbRepo.removeBookByBookId(book.bookId!);
+      await _dbRepo.saveBook(book);
+    }
+
+    _prefRepo.setPrefString(PrefConstants.selectedBooksKey, newIds.join(','));
+    _prefRepo.setPrefBool(PrefConstants.dataIsSelectedKey, true);
+    _prefRepo.setPrefBool(PrefConstants.dataIsLoadedKey, false);
+    _prefRepo.setPrefBool(PrefConstants.slideVerticalKey, true);
+  }
+
+  Future<bool> _saveSongs(Emitter<SelectionState> emit) async {
     emit(state.copyWith(songsPhase: SongsPhase.fetching, songsProgress: 0));
     if (!await NetworkUtil.hasInternetConnection()) {
       emit(state.copyWith(songsPhase: SongsPhase.noInternet));
-      return;
+      return false;
+    }
+
+    if (!_booksPersisted) {
+      try {
+        await _persistBooks();
+        _booksPersisted = true;
+      } catch (e) {
+        logger('Unable to save books: $e');
+        emit(state.copyWith(songsPhase: SongsPhase.failed, songsError: '100'));
+        return false;
+      }
     }
 
     final selectedBooks = _prefRepo.getPrefString(
@@ -235,7 +267,6 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
     );
     final List<Song> songs;
     try {
-      // Every page of the songs of the selected books.
       songs = await _songRepo.fetchSongsByBooks(selectedBooks);
     } on SongApiException catch (e) {
       logger('Songs request failed: $e');
@@ -245,11 +276,11 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
           songsError: e.statusCode.toString(),
         ),
       );
-      return;
+      return false;
     } catch (e) {
       logger('Error log: $e');
       emit(state.copyWith(songsPhase: SongsPhase.failed, songsError: '100'));
-      return;
+      return false;
     }
 
     if (songs.isNotEmpty) {
@@ -281,7 +312,7 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
     }
 
     emit(state.copyWith(songsPhase: SongsPhase.done));
-    _completed(SelectionStepType.songbooks, emit);
+    return true;
   }
 
   String _songsFeedback(int progress) => switch (progress) {
@@ -323,10 +354,11 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
         state.copyWith(
           bibleStatus: BibleStatus.loaded,
           availableBibles: available,
-          selectedAbbrs: _bibleRepo.selectedAbbrs.where(known.contains).toList(),
-          maxSelections: _bibleRepo.isFirstInstall
-              ? bibleFirstInstallMax
-              : bibleFirstInstallMax + bibleAdditionalAllowed,
+          selectedAbbrs: _bibleRepo.selectedAbbrs
+              .where(known.contains)
+              .take(maxBibleSelections)
+              .toList(),
+          maxSelections: maxBibleSelections,
         ),
       );
     } catch (e) {
@@ -352,23 +384,24 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
     emit(state.copyWith(selectedAbbrs: selected));
   }
 
-  Future<void> _downloadBible(
-    Emitter<SelectionState> emit, {
-    required String startStep,
-    double startProgress = 0,
-    Future<void> Function()? beforeDownload,
-    required String failMessage,
-  }) async {
+  _BibleRun get _confirmedBibleRun => _BibleRun(
+        startStep: 'Preparing...',
+        beforeDownload: () => _bibleRepo.persistSelection(_selectedDtos),
+        failMessage:
+            'Failed to download the Bible. You can continue where it left off or restart.',
+      );
+
+  Future<bool> _saveBible(Emitter<SelectionState> emit, _BibleRun run) async {
     emit(
       state.copyWith(
         bibleStatus: BibleStatus.saving,
-        bibleStep: startStep,
-        bibleProgress: startProgress,
+        bibleStep: run.startStep,
+        bibleProgress: run.startProgress,
       ),
     );
-    var lastProgress = startProgress;
+    var lastProgress = run.startProgress;
     try {
-      if (beforeDownload != null) await beforeDownload();
+      if (run.beforeDownload != null) await run.beforeDownload!();
       await _bibleRepo.downloadPrimaryAndQueueSecondaries(
         _selectedDtos,
         onProgress: (step, progress) async {
@@ -381,18 +414,18 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
       emit(
         state.copyWith(bibleStatus: BibleStatus.saved, bibleProgress: 1),
       );
+      return true;
     } catch (e) {
       logger('BibleSelection download failed: $e');
       emit(
         state.copyWith(
           bibleStatus: BibleStatus.saveFailed,
-          bibleMessage: failMessage,
+          bibleMessage: run.failMessage,
           bibleProgress: lastProgress,
         ),
       );
-      return;
+      return false;
     }
-    _completed(SelectionStepType.bibles, emit);
   }
 
   Future<void> _onBiblesConfirmed(
@@ -400,13 +433,7 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
     Emitter<SelectionState> emit,
   ) async {
     if (!state.canProceedBibles) return;
-    await _downloadBible(
-      emit,
-      startStep: 'Preparing...',
-      beforeDownload: () => _bibleRepo.persistSelection(_selectedDtos),
-      failMessage:
-          'Failed to download the Bible. You can continue where it left off or restart.',
-    );
+    await _next(emit);
   }
 
   Future<void> _onBibleResumed(
@@ -415,12 +442,15 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
   ) async {
     if (!state.canProceedBibles) return;
     final primary = state.selectedAbbrs.first;
-    await _downloadBible(
+    await _runSave(
       emit,
-      startStep: 'Resuming download...',
-      startProgress: await _bibleRepo.savedProgress(primary),
-      failMessage:
-          "Still couldn't finish the download. You can continue or restart.",
+      finish: _finishAfterSave,
+      bibleRun: _BibleRun(
+        startStep: 'Resuming download...',
+        startProgress: await _bibleRepo.savedProgress(primary),
+        failMessage:
+            "Still couldn't finish the download. You can continue or restart.",
+      ),
     );
   }
 
@@ -430,12 +460,29 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState> {
   ) async {
     if (!state.canProceedBibles) return;
     final primary = state.selectedAbbrs.first;
-    await _downloadBible(
+    await _runSave(
       emit,
-      startStep: 'Restarting download...',
-      beforeDownload: () => _bibleRepo.restart(primary),
-      failMessage:
-          'Failed to download the Bible. You can continue where it left off or restart.',
+      finish: _finishAfterSave,
+      bibleRun: _BibleRun(
+        startStep: 'Restarting download...',
+        beforeDownload: () => _bibleRepo.restart(primary),
+        failMessage:
+            'Failed to download the Bible. You can continue where it left off or restart.',
+      ),
     );
   }
+}
+
+class _BibleRun {
+  const _BibleRun({
+    required this.startStep,
+    this.startProgress = 0,
+    this.beforeDownload,
+    required this.failMessage,
+  });
+
+  final String startStep;
+  final double startProgress;
+  final Future<void> Function()? beforeDownload;
+  final String failMessage;
 }

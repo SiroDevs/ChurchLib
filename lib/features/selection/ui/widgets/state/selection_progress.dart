@@ -40,28 +40,17 @@ class SelectionProgress extends StatelessWidget {
       );
     }
 
+    if (!state.saveActive) return null;
+
     Widget retrySongs() => FilledButton(
           onPressed: () => bloc.add(const SongsDownloadRetried()),
           child: const Text('Retry'),
         );
 
     switch (state.songsPhase) {
-      case SongsPhase.fetching:
-        return const ProgressView(
-          key: ValueKey('songs-fetching'),
-          title: 'Fetching your songs…',
-          message: 'This only takes a moment',
-        );
-      case SongsPhase.saving:
-        return ProgressView(
-          key: const ValueKey('songs-saving'),
-          title: 'Saving your songs',
-          percent: state.songsProgress,
-          ringLabel: state.songsFeedback,
-        );
       case SongsPhase.failed:
         return ProgressView(
-          key: const ValueKey('songs-failed'),
+          key: const ValueKey('save-failed'),
           isError: true,
           title: 'Unable to download songs',
           message: feedbackMessage(state.songsError, l10n),
@@ -69,53 +58,71 @@ class SelectionProgress extends StatelessWidget {
         );
       case SongsPhase.noInternet:
         return ProgressView(
-          key: const ValueKey('songs-offline'),
+          key: const ValueKey('save-offline'),
           isError: true,
           title: l10n.noConnection,
           message: l10n.noConnectionBody,
           actions: [retrySongs()],
         );
       case SongsPhase.idle:
+      case SongsPhase.fetching:
+      case SongsPhase.saving:
       case SongsPhase.done:
         break;
     }
 
-    switch (state.bibleStatus) {
-      case BibleStatus.saving:
-        return ProgressView(
-          key: const ValueKey('bible-saving'),
-          title: 'Downloading your primary Bible',
-          ringLabel: 'Bible',
-          percent: (state.bibleProgress * 100).round(),
-          message: '${state.bibleStep}\n'
-              'Your other Bibles will download in the background.',
-        );
-      case BibleStatus.saveFailed:
-        return ProgressView(
-          key: const ValueKey('bible-failed'),
-          isError: true,
-          title: state.bibleMessage,
-          message: '${(state.bibleProgress * 100).round()}% downloaded',
-          actions: [
-            OutlinedButton(
-              onPressed: () => bloc.add(const BibleDownloadRestarted()),
-              child: const Text('Restart'),
+    if (state.bibleStatus == BibleStatus.saveFailed) {
+      return ProgressView(
+        key: const ValueKey('save-failed'),
+        isError: true,
+        title: state.bibleMessage,
+        message: '${(state.bibleProgress * 100).round()}% downloaded',
+        actions: [
+          OutlinedButton(
+            onPressed: () => bloc.add(const BibleDownloadRestarted()),
+            child: const Text('Restart'),
+          ),
+          const SizedBox(width: 12),
+          FilledButton(
+            onPressed: () => bloc.add(const BibleDownloadResumed()),
+            style: FilledButton.styleFrom(
+              backgroundColor: ThemeColors.primary,
             ),
-            const SizedBox(width: 12),
-            FilledButton(
-              onPressed: () => bloc.add(const BibleDownloadResumed()),
-              style: FilledButton.styleFrom(
-                backgroundColor: ThemeColors.primary,
-              ),
-              child: const Text('Continue'),
-            ),
-          ],
-        );
-      case BibleStatus.loading:
-      case BibleStatus.loaded:
-      case BibleStatus.error:
-      case BibleStatus.saved:
-        return null;
+            child: const Text('Continue'),
+          ),
+        ],
+      );
     }
+
+    // Songs and Bibles share one progress animation (the key never changes
+    // between them); only the words around the ring change.
+    final songsStage = state.planSongs &&
+        (state.songsPhase == SongsPhase.idle ||
+            state.songsPhase == SongsPhase.fetching ||
+            state.songsPhase == SongsPhase.saving);
+    final String title;
+    final String ringLabel;
+    final String message;
+    if (songsStage) {
+      title = state.songsPhase == SongsPhase.saving
+          ? 'Saving your songs'
+          : 'Fetching your songs…';
+      ringLabel = state.songsFeedback;
+      message = state.songsPhase == SongsPhase.saving
+          ? ''
+          : 'This only takes a moment';
+    } else {
+      title = 'Downloading your primary Bible';
+      ringLabel = 'Bible';
+      message = '${state.bibleStep}\n'
+          'Your other Bibles will download in the background.';
+    }
+    return ProgressView(
+      key: const ValueKey('save-progress'),
+      title: title,
+      ringLabel: ringLabel,
+      percent: (state.saveProgress * 100).round(),
+      message: message,
+    );
   }
 }
