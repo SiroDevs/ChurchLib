@@ -7,5 +7,12 @@ releases:
           platform: linux
           target: deb
           build_args:
-            enable-experiment: records
-            
+            target: lib/main.dart
+            no-tree-shake-icons: true
+      - name: release-prod-linux-rpm
+        package:
+          platform: linux
+          target: rpm
+          build_args:
+            target: lib/main.dart
+            no-tree-shake-icons: true

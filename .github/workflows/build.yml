@@ -1,0 +1,265 @@
+name: Build & Release
+
+on:
+  push:
+    tags: ["v*"]            # v1.0.0 -> build everything + publish a GitHub Release
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_CHANNEL: stable
+  ENTRY: lib/main.dart       # use lib/main_stg.dart for staging builds
+  APP_NAME: ChurchLib
+  PKG_NAME: churchlib
+
+jobs:
+  # ───────── Windows: User installer, System installer, .zip  (x64 + Arm64) ─────────
+  windows:
+    name: Windows ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: x64,   runner: windows-latest,  experimental: false }
+          - { arch: arm64, runner: windows-11-arm,  experimental: true }   # free on public repos only
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: ${{ matrix.arch }}
+          cache: true
+
+      - name: Read version from pubspec
+        id: ver
+        shell: pwsh
+        run: |
+          $line = (Select-String -Path pubspec.yaml -Pattern '^version:\s*(.+)$').Matches[0].Groups[1].Value.Trim()
+          "version=$($line.Split('+')[0])" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Build
+        shell: pwsh
+        run: |
+          flutter config --enable-windows-desktop
+          flutter pub get
+          flutter gen-l10n
+          flutter build windows --release -t $env:ENTRY --no-tree-shake-icons
+
+      - name: Locate build output
+        id: out
+        shell: pwsh
+        run: |
+          $dir = (Get-ChildItem build/windows -Directory | Select-Object -First 1).FullName
+          $rel = Join-Path $dir "runner/Release"
+          if (-not (Test-Path $rel)) { throw "Release folder not found under $dir" }
+          "release=$rel" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Install Inno Setup (if missing)
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { choco install innosetup -y --no-progress }
+
+      - name: Build User + System installers
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          New-Item -ItemType Directory -Force dist | Out-Null
+          foreach ($mode in "user","system") {
+            & $iscc `
+              "/DMyAppVersion=${{ steps.ver.outputs.version }}" `
+              "/DSourceDir=${{ steps.out.outputs.release }}" `
+              "/DRepoRoot=$env:GITHUB_WORKSPACE" `
+              "/DOutputDir=$env:GITHUB_WORKSPACE\dist" `
+              "/DArch=${{ matrix.arch }}" `
+              "/DInstallMode=$mode" `
+              windows/packaging/churchlib.iss
+            if ($LASTEXITCODE -ne 0) { throw "Inno Setup ($mode) failed" }
+          }
+
+      - name: Build .zip
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "${{ steps.out.outputs.release }}\*" `
+            -DestinationPath "dist/${{ env.APP_NAME }}-win32-${{ matrix.arch }}.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{ matrix.arch }}
+          path: dist/*
+          if-no-files-found: error
+
+  # ───────── macOS: Universal .dmg ─────────
+  macos:
+    name: macOS Universal (.dmg)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Build
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+          flutter gen-l10n
+          flutter build macos --release -t "$ENTRY" --no-tree-shake-icons
+
+      - name: Create DMG
+        run: |
+          brew install create-dmg
+          mkdir -p dist
+          create-dmg \
+            --volname "${APP_NAME}" \
+            --window-pos 200 120 --window-size 800 400 --icon-size 100 \
+            --icon "${APP_NAME}.app" 200 190 --hide-extension "${APP_NAME}.app" \
+            --app-drop-link 600 185 \
+            "dist/${APP_NAME}-darwin-universal.dmg" \
+            "build/macos/Build/Products/Release/${APP_NAME}.app"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-universal
+          path: dist/*
+          if-no-files-found: error
+
+  # ───────── Linux: .deb, .rpm, .tar.gz  (x64 + Arm64) ─────────
+  linux:
+    name: Linux ${{ matrix.arch }} (deb, rpm, tar.gz)
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: x64,   runner: ubuntu-24.04 }
+          - { arch: arm64, runner: ubuntu-24.04-arm }   # free on public repos only
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev \
+            libsqlite3-dev libstdc++-12-dev rpm patchelf fakeroot dpkg-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: ${{ matrix.arch }}
+          cache: true
+
+      - name: Prepare
+        run: |
+          flutter config --enable-linux-desktop
+          flutter pub get
+          flutter gen-l10n
+          dart pub global activate flutter_distributor
+          echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
+
+      - name: Package deb + rpm
+        run: |
+          for target in deb rpm; do
+            flutter_distributor package \
+              --platform linux --targets "$target" \
+              --build-target "$ENTRY" \
+              --flutter-build-args=no-tree-shake-icons
+          done
+
+      - name: Collect deb, rpm and build .tar.gz
+        run: |
+          mkdir -p out
+          deb=$(find dist -name '*.deb' | head -1)
+          rpm=$(find dist -name '*.rpm' | head -1)
+          [ -n "$deb" ] && [ -n "$rpm" ] || { echo "deb/rpm not produced"; find dist; exit 1; }
+          cp "$deb" "out/${PKG_NAME}-linux-${{ matrix.arch }}.deb"
+          cp "$rpm" "out/${PKG_NAME}-linux-${{ matrix.arch }}.rpm"
+
+          bundle=$(find build/linux -type d -path '*release/bundle' | head -1)
+          [ -d "$bundle" ] || { echo "bundle dir not found"; exit 1; }
+          rm -rf stage && mkdir -p stage
+          cp -r "$bundle" "stage/${APP_NAME}"
+          tar -czf "out/${PKG_NAME}-linux-${{ matrix.arch }}.tar.gz" -C stage "${APP_NAME}"
+          ls -lh out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}
+          path: out/*
+          if-no-files-found: error
+
+  # ───────── Linux: Snap (x64 + Arm64) ─────────
+  snap:
+    name: Snap ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    continue-on-error: true            # snap builds are the most fragile; don't block releases
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: x64,   runner: ubuntu-24.04 }
+          - { arch: arm64, runner: ubuntu-24.04-arm }
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set snap version from pubspec
+        run: |
+          v=$(grep -E '^version:' pubspec.yaml | head -1 | awk '{print $2}' | cut -d+ -f1)
+          sed -i "s/^version: git.*/version: '$v'/" snap/snapcraft.yaml
+
+      - uses: snapcore/action-build@v1
+        id: build
+
+      - name: Rename
+        run: |
+          mkdir -p out
+          cp "${{ steps.build.outputs.snap }}" "out/${PKG_NAME}-linux-${{ matrix.arch }}.snap"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: snap-${{ matrix.arch }}
+          path: out/*
+          if-no-files-found: error
+
+      # To publish to the Snap Store, add a SNAPCRAFT_STORE_CREDENTIALS secret and uncomment:
+      # - uses: snapcore/action-publish@v1
+      #   if: startsWith(github.ref, 'refs/tags/v')
+      #   env:
+      #     SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+      #   with:
+      #     snap: ${{ steps.build.outputs.snap }}
+      #     release: stable
+
+  # ───────── Release ─────────
+  release:
+    name: Publish GitHub Release
+    needs: [windows, macos, linux, snap]
+    if: ${{ always() && startsWith(github.ref, 'refs/tags/v') && needs.linux.result == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Checksums
+        run: |
+          cd artifacts
+          sha256sum * > SHA256SUMS.txt
+          ls -lh
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*
+          generate_release_notes: true
