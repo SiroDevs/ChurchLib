@@ -1,25 +1,11 @@
 import 'package:go_router/go_router.dart';
 
-import '../../data/models/models.dart';
-import '../../features/bible/search/ui/bible_search_screen.dart';
-import '../../features/bible/bookmarks/ui/bookmarks_notes_screen.dart';
-import '../../features/bible/history/ui/bible_history_screen.dart';
 import '../../features/home/main/ui/home_screen.dart';
-import '../../features/song/presentor/ui/presentor_screen.dart';
-import '../../features/bible/scripture/scripture_list_detail/ui/scripture_list_detail_screen.dart';
-import '../../features/bible/scripture/scripture_list/ui/scripture_lists_screen.dart';
-import '../../features/bible/scripture/scripture_opener/ui/scripture_opener_screen.dart';
 import '../../features/selection/bloc/selection_bloc.dart';
 import '../../features/selection/ui/selection_screen.dart';
-import '../../features/settings/bible_screen/ui/bibles_screen.dart';
-import '../../features/settings/settings_screen.dart';
 import '../../features/splash/splash_screen.dart';
 import 'reveal_transition.dart';
 import 'route_names.dart';
-
-typedef PresentorArgs = ({SongExt song, SongBook book, List<SongExt> songs});
-
-typedef ScriptureOpenerArgs = ({String bibleAbbr, String bibleName});
 
 final List<RouteBase> appRoutes = [
   GoRoute(
@@ -38,66 +24,9 @@ final List<RouteBase> appRoutes = [
     builder: (_, __) => const SelectionScreen(only: SelectionStepType.bibles),
   ),
   GoRoute(
-    path: '/${RouteNames.bibleSearch}',
-    name: RouteNames.bibleSearch,
-    builder: (_, __) => const BibleSearchScreen(),
-  ),
-  GoRoute(
-    path: '/${RouteNames.bibleHistory}',
-    name: RouteNames.bibleHistory,
-    builder: (_, __) => const BibleHistoryScreen(),
-  ),
-  GoRoute(
-    path: '/${RouteNames.bibleBookmarksNotes}',
-    name: RouteNames.bibleBookmarksNotes,
-    builder: (_, state) =>
-        BookmarksNotesScreen(initialTab: state.extra as int? ?? 0),
-  ),
-  GoRoute(
-    path: '/${RouteNames.bibles}',
-    name: RouteNames.bibles,
-    builder: (_, __) => const BiblesScreen(),
-  ),
-  GoRoute(
     path: '/${RouteNames.main}',
     name: RouteNames.main,
     pageBuilder: (_, state) =>
         centerRevealPage(key: state.pageKey, child: const HomeScreen()),
-  ),
-  GoRoute(
-    path: '/${RouteNames.settings}',
-    name: RouteNames.settings,
-    builder: (_, __) => const SettingsScreen(),
-  ),
-  GoRoute(
-    path: '/${RouteNames.presentor}',
-    name: RouteNames.presentor,
-    builder: (_, state) {
-      final args = state.extra as PresentorArgs;
-      return PresentorScreen(song: args.song, book: args.book, songs: args.songs);
-    },
-  ),
-  GoRoute(
-    path: '/${RouteNames.scriptureLists}',
-    name: RouteNames.scriptureLists,
-    builder: (_, __) => const ScriptureListsScreen(),
-  ),
-  GoRoute(
-    path: '/${RouteNames.scriptureListDetail}/:listId',
-    name: RouteNames.scriptureListDetail,
-    builder: (_, state) => ScriptureListDetailScreen(
-      listId: int.parse(state.pathParameters['listId']!),
-    ),
-  ),
-  GoRoute(
-    path: '/${RouteNames.scriptureOpener}',
-    name: RouteNames.scriptureOpener,
-    builder: (_, state) {
-      final args = state.extra as ScriptureOpenerArgs;
-      return ScriptureOpenerScreen(
-        bibleAbbr: args.bibleAbbr,
-        bibleName: args.bibleName,
-      );
-    },
   ),
 ];

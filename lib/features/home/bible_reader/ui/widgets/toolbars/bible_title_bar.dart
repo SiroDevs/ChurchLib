@@ -3,76 +3,15 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 // Project imports:
-import '../../../../../../common/navigator/route_names.dart';
 import '../../../../../../common/utils/reader_utils.dart';
-import '../../../../../../domain/entities/bible/bible_reader.dart';
 import '../../../cubit/bible_reader_cubit.dart';
-import '../dialogs/export.dart';
+import 'reader_actions.dart';
 
 class BibleTitleBar extends StatelessWidget {
   final BibleReaderState state;
   const BibleTitleBar({super.key, required this.state});
-
-  Future<void> _pickBible(BuildContext context) async {
-    final cubit = context.read<BibleReaderCubit>();
-    final result = await showBiblePicker(
-      context,
-      bibles: state.savedBibles,
-      activeAbbr: state.activeBibleAbbr,
-    );
-    if (result == null || !context.mounted) return;
-    if (result == bibleManageResult) {
-      context.pushNamed(RouteNames.bibles);
-    } else {
-      cubit.setPrimaryBible(result);
-    }
-  }
-
-  Future<void> _pickChapter(BuildContext context) async {
-    final cubit = context.read<BibleReaderCubit>();
-    final chapter = await showChapterPicker(
-      context,
-      bookName: state.activeBook?.name ?? '',
-      chapters: state.chapters,
-      activeChapterId: state.activeChapter?.id,
-    );
-    if (chapter != null) cubit.selectChapter(chapter);
-  }
-
-  Future<void> _chooseBook(BuildContext context) async {
-    final cubit = context.read<BibleReaderCubit>();
-    final book = await showBookPicker(
-      context,
-      books: state.books,
-      activeBookId: state.activeBook?.id,
-    );
-    if (book != null) cubit.selectBook(book);
-  }
-
-  Future<void> _openScripture(BuildContext context) async {
-    final cubit = context.read<BibleReaderCubit>();
-    final target = await context.pushNamed<ReaderTarget>(
-      RouteNames.scriptureOpener,
-      extra: (bibleAbbr: state.activeBibleAbbr, bibleName: state.activeBible),
-    );
-    if (target != null) await cubit.openTarget(target);
-  }
-
-  Future<void> _openOptions(BuildContext context) async {
-    final action = await showReaderOptionsSheet(context);
-    if (action == null || !context.mounted) return;
-    switch (action) {
-      case ReaderSheetAction.chooseBook:
-        await _chooseBook(context);
-      case ReaderSheetAction.manageBibles:
-        context.pushNamed(RouteNames.bibles);
-      case ReaderSheetAction.openScripture:
-        await _openScripture(context);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,34 +26,30 @@ class BibleTitleBar extends StatelessWidget {
       padding: const EdgeInsets.only(left: 12, right: 6),
       child: Row(
         children: [
-          Expanded(
-            flex: 3,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: _PickerButton(
-                label: bibleLabel,
-                tooltip: 'Switch Bible',
-                onTap: state.savedBibles.isEmpty
-                    ? null
-                    : () => _pickBible(context),
-              ),
-            ),
+          _PickerButton(
+            label: bibleLabel,
+            tooltip: 'Switch Your Primary Bible',
+            onTap: state.savedBibles.isEmpty
+                ? null
+                : () => pickBibleAction(context, state),
           ),
           const SizedBox(width: 8),
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: _PickerButton(
-                label: chapterLabel,
-                tooltip: 'Pick chapter',
-                icon: Icons.menu_book_outlined,
-                bold: true,
-                onTap: state.chapters.isEmpty
-                    ? null
-                    : () => _pickChapter(context),
-              ),
-            ),
+          _PickerButton(
+            label: chapterLabel,
+            tooltip: 'Pick a Bible Boook',
+            icon: Icons.menu_book_outlined,
+            bold: true,
+            onTap: state.chapters.isEmpty
+                ? null
+                : () => chooseBookAction(context, state),
+          ),
+          const Spacer(),
+          TextButton.icon(
+            onPressed: state.activeChapter == null
+                ? null
+                : () => openScriptureAction(context, state),
+            icon: const Icon(Icons.auto_stories_outlined, size: 20),
+            label: const Text('Scripture Opener'),
           ),
           IconButton(
             tooltip: 'Smaller text',
@@ -129,11 +64,6 @@ class BibleTitleBar extends StatelessWidget {
                 ? null
                 : () => cubit.setFontSize(state.fontSize + 2),
             icon: const _AaIcon(plus: true),
-          ),
-          IconButton(
-            tooltip: 'Options',
-            onPressed: () => _openOptions(context),
-            icon: const Icon(Icons.tune),
           ),
         ],
       ),
@@ -158,9 +88,8 @@ class _PickerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme.titleMedium?.copyWith(
-          fontWeight: bold ? FontWeight.w700 : FontWeight.w600,
-        );
+    final style = Theme.of(context).textTheme.titleMedium
+        ?.copyWith(fontWeight: bold ? FontWeight.w700 : FontWeight.w600);
     return Tooltip(
       message: label.isEmpty ? tooltip : '$tooltip · $label',
       child: TextButton(
@@ -172,7 +101,10 @@ class _PickerButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (icon != null) ...[Icon(icon, size: 20), const SizedBox(width: 8)],
+            if (icon != null) ...[
+              Icon(icon, size: 20),
+              const SizedBox(width: 8),
+            ],
             Flexible(
               child: Text(
                 label,

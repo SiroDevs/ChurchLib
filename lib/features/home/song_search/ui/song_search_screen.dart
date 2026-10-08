@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 // Project imports:
 import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/app_util.dart';
+import '../../../../common/windows/open_windows.dart';
 import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
@@ -28,6 +29,8 @@ import '../../main/shell/shell_nav_item.dart';
 import '../bloc/song_search_bloc.dart';
 
 part 'widgets/search_widget.dart';
+part 'widgets/song_bottom_bar.dart';
+part 'widgets/song_title_bar.dart';
 
 class SongSearchScreen extends StatefulWidget {
   const SongSearchScreen({super.key});
@@ -74,6 +77,23 @@ class HomeScreenState extends State<SongSearchScreen> {
           ? songs
           : filterSongsByQuery(query.toLowerCase(), songs);
     });
+  }
+
+  Future<void> presentSelected(BuildContext context) async {
+    final song = selectedSong;
+    if (song.songId == 0 || books.isEmpty) return;
+    final bloc = context.read<SongSearchBloc>();
+    final book = books.firstWhere(
+      (b) => b.bookId == song.book,
+      orElse: () => books[0],
+    );
+    final changed = await openPresentor(
+      context,
+      song: song,
+      book: book,
+      songs: songs,
+    );
+    if (changed == true) bloc.add(FilterData(book));
   }
 
   void startPeriodicSync() {
@@ -129,41 +149,20 @@ class HomeScreenState extends State<SongSearchScreen> {
                 onPressed: () => setState(() => currentPage = PageType.likes),
               ),
             ],
-            titleBar: Row(
+            titleBar: SongTitleBar(parent: this),
+            body: Column(
               children: [
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 8,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: onSearchPage
-                          ? SearchWidget(
-                              searchFocus: searchFocus,
-                              searchController: searchController,
-                              onSearch: onSearch,
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.only(left: 6),
-                              child: Text(
-                                l10n.likesTitle,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                            ),
-                    ),
+                  child: FadingIndexedStack(
+                    duration: AppDurations.slow,
+                    index: pages.indexOf(currentPage),
+                    children: <Widget>[
+                      SongsScreen(parent: this),
+                      LikesScreen(books: books),
+                    ],
                   ),
                 ),
-                const Expanded(child: SizedBox.shrink()),
-              ],
-            ),
-            body: FadingIndexedStack(
-              duration: AppDurations.slow,
-              index: pages.indexOf(currentPage),
-              children: <Widget>[
-                SongsScreen(parent: this),
-                LikesScreen(books: books),
+                if (onSearchPage) SongBottomBar(parent: this),
               ],
             ),
           );

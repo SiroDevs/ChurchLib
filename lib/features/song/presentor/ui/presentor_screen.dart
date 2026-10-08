@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../common/windows/window_frame.dart';
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/app_window.dart';
 import '../../../../common/utils/constants/pref_constants.dart';
@@ -110,12 +111,14 @@ class PresentorScreenState extends State<PresentorScreen> {
                 return;
               }
               if (context.mounted) {
-                context.pop(likeChanged);
+                Navigator.of(context).pop(likeChanged);
               }
             },
             child: Scaffold(
-              appBar: AppBar(
-                title: Text('$songTitle - $songBook'),
+              appBar: WindowAppBar(
+                icon: Icons.slideshow,
+                title: '$songTitle - $songBook',
+                onClose: () => Navigator.of(context).pop(likeChanged),
                 actions: [
                   Tooltip(
                     message: song.liked ? l10n.songDislike : l10n.songLike,

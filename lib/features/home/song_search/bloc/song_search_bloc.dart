@@ -1,4 +1,3 @@
-// Dart imports:
 import 'dart:async';
 
 // Package imports:
@@ -16,7 +15,6 @@ import '../../../../domain/repos/song/song_sync_repo.dart';
 
 part 'song_search_event.dart';
 part 'song_search_state.dart';
-
 
 class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
   SongSearchBloc() : super(const _MainState()) {

@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../data/models/bible/bible_version.dart';
@@ -27,10 +28,21 @@ Future<String?> showBiblePicker(
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
-              child: Text(
-                'Switch Bible',
-                style: Theme.of(ctx).textTheme.titleLarge,
-              ),
+              child: [
+                Text(
+                  'Switch Your Primary Bible',
+                  style: Theme.of(ctx).textTheme.titleLarge,
+                ).expanded(),
+
+                TextButton.icon(
+                  onPressed: () => Navigator.pop(ctx, bibleManageResult),
+                  icon: const Icon(Icons.library_books_outlined),
+                  label: Text(
+                    'Manage Bibles',
+                    style: Theme.of(ctx).textTheme.titleLarge,
+                  ),
+                ).expanded(),
+              ].toRow(),
             ),
             Flexible(
               child: ListView(
@@ -42,9 +54,7 @@ Future<String?> showBiblePicker(
                       selected: b.abbreviation == activeAbbr,
                       leading: CircleAvatar(
                         radius: 20,
-                        backgroundColor: Theme.of(ctx)
-                            .colorScheme
-                            .primary
+                        backgroundColor: Theme.of(ctx).colorScheme.primary
                             .withValues(alpha: .14),
                         child: Text(
                           _short(b.abbreviation),
@@ -61,11 +71,6 @@ Future<String?> showBiblePicker(
                           : null,
                       onTap: () => Navigator.pop(ctx, b.abbreviation),
                     ),
-                  ListTile(
-                    leading: const Icon(Icons.library_books_outlined),
-                    title: const Text('Manage Bibles'),
-                    onTap: () => Navigator.pop(ctx, bibleManageResult),
-                  ),
                 ],
               ),
             ),

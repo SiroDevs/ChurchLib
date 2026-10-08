@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:math' as math;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -8,19 +7,18 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
-import '../../../../domain/entities/bible/bible_reader.dart';
 import '../../../bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
 import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../cubit/bible_reader_cubit.dart';
-import 'widgets/dialogs/export.dart';
+import 'widgets/dialogs/reader_options_sheet.dart';
 import 'widgets/toolbars/export.dart';
-import 'widgets/verses/verse_row.dart';
+import 'widgets/reader_auto_scroll.dart';
+import 'widgets/reader_body.dart';
 
 class BiblerReaderView extends StatefulWidget {
   const BiblerReaderView({super.key});
@@ -29,58 +27,19 @@ class BiblerReaderView extends StatefulWidget {
   State<BiblerReaderView> createState() => BiblerReaderViewState();
 }
 
-class BiblerReaderViewState extends State<BiblerReaderView> {
-  final _scrollController = ScrollController();
+class BiblerReaderViewState extends State<BiblerReaderView>
+    with ReaderAutoScrollMixin {
+  @override
+  final scrollController = ScrollController();
   final _viewportKey = GlobalKey();
   final _verseKeys = <String, GlobalKey>{};
   Timer? _scrollReportTimer;
 
-  static const _autoTick = Duration(milliseconds: 16);
-  static const _autoPixelsPerTick = 2.5;
-  static const _autoMinSpeed = 0.25;
-  static const _autoMaxSpeed = 4.0;
-  static const _autoSpeedStep = 0.25;
-  Timer? _autoScrollTimer;
-  bool _autoScrolling = false;
-  double _autoSpeed = _autoMinSpeed;
-
-  void _toggleAutoScroll() =>
-      _autoScrolling ? _stopAutoScroll() : _startAutoScroll();
-
-  void _startAutoScroll() {
-    _autoScrollTimer?.cancel();
-    setState(() => _autoScrolling = true);
-    _autoScrollTimer = Timer.periodic(_autoTick, (_) {
-      if (!_scrollController.hasClients) return;
-      final pos = _scrollController.position;
-      if (pos.pixels >= pos.maxScrollExtent) {
-        _stopAutoScroll();
-        return;
-      }
-      _scrollController.jumpTo(
-        math.min(
-          pos.maxScrollExtent,
-          pos.pixels + _autoPixelsPerTick * _autoSpeed,
-        ),
-      );
-    });
-  }
-
-  void _stopAutoScroll() {
-    _autoScrollTimer?.cancel();
-    _autoScrollTimer = null;
-    if (mounted && _autoScrolling) setState(() => _autoScrolling = false);
-  }
-
-  void _changeSpeed(double delta) => setState(
-    () => _autoSpeed = (_autoSpeed + delta).clamp(_autoMinSpeed, _autoMaxSpeed),
-  );
-
   @override
   void dispose() {
-    _autoScrollTimer?.cancel();
+    disposeAutoScroll();
     _scrollReportTimer?.cancel();
-    _scrollController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -99,15 +58,15 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
   }
 
   void _onStateChanged(BuildContext context, BibleReaderState state) {
-    _stopAutoScroll();
+    stopAutoScroll();
     final target = state.restoreVerseId;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       if (target != null) {
         _scrollToVerse(target);
         context.read<BibleReaderCubit>().consumeRestoreVerseTarget();
-      } else if (_scrollController.hasClients) {
-        _scrollController.jumpTo(0);
+      } else if (scrollController.hasClients) {
+        scrollController.jumpTo(0);
       }
     });
     final chapter = state.activeChapter;
@@ -174,12 +133,18 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
                     ),
                   Expanded(
                     child: Listener(
-                      onPointerDown: (_) => _stopAutoScroll(),
+                      onPointerDown: (_) => stopAutoScroll(),
                       child: ColoredBox(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.black
                             : Colors.white,
-                        child: _buildBody(context, state),
+                        child: ReaderBody(
+                          state: state,
+                          scrollController: scrollController,
+                          viewportKey: _viewportKey,
+                          keyFor: _keyFor,
+                          onScrollEnd: _scheduleScrollReport,
+                        ),
                       ),
                     ),
                   ),
@@ -190,22 +155,21 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
                           ? ScriptureQueueBar(queueState: queueState)
                           : BibleBottomBar(
                               state: state,
-                              autoScrolling: _autoScrolling,
-                              autoScrollSpeed: _autoSpeed,
-                              onToggleAutoScroll: _toggleAutoScroll,
-                              onSpeedUp: () => _changeSpeed(_autoSpeedStep),
-                              onSpeedDown: () => _changeSpeed(-_autoSpeedStep),
+                              autoScrolling: autoScrolling,
+                              autoScrollSpeed: autoSpeed,
+                              onToggleAutoScroll: toggleAutoScroll,
+                              onSpeedUp: () => changeSpeed(
+                                ReaderAutoScrollMixin.autoSpeedStep,
+                              ),
+                              onSpeedDown: () => changeSpeed(
+                                -ReaderAutoScrollMixin.autoSpeedStep,
+                              ),
                               onPrevious: () => cubit.navigateChapter(-1),
                               onNext: () => cubit.navigateChapter(1),
-                              onPickChapter: () async {
-                                final chapter = await showChapterPicker(
-                                  context,
-                                  bookName: state.activeBook?.name ?? '',
-                                  chapters: state.chapters,
-                                  activeChapterId: state.activeChapter?.id,
-                                );
-                                if (chapter != null) cubit.selectChapter(chapter);
-                              },
+                              onPickChapter: () =>
+                                  pickChapterAction(context, state),
+                              onQuickOptions: () =>
+                                  showReaderOptionsSheet(context),
                             ),
                     ),
                 ],
@@ -215,109 +179,5 @@ class BiblerReaderViewState extends State<BiblerReaderView> {
         ),
       ),
     );
-  }
-
-  Future<void> _openNote(BuildContext context, NotesRequest? request) async {
-    if (request == null) return;
-    final cubit = context.read<BibleReaderCubit>();
-    await showNoteEditor(context, request);
-    await cubit.refreshNotedVerses();
-  }
-
-  Widget _buildBody(BuildContext context, BibleReaderState state) {
-    if (state.error != null && state.verses.isEmpty) {
-      return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.menu_book_rounded,
-              size: 56,
-              color: ThemeColors.mediumGrey,
-            ),
-            const SizedBox(height: 16),
-            Text(state.error!, textAlign: TextAlign.center),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: () => context.read<BibleReaderCubit>().initialize(),
-              style: FilledButton.styleFrom(
-                backgroundColor: ThemeColors.primary,
-              ),
-              child: const Text('Retry'),
-            ),
-          ],
-        ).padding(all: 32).center();
-    }
-    if (state.isLoading && state.verses.isEmpty) {
-      return CircularProgressIndicator(color: ThemeColors.primary).center();
-    }
-
-    final cubit = context.read<BibleReaderCubit>();
-    final parallelActive =
-        state.multiBibleReaderEnabled && state.parallelVerses.isNotEmpty;
-
-    return Directionality(
-      textDirection: state.isRtl ? TextDirection.rtl : TextDirection.ltr,
-      child: NotificationListener<ScrollEndNotification>(
-        onNotification: (_) {
-          _scheduleScrollReport();
-          return false;
-        },
-        child: SingleChildScrollView(
-          key: _viewportKey,
-          controller: _scrollController,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (state.activeBook != null && state.activeChapter != null)
-                    Text(
-                      state.activeChapter!.reference,
-                      style: TextStyle(
-                        fontSize: state.fontSize * 1.1,
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColors.primary,
-                      ),
-                    ).padding(bottom: 12, left: 8),
-                  for (final v in state.verses)
-                    VerseRow(
-                      key: _keyFor(v.verseId),
-                      number: v.number,
-                      text: v.text,
-                      fontSize: state.fontSize.toDouble(),
-                      highlightQuery: state.highlightQuery,
-                      parallelTexts: parallelActive
-                          ? {
-                              for (final e in state.parallelVerses.entries)
-                                e.key:
-                                    e.value
-                                        .where((p) => p.number == v.number)
-                                        .map((p) => p.text)
-                                        .firstOrNull ??
-                                    '',
-                            }
-                          : const {},
-                      isBookmarked: state.bookmarks.containsKey(v.verseId),
-                      bookmarkColorHex: state.bookmarks[v.verseId],
-                      hasNote: state.notedVerseIds.contains(v.verseId),
-                      onToggleBookmark: () =>
-                          cubit.quickToggleBookmark(v.verseId),
-                      onOpenNote: () => _openNote(
-                        context,
-                        cubit.notesRequestForVerse(v.verseId),
-                      ),
-                      isSelected: state.selectedVerseIds.contains(v.verseId),
-                      isSelectionMode: state.isSelectionMode,
-                      onToggleSelected: () =>
-                          cubit.toggleVerseSelected(v.verseId),
-                    ),
-                  const SizedBox(height: 48),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
   }
 }

@@ -10,8 +10,6 @@ import '../../../../common/utils/constants/app_constants.dart';
 import '../../../../common/widgets/presentor/presentor.dart';
 import '../../../../data/models/song/songext.dart';
 
-// Project imports:
-
 Future<Map<String, dynamic>> loadSong(SongExt song) async {
   var hasChorus = false;
   List<Tab> tabs = [];

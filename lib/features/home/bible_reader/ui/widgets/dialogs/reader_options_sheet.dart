@@ -11,12 +11,10 @@ import '../../../../../../core/theme/bloc/theme_bloc.dart';
 import '../../../../../../domain/repos/pref_repo.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 
-enum ReaderSheetAction { chooseBook, manageBibles, openScripture }
-
-Future<ReaderSheetAction?> showReaderOptionsSheet(BuildContext context) {
+Future<void> showReaderOptionsSheet(BuildContext context) {
   final cubit = context.read<BibleReaderCubit>();
   final themeBloc = context.read<ThemeBloc>();
-  return showModalBottomSheet<ReaderSheetAction>(
+  return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     constraints: const BoxConstraints(maxWidth: 560),
@@ -63,7 +61,7 @@ class _OptionsContentState extends State<_OptionsContent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Quick options', style: text.titleLarge),
+                Text('Quick Options', style: text.titleLarge),
                 const SizedBox(height: 18),
                 Text('Theme', style: label),
                 const SizedBox(height: 8),
@@ -121,29 +119,6 @@ class _OptionsContentState extends State<_OptionsContent> {
                   onChanged: bibles > 1
                       ? (v) => cubit.setMultiBibleReaderEnabled(v)
                       : null,
-                ),
-                const Divider(height: 24),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.menu_book_outlined),
-                  title: const Text('Choose book'),
-                  enabled: state.books.isNotEmpty,
-                  onTap: () => Navigator.pop(context, ReaderSheetAction.chooseBook),
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.auto_stories_outlined),
-                  title: const Text('Open scripture'),
-                  enabled: state.activeChapter != null,
-                  onTap: () =>
-                      Navigator.pop(context, ReaderSheetAction.openScripture),
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.library_books_outlined),
-                  title: const Text('Manage Bibles'),
-                  onTap: () =>
-                      Navigator.pop(context, ReaderSheetAction.manageBibles),
                 ),
               ],
             ),

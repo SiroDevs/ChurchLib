@@ -3,8 +3,6 @@ import 'dart:math' as math;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-
-// Package imports:
 import 'package:go_router/go_router.dart';
 
 CustomTransitionPage<T> centerRevealPage<T>({

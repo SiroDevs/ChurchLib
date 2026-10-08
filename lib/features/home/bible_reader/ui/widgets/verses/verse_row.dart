@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
+import 'verse_spans.dart';
 
 Color? parseHexColor(String? hex) {
   if (hex == null) return null;
@@ -53,26 +54,6 @@ class VerseRow extends StatefulWidget {
 
 class _VerseRowState extends State<VerseRow> {
   bool _hovering = false;
-
-  List<TextSpan> _spans(String text, TextStyle base, TextStyle hit) {
-    final q = widget.highlightQuery?.trim() ?? '';
-    if (q.isEmpty) return [TextSpan(text: text, style: base)];
-    final lower = text.toLowerCase();
-    final lq = q.toLowerCase();
-    final spans = <TextSpan>[];
-    var start = 0;
-    while (true) {
-      final i = lower.indexOf(lq, start);
-      if (i < 0) break;
-      if (i > start) spans.add(TextSpan(text: text.substring(start, i), style: base));
-      spans.add(TextSpan(text: text.substring(i, i + lq.length), style: hit));
-      start = i + lq.length;
-    }
-    if (start < text.length) {
-      spans.add(TextSpan(text: text.substring(start), style: base));
-    }
-    return spans;
-  }
 
   Widget _richText(TextSpan span) => widget.isSelectionMode
       ? Text.rich(span)
@@ -143,7 +124,7 @@ class _VerseRowState extends State<VerseRow> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _richText(
-                    TextSpan(children: _spans(widget.text, baseStyle, hitStyle)),
+                    TextSpan(children: highlightSpans(widget.text, baseStyle, hitStyle, widget.highlightQuery)),
                   ),
                   for (final e in widget.parallelTexts.entries)
                     if (e.value.isNotEmpty)

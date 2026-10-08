@@ -14,6 +14,7 @@ class BibleBottomBar extends StatelessWidget {
   final VoidCallback onPrevious;
   final VoidCallback onNext;
   final VoidCallback onPickChapter;
+  final VoidCallback onQuickOptions;
 
   const BibleBottomBar({
     super.key,
@@ -26,6 +27,7 @@ class BibleBottomBar extends StatelessWidget {
     required this.onPrevious,
     required this.onNext,
     required this.onPickChapter,
+    required this.onQuickOptions,
   });
 
   @override
@@ -46,32 +48,12 @@ class BibleBottomBar extends StatelessWidget {
           height: 64,
           child: Row(
             children: [
-              const SizedBox(width: 8),
-              _BarButton(
-                icon: autoScrolling
-                    ? Icons.pause_circle_outline
-                    : Icons.play_circle_outline,
-                label: autoScrolling ? 'Stop scroll' : 'Auto scroll',
-                tooltip: autoScrolling ? 'Stop auto scroll' : 'Start auto scroll',
-                onTap: onToggleAutoScroll,
-                highlighted: autoScrolling,
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: _autoScrollControls(),
+                ),
               ),
-              if (autoScrolling) ...[
-                IconButton(
-                  tooltip: 'Slower',
-                  visualDensity: VisualDensity.compact,
-                  onPressed: onSpeedDown,
-                  icon: const Icon(Icons.remove, size: 18),
-                ),
-                Text('${autoScrollSpeed.toStringAsFixed(2)}x'),
-                IconButton(
-                  tooltip: 'Faster',
-                  visualDensity: VisualDensity.compact,
-                  onPressed: onSpeedUp,
-                  icon: const Icon(Icons.add, size: 18),
-                ),
-              ],
-              const Spacer(),
               _BarButton(
                 icon: Icons.chevron_left,
                 label: 'Previous',
@@ -93,11 +75,54 @@ class BibleBottomBar extends StatelessWidget {
                 tooltip: 'Next chapter (Alt + →)',
                 onTap: hasNext ? onNext : null,
               ),
-              const SizedBox(width: 8),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: _BarButton(
+                    icon: Icons.tune,
+                    label: 'Quick Options',
+                    tooltip: 'Quick Options',
+                    onTap: onQuickOptions,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _autoScrollControls() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(width: 8),
+        _BarButton(
+          icon: autoScrolling
+              ? Icons.pause_circle_outline
+              : Icons.play_circle_outline,
+          label: autoScrolling ? 'Stop scroll' : 'Auto scroll',
+          tooltip: autoScrolling ? 'Stop auto scroll' : 'Start auto scroll',
+          onTap: onToggleAutoScroll,
+          highlighted: autoScrolling,
+        ),
+        if (autoScrolling) ...[
+          IconButton(
+            tooltip: 'Slower',
+            visualDensity: VisualDensity.compact,
+            onPressed: onSpeedDown,
+            icon: const Icon(Icons.remove, size: 18),
+          ),
+          Text('${autoScrollSpeed.toStringAsFixed(2)}x'),
+          IconButton(
+            tooltip: 'Faster',
+            visualDensity: VisualDensity.compact,
+            onPressed: onSpeedUp,
+            icon: const Icon(Icons.add, size: 18),
+          ),
+        ],
+      ],
     );
   }
 }

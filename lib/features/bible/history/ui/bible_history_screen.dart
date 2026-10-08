@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
+import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
 import '../bloc/bible_history_cubit.dart';
@@ -87,8 +87,9 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('History'),
+      appBar: WindowAppBar(
+        icon: Icons.history,
+        title: 'History',
         bottom: TabBar(
           controller: _tabController,
           labelColor: ThemeColors.primary,
@@ -162,7 +163,7 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
                 '· ${fmt.format(DateTime.fromMillisecondsSinceEpoch(entry.occurredAt))}',
                 style: const TextStyle(fontSize: 12, color: ThemeColors.grey),
               ),
-              onTap: () => context.pop(
+              onTap: () => Navigator.of(context).pop(
                 ReaderTarget(
                   bibleAbbr: entry.bibleAbbr ?? '',
                   bookId: entry.bookId ?? '',

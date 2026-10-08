@@ -113,7 +113,7 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
   ReaderTarget? openScripture(String rowKey) {
     final row = state.rows.where((r) => r.key == rowKey).firstOrNull;
     if (row == null || !row.isComplete) return null;
-    final target = _buildTarget(row);
+    final target = row.toTarget(state.bibleAbbr);
     if (target == null) return null;
     _prefs.setPrefString(PrefConstants.bibleLastVerseIdKey, target.verseId);
     return target;
@@ -160,7 +160,9 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
         state.rows.where((r) => r.locked || r.key == includingRowKey).toList();
     final items = <ScriptureItem>[
       for (var i = 0; i < completedRows.length; i++)
-        if (_buildItem(completedRows[i], i) case final item?) item,
+        if (completedRows[i].toItem(state.bibleAbbr, state.bibleName, i)
+            case final item?)
+          item,
     ];
     if (items.isEmpty) return const [];
 
@@ -173,43 +175,5 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
       saved,
     );
     return saved;
-  }
-
-  ScriptureItem? _buildItem(ScriptureSearchRowState row, int order) {
-    final book = row.selectedBook;
-    final chapter = row.selectedChapter;
-    final verseNumber = row.selectedVerseNumber;
-    final verseId = row.selectedVerseId;
-    if (book == null || chapter == null || verseNumber == null || verseId == null) {
-      return null;
-    }
-    return ScriptureItem(
-      listId: 0,
-      bibleAbbr: state.bibleAbbr,
-      bibleName: state.bibleName,
-      bookId: book.id,
-      bookName: book.name,
-      bookAbbr: book.abbreviation,
-      chapterId: chapter.id,
-      chapterNumber: chapter.number,
-      verseId: verseId,
-      verseNumber: verseNumber,
-      reference: '${book.name} ${chapter.number}:$verseNumber',
-      sortOrder: order,
-      addedAt: DateTime.now().millisecondsSinceEpoch,
-    );
-  }
-
-  ReaderTarget? _buildTarget(ScriptureSearchRowState row) {
-    final book = row.selectedBook;
-    final chapter = row.selectedChapter;
-    final verseId = row.selectedVerseId;
-    if (book == null || chapter == null || verseId == null) return null;
-    return ReaderTarget(
-      bibleAbbr: state.bibleAbbr,
-      bookId: book.id,
-      chapterId: chapter.id,
-      verseId: verseId,
-    );
   }
 }

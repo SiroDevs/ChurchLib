@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../../../../core/theme/theme_colors.dart';
+import '../../../../core/theme/theme_colors.dart';
 
 class SelectionTitle extends StatelessWidget {
   final String title;

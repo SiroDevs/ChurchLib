@@ -1,11 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/bible/bible_note.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
@@ -113,7 +113,7 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
   }
 
   void _openInReader(String abbr, String bookId, String chapterId) {
-    context.pop(
+    Navigator.of(context).pop(
       ReaderTarget(bibleAbbr: abbr, bookId: bookId, chapterId: chapterId),
     );
   }
@@ -142,8 +142,9 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
             : state.selectedNoteKeys.isNotEmpty;
 
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Bookmarks & Notes'),
+          appBar: WindowAppBar(
+            icon: Icons.bookmarks_outlined,
+            title: 'Bookmarks & Notes',
             bottom: TabBar(
               controller: _tabController,
               onTap: (_) => setState(() {}),

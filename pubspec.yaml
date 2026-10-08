@@ -1,7 +1,7 @@
 name: churchlib
 description: "ChurchLib combines SongLib (church songbook/hymns) and BibleLib (multi-translation Bible reader) in one offline-first desktop app."
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.3
 
 environment:
   sdk: ^3.13.5
