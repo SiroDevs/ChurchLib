@@ -184,6 +184,11 @@ List<String> generateDropDownItems({
   return items;
 }
 
+String short(String abbr) {
+  final up = abbr.toUpperCase();
+  return up.length <= 3 ? up : up.substring(0, 3);
+}
+
 String capitalize(String? str) {
   if (str == null || str.isEmpty) {
     return ''; 

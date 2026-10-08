@@ -75,7 +75,7 @@ class _BibleSearchViewState extends State<_BibleSearchView> {
               autofocus: true,
               onChanged: cubit.onQueryChanged,
               decoration: InputDecoration(
-                hintText: 'Search scriptures...',
+                hintText: 'Search scriptures ...',
                 border: InputBorder.none,
                 suffixIcon: state.query.isEmpty
                     ? null

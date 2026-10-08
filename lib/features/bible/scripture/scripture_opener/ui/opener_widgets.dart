@@ -36,11 +36,10 @@ class _FieldButton extends StatelessWidget {
                 SizedBox(
                   width: 70,
                   child: Text(
-                    label,
+                    label.toUpperCase(),
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: ThemeColors.grey,
                     ),
                   ),
                 ),
@@ -49,9 +48,6 @@ class _FieldButton extends StatelessWidget {
                     value.isEmpty ? 'Select $label'.toLowerCase() : value,
                     style: TextStyle(
                       fontWeight: value.isEmpty ? FontWeight.normal : FontWeight.w600,
-                      color: value.isEmpty
-                          ? ThemeColors.mediumGrey
-                          : ThemeColors.primary,
                     ),
                   ),
                 ),

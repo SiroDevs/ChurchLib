@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../settings/bible_screen/ui/bibles_screen.dart';
+import '../bibles/ui/bibles_screen.dart';
 import '../settings_actions.dart';
 import '../settings_card.dart';
 

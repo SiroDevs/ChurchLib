@@ -11,7 +11,7 @@ import '../../features/bible/scripture/scripture_list_detail/ui/scripture_list_d
 import '../../features/bible/scripture/scripture_opener/ui/scripture_opener_screen.dart';
 import '../../features/bible/search/ui/bible_search_screen.dart';
 import '../../features/home/main/shell/app_module.dart';
-import '../../features/settings/bible_screen/ui/bibles_screen.dart';
+import '../../features/settings/bibles/ui/bibles_screen.dart';
 import '../../features/settings/settings_window.dart';
 import '../../features/song/presentor/ui/presentor_screen.dart';
 import 'window_frame.dart';

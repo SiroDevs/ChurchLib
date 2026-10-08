@@ -80,7 +80,7 @@ class _ScriptureOpenerView extends StatelessWidget {
         return Scaffold(
           appBar: WindowAppBar(
             icon: Icons.auto_stories_outlined,
-            title: 'Open Scripture — ${state.bibleName}',
+            title: 'Open Scripture  · Create Scripture Lists',
           ),
           body: state.isLoading
               ? const Center(
@@ -120,7 +120,7 @@ class _ScriptureOpenerView extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 8),
                                 _FieldButton(
-                                  label: 'SongBook',
+                                  label: 'Book',
                                   value: active.bookLabel,
                                   onTap: () => _pickBook(context, active),
                                 ),

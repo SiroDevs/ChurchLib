@@ -6,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../../../../core/theme/theme_colors.dart';
-import '../../../../../domain/entities/bible/bible_reader.dart';
-import '../../cubit/bible_reader_cubit.dart';
-import 'dialogs/export.dart';
-import 'verses/verse_row.dart';
+import '../../../../../../core/theme/theme_colors.dart';
+import '../../../../../../domain/entities/bible/bible_reader.dart';
+import '../../../cubit/bible_reader_cubit.dart';
+import '../dialogs/export.dart';
+import 'verse_row.dart';
 
 class ReaderBody extends StatelessWidget {
   const ReaderBody({

@@ -24,8 +24,7 @@ class AppConstants {
 
   static const appTitle = "ChurchLib";
   static const appVersionx = "v0.0.7.60";
-  static const appCredits1 = "Siro";
-  static const appCredits2 = "Titus";
+  static const appCredits = "© Siro Devs";
   static const IconData whatsapp =
       IconData(0xf05a6, fontFamily: 'MaterialIcons');
 

@@ -29,7 +29,6 @@ import '../../main/shell/shell_nav_item.dart';
 import '../bloc/song_search_bloc.dart';
 
 part 'widgets/search_widget.dart';
-part 'widgets/song_bottom_bar.dart';
 part 'widgets/song_title_bar.dart';
 
 class SongSearchScreen extends StatefulWidget {
@@ -162,7 +161,6 @@ class HomeScreenState extends State<SongSearchScreen> {
                     ],
                   ),
                 ),
-                if (onSearchPage) SongBottomBar(parent: this),
               ],
             ),
           );

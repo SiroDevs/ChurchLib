@@ -10,7 +10,11 @@ class BibleFilterStrip extends StatelessWidget {
   final BibleSearchState state;
   final ValueChanged<String> onSelect;
 
-  const BibleFilterStrip({super.key, required this.state, required this.onSelect});
+  const BibleFilterStrip({
+    super.key,
+    required this.state,
+    required this.onSelect,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class BibleFilterStrip extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: ChoiceChip(
-                label: Text(b.abbreviation),
+                label: Text(b.abbreviation.toUpperCase()),
                 tooltip: b.name,
                 selected: b.abbreviation == state.selectedAbbr,
                 selectedColor: ThemeColors.primary.withValues(alpha: 0.18),
@@ -96,12 +100,7 @@ class BibleSearchResults extends StatelessWidget {
 
   Widget _recentSearches() {
     if (state.history.isEmpty) {
-      return const Center(
-        child: Text(
-          'Type at least 3 letters to search.',
-          style: TextStyle(color: ThemeColors.mediumGrey),
-        ),
-      );
+      return const Center(child: Text('Type at least 3 letters to search.'));
     }
     return ListView(
       children: [

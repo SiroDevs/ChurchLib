@@ -134,7 +134,7 @@ class _VerseRowState extends State<VerseRow> {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: '${e.key}  ',
+                                text: '[${e.key.toUpperCase()}]  ',
                                 style: TextStyle(
                                   fontSize: widget.fontSize * 0.6,
                                   fontWeight: FontWeight.w700,

@@ -17,8 +17,8 @@ import '../../main/shell/app_shell.dart';
 import '../cubit/bible_reader_cubit.dart';
 import 'widgets/dialogs/reader_options_sheet.dart';
 import 'widgets/toolbars/export.dart';
-import 'widgets/reader_auto_scroll.dart';
-import 'widgets/reader_body.dart';
+import 'widgets/verses/reader_auto_scroll.dart';
+import 'widgets/verses/reader_body.dart';
 
 class BiblerReaderView extends StatefulWidget {
   const BiblerReaderView({super.key});

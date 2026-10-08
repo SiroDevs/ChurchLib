@@ -1,7 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../../common/utils/app_util.dart';
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../data/models/bible/bible_version.dart';
 
@@ -14,7 +16,8 @@ class BibleRow extends StatelessWidget {
   final VoidCallback onRestart;
   final VoidCallback onDelete;
 
-  const BibleRow({super.key, 
+  const BibleRow({
+    super.key,
     required this.bible,
     required this.isPrimary,
     required this.progress,
@@ -46,30 +49,55 @@ class BibleRow extends StatelessWidget {
           children: [
             Row(
               children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Theme.of(context).colorScheme.primary
+                      .withValues(alpha: .14),
+                  child: Text(
+                    short(bible.abbreviation),
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ).padding(right: 10),
                 Expanded(
                   child: Row(
                     children: [
                       Flexible(
-                        child: Text(
-                          bible.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              bible.name,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              '${bible.languageName.toUpperCase()} BIBLE · ${bible.description}',
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                       if (isPrimary) ...[
                         const SizedBox(width: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: ThemeColors.primary.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: const Text(
-                            'Primary',
+                            'PRIMARY',
                             style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -84,13 +112,13 @@ class BibleRow extends StatelessWidget {
                 PopupMenuButton<String>(
                   onSelected: (v) {
                     switch (v) {
-                      case 'primary':
+                      case 'PRIMARY':
                         onSetPrimary();
-                      case 'retry':
+                      case 'RETRY':
                         onRetry();
-                      case 'restart':
+                      case 'RESTART':
                         onRestart();
-                      case 'delete':
+                      case 'DELETE':
                         onDelete();
                     }
                   },
@@ -115,10 +143,6 @@ class BibleRow extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              '${bible.abbreviation} · ${bible.languageName}',
-              style: const TextStyle(fontSize: 12, color: ThemeColors.grey),
-            ),
             const SizedBox(height: 8),
             if (downloading) ...[
               ClipRRect(
@@ -132,12 +156,16 @@ class BibleRow extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 '${(progress! * 100).round()}% downloaded',
-                style: const TextStyle(fontSize: 11, color: ThemeColors.grey),
+                style: const TextStyle(fontSize: 11),
               ),
             ] else if (failed) ...[
               Row(
                 children: [
-                  const Icon(Icons.error_outline, size: 16, color: ThemeColors.error),
+                  const Icon(
+                    Icons.error_outline,
+                    size: 16,
+                    color: ThemeColors.error,
+                  ),
                   const SizedBox(width: 6),
                   const Expanded(
                     child: Text(

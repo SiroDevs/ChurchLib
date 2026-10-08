@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../../../common/utils/app_util.dart';
 import '../../../../../../data/models/bible/bible_version.dart';
 
 const bibleManageResult = '__manage__';
@@ -57,7 +58,7 @@ Future<String?> showBiblePicker(
                         backgroundColor: Theme.of(ctx).colorScheme.primary
                             .withValues(alpha: .14),
                         child: Text(
-                          _short(b.abbreviation),
+                          short(b.abbreviation),
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
@@ -66,6 +67,7 @@ Future<String?> showBiblePicker(
                         ),
                       ),
                       title: Text(b.name, maxLines: 2),
+                      subtitle: Text('${b.languageName.toUpperCase()} ~ ${b.description}', maxLines: 2),
                       trailing: b.abbreviation == activeAbbr
                           ? const Icon(Icons.check_circle)
                           : null,
@@ -80,9 +82,4 @@ Future<String?> showBiblePicker(
       ),
     ),
   );
-}
-
-String _short(String abbr) {
-  final up = abbr.toUpperCase();
-  return up.length <= 3 ? up : up.substring(0, 3);
 }

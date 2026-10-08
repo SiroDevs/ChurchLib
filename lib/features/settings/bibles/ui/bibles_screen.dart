@@ -101,7 +101,7 @@ class _BiblesView extends StatelessWidget {
           ? null
           : WindowAppBar(
               icon: Icons.library_books_outlined,
-              title: 'Bibles',
+              title: 'Manage Your Bibles',
               actions: [
                 IconButton(
                   tooltip: 'Add more translations',

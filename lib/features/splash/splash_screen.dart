@@ -105,24 +105,7 @@ class _SplashScreenState extends State<SplashScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          AppConstants.appCredits1,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: ThemeColors.accent3,
-            shadows: _textShadows,
-          ),
-        ),
-        Text(
-          ' & ',
-          style: TextStyle(
-            fontSize: 20,
-            color: ThemeColors.accent1,
-            shadows: _textShadows,
-          ),
-        ),
-        Text(
-          AppConstants.appCredits2,
+          AppConstants.appCredits,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
