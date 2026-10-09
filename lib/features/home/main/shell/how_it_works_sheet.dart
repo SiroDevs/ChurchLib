@@ -8,6 +8,7 @@ import 'how_it_works_content.dart';
 Future<void> showHowItWorks(BuildContext context, AppModule module) {
   return showModalBottomSheet<void>(
     context: context,
+    sheetAnimationStyle: AnimationStyle.noAnimation,
     isScrollControlled: true,
     useSafeArea: true,
     constraints: const BoxConstraints(maxWidth: 760),

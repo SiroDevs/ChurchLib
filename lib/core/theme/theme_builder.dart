@@ -15,6 +15,12 @@ ThemeData buildThemeData(ColorScheme scheme, Color background) {
     fontFamily: AppConstants.kFontFamily,
     visualDensity: VisualDensity.standard,
     splashFactory: InkSparkle.splashFactory,
+    pageTransitionsTheme: PageTransitionsTheme(
+      builders: {
+        for (final platform in TargetPlatform.values)
+          platform: const _NoTransitions(),
+      },
+    ),
     dividerTheme: DividerThemeData(
       color: scheme.outlineVariant,
       thickness: 1,
@@ -187,4 +193,18 @@ ThemeData buildThemeData(ColorScheme scheme, Color background) {
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(color: scheme.primary),
   );
+}
+
+class _NoTransitions extends PageTransitionsBuilder {
+  const _NoTransitions();
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) =>
+      child;
 }

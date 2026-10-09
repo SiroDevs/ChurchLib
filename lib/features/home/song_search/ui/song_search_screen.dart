@@ -12,11 +12,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/windows/open_windows.dart';
-import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../common/widgets/general/fading_index_stack.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
 import '../../../../common/widgets/state/skeleton.dart';
@@ -152,8 +150,7 @@ class HomeScreenState extends State<SongSearchScreen> {
             body: Column(
               children: [
                 Expanded(
-                  child: FadingIndexedStack(
-                    duration: AppDurations.slow,
+                  child: IndexedStack(
                     index: pages.indexOf(currentPage),
                     children: <Widget>[
                       SongsScreen(parent: this),

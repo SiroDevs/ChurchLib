@@ -16,6 +16,7 @@ Future<String?> showBiblePicker(
   final downloaded = bibles.where((b) => b.isDownloaded).toList();
   return showModalBottomSheet<String>(
     context: context,
+    sheetAnimationStyle: AnimationStyle.noAnimation,
     isScrollControlled: true,
     constraints: const BoxConstraints(maxWidth: 560),
     builder: (ctx) => SafeArea(

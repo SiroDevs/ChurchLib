@@ -21,10 +21,7 @@ class SelectionProgress extends StatelessWidget {
     final bloc = context.read<SelectionBloc>();
 
     final view = _viewFor(state, bloc, l10n);
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 250),
-      child: view ?? const SizedBox.shrink(key: ValueKey('no-progress')),
-    );
+    return view ?? const SizedBox.shrink(key: ValueKey('no-progress'));
   }
 
   Widget? _viewFor(

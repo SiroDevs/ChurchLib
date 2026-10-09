@@ -16,6 +16,7 @@ Future<void> showReaderOptionsSheet(BuildContext context) {
   final themeBloc = context.read<ThemeBloc>();
   return showModalBottomSheet<void>(
     context: context,
+    sheetAnimationStyle: AnimationStyle.noAnimation,
     isScrollControlled: true,
     constraints: const BoxConstraints(maxWidth: 560),
     builder: (_) => MultiBlocProvider(

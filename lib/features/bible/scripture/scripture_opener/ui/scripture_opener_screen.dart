@@ -6,13 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import '../../../../../common/windows/window_frame.dart';
-import '../../../../../core/theme/theme_colors.dart';
-import '../../../../home/bible_reader/ui/widgets/dialogs/book_picker_dialog.dart';
-import '../../../../home/bible_reader/ui/widgets/dialogs/chapter_picker_dialog.dart';
-import '../../../../home/bible_reader/ui/widgets/dialogs/verse_picker_dialog.dart';
 import '../cubit/scripture_opener_cubit.dart';
-
-part 'opener_widgets.dart';
+import 'widgets/scripture_search_row.dart';
 
 class ScriptureOpenerScreen extends StatelessWidget {
   final String bibleAbbr;
@@ -33,175 +28,92 @@ class ScriptureOpenerScreen extends StatelessWidget {
   }
 }
 
-class _ScriptureOpenerView extends StatelessWidget {
+class _ScriptureOpenerView extends StatefulWidget {
   const _ScriptureOpenerView();
 
-  Future<void> _pickBook(BuildContext context, ScriptureSearchRowState row) async {
-    final cubit = context.read<ScriptureOpenerCubit>();
-    final book = await showBookPicker(
-      context,
-      books: row.books,
-      activeBookId: row.selectedBook?.id,
-    );
-    if (book != null) await cubit.selectBook(row.key, book);
+  @override
+  State<_ScriptureOpenerView> createState() => _ScriptureOpenerViewState();
+}
+
+class _ScriptureOpenerViewState extends State<_ScriptureOpenerView> {
+  final _scroll = ScrollController();
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
   }
 
-  Future<void> _pickChapter(BuildContext context, ScriptureSearchRowState row) async {
-    final cubit = context.read<ScriptureOpenerCubit>();
-    final chapter = await showChapterPicker(
-      context,
-      bookName: row.selectedBook?.name ?? '',
-      chapters: row.chapters,
-      activeChapterId: row.selectedChapter?.id,
-    );
-    if (chapter != null) await cubit.selectChapter(row.key, chapter);
+  void _scrollToEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scroll.hasClients) {
+        _scroll.jumpTo(_scroll.position.maxScrollExtent);
+      }
+    });
   }
 
-  Future<void> _pickVerse(BuildContext context, ScriptureSearchRowState row) async {
+  void _pop([Object? result]) {
+    if (mounted) Navigator.of(context).pop(result);
+  }
+
+  Widget _body(BuildContext context, ScriptureOpenerState state) {
+    if (state.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (state.error != null) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(state.error!, textAlign: TextAlign.center),
+        ),
+      );
+    }
+
     final cubit = context.read<ScriptureOpenerCubit>();
-    final numbers = row.verses.map((v) => v.number).toList()..sort();
-    final number = await showVersePicker(
-      context,
-      title: '${row.selectedBook?.name ?? ''} ${row.selectedChapter?.number ?? ''}',
-      verseNumbers: numbers,
-      activeVerseNumber: row.selectedVerseNumber,
+    final activeKey = state.activeRow?.key;
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 640),
+        child: ListView.builder(
+          controller: _scroll,
+          padding: const EdgeInsets.all(16),
+          itemCount: state.rows.length,
+          itemBuilder: (_, i) {
+            final row = state.rows[i];
+            return ScriptureSearchRow(
+              key: ValueKey(row.key),
+              row: row,
+              isActive: row.key == activeKey,
+              cubit: cubit,
+              onOpen: () => _pop(cubit.openScripture(row.key)),
+              onQueueAndClose: () async {
+                if (await cubit.addToQueueAndClose(row.key)) _pop();
+              },
+              onQueueAndFinish: () async {
+                final target = await cubit.addToQueueAndFinish(row.key);
+                if (target != null) _pop(target);
+              },
+            );
+          },
+        ),
+      ),
     );
-    if (number != null) cubit.selectVerse(row.key, number);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScriptureOpenerCubit, ScriptureOpenerState>(
-      builder: (context, state) {
-        final cubit = context.read<ScriptureOpenerCubit>();
-        final active = state.activeRow;
-        final lockedRows = state.rows.where((r) => r.locked).toList();
-
-        return Scaffold(
-          appBar: WindowAppBar(
-            icon: Icons.auto_stories_outlined,
-            title: 'Open Scripture  · Create Scripture Lists',
-          ),
-          body: state.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(color: ThemeColors.primary),
-                )
-              : state.error != null
-                  ? Center(child: Text(state.error!))
-                  : Center(
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 560),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (lockedRows.isNotEmpty) ...[
-                                const Text(
-                                  'In queue',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: ThemeColors.primary,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                for (final row in lockedRows) _LockedRow(row: row),
-                                const SizedBox(height: 20),
-                              ],
-                              if (active != null) ...[
-                                Text(
-                                  lockedRows.isEmpty
-                                      ? 'Find a scripture'
-                                      : 'Add another',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: ThemeColors.primary,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                _FieldButton(
-                                  label: 'Book',
-                                  value: active.bookLabel,
-                                  onTap: () => _pickBook(context, active),
-                                ),
-                                const SizedBox(height: 8),
-                                _FieldButton(
-                                  label: 'Chapter',
-                                  value: active.chapterLabel,
-                                  enabled: active.canExpandChapter,
-                                  loading: active.isLoadingChapters,
-                                  onTap: () => _pickChapter(context, active),
-                                ),
-                                const SizedBox(height: 8),
-                                _FieldButton(
-                                  label: 'Verse',
-                                  value: active.verseLabel,
-                                  enabled: active.canExpandVerse,
-                                  loading: active.isLoadingVerses,
-                                  onTap: () => _pickVerse(context, active),
-                                ),
-                                const SizedBox(height: 20),
-                                Wrap(
-                                  spacing: 8,
-                                  runSpacing: 8,
-                                  children: [
-                                    FilledButton(
-                                      onPressed: active.isComplete
-                                          ? () {
-                                              final target =
-                                                  cubit.openScripture(active.key);
-                                              if (target != null) {
-                                                Navigator.of(context).pop(target);
-                                              }
-                                            }
-                                          : null,
-                                      style: FilledButton.styleFrom(
-                                        backgroundColor: ThemeColors.primary,
-                                      ),
-                                      child: const Text('Open now'),
-                                    ),
-                                    OutlinedButton(
-                                      onPressed: active.isComplete
-                                          ? () => cubit.addToQueue(active.key)
-                                          : null,
-                                      child: const Text('Add to queue'),
-                                    ),
-                                    if (lockedRows.isNotEmpty || active.isComplete) ...[
-                                      OutlinedButton(
-                                        onPressed: active.isComplete
-                                            ? () async {
-                                                final ok = await cubit
-                                                    .addToQueueAndClose(active.key);
-                                                if (ok && context.mounted) {
-                                                  Navigator.of(context).pop();
-                                                }
-                                              }
-                                            : null,
-                                        child: const Text('Save queue & close'),
-                                      ),
-                                      FilledButton.tonal(
-                                        onPressed: active.isComplete
-                                            ? () async {
-                                                final target = await cubit
-                                                    .addToQueueAndFinish(active.key);
-                                                if (target != null && context.mounted) {
-                                                  Navigator.of(context).pop(target);
-                                                }
-                                              }
-                                            : null,
-                                        child: const Text('Save queue & open first'),
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                              ],
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-        );
-      },
+    return BlocConsumer<ScriptureOpenerCubit, ScriptureOpenerState>(
+      listenWhen: (a, b) => a.rows.length != b.rows.length,
+      listener: (_, __) => _scrollToEnd(),
+      builder: (context, state) => Scaffold(
+        appBar: WindowAppBar(
+          icon: Icons.auto_stories_outlined,
+          title: state.bibleName.isEmpty
+              ? 'Scripture Opener'
+              : 'Scripture Opener · ${state.bibleName}',
+        ),
+        body: _body(context, state),
+      ),
     );
   }
 }

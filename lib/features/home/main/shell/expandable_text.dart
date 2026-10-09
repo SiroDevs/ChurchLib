@@ -54,10 +54,7 @@ class _ExpandableTextState extends State<ExpandableText> {
           child: InkWell(
             borderRadius: BorderRadius.circular(6),
             onTap: () => setState(() => _expanded = !_expanded),
-            child: AnimatedSize(
-              duration: const Duration(milliseconds: 150),
-              alignment: Alignment.topLeft,
-              child: Row(
+            child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(child: text),
@@ -67,7 +64,6 @@ class _ExpandableTextState extends State<ExpandableText> {
                   ),
                 ],
               ),
-            ),
           ),
         );
       },

@@ -1,6 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+const double _kWindowRadius = 16;
+
 Future<T?> showAppWindow<T>(
   BuildContext context, {
   required Widget child,
@@ -8,17 +10,64 @@ Future<T?> showAppWindow<T>(
   double height = 720,
   EdgeInsets inset = const EdgeInsets.all(32),
 }) {
-  return showDialog<T>(
+  return showGeneralDialog<T>(
     context: context,
-    builder: (_) => Dialog(
+    barrierDismissible: true,
+    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    barrierColor: Colors.black54,
+    transitionDuration: Duration.zero,
+    pageBuilder: (_, __, ___) => Dialog(
+      backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      elevation: 0,
       insetPadding: inset,
-      clipBehavior: Clip.antiAlias,
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: width, maxHeight: height),
-        child: child,
+        child: _WindowFrame(child: child),
       ),
     ),
   );
+}
+
+class _WindowFrame extends StatelessWidget {
+  const _WindowFrame({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final radius = BorderRadius.circular(_kWindowRadius);
+
+    final borderColor = isDark ? const Color(0xFF8E8E8E) : const Color(0xFF9E9E9E);
+
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        borderRadius: radius,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.7 : 0.35),
+            blurRadius: 40,
+            spreadRadius: 2,
+            offset: const Offset(0, 14),
+          ),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.6 : 0.28),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      foregroundDecoration: BoxDecoration(
+        borderRadius: radius,
+        border: Border.all(color: borderColor, width: 1.5),
+      ),
+      child: Material(color: theme.colorScheme.surface, child: child),
+    );
+  }
 }
 
 class WindowAppBar extends StatelessWidget implements PreferredSizeWidget {

@@ -47,43 +47,37 @@ Future<ReaderTarget?> openScriptureLists(BuildContext context) =>
 Future<ReaderTarget?> openScriptureListDetail(
   BuildContext context,
   int listId,
-) =>
-    showAppWindow<ReaderTarget>(
-      context,
-      child: ScriptureListDetailScreen(listId: listId),
-      width: 860,
-    );
+) => showAppWindow<ReaderTarget>(
+  context,
+  child: ScriptureListDetailScreen(listId: listId),
+  width: 860,
+);
 
 Future<ReaderTarget?> openScriptureOpener(
   BuildContext context, {
   required String bibleAbbr,
   required String bibleName,
-}) =>
-    showAppWindow<ReaderTarget>(
-      context,
-      child: ScriptureOpenerScreen(bibleAbbr: bibleAbbr, bibleName: bibleName),
-      width: 680,
-    );
+}) => showAppWindow<ReaderTarget>(
+  context,
+  child: ScriptureOpenerScreen(bibleAbbr: bibleAbbr, bibleName: bibleName),
+  width: 680,
+);
 
-Future<void> openBibles(BuildContext context) => showAppWindow<void>(
-      context,
-      child: const BiblesScreen(),
-      width: 860,
-    );
+Future<void> openBibles(BuildContext context) =>
+    showAppWindow<void>(context, child: const BiblesScreen(), width: 860);
 
 Future<bool?> openPresentor(
   BuildContext context, {
   required SongExt song,
   required SongBook book,
   required List<SongExt> songs,
-}) =>
-    showAppWindow<bool>(
-      context,
-      child: PresentorScreen(song: song, book: book, songs: songs),
-      width: 1600,
-      height: 1000,
-      inset: const EdgeInsets.all(12),
-    );
+}) => showAppWindow<bool>(
+  context,
+  child: PresentorScreen(song: song, book: book, songs: songs),
+  width: 1600,
+  height: 1000,
+  inset: const EdgeInsets.all(12),
+);
 
 Future<void> openSettings(BuildContext context, AppModule module) =>
     showAppWindow<void>(context, child: SettingsWindow(module: module));

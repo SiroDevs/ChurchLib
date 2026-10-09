@@ -125,9 +125,8 @@ class _SplashScreenState extends State<SplashScreen> {
             _background,
             fit: BoxFit.cover,
             frameBuilder: (context, child, frame, wasSyncLoaded) =>
-                AnimatedOpacity(
+                Opacity(
               opacity: wasSyncLoaded || frame != null ? 1 : 0,
-              duration: const Duration(milliseconds: 400),
               child: child,
             ),
           ),

@@ -6,13 +6,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 // Project imports:
-import '../../../../common/windows/window_frame.dart';
 import '../../../../common/navigator/route_names.dart';
-import '../../../../core/theme/theme_colors.dart';
+import '../../../../common/windows/window_frame.dart';
 import '../../../../data/models/bible/bible_version.dart';
 import '../bloc/bibles_cubit.dart';
-import 'widgets/bible_row.dart';
-import 'widgets/secondary_section.dart';
+import 'widgets/bibles_dialogs.dart';
+import 'widgets/multi_bible_toggle_card.dart';
+import 'widgets/other_bibles_card.dart';
+import 'widgets/primary_bible_card.dart';
+import 'widgets/secondary_bibles_card.dart';
+import 'widgets/section_header_row.dart';
 
 class BiblesScreen extends StatelessWidget {
   const BiblesScreen({super.key, this.embedded = false});
@@ -28,172 +31,127 @@ class BiblesScreen extends StatelessWidget {
   }
 }
 
-class _BiblesView extends StatelessWidget {
+class _BiblesView extends StatefulWidget {
   const _BiblesView({required this.embedded});
 
   final bool embedded;
 
-  void _addMore(BuildContext context) {
+  @override
+  State<_BiblesView> createState() => _BiblesViewState();
+}
+
+class _BiblesViewState extends State<_BiblesView> {
+  @override
+  void initState() {
+    super.initState();
+    final cubit = context.read<BiblesCubit>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && cubit.takeFirstOpenTip()) showFirstOpenPrompt(context);
+    });
+  }
+
+  void _changeSelection() {
     final router = GoRouter.of(context);
     Navigator.of(context).pop();
     router.pushNamed(RouteNames.biblelibSetup);
   }
 
-  Future<void> _confirmDelete(BuildContext context, BibleVersion bible) async {
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Remove ${bible.name}?'),
-        content: const Text(
-          "This deletes its downloaded content from this device. This can't be undone.",
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: FilledButton.styleFrom(backgroundColor: ThemeColors.error),
-            child: const Text('Remove'),
-          ),
-        ],
-      ),
-    );
-    if (ok == true && context.mounted) {
-      await context.read<BiblesCubit>().deleteBible(bible.abbreviation);
+  Future<void> _delete(BibleVersion bible) async {
+    final cubit = context.read<BiblesCubit>();
+    if (await confirmDeleteBible(context, bible)) {
+      await cubit.deleteBible(bible.abbreviation);
     }
   }
 
-  Future<void> _pickPrimary(BuildContext context, BiblesState state) async {
-    final downloaded = state.bibles.where((b) => b.isDownloaded).toList();
-    final chosen = await showDialog<String>(
-      context: context,
-      builder: (context) => SimpleDialog(
-        title: const Text('Choose your primary Bible'),
-        children: [
-          for (final b in downloaded)
-            SimpleDialogOption(
-              onPressed: () => Navigator.pop(context, b.abbreviation),
-              child: Row(
-                children: [
-                  if (b.abbreviation == state.primaryAbbr)
-                    const Padding(
-                      padding: EdgeInsets.only(right: 8),
-                      child: Icon(Icons.check, size: 18, color: ThemeColors.primary),
-                    ),
-                  Expanded(child: Text('${b.abbreviation} · ${b.name}')),
-                ],
+  Future<void> _pickPrimary(BiblesState state) async {
+    final cubit = context.read<BiblesCubit>();
+    final chosen = await pickPrimaryBible(
+      context,
+      bibles: state.bibles,
+      current: state.primaryAbbr,
+    );
+    if (chosen != null) cubit.setPrimaryBible(chosen);
+  }
+
+  Widget _content(BiblesState state) {
+    final cubit = context.read<BiblesCubit>();
+    final primary =
+        state.bibles.where((b) => b.abbreviation == state.primaryAbbr).firstOrNull;
+    final others = state.bibles.where((b) {
+      if (b.abbreviation == state.primaryAbbr) return false;
+      return !state.multiBibleEnabled ||
+          !state.secondaryBibles.contains(b.abbreviation);
+    }).toList();
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 720),
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 90),
+          children: [
+            if (widget.embedded)
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  tooltip: 'How Bible management works',
+                  icon: const Icon(Icons.info_outline),
+                  onPressed: () => showBiblesInfo(context),
+                ),
               ),
+            SectionHeaderRow(
+              left: SectionHeaderRow.label(context, 'Primary Bible'),
+              right: SectionHeaderRow.label(context, 'Click to Change'),
             ),
-        ],
+            PrimaryBibleCard(primary: primary, onTap: () => _pickPrimary(state)),
+            const SizedBox(height: 12),
+            MultiBibleToggleCard(
+              enabled: state.multiBibleEnabled,
+              onChanged: cubit.setMultiBibleEnabled,
+            ),
+            if (state.multiBibleEnabled) ...[
+              const SizedBox(height: 12),
+              SecondaryBiblesCard(state: state, cubit: cubit, onDelete: _delete),
+            ],
+            if (others.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              OtherBiblesCard(
+                bibles: others,
+                state: state,
+                cubit: cubit,
+                onDelete: _delete,
+              ),
+            ],
+          ],
+        ),
       ),
     );
-    if (chosen != null && context.mounted) {
-      context.read<BiblesCubit>().setPrimaryBible(chosen);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: embedded
+      appBar: widget.embedded
           ? null
           : WindowAppBar(
               icon: Icons.library_books_outlined,
-              title: 'Manage Your Bibles',
+              title: 'Manage Bibles',
               actions: [
                 IconButton(
-                  tooltip: 'Add more translations',
-                  icon: const Icon(Icons.add),
-                  onPressed: () => _addMore(context),
+                  tooltip: 'How Bible management works',
+                  icon: const Icon(Icons.info_outline),
+                  onPressed: () => showBiblesInfo(context),
                 ),
               ],
             ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _changeSelection,
+        icon: const Icon(Icons.swap_horiz),
+        label: const Text('Change Selection'),
+      ),
       body: BlocBuilder<BiblesCubit, BiblesState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(color: ThemeColors.primary),
-            );
-          }
-          if (state.bibles.isEmpty) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.menu_book_outlined,
-                        size: 56, color: ThemeColors.mediumGrey),
-                    const SizedBox(height: 16),
-                    const Text('No Bibles yet.'),
-                    const SizedBox(height: 16),
-                    FilledButton(
-                      onPressed: () => _addMore(context),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: ThemeColors.primary,
-                      ),
-                      child: const Text('Add a translation'),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }
-
-          final downloadedCount =
-              state.bibles.where((b) => b.isDownloaded).length;
-
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 720),
-              child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                children: [
-                  if (embedded)
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton.icon(
-                        onPressed: () => _addMore(context),
-                        icon: const Icon(Icons.add),
-                        label: const Text('Add more translations'),
-                      ),
-                    ),
-                  for (final bible in state.bibles)
-                    BibleRow(
-                      bible: bible,
-                      isPrimary: bible.abbreviation == state.primaryAbbr,
-                      progress: state.downloadProgress[bible.abbreviation],
-                      onSetPrimary: () => context
-                          .read<BiblesCubit>()
-                          .setPrimaryBible(bible.abbreviation),
-                      onRetry: () => context
-                          .read<BiblesCubit>()
-                          .retryDownload(bible.abbreviation),
-                      onRestart: () => context
-                          .read<BiblesCubit>()
-                          .restartDownload(bible.abbreviation),
-                      onDelete: () => _confirmDelete(context, bible),
-                    ),
-                  if (downloadedCount > 1) ...[
-                    const Divider(height: 32),
-                    SecondarySection(state: state),
-                  ],
-                  const SizedBox(height: 24),
-                  Center(
-                    child: TextButton.icon(
-                      onPressed: () => _pickPrimary(context, state),
-                      icon: const Icon(Icons.swap_horiz),
-                      label: const Text('Change primary Bible'),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                ],
-              ),
-            ),
-          );
-        },
+        builder: (context, state) => state.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : _content(state),
       ),
     );
   }

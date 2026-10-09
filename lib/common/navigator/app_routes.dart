@@ -4,7 +4,6 @@ import '../../features/home/main/ui/home_screen.dart';
 import '../../features/selection/bloc/selection_bloc.dart';
 import '../../features/selection/ui/selection_screen.dart';
 import '../../features/splash/splash_screen.dart';
-import 'reveal_transition.dart';
 import 'route_names.dart';
 
 final List<RouteBase> appRoutes = [
@@ -27,6 +26,6 @@ final List<RouteBase> appRoutes = [
     path: '/${RouteNames.main}',
     name: RouteNames.main,
     pageBuilder: (_, state) =>
-        centerRevealPage(key: state.pageKey, child: const HomeScreen()),
+        NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
   ),
 ];

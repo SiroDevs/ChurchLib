@@ -16,7 +16,7 @@ class BibleTitleBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<BibleReaderCubit>();
-    final abbr = state.activeBibleLanguage!.toUpperCase().substring(0,3);
+    final abbr = state.activeBibleLanguageCode;
     final bibleLabel = state.activeBible.isEmpty
         ? '…'
         : (abbr.isEmpty ? state.activeBible : '$abbr: ${state.activeBible}');
