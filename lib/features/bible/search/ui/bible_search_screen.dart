@@ -1,11 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import '../../../../common/windows/window_frame.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
 import '../../../../domain/entities/bible/verse_display.dart';
 import '../cubit/bible_search_cubit.dart';
@@ -51,7 +51,7 @@ class _BibleSearchViewState extends State<_BibleSearchView> {
   }
 
   void _openResult(BuildContext context, VerseDisplay verse, String abbr) {
-    context.pop(
+    Navigator.of(context).pop(
       ReaderTarget(
         bibleAbbr: abbr,
         bookId: verse.bookId,
@@ -68,13 +68,14 @@ class _BibleSearchViewState extends State<_BibleSearchView> {
       builder: (context, state) {
         final cubit = context.read<BibleSearchCubit>();
         return Scaffold(
-          appBar: AppBar(
-            title: TextField(
+          appBar: WindowAppBar(
+            icon: Icons.search,
+            titleWidget: TextField(
               controller: _controller,
               autofocus: true,
               onChanged: cubit.onQueryChanged,
               decoration: InputDecoration(
-                hintText: 'Search scriptures...',
+                hintText: 'Search scriptures ...',
                 border: InputBorder.none,
                 suffixIcon: state.query.isEmpty
                     ? null

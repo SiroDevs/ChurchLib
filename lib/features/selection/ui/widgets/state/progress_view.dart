@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../common/utils/constants/app_assets.dart';
-import '../../../../../common/utils/constants/app_constants.dart';
 import '../../../../../core/theme/theme_colors.dart';
 import 'progress_rings.dart';
+import '../../../../../common/utils/constants/app_constants.dart';
 
 class ProgressView extends StatelessWidget {
   final String title;

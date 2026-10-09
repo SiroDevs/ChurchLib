@@ -1,4 +1,19 @@
-part of 'settings_screen.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
+
+// Project imports:
+import '../../common/widgets/inputs/radio_input.dart';
+import '../../core/di/injectable.dart';
+import '../../core/theme/bloc/theme_bloc.dart';
+import '../../core/theme/theme_data.dart';
+import '../../core/theme/theme_fonts.dart';
+import '../../core/theme/theme_styles.dart';
+import '../../domain/repos/pref_repo.dart';
+import '../../l10n/app_localizations.dart';
 
 class SettingCard extends StatelessWidget {
   final String title;
@@ -8,19 +23,15 @@ class SettingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = [
-      Text(
-        title,
-        style: TextStyles.headingStyle3,
-      ).padding(left: Sizes.sm, top: Sizes.sm),
-    ];
-    for (var widget in widgets) {
-      items.add(Card(child: widget));
-    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: items,
+      children: [
+        Text(
+          title,
+          style: TextStyles.headingStyle3,
+        ).padding(left: Sizes.sm, top: Sizes.sm),
+        for (final widget in widgets) Card(child: widget),
+      ],
     );
   }
 }
@@ -35,8 +46,6 @@ class SettingsThemeItem extends StatefulWidget {
 class SettingsThemeItemState extends State<SettingsThemeItem> {
   late ThemeBloc _themeBloc;
   late PrefRepo _prefRepo;
-
-  late AppLocalizations l10n;
   String appTheme = '';
 
   @override
@@ -54,10 +63,9 @@ class SettingsThemeItemState extends State<SettingsThemeItem> {
 
   @override
   Widget build(BuildContext context) {
-    l10n = AppLocalizations.of(context)!;
-
+    final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: Icon(Icons.color_lens),
+      leading: const Icon(Icons.color_lens),
       title: Text(l10n.appTheme),
       subtitle: Text('${l10n.appThemeDesc} $appTheme'),
       onTap: () => selectThemeDialog(context),
@@ -81,13 +89,10 @@ class SettingsThemeItemState extends State<SettingsThemeItem> {
                   switch (newValue) {
                     case 'Light Theme':
                       onThemeChanged(ThemeMode.light);
-                      break;
                     case 'Dark Theme':
                       onThemeChanged(ThemeMode.dark);
-                      break;
                     default:
                       onThemeChanged(ThemeMode.system);
-                      break;
                   }
                   appTheme = AppTheme.currentTheme();
                   Navigator.of(context).pop();

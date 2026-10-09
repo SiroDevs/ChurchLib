@@ -23,7 +23,6 @@ import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/database_repo_impl.dart';
 import '../../features/bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
 import 'injectable.config.dart';
-
 final getIt = GetIt.instance;
 
 @InjectableInit(

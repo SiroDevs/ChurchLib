@@ -76,6 +76,7 @@ class AppViewState extends State<AppView> {
         builder: (context, themeMode) {
           return MaterialApp.router(
             routerConfig: _router,
+            themeAnimationDuration: Duration.zero,
             themeMode: _prefRepo.getThemeMode(),
             theme: AppTheme.lightTheme(),
             darkTheme: AppTheme.darkTheme(),

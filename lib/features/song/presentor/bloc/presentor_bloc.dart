@@ -1,4 +1,3 @@
-// Dart imports:
 import 'dart:async';
 
 // Flutter imports:
@@ -20,7 +19,6 @@ import '../utils/presentor_utils.dart';
 
 part 'presentor_event.dart';
 part 'presentor_state.dart';
-
 
 class PresentorBloc extends Bloc<PresentorEvent, PresentorState> {
   PresentorBloc() : super(const _PresentorState()) {

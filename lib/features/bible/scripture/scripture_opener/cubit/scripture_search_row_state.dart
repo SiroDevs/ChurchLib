@@ -86,4 +86,45 @@ class ScriptureSearchRowState {
           : selectedVerseNumber as int?,
     );
   }
+
+  ScriptureItem? toItem(String bibleAbbr, String bibleName, int order) {
+    final book = selectedBook;
+    final chapter = selectedChapter;
+    final verseNumber = selectedVerseNumber;
+    final verseId = selectedVerseId;
+    if (book == null ||
+        chapter == null ||
+        verseNumber == null ||
+        verseId == null) {
+      return null;
+    }
+    return ScriptureItem(
+      listId: 0,
+      bibleAbbr: bibleAbbr,
+      bibleName: bibleName,
+      bookId: book.id,
+      bookName: book.name,
+      bookAbbr: book.abbreviation,
+      chapterId: chapter.id,
+      chapterNumber: chapter.number,
+      verseId: verseId,
+      verseNumber: verseNumber,
+      reference: '${book.name} ${chapter.number}:$verseNumber',
+      sortOrder: order,
+      addedAt: DateTime.now().millisecondsSinceEpoch,
+    );
+  }
+
+  ReaderTarget? toTarget(String bibleAbbr) {
+    final book = selectedBook;
+    final chapter = selectedChapter;
+    final verseId = selectedVerseId;
+    if (book == null || chapter == null || verseId == null) return null;
+    return ReaderTarget(
+      bibleAbbr: bibleAbbr,
+      bookId: book.id,
+      chapterId: chapter.id,
+      verseId: verseId,
+    );
+  }
 }

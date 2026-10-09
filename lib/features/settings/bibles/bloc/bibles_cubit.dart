@@ -51,6 +51,12 @@ class BiblesCubit extends Cubit<BiblesState> {
     ));
   }
 
+  bool takeFirstOpenTip() {
+    final seen = _prefs.getPrefBool(PrefConstants.bibleManagementTipSeenKey);
+    if (!seen) _prefs.setPrefBool(PrefConstants.bibleManagementTipSeenKey, true);
+    return !seen;
+  }
+
   List<String> _splitCsv(String csv) =>
       csv.isEmpty ? [] : csv.split(',').where((e) => e.isNotEmpty).toList();
 

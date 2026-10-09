@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
-import '../../../../../common/navigator/route_names.dart';
+import '../../../../../common/windows/window_frame.dart';
+import '../../../../../common/windows/open_windows.dart';
 import '../../../../../core/theme/theme_colors.dart';
-import '../../../../../domain/entities/bible/bible_reader.dart';
 import '../cubit/scripture_lists_cubit.dart';
 
 class ScriptureListsScreen extends StatelessWidget {
@@ -52,18 +51,18 @@ class _ScriptureListsView extends StatelessWidget {
   }
 
   Future<void> _open(BuildContext context, ScriptureListSummary summary) async {
-    final target = await context.pushNamed<ReaderTarget>(
-      RouteNames.scriptureListDetail,
-      pathParameters: {'listId': '${summary.id}'},
-    );
-    if (target != null && context.mounted) context.pop(target);
+    final target = await openScriptureListDetail(context, summary.id);
+    if (target != null && context.mounted) Navigator.of(context).pop(target);
     if (context.mounted) await context.read<ScriptureListsCubit>().load();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Scripture Lists')),
+      appBar: const WindowAppBar(
+        icon: Icons.list_alt,
+        title: 'Scripture Lists',
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 720),

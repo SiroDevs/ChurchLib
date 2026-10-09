@@ -18,6 +18,8 @@ import '../../core/di/injectable.dart';
 import '../../core/theme/theme_colors.dart';
 import '../../domain/repos/pref_repo.dart';
 
+part 'splash_widgets.dart';
+
 const _splashDuration = Duration(milliseconds: 2800);
 
 const _textShadows = [
@@ -103,24 +105,7 @@ class _SplashScreenState extends State<SplashScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          AppConstants.appCredits1,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: ThemeColors.accent3,
-            shadows: _textShadows,
-          ),
-        ),
-        Text(
-          ' & ',
-          style: TextStyle(
-            fontSize: 20,
-            color: ThemeColors.accent1,
-            shadows: _textShadows,
-          ),
-        ),
-        Text(
-          AppConstants.appCredits2,
+          AppConstants.appCredits,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -140,9 +125,8 @@ class _SplashScreenState extends State<SplashScreen> {
             _background,
             fit: BoxFit.cover,
             frameBuilder: (context, child, frame, wasSyncLoaded) =>
-                AnimatedOpacity(
+                Opacity(
               opacity: wasSyncLoaded || frame != null ? 1 : 0,
-              duration: const Duration(milliseconds: 400),
               child: child,
             ),
           ),
@@ -190,34 +174,6 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ShadowedIcon extends StatelessWidget {
-  final double size;
-  const _ShadowedIcon({required this.size});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Transform.translate(
-          offset: const Offset(0, 8),
-          child: ImageFiltered(
-            imageFilter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Image.asset(
-              AppAssets.iconApp,
-              height: size,
-              width: size,
-              color: Colors.black.withValues(alpha: 0.65),
-              colorBlendMode: BlendMode.srcIn,
-            ),
-          ),
-        ),
-        Image.asset(AppAssets.iconApp, height: size, width: size),
-      ],
     );
   }
 }

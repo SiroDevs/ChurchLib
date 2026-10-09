@@ -1,11 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import '../../../../../common/windows/window_frame.dart';
 import '../../../../../common/utils/constants/pref_constants.dart';
 import '../../../../../core/di/injectable.dart';
 import '../../../../../core/theme/theme_colors.dart';
@@ -63,7 +63,7 @@ class _ScriptureListDetailView extends StatelessWidget {
         .open(listId, state.name, state.items, activeItemId: first.id);
     getIt<PrefRepo>()
         .setPrefString(PrefConstants.bibleLastVerseIdKey, first.verseId);
-    context.pop(
+    Navigator.of(context).pop(
       ReaderTarget(
         bibleAbbr: first.bibleAbbr,
         bookId: first.bookId,
@@ -79,8 +79,9 @@ class _ScriptureListDetailView extends StatelessWidget {
       builder: (context, state) {
         final ready = state.status == ScriptureListDetailStatus.loaded;
         return Scaffold(
-          appBar: AppBar(
-            title: Text(state.name.isEmpty ? 'Scripture list' : state.name),
+          appBar: WindowAppBar(
+            icon: Icons.list_alt,
+            title: state.name.isEmpty ? 'Scripture list' : state.name,
             actions: [
               if (ready)
                 IconButton(

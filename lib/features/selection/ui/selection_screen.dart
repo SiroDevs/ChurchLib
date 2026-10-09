@@ -75,9 +75,7 @@ class _SelectionView extends StatelessWidget {
                       children: [
                         if (state.steps.length > 1) StepHeader(flow: state),
                         Expanded(
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 250),
-                            child: KeyedSubtree(
+                          child: KeyedSubtree(
                               key: ValueKey(current),
                               child: switch (current) {
                                 SelectionStepType.modules =>
@@ -89,7 +87,6 @@ class _SelectionView extends StatelessWidget {
                                 null => const SizedBox.shrink(),
                               },
                             ),
-                          ),
                         ),
                       ],
                     ),

@@ -1,9 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 // Project imports:
-import '../../navigator/route_names.dart';
+import '../../windows/open_windows.dart';
 import '../../utils/app_util.dart';
 import '../../../core/theme/theme_data.dart';
 import '../../../core/theme/theme_styles.dart';
@@ -111,9 +110,11 @@ class SongsSearch extends SearchDelegate<List> {
                       } catch (e) {
                         logger('Failed to get the book: $e');
                       }
-                      context.pushNamed(
-                        RouteNames.presentor,
-                        extra: (song: result, book: book, songs: songs),
+                      openPresentor(
+                        context,
+                        song: result,
+                        book: book,
+                        songs: songs,
                       );
                     },
                   );

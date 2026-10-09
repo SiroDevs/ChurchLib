@@ -11,7 +11,8 @@ import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'app_module.dart';
-import 'settings_window.dart';
+import '../../../../common/windows/open_windows.dart';
+import 'how_it_works_sheet.dart';
 import 'shell_nav_item.dart';
 
 const double kShellSidebarWidth = 250;
@@ -52,7 +53,7 @@ class AppShell extends StatelessWidget {
                       color: scheme.secondaryContainer,
                       border: Border(right: divider),
                     ),
-                    child: _Sidebar(items: sidebarItems),
+                    child: _Sidebar(module: module, items: sidebarItems),
                   ),
                   Expanded(child: body),
                 ],
@@ -74,7 +75,7 @@ class _TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-        return Material(
+    return Material(
       color: scheme.secondaryContainer,
       elevation: 0,
       child: ConstrainedBox(
@@ -155,8 +156,9 @@ class AppSwitcher extends StatelessWidget {
 }
 
 class _Sidebar extends StatelessWidget {
-  const _Sidebar({required this.items});
+  const _Sidebar({required this.module, required this.items});
 
+  final AppModule module;
   final List<Widget> items;
 
   void _toggleTheme(BuildContext context, bool isDark) {
@@ -176,10 +178,18 @@ class _Sidebar extends StatelessWidget {
 
     return Column(
       children: [
-        const SizedBox(height: 6),
-        ...items,
-        const Spacer(),
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.only(top: 6),
+            children: items,
+          ),
+        ),
         divider,
+        ShellNavItem(
+          Icons.help_outline,
+          'How it works',
+          onPressed: () => showHowItWorks(context, module),
+        ),
         ShellNavItem(
           isDark ? Icons.light_mode : Icons.dark_mode,
           isDark ? 'Light mode' : 'Dark mode',
@@ -189,7 +199,7 @@ class _Sidebar extends StatelessWidget {
         ShellNavItem(
           Icons.settings,
           l10n.settingsTitle,
-          onPressed: () => showSettingsWindow(context),
+          onPressed: () => openSettings(context, module),
         ),
         const SizedBox(height: 8),
       ],

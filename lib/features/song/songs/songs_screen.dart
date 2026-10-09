@@ -4,11 +4,9 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../../common/navigator/route_names.dart';
 import '../../../common/utils/app_util.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../common/widgets/list_items/search_book_item.dart';
@@ -16,7 +14,6 @@ import '../../../common/widgets/list_items/search_song_item.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
-import '../../../l10n/app_localizations.dart';
 import '../../home/song_search/bloc/song_search_bloc.dart';
 import '../../home/song_search/ui/song_search_screen.dart';
 
@@ -43,39 +40,12 @@ class _SongsScreenState extends State<SongsScreen> {
     bloc = context.read<SongSearchBloc>();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<void> onSongSelect(SongExt song, bool shouldOpen) async {
     parent.selectSong(song);
-    if (shouldOpen) {
-      onSongOpen();
-    }
+    if (shouldOpen) onSongOpen();
   }
 
-  Future<void> onSongOpen() async {
-    SongExt song = parent.selectedSong;
-    SongBook book = parent.books[0];
-    try {
-      parent.books.firstWhere(
-        (b) => b.bookId == song.book,
-        orElse: () => parent.books[0],
-      );
-    } catch (e) {
-      logger('Failed to get the book: $e');
-    }
-
-    bool? result = await context.pushNamed<bool>(
-      RouteNames.presentor,
-      extra: (song: song, book: book, songs: parent.songs),
-    );
-
-    if (result == true) {
-      bloc.add(FilterData(book));
-    }
-  }
+  Future<void> onSongOpen() => parent.presentSelected(context);
 
   @override
   Widget build(BuildContext context) {
@@ -105,11 +75,7 @@ class _SongsScreenState extends State<SongsScreen> {
                 ),
               ),
             ),
-            SongViewer(
-              song: parent.selectedSong,
-              books: parent.books,
-              songs: parent.songs,
-            ).expanded(),
+            SongViewer(song: parent.selectedSong).expanded(),
           ],
         );
         return Shortcuts(
