@@ -125,7 +125,7 @@ class _VerseRowState extends State<VerseRow> {
                           ),
                         ),
                 ),
-              ).width(32),
+              ).width(55),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

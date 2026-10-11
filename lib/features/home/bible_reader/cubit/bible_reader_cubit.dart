@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/utils/reader/bible_settings_signal.dart';
 import '../../../../common/utils/reader/reader_utils.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/bible/bible_book.dart';
@@ -22,7 +23,17 @@ const _unset = Object();
 
 class BibleReaderCubit extends Cubit<BibleReaderState>
     with ReaderLoadingMixin, ReaderVersesMixin, ReaderSelectionMixin {
-  BibleReaderCubit() : super(const BibleReaderState());
+  BibleReaderCubit() : super(const BibleReaderState()) {
+    bibleSettingsChanged.addListener(_onBibleSettingsChanged);
+  }
+
+  void _onBibleSettingsChanged() => refreshParallel();
+
+  @override
+  Future<void> close() {
+    bibleSettingsChanged.removeListener(_onBibleSettingsChanged);
+    return super.close();
+  }
 
   final _bibleRepo = getIt<BibleRepo>();
   final _tracking = getIt<BibleTrackingRepo>();
@@ -40,7 +51,10 @@ class BibleReaderCubit extends Cubit<BibleReaderState>
     selectChapter(state.chapters[nextIdx]);
   }
 
-  Future<void> selectChapter(BibleChapter chapter, {ScrollTarget? scrollTarget}) {
+  Future<void> selectChapter(
+    BibleChapter chapter, {
+    ScrollTarget? scrollTarget,
+  }) {
     return _loadVerses(
       state.activeBibleAbbr,
       chapter,
@@ -50,11 +64,9 @@ class BibleReaderCubit extends Cubit<BibleReaderState>
   }
 
   Future<void> selectBook(BibleBook book) async {
-    emit(state.copyWith(
-      activeBook: book,
-      chapters: const [],
-      verses: const [],
-    ));
+    emit(
+      state.copyWith(activeBook: book, chapters: const [], verses: const []),
+    );
     await _loadChapters(
       state.activeBibleAbbr,
       book,
@@ -66,8 +78,10 @@ class BibleReaderCubit extends Cubit<BibleReaderState>
   Future<void> setPrimaryBible(String abbr) async {
     final chapter = state.activeChapter;
     if (chapter == null) return;
-    final name =
-        firstWhereOrFirst(state.savedBibles, (b) => b.abbreviation == abbr).name;
+    final name = firstWhereOrFirst(
+      state.savedBibles,
+      (b) => b.abbreviation == abbr,
+    ).name;
 
     saveReaderPrimaryBible(_prefs, abbr: abbr, name: name);
     emit(state.copyWith(activeBible: name, activeBibleAbbr: abbr));
@@ -90,19 +104,19 @@ class BibleReaderCubit extends Cubit<BibleReaderState>
   }
 
   String? buildSelectionShareText() => buildVerseSelectionShareText(
-        selected: _selectedVersesSorted,
-        chapterVerses: state.verses,
-        book: state.activeBook,
-        chapter: state.activeChapter,
-        bibleName: state.activeBible,
-        language: state.activeBibleLanguage,
-      );
+    selected: _selectedVersesSorted,
+    chapterVerses: state.verses,
+    book: state.activeBook,
+    chapter: state.activeChapter,
+    bibleName: state.activeBible,
+    language: state.activeBibleLanguage,
+  );
 
   String? buildActiveChapterShareText() => buildChapterShareText(
-        chapterVerses: state.verses,
-        book: state.activeBook,
-        chapter: state.activeChapter,
-        bibleName: state.activeBible,
-        language: state.activeBibleLanguage,
-      );
+    chapterVerses: state.verses,
+    book: state.activeBook,
+    chapter: state.activeChapter,
+    bibleName: state.activeBible,
+    language: state.activeBibleLanguage,
+  );
 }

@@ -35,6 +35,21 @@ mixin ReaderVersesMixin on Cubit<BibleReaderState> {
     return map;
   }
 
+  Future<void> refreshParallel() async {
+    final chapter = state.activeChapter;
+    final abbr = state.activeBibleAbbr;
+    if (chapter == null || abbr.isEmpty) return;
+
+    final enabled = readerMultiBibleEnabled(_prefs);
+    final parallel = await _loadParallel(abbr, chapter.id);
+    if (isClosed || state.activeChapter?.id != chapter.id) return;
+
+    emit(state.copyWith(
+      parallelVerses: parallel,
+      multiBibleReaderEnabled: enabled,
+    ));
+  }
+
   Future<void> _loadVerses(
     String abbr,
     BibleChapter chapter, {

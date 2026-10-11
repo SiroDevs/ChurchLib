@@ -26,7 +26,7 @@ class PrefConstants {
   static const bibleLastChapterIdKey = 'bible_last_chapter_id';
   static const bibleLastVerseIdKey = 'bible_last_verse_id';
   static const bibleFontSizeKey = 'bible_font_size_sp_v2';
-  static const bibleMultiBibleEnabledKey = 'bible_multi_bible_enabled';
+  static const bibleMultiBibleDisabledKey = 'bible_multi_bible_disabled';
   static const bibleManagementTipSeenKey = 'bible_management_tip_seen';
 
   static const songlibModuleEnabledKey = 'module_songlib_enabled';

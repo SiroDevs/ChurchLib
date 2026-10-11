@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/constants/pref_constants.dart';
+import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/utils/reader/bible_settings_signal.dart';
+import '../../../../common/utils/reader/reader_prefs_utils.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/bible/bible_version.dart';
 import '../../../../domain/repos/bible/bible_repo.dart';
@@ -41,10 +43,7 @@ class BiblesCubit extends Cubit<BiblesState> {
       bibles: bibles,
       primaryAbbr: primary,
       isLoading: false,
-      multiBibleEnabled: _prefs.getPrefBool(
-        PrefConstants.bibleMultiBibleEnabledKey,
-        defaultValue: true,
-      ),
+      multiBibleEnabled: readerMultiBibleEnabled(_prefs),
       secondaryBibles: secondary,
     ));
   }
@@ -136,8 +135,9 @@ class BiblesCubit extends Cubit<BiblesState> {
   }
 
   void setMultiBibleEnabled(bool enabled) {
-    _prefs.setPrefBool(PrefConstants.bibleMultiBibleEnabledKey, enabled);
+    saveReaderMultiBibleEnabled(_prefs, enabled);
     emit(state.copyWith(multiBibleEnabled: enabled));
+    notifyBibleSettingsChanged();
   }
 
   void toggleSecondaryBible(String abbr) {
@@ -150,6 +150,7 @@ class BiblesCubit extends Cubit<BiblesState> {
     }
     emit(state.copyWith(secondaryBibles: current));
     _prefs.setPrefString(PrefConstants.bibleSecondaryKey, current.join(','));
+    notifyBibleSettingsChanged();
   }
 
   void moveSecondaryBible(String abbr, int direction) {
@@ -161,5 +162,6 @@ class BiblesCubit extends Cubit<BiblesState> {
     list.insert(newIdx, item);
     emit(state.copyWith(secondaryBibles: list));
     _prefs.setPrefString(PrefConstants.bibleSecondaryKey, list.join(','));
+    notifyBibleSettingsChanged();
   }
 }
