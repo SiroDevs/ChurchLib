@@ -52,6 +52,14 @@ class BibleReaderState {
     return null;
   }
 
+  /// Language name of the saved Bible with this abbreviation ('' if unknown).
+  String languageOf(String abbr) {
+    for (final b in savedBibles) {
+      if (b.abbreviation == abbr) return b.languageName.trim();
+    }
+    return '';
+  }
+
   String get activeBibleLanguageCode {
     final language = activeBibleLanguage?.trim() ?? '';
     if (language.isEmpty) return '';

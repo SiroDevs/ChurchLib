@@ -21,6 +21,8 @@ class VerseRow extends StatefulWidget {
   final String? highlightQuery;
 
   final Map<String, String> parallelTexts;
+
+  final Map<String, String> parallelLanguages;
   final bool isBookmarked;
   final String? bookmarkColorHex;
   final bool hasNote;
@@ -38,6 +40,7 @@ class VerseRow extends StatefulWidget {
     required this.fontSize,
     this.highlightQuery,
     this.parallelTexts = const {},
+    this.parallelLanguages = const {},
     required this.isBookmarked,
     this.bookmarkColorHex,
     this.hasNote = false,
@@ -54,6 +57,11 @@ class VerseRow extends StatefulWidget {
 
 class _VerseRowState extends State<VerseRow> {
   bool _hovering = false;
+
+  String _parallelLabel(String abbr) {
+    final language = widget.parallelLanguages[abbr]?.trim() ?? '';
+    return (language.isEmpty ? abbr : language).toUpperCase();
+  }
 
   Widget _richText(TextSpan span) =>
       widget.isSelectionMode ? Text.rich(span) : SelectableText.rich(span);
@@ -137,7 +145,7 @@ class _VerseRowState extends State<VerseRow> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: '[${e.key.toUpperCase()}]  ',
+                              text: '[${_parallelLabel(e.key)}]  ',
                               style: TextStyle(
                                 fontSize: widget.fontSize * 0.75,
                                 fontWeight: FontWeight.w700,

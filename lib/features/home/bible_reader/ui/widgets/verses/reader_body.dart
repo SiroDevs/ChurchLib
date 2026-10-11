@@ -105,6 +105,12 @@ class ReaderBody extends StatelessWidget {
                                 '',
                         }
                       : const {},
+                  parallelLanguages: parallelActive
+                      ? {
+                          for (final abbr in state.parallelVerses.keys)
+                            abbr: state.languageOf(abbr),
+                        }
+                      : const {},
                   isBookmarked: state.bookmarks.containsKey(v.verseId),
                   bookmarkColorHex: state.bookmarks[v.verseId],
                   hasNote: state.notedVerseIds.contains(v.verseId),
