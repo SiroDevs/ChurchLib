@@ -44,7 +44,7 @@ class SongTitleBar extends StatelessWidget {
 
             IconButton(
               tooltip: 'Present Song',
-              onPressed: () => parent.presentSelected(context),
+              onPressed: () => parent.presentSelected(),
               icon: const Icon(Icons.north_east),
             ),
 

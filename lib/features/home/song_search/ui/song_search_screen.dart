@@ -12,7 +12,6 @@ import '../../../../common/widgets/search/search_songs_utils.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
 import '../../../../common/widgets/state/skeleton.dart';
-import '../../../../common/windows/open_windows.dart';
 import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -73,21 +72,23 @@ class HomeScreenState extends State<SongSearchScreen> {
     });
   }
 
-  Future<void> presentSelected(BuildContext context) async {
+  Future<void> presentSelected() async {
     final song = selectedSong;
     if (song.songId == 0 || books.isEmpty) return;
-    final bloc = context.read<SongSearchBloc>();
+    // final bloc = context.read<SongSearchBloc>();
     final book = books.firstWhere(
       (b) => b.bookId == song.book,
       orElse: () => books[0],
     );
-    final changed = await openPresentor(
-      context,
-      song: song,
-      book: book,
-      songs: songs,
+
+    bool? result = await context.pushNamed<bool>(
+      RouteNames.presentor,
+      extra: (song: song, book: book, songs: songs),
     );
-    if (changed == true) bloc.add(FilterData(book));
+
+    if (result == true) {
+      // bloc.add(FilterData(book));
+    }
   }
 
   void startPeriodicSync() {
@@ -152,8 +153,7 @@ class HomeScreenState extends State<SongSearchScreen> {
                     SongsScreen(parent: this),
                     LikesScreen(books: books),
                   ],
-                )
-                    .expanded(),
+                ).expanded(),
               ],
             ),
           );
@@ -163,7 +163,8 @@ class HomeScreenState extends State<SongSearchScreen> {
                 title: l10n.problemDisplaySongs,
                 showRetry: true,
                 titleRetry: l10n.selectSongsAfresh,
-                onRetry: () => context.read<SongSearchBloc>().add(const ResetData()),
+                onRetry: () =>
+                    context.read<SongSearchBloc>().add(const ResetData()),
               ),
             ),
             FetchingState() => Scaffold(body: HomeLoading()),

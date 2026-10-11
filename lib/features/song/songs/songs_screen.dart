@@ -39,10 +39,10 @@ class _SongsScreenState extends State<SongsScreen> {
 
   Future<void> onSongSelect(SongExt song, bool shouldOpen) async {
     parent.selectSong(song);
-    if (shouldOpen) onSongOpen();
+    if (shouldOpen) parent.presentSelected();
   }
 
-  Future<void> onSongOpen() => parent.presentSelected(context);
+  Future<void> onSongOpen() => parent.presentSelected();
 
   @override
   Widget build(BuildContext context) {

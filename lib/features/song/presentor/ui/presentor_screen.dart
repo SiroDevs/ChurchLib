@@ -14,7 +14,6 @@ import '../../../../common/widgets/app_intents.dart';
 import '../../../../common/widgets/presentor/slide_container.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/theme_button.dart';
-import '../../../../common/windows/window_frame.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/models.dart';
@@ -112,10 +111,8 @@ class PresentorScreenState extends State<PresentorScreen> {
               }
             },
             child: Scaffold(
-              appBar: WindowAppBar(
-                icon: Icons.slideshow,
-                title: '$songTitle - $songBook',
-                onClose: () => Navigator.of(context).pop(likeChanged),
+              appBar: AppBar(
+                title: Text('$songTitle - $songBook'),
                 actions: [
                   Tooltip(
                     message: song.liked ? l10n.songDislike : l10n.songLike,
