@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../core/theme/theme_colors.dart';
 
 class StepNavigationBar extends StatelessWidget {
@@ -24,43 +24,37 @@ class StepNavigationBar extends StatelessWidget {
       elevation: 8,
       child: SafeArea(
         top: false,
-        child: Center(
-          heightFactor: 1,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1100),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              child: Row(
-                children: [
-                  if (onBack != null)
-                    OutlinedButton.icon(
-                      onPressed: onBack,
-                      icon: const Icon(Icons.arrow_back),
-                      label: const Text('BACK'),
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 24,
-                        ),
-                      ),
-                    ),
-                  const Spacer(),
-                  FilledButton(
-                    onPressed: onPressed,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: ThemeColors.primary,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16,
-                        horizontal: 40,
-                      ),
-                    ),
-                    child: Text(label),
+        child: Row(
+          children: [
+            if (onBack != null)
+              OutlinedButton.icon(
+                onPressed: onBack,
+                icon: const Icon(Icons.arrow_back),
+                label: const Text('BACK'),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 24,
                   ),
-                ],
+                ),
               ),
+            const Spacer(),
+            FilledButton(
+              onPressed: onPressed,
+              style: FilledButton.styleFrom(
+                backgroundColor: ThemeColors.primary,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 40,
+                ),
+              ),
+              child: Text(label),
             ),
-          ),
-        ),
+          ],
+        )
+            .padding(horizontal: 24, vertical: 12)
+            .constrained(maxWidth: 1100)
+            .center(heightFactor: 1),
       ),
     );
   }

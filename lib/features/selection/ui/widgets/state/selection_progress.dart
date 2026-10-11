@@ -1,10 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Project imports:
 import '../../../../../common/utils/app_util.dart';
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../l10n/app_localizations.dart';

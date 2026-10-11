@@ -1,17 +1,15 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
+import '../../../../common/windows/open_windows.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/bloc/theme_bloc.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'app_module.dart';
-import '../../../../common/windows/open_windows.dart';
 import 'how_it_works_sheet.dart';
 import 'shell_nav_item.dart';
 
@@ -43,22 +41,21 @@ class AppShell extends StatelessWidget {
           children: [
             _TopBar(module: module, titleBar: titleBar),
             Divider(height: 1, color: scheme.outlineVariant),
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    width: kShellSidebarWidth,
-                    decoration: BoxDecoration(
-                      color: scheme.secondaryContainer,
-                      border: Border(right: divider),
-                    ),
-                    child: _Sidebar(module: module, items: sidebarItems),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  width: kShellSidebarWidth,
+                  decoration: BoxDecoration(
+                    color: scheme.secondaryContainer,
+                    border: Border(right: divider),
                   ),
-                  Expanded(child: body),
-                ],
-              ),
-            ),
+                  child: _Sidebar(module: module, items: sidebarItems),
+                ),
+                body.expanded(),
+              ],
+            )
+                .expanded(),
           ],
         ),
       ),
@@ -78,25 +75,16 @@ class _TopBar extends StatelessWidget {
     return Material(
       color: scheme.secondaryContainer,
       elevation: 0,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 56),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: kShellSidebarWidth,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppSwitcher(module: module),
-                ),
-              ),
-            ),
-            Expanded(child: titleBar),
-          ],
-        ),
-      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          AppSwitcher(module: module).alignment(Alignment.centerLeft)
+              .padding(horizontal: 10)
+              .constrained(width: kShellSidebarWidth),
+          titleBar.expanded(),
+        ],
+      )
+          .constrained(minHeight: 56),
     );
   }
 }
@@ -116,28 +104,26 @@ class AppSwitcher extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(6, 4, 12, 4),
-          decoration: BoxDecoration(
-            color: ThemeColors.primary.withValues(alpha: .85),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(module.icon, width: 26, height: 26),
-              const SizedBox(width: 8),
-              Text(
-                module.label,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(module.icon, width: 26, height: 26),
+            const SizedBox(width: 8),
+            Text(
+              module.label,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
               ),
-            ],
-          ),
-        ),
+            ),
+          ],
+        )
+            .padding(left: 6, top: 4, right: 12, bottom: 4)
+            .decorated(
+              color: ThemeColors.primary.withValues(alpha: .85),
+              borderRadius: BorderRadius.circular(8),
+            ),
         for (final other in others)
           Tooltip(
             message: 'Switch to ${other.label}',
@@ -178,12 +164,11 @@ class _Sidebar extends StatelessWidget {
 
     return Column(
       children: [
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.only(top: 6),
-            children: items,
-          ),
-        ),
+        ListView(
+          padding: const EdgeInsets.only(top: 6),
+          children: items,
+        )
+            .expanded(),
         divider,
         ShellNavItem(
           Icons.help_outline,

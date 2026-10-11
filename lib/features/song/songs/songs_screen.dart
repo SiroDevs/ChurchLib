@@ -1,12 +1,9 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../common/utils/app_util.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../common/widgets/list_items/search_book_item.dart';
@@ -54,27 +51,24 @@ class _SongsScreenState extends State<SongsScreen> {
         final outline = Theme.of(context).colorScheme.outlineVariant;
         var bigScreenView = Row(
           children: [
-            Expanded(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
+            Column(
+              children: [
+                BooksList(
+                  books: parent.books,
+                  selectedBook: parent.selectedBook,
+                ),
+                SongsList(
+                  selectedSong: parent.selectedSong,
+                  songs: parent.filtered,
+                  onTap: onSongSelect,
+                  isBigScreen: true,
+                ).expanded(),
+              ],
+            )
+                .decorated(
                   border: Border(right: BorderSide(color: outline)),
-                ),
-                child: Column(
-                  children: [
-                    BooksList(
-                      books: parent.books,
-                      selectedBook: parent.selectedBook,
-                    ),
-                    SongsList(
-                      selectedSong: parent.selectedSong,
-                      songs: parent.filtered,
-                      onTap: onSongSelect,
-                      isBigScreen: true,
-                    ).expanded(),
-                  ],
-                ),
-              ),
-            ),
+                )
+                .expanded(),
             SongViewer(song: parent.selectedSong).expanded(),
           ],
         );

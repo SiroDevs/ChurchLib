@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import 'app_module.dart';
 import 'how_it_works_content.dart';
 
@@ -32,48 +32,44 @@ class _HowItWorksSheet extends StatelessWidget {
       maxChildSize: .95,
       builder: (context, controller) => Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 16, 8, 4),
-            child: Row(
-              children: [
-                Image.asset(module.icon, width: 28, height: 28),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    'How ${module.label} works',
-                    style: text.titleLarge,
-                  ),
-                ),
-                IconButton(
-                  tooltip: 'Close',
-                  icon: const Icon(Icons.close),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
-            ),
-          ),
+          Row(
+            children: [
+              Image.asset(module.icon, width: 28, height: 28),
+              const SizedBox(width: 12),
+              Text(
+                'How ${module.label} works',
+                style: text.titleLarge,
+              )
+                  .expanded(),
+              IconButton(
+                tooltip: 'Close',
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          )
+              .padding(left: 20, top: 16, right: 8, bottom: 4),
           const Divider(height: 1),
-          Expanded(
-            child: ListView(
-              controller: controller,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              children: [
-                for (var i = 0; i < entries.length; i++)
-                  ExpansionTile(
-                    initiallyExpanded: i == 0,
-                    shape: const Border(),
-                    collapsedShape: const Border(),
-                    title: Text(
-                      entries[i].title,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                    childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(entries[i].body, style: text.bodyLarge)],
+          ListView(
+            controller: controller,
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            children: [
+              for (var i = 0; i < entries.length; i++)
+                ExpansionTile(
+                  initiallyExpanded: i == 0,
+                  shape: const Border(),
+                  collapsedShape: const Border(),
+                  title: Text(
+                    entries[i].title,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
-              ],
-            ),
-          ),
+                  childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  children: [Text(entries[i].body, style: text.bodyLarge)],
+                ),
+            ],
+          )
+              .expanded(),
         ],
       ),
     );

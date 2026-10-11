@@ -1,4 +1,3 @@
-// Project imports:
 import '../../../data/models/bible/bible_bookmark.dart';
 import '../../../data/models/bible/bible_note.dart';
 import '../../../data/sources/local/app_database.dart';

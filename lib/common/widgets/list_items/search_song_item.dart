@@ -1,15 +1,12 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:styled_widget/styled_widget.dart';
 import 'package:textstyle_extensions/textstyle_extensions.dart';
 
-// Project imports:
-import '../../utils/app_util.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
 import '../../../data/models/song/songext.dart';
+import '../../utils/app_util.dart';
 import 'tag_item.dart';
 
 // ignore: must_be_immutable

@@ -1,7 +1,5 @@
-// Dart imports:
 import 'dart:convert';
 
-// Project imports:
 import '../../../common/utils/app_util.dart';
 import '../../../common/utils/async_semaphore.dart';
 import '../../../data/models/bible/bible_book.dart';

@@ -1,15 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-// Project imports:
-import '../../core/di/injectable.dart';
-import '../../core/theme/bloc/theme_bloc.dart';
-import '../../core/theme/theme_data.dart';
-import '../../domain/repos/pref_repo.dart';
 import '../../l10n/app_localizations.dart';
+import '../utils/theme_switcher_mixin.dart';
 
 class ThemeButton extends StatefulWidget {
   final bool showLabel;
@@ -20,25 +12,9 @@ class ThemeButton extends StatefulWidget {
   State<ThemeButton> createState() => ThemeButtonState();
 }
 
-class ThemeButtonState extends State<ThemeButton> {
-  late ThemeBloc _themeBloc;
-  late PrefRepo _prefRepo;
-
+class ThemeButtonState extends State<ThemeButton>
+    with ThemeSwitcherMixin<ThemeButton> {
   late AppLocalizations l10n;
-  String appTheme = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _prefRepo = getIt<PrefRepo>();
-    _themeBloc = context.read<ThemeBloc>();
-    appTheme = AppTheme.currentTheme();
-  }
-
-  void onThemeChanged(ThemeMode themeMode) {
-    _prefRepo.updateThemeMode(themeMode);
-    _themeBloc.add(ThemeModeChanged(themeMode));
-  }
 
   @override
   Widget build(BuildContext context) {

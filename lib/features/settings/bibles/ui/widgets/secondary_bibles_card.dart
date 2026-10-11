@@ -1,7 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
+import '../../../../../common/utils/shape_utils.dart';
 import '../../../../../data/models/bible/bible_version.dart';
 import '../../bloc/bibles_cubit.dart';
 import 'hover_bible_row.dart';
@@ -89,37 +90,32 @@ class _SecondaryBiblesCardState extends State<SecondaryBiblesCard> {
       );
     }
 
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: scheme.outlineVariant),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Column(
-          children: [
-            SectionHeaderRow(
-              padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-              left: SectionHeaderRow.label(
-                context,
-                secondary.length == 1
-                    ? '1 secondary bible'
-                    : '${secondary.length} secondary bibles',
-              ),
-              right: secondary.length > 1
-                  ? TextButton.icon(
-                      onPressed: () => setState(() => _reordering = !_reordering),
-                      icon: const Icon(Icons.swap_vert, size: 18),
-                      label: Text(_reordering ? 'Done' : 'Reorder'),
-                    )
-                  : SectionHeaderRow.label(context, 'Hover a Bible to remove it'),
-            ),
-            ...rows,
-          ],
+    return Column(
+      children: [
+        SectionHeaderRow(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          left: SectionHeaderRow.label(
+            context,
+            secondary.length == 1
+                ? '1 secondary bible'
+                : '${secondary.length} secondary bibles',
+          ),
+          right: secondary.length > 1
+              ? TextButton.icon(
+                  onPressed: () => setState(() => _reordering = !_reordering),
+                  icon: const Icon(Icons.swap_vert, size: 18),
+                  label: Text(_reordering ? 'Done' : 'Reorder'),
+                )
+              : SectionHeaderRow.label(context, 'Hover a Bible to remove it'),
         ),
-      ),
-    );
+        ...rows,
+      ],
+    )
+        .padding(vertical: 4)
+        .card(
+          margin: EdgeInsets.zero,
+          elevation: 0,
+          shape: outlinedShape(scheme, BorderRadius.circular(12)),
+        );
   }
 }

@@ -1,17 +1,10 @@
-// Dart imports:
-import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
-// Package imports:
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 
-// Project imports:
-import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/api_constants.dart';
-
-// ignore: depend_on_referenced_packages
+import '../../../../common/utils/http_utils.dart';
 
 Future<bool> isConnectedToInternet() async {
   try {
@@ -19,11 +12,8 @@ Future<bool> isConnectedToInternet() async {
     // ignore: unrelated_type_equality_checks
     if (connectivityResult == ConnectivityResult.none) return false;
 
-    const exampleHost = 'example.com';
-    final result = await InternetAddress.lookup(exampleHost);
+    final result = await InternetAddress.lookup('example.com');
     return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-  } on SocketException catch (_) {
-    return false;
   } catch (_) {
     return false;
   }
@@ -32,185 +22,47 @@ Future<bool> isConnectedToInternet() async {
 Future<http.Response> makeApiGetRequest(
   String endpoint,
   Map<String, String> headers,
-) async {
-  endpoint = ApiConstants.songliveApi + endpoint;
+) =>
+    sendHttpRequest('GET', ApiConstants.songliveApi + endpoint, headers);
 
-  try {
-    logger('Api Request [GET]: $endpoint \nHeaders: ${json.encode(headers)}');
-
-    final response = await http
-        .get(
-      Uri.parse(endpoint),
-      headers: headers,
-    )
-        .timeout(
-      const Duration(seconds: 60),
-      onTimeout: () {
-        logger('Timeout occurred. Please try again later.');
-        return http.Response('Timeout occurred', 504);
-      },
-    );
-
-    logger('Api Response: [${response.statusCode}] ${response.body}');
-
-    return response;
-  } catch (e) {
-    if (e is TimeoutException) {
-      logger('Timeout occurred. Please try again later.');
-      return http.Response('Timeout occurred', 504);
-    } else {
-      logger('An error occurred during the HTTP request: $e');
-      return http.Response('Internal server error', 500);
-    }
-  }
-}
-
-Future<http.Response> makeApiPatchRequest(
+Future<http.Response> makeApiDeleteRequest(
   String endpoint,
   Map<String, String> headers,
-  dynamic requestBody,
-) async {
-  endpoint = ApiConstants.songliveApi + endpoint;
-  try {
-    logger(
-        'Api Request [PATCH]: $endpoint \n Headers: ${json.encode(headers)} \n JsonData: ${json.encode(requestBody)}');
-
-    final response = await http
-        .patch(
-      Uri.parse(endpoint),
-      headers: headers,
-      body: json.encode(requestBody),
-    )
-        .timeout(
-      const Duration(seconds: 60),
-      onTimeout: () {
-        logger('Timeout occurred. Please try again later.');
-        return http.Response('Timeout occurred', 504);
-      },
-    );
-
-    logger('Api Response: [${response.statusCode}] ${response.body}');
-
-    return response;
-  } catch (e) {
-    if (e is TimeoutException) {
-      logger('Timeout occurred. Please try again later.');
-      return http.Response('Timeout occurred', 504);
-    } else {
-      logger('An error occurred during the HTTP request: $e');
-      return http.Response('Internal server error', 500);
-    }
-  }
-}
+) =>
+    sendHttpRequest('DELETE', ApiConstants.songliveApi + endpoint, headers);
 
 Future<http.Response> makeApiPostRequest(
   String endpoint,
   Map<String, String> headers,
   dynamic requestBody,
-) async {
-  endpoint = ApiConstants.songliveApi + endpoint;
-  try {
-    logger(
-        'Api Request [POST]: $endpoint\n Headers: ${json.encode(headers)} \nJsonData: ${json.encode(requestBody)}');
-
-    final response = await http
-        .post(
-      Uri.parse(endpoint),
-      headers: headers,
-      body: json.encode(requestBody),
-    )
-        .timeout(
-      const Duration(seconds: 60),
-      onTimeout: () {
-        logger('Timeout occurred. Please try again later.');
-        return http.Response('Timeout occurred', 504);
-      },
+) =>
+    sendHttpRequest(
+      'POST',
+      ApiConstants.songliveApi + endpoint,
+      headers,
+      body: requestBody,
     );
-
-    logger('Api Response: [${response.statusCode}] ${response.body}');
-
-    return response;
-  } catch (e) {
-    if (e is TimeoutException) {
-      logger('Timeout occurred. Please try again later.');
-      return http.Response('Timeout occurred', 504);
-    } else {
-      logger('An error occurred during the HTTP request: $e');
-      return http.Response('Internal server error', 500);
-    }
-  }
-}
 
 Future<http.Response> makeApiPutRequest(
   String endpoint,
   Map<String, String> headers,
   dynamic requestBody,
-) async {
-  endpoint = ApiConstants.songliveApi + endpoint;
-  try {
-    logger(
-        'Api Request [PUT]: $endpoint \n Headers: ${json.encode(headers)} \n JsonData: ${json.encode(requestBody)}');
-
-    final response = await http
-        .put(
-      Uri.parse(endpoint),
-      headers: headers,
-      body: json.encode(requestBody),
-    )
-        .timeout(
-      const Duration(seconds: 60),
-      onTimeout: () {
-        logger('Timeout occurred. Please try again later.');
-        return http.Response('Timeout occurred', 504);
-      },
+) =>
+    sendHttpRequest(
+      'PUT',
+      ApiConstants.songliveApi + endpoint,
+      headers,
+      body: requestBody,
     );
 
-    logger('Api Response: [${response.statusCode}] ${response.body}');
-
-    return response;
-  } catch (e) {
-    if (e is TimeoutException) {
-      logger('Timeout occurred. Please try again later.');
-      return http.Response('Timeout occurred', 504);
-    } else {
-      logger('An error occurred during the HTTP request: $e');
-      return http.Response('Internal server error', 500);
-    }
-  }
-}
-
-Future<http.Response> makeApiDeleteRequest(
+Future<http.Response> makeApiPatchRequest(
   String endpoint,
   Map<String, String> headers,
-) async {
-  endpoint = ApiConstants.songliveApi + endpoint;
-  try {
-    logger(
-        'Api Request [DELETE]: $endpoint \n Headers: ${json.encode(headers)}');
-
-    final response = await http
-        .delete(
-      Uri.parse(endpoint),
-      headers: headers,
-    )
-        .timeout(
-      const Duration(seconds: 60),
-      onTimeout: () {
-        logger('Timeout occurred. Please try again later.');
-        return http.Response('Timeout occurred', 504);
-      },
+  dynamic requestBody,
+) =>
+    sendHttpRequest(
+      'PATCH',
+      ApiConstants.songliveApi + endpoint,
+      headers,
+      body: requestBody,
     );
-
-    logger('Api Response: [${response.statusCode}] ${response.body}');
-
-    return response;
-  } catch (e) {
-    if (e is TimeoutException) {
-      logger('Timeout occurred. Please try again later.');
-      return http.Response('Timeout occurred', 504);
-    } else {
-      logger('An error occurred during the HTTP request: $e');
-      return http.Response('Internal server error', 500);
-    }
-  }
-}

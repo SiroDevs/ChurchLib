@@ -71,6 +71,10 @@ jobs:
           flutter pub get
           flutter gen-l10n
 
+      - name: Generate code (build_runner)
+        shell: pwsh
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Build
         shell: pwsh
         run: |
@@ -173,6 +177,10 @@ jobs:
           flutter config --enable-windows-desktop
           flutter pub get
           flutter gen-l10n
+
+      - name: Generate code (build_runner)
+        shell: pwsh
+        run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Build
         shell: pwsh
@@ -278,6 +286,9 @@ jobs:
           dart pub global activate flutter_distributor
           echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
 
+      - name: Generate code (build_runner)
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Build Linux application
         run: |
           flutter build linux --release -t "$ENTRY" --no-tree-shake-icons
@@ -351,6 +362,9 @@ jobs:
           flutter pub get
           flutter gen-l10n
 
+      - name: Generate code (build_runner)
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Build
         run: |
           flutter build macos --release -t "$ENTRY" --no-tree-shake-icons
@@ -413,6 +427,9 @@ jobs:
           flutter pub get
           flutter gen-l10n
 
+      - name: Generate code (build_runner)
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Build
         run: |
           flutter build macos --release -t "$ENTRY" --no-tree-shake-icons
@@ -474,6 +491,9 @@ jobs:
           flutter config --enable-macos-desktop
           flutter pub get
           flutter gen-l10n
+
+      - name: Generate code (build_runner)
+        run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Build
         run: |

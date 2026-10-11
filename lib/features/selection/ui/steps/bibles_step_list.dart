@@ -55,52 +55,46 @@ mixin BiblesStepList on State<BiblesStep> {
     switch (entry) {
       case HeaderEntry():
         final open = _expanded[entry.key] ?? true;
-        return Padding(
-          padding: const EdgeInsets.only(top: 12, bottom: 4),
-          child: Material(
-            color: Theme.of(context)
-                .colorScheme
-                .surfaceContainerHighest
-                .withValues(alpha: 0.5),
+        return Material(
+          color: Theme.of(context)
+              .colorScheme
+              .surfaceContainerHighest
+              .withValues(alpha: 0.5),
+          borderRadius: BorderRadius.circular(10),
+          child: InkWell(
             borderRadius: BorderRadius.circular(10),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(10),
-              onTap: () => setState(() => _expanded[entry.key] = !open),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text.rich(
-                        TextSpan(
-                          text: entry.title,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: ThemeColors.primary,
-                          ),
-                          children: [
-                            TextSpan(
-                              text:
-                                  '   ${entry.count} ${entry.count == 1 ? 'bible' : 'bibles'}',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: ThemeColors.grey,
-                              ),
-                            ),
-                          ],
+            onTap: () => setState(() => _expanded[entry.key] = !open),
+            child: Row(
+              children: [
+                Text.rich(
+                  TextSpan(
+                    text: entry.title,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: ThemeColors.primary,
+                    ),
+                    children: [
+                      TextSpan(
+                        text:
+                            '   ${entry.count} ${entry.count == 1 ? 'bible' : 'bibles'}',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: ThemeColors.grey,
                         ),
                       ),
-                    ),
-                    Icon(open ? Icons.expand_less : Icons.expand_more),
-                  ],
-                ),
-              ),
-            ),
+                    ],
+                  ),
+                )
+                    .expanded(),
+                Icon(open ? Icons.expand_less : Icons.expand_more),
+              ],
+            )
+                .padding(horizontal: 12, vertical: 8),
           ),
-        );
+        )
+            .padding(top: 12, bottom: 4);
       case CountryFilterEntry():
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,

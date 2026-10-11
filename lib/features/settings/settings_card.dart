@@ -1,18 +1,12 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
+import '../../common/utils/theme_switcher_mixin.dart';
 import '../../common/widgets/inputs/radio_input.dart';
-import '../../core/di/injectable.dart';
-import '../../core/theme/bloc/theme_bloc.dart';
 import '../../core/theme/theme_data.dart';
 import '../../core/theme/theme_fonts.dart';
 import '../../core/theme/theme_styles.dart';
-import '../../domain/repos/pref_repo.dart';
 import '../../l10n/app_localizations.dart';
 
 class SettingCard extends StatelessWidget {
@@ -43,24 +37,8 @@ class SettingsThemeItem extends StatefulWidget {
   State<SettingsThemeItem> createState() => SettingsThemeItemState();
 }
 
-class SettingsThemeItemState extends State<SettingsThemeItem> {
-  late ThemeBloc _themeBloc;
-  late PrefRepo _prefRepo;
-  String appTheme = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _prefRepo = getIt<PrefRepo>();
-    _themeBloc = context.read<ThemeBloc>();
-    appTheme = AppTheme.currentTheme();
-  }
-
-  void onThemeChanged(ThemeMode themeMode) {
-    _prefRepo.updateThemeMode(themeMode);
-    _themeBloc.add(ThemeModeChanged(themeMode));
-  }
-
+class SettingsThemeItemState extends State<SettingsThemeItem>
+    with ThemeSwitcherMixin<SettingsThemeItem> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;

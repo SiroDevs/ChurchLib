@@ -1,12 +1,12 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
-import '../../windows/open_windows.dart';
-import '../../utils/app_util.dart';
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../core/theme/theme_data.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/models.dart';
+import '../../utils/app_util.dart';
+import '../../windows/open_windows.dart';
 import '../list_items/search_book_item.dart';
 import '../list_items/search_song_item.dart';
 import 'search_songs_utils.dart';
@@ -83,46 +83,43 @@ class SongsSearch extends SearchDelegate<List> {
 
     return Column(
       children: [
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.only(right: Sizes.xs),
-            child: Scrollbar(
-              thickness: Sizes.m,
-              thumbVisibility: true,
-              radius: const Radius.circular(Sizes.sm),
-              controller: scrollController,
-              child: ListView.builder(
-                controller: scrollController,
-                physics: const ClampingScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.only(left: Sizes.xs, right: Sizes.m),
-                itemCount: matchQuery.length,
-                itemBuilder: (context, index) {
-                  final SongExt result = matchQuery[index];
-                  return SearchSongItem(
+        Scrollbar(
+          thickness: Sizes.m,
+          thumbVisibility: true,
+          radius: const Radius.circular(Sizes.sm),
+          controller: scrollController,
+          child: ListView.builder(
+            controller: scrollController,
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            padding: const EdgeInsets.only(left: Sizes.xs, right: Sizes.m),
+            itemCount: matchQuery.length,
+            itemBuilder: (context, index) {
+              final SongExt result = matchQuery[index];
+              return SearchSongItem(
+                song: result,
+                height: height!,
+                isSearching: true,
+                onTap: () {
+                  SongBook book = books[0];
+                  try {
+                    book = books.firstWhere((b) => b.bookId == result.book);
+                  } catch (e) {
+                    logger('Failed to get the book: $e');
+                  }
+                  openPresentor(
+                    context,
                     song: result,
-                    height: height!,
-                    isSearching: true,
-                    onTap: () {
-                      SongBook book = books[0];
-                      try {
-                        book = books.firstWhere((b) => b.bookId == result.book);
-                      } catch (e) {
-                        logger('Failed to get the book: $e');
-                      }
-                      openPresentor(
-                        context,
-                        song: result,
-                        book: book,
-                        songs: songs,
-                      );
-                    },
+                    book: book,
+                    songs: songs,
                   );
                 },
-              ),
-            ),
+              );
+            },
           ),
-        ),
+        )
+            .padding(right: Sizes.xs)
+            .expanded(),
       ],
     );
   }

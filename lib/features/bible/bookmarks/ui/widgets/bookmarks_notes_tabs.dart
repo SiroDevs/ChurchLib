@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../data/models/bible/bible_note.dart';
 import '../../../../home/bible_reader/ui/widgets/verses/verse_row.dart' show parseHexColor;
@@ -19,17 +17,14 @@ class BookmarksTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(color: ThemeColors.primary),
-      );
+      return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.bookmarks.isEmpty) {
-      return const Center(
-        child: Text(
-          'No bookmarks yet.',
-          style: TextStyle(color: ThemeColors.mediumGrey),
-        ),
-      );
+      return Text(
+        'No bookmarks yet.',
+        style: TextStyle(color: ThemeColors.mediumGrey),
+      )
+          .center();
     }
     return ListView.separated(
       itemCount: state.bookmarks.length,
@@ -74,17 +69,14 @@ class NotesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(color: ThemeColors.primary),
-      );
+      return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.notes.isEmpty) {
-      return const Center(
-        child: Text(
-          'No notes yet.',
-          style: TextStyle(color: ThemeColors.mediumGrey),
-        ),
-      );
+      return Text(
+        'No notes yet.',
+        style: TextStyle(color: ThemeColors.mediumGrey),
+      )
+          .center();
     }
     return ListView.separated(
       itemCount: state.notes.length,

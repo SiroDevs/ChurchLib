@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../core/theme/theme_fonts.dart';
 
 class ShellNavItem extends StatelessWidget {
@@ -22,39 +22,34 @@ class ShellNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final fg = isSelected ? scheme.primary : scheme.onSurface;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      child: Material(
-        color: isSelected
-            ? scheme.primary.withValues(alpha: .14)
-            : Colors.transparent,
-        borderRadius: BorderRadius.circular(12),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: onPressed,
-          child: SizedBox(
-            height: 46,
-            child: Row(
-            children: [
-              const SizedBox(width: 12),
-              Icon(icon, size: 22, color: fg),
-              const SizedBox(width: 18),
-              Expanded(
-                child: Text(
-                  label.toUpperCase(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyles.buttonTextStyle.copyWith(
-                    color: fg,
-                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          ),
-        ),
+    return Material(
+      color: isSelected
+          ? scheme.primary.withValues(alpha: .14)
+          : Colors.transparent,
+      borderRadius: BorderRadius.circular(12),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onPressed,
+        child: Row(
+        children: [
+          const SizedBox(width: 12),
+          Icon(icon, size: 22, color: fg),
+          const SizedBox(width: 18),
+          Text(
+            label.toUpperCase(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyles.buttonTextStyle.copyWith(
+              color: fg,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+            ),
+          )
+              .expanded(),
+        ],
+      )
+            .height(46),
       ),
-    );
+    )
+        .padding(horizontal: 8, vertical: 2);
   }
 }

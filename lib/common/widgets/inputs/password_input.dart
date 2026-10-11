@@ -1,9 +1,9 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Project imports:
-import '../../../core/theme/theme_colors.dart';
+import 'package:styled_widget/styled_widget.dart';
+
+import '../../utils/input_utils.dart';
 
 class PasswordInput extends StatefulWidget {
   final String? iLabel;
@@ -51,62 +51,51 @@ class PasswordInputState extends State<PasswordInput> {
   bool isPassword = true;
   @override
   Widget build(BuildContext context) {
-    Color foreColor = widget.isLight! ? Colors.white : ThemeColors.primary;
+    final foreColor = inputForeColor(widget.isLight);
 
-    return Container(
-      margin: const EdgeInsets.all(10),
-      child: TextFormField(
-        controller: widget.iController,
-        keyboardType: widget.iType,
-        autovalidateMode: widget.validationMode,
-        validator: widget.iValidator,
-        enabled: widget.isEnabled,
-        readOnly: widget.isReadOnly!,
-        onTap: widget.onTap,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(widget.maxInput),
-        ],
-        obscureText: isPassword,
-        decoration: InputDecoration(
-          labelText: widget.iLabel,
-          prefixIcon: Icon(widget.prefix, color: foreColor),
-          suffixIcon: Container(
-            width: 70,
-            padding: const EdgeInsets.only(right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                InkWell(
-                  onTap: () => widget.iController!.clear(),
-                  child: Icon(Icons.clear, color: foreColor),
-                ),
-                const SizedBox(width: 10),
-                InkWell(
-                  onTap: () => setState(() => isPassword = !isPassword),
-                  child: Icon(
-                    isPassword
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    color: foreColor,
-                  ),
-                ),
-              ],
+    return TextFormField(
+      controller: widget.iController,
+      keyboardType: widget.iType,
+      autovalidateMode: widget.validationMode,
+      validator: widget.iValidator,
+      enabled: widget.isEnabled,
+      readOnly: widget.isReadOnly!,
+      onTap: widget.onTap,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(widget.maxInput),
+      ],
+      obscureText: isPassword,
+      decoration: outlinedInputDecoration(
+        color: foreColor,
+        radius: widget.bdRadius,
+        label: widget.iLabel,
+        prefixIcon: Icon(widget.prefix, color: foreColor),
+        suffixIcon: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            InkWell(
+              onTap: () => widget.iController!.clear(),
+              child: Icon(Icons.clear, color: foreColor),
             ),
-          ),
-          labelStyle: TextStyle(fontSize: 16, color: foreColor),
-          contentPadding: const EdgeInsets.all(5),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.bdRadius),
-            borderSide: BorderSide(color: foreColor),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.bdRadius),
-            borderSide: BorderSide(color: foreColor),
-          ),
-        ),
-        style: TextStyle(fontSize: 18, color: foreColor),
-        onChanged: widget.onChanged,
+            const SizedBox(width: 10),
+            InkWell(
+              onTap: () => setState(() => isPassword = !isPassword),
+              child: Icon(
+                isPassword
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+                color: foreColor,
+              ),
+            ),
+          ],
+        )
+            .padding(right: 10)
+            .width(70),
+        contentPadding: const EdgeInsets.all(5),
       ),
-    );
+      style: inputTextStyle(foreColor),
+      onChanged: widget.onChanged,
+    )
+        .padding(all: 10);
   }
 }

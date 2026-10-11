@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../../../core/di/injectable.dart';
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../data/models/bible/scripture_item.dart';
@@ -39,47 +37,44 @@ class ScriptureQueueBar extends StatelessWidget {
     return Material(
       color: ThemeColors.primary.withValues(alpha: 0.12),
       elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        child: Row(
-          children: [
-            IconButton(
-              tooltip: 'Close queue',
-              onPressed: () => getIt<ScriptureQueueCubit>().dismiss(),
-              icon: const Icon(Icons.close),
-            ),
-            IconButton(
-              tooltip: 'Previous',
-              onPressed: hasPrev ? () => _open(context, items[index - 1]) : null,
-              icon: const Icon(Icons.chevron_left),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    current?.reference ?? queueState.listName,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  if (index >= 0)
-                    Text(
-                      '${index + 1} of ${items.length} · ${queueState.listName}',
-                      style: const TextStyle(fontSize: 11, color: ThemeColors.grey),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                ],
+      child: Row(
+        children: [
+          IconButton(
+            tooltip: 'Close queue',
+            onPressed: () => getIt<ScriptureQueueCubit>().dismiss(),
+            icon: const Icon(Icons.close),
+          ),
+          IconButton(
+            tooltip: 'Previous',
+            onPressed: hasPrev ? () => _open(context, items[index - 1]) : null,
+            icon: const Icon(Icons.chevron_left),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                current?.reference ?? queueState.listName,
+                style: const TextStyle(fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-            IconButton(
-              tooltip: 'Next',
-              onPressed: hasNext ? () => _open(context, items[index + 1]) : null,
-              icon: const Icon(Icons.chevron_right),
-            ),
-          ],
-        ),
-      ),
+              if (index >= 0)
+                Text(
+                  '${index + 1} of ${items.length} · ${queueState.listName}',
+                  style: const TextStyle(fontSize: 11, color: ThemeColors.grey),
+                  overflow: TextOverflow.ellipsis,
+                ),
+            ],
+          )
+              .expanded(),
+          IconButton(
+            tooltip: 'Next',
+            onPressed: hasNext ? () => _open(context, items[index + 1]) : null,
+            icon: const Icon(Icons.chevron_right),
+          ),
+        ],
+      )
+          .padding(horizontal: 8, vertical: 4),
     );
   }
 }

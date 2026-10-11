@@ -1,4 +1,3 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 enum Flavor { develop, staging, production }
@@ -14,7 +13,6 @@ class FlavorValues {
 }
 
 class FlavorConfig {
-  double devicePixelRatio = 1;
   final Flavor flavor;
   final String name;
   final Color color;

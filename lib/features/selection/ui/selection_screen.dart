@@ -1,11 +1,9 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../common/navigator/route_names.dart';
 import '../../../common/widgets/theme_button.dart';
 import '../../../l10n/app_localizations.dart';
@@ -68,30 +66,26 @@ class _SelectionView extends StatelessWidget {
           body: Stack(
             children: [
               SafeArea(
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 1100),
-                    child: Column(
-                      children: [
-                        if (state.steps.length > 1) StepHeader(flow: state),
-                        Expanded(
-                          child: KeyedSubtree(
-                              key: ValueKey(current),
-                              child: switch (current) {
-                                SelectionStepType.modules =>
-                                  const ModulesStep(),
-                                SelectionStepType.songs =>
-                                  const SongsStep(),
-                                SelectionStepType.bibles =>
-                                  const BiblesStep(),
-                                null => const SizedBox.shrink(),
-                              },
-                            ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                child: Column(
+                  children: [
+                    if (state.steps.length > 1) StepHeader(flow: state),
+                    KeyedSubtree(
+                        key: ValueKey(current),
+                        child: switch (current) {
+                          SelectionStepType.modules =>
+                            const ModulesStep(),
+                          SelectionStepType.songs =>
+                            const SongsStep(),
+                          SelectionStepType.bibles =>
+                            const BiblesStep(),
+                          null => const SizedBox.shrink(),
+                        },
+                      )
+                        .expanded(),
+                  ],
+                )
+                    .constrained(maxWidth: 1100)
+                    .center(),
               ),
               const Positioned.fill(child: SelectionProgress()),
             ],

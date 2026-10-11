@@ -1,11 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
 import '../../../cubit/bible_reader_cubit.dart';
@@ -78,56 +75,54 @@ class ReaderBody extends StatelessWidget {
           key: viewportKey,
           controller: scrollController,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (state.activeBook != null && state.activeChapter != null)
-                    Text(
-                      state.activeChapter!.reference,
-                      style: TextStyle(
-                        fontSize: state.fontSize * 1.1,
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColors.primary,
-                      ),
-                    ).padding(bottom: 12, left: 8),
-                  for (final v in state.verses)
-                    VerseRow(
-                      key: keyFor(v.verseId),
-                      number: v.number,
-                      text: v.text,
-                      fontSize: state.fontSize.toDouble(),
-                      highlightQuery: state.highlightQuery,
-                      parallelTexts: parallelActive
-                          ? {
-                              for (final e in state.parallelVerses.entries)
-                                e.key:
-                                    e.value
-                                        .where((p) => p.number == v.number)
-                                        .map((p) => p.text)
-                                        .firstOrNull ??
-                                    '',
-                            }
-                          : const {},
-                      isBookmarked: state.bookmarks.containsKey(v.verseId),
-                      bookmarkColorHex: state.bookmarks[v.verseId],
-                      hasNote: state.notedVerseIds.contains(v.verseId),
-                      onToggleBookmark: () =>
-                          cubit.quickToggleBookmark(v.verseId),
-                      onOpenNote: () => _openNote(
-                        context,
-                        cubit.notesRequestForVerse(v.verseId),
-                      ),
-                      isSelected: state.selectedVerseIds.contains(v.verseId),
-                      isSelectionMode: state.isSelectionMode,
-                      onToggleSelected: () =>
-                          cubit.toggleVerseSelected(v.verseId),
-                    ),
-                  const SizedBox(height: 48),
-                ],
-              ),
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (state.activeBook != null && state.activeChapter != null)
+                Text(
+                  state.activeChapter!.reference,
+                  style: TextStyle(
+                    fontSize: state.fontSize * 1.1,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColors.primary,
+                  ),
+                ).padding(bottom: 12, left: 8),
+              for (final v in state.verses)
+                VerseRow(
+                  key: keyFor(v.verseId),
+                  number: v.number,
+                  text: v.text,
+                  fontSize: state.fontSize.toDouble(),
+                  highlightQuery: state.highlightQuery,
+                  parallelTexts: parallelActive
+                      ? {
+                          for (final e in state.parallelVerses.entries)
+                            e.key:
+                                e.value
+                                    .where((p) => p.number == v.number)
+                                    .map((p) => p.text)
+                                    .firstOrNull ??
+                                '',
+                        }
+                      : const {},
+                  isBookmarked: state.bookmarks.containsKey(v.verseId),
+                  bookmarkColorHex: state.bookmarks[v.verseId],
+                  hasNote: state.notedVerseIds.contains(v.verseId),
+                  onToggleBookmark: () =>
+                      cubit.quickToggleBookmark(v.verseId),
+                  onOpenNote: () => _openNote(
+                    context,
+                    cubit.notesRequestForVerse(v.verseId),
+                  ),
+                  isSelected: state.selectedVerseIds.contains(v.verseId),
+                  isSelectionMode: state.isSelectionMode,
+                  onToggleSelected: () =>
+                      cubit.toggleVerseSelected(v.verseId),
+                ),
+              const SizedBox(height: 48),
+            ],
+          )
+              .width(double.infinity),
           ),
         ),
       );

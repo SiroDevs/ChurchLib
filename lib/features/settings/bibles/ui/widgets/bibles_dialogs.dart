@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../../../../data/models/bible/bible_version.dart';
 
 const biblesManagementInfo =

@@ -1,4 +1,3 @@
-// Project imports:
 import 'app_module.dart';
 
 class HowItWorksEntry {

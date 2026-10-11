@@ -1,9 +1,9 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Project imports:
-import '../../../core/theme/theme_colors.dart';
+import 'package:styled_widget/styled_widget.dart';
+
+import '../../utils/input_utils.dart';
 
 class FormInput extends StatefulWidget {
   final String? iLabel;
@@ -52,48 +52,36 @@ class FormInput extends StatefulWidget {
 class FormInputState extends State<FormInput> {
   @override
   Widget build(BuildContext context) {
-    Color foreColor = widget.isLight! ? Colors.white : ThemeColors.primary;
+    final foreColor = inputForeColor(widget.isLight);
 
-    return Container(
-      margin: const EdgeInsets.all(10),
-      child: TextFormField(
-        controller: widget.iController, 
-        keyboardType: widget.iType,
-        autovalidateMode: widget.validationMode,
-        validator: widget.iValidator,
-        minLines: widget.isMultiline! ? 50 : 1,
-        maxLines: widget.isMultiline! ? null : 1,
-        enabled: widget.isEnabled,
-        readOnly: widget.isReadOnly!,
-        onTap: widget.onTap,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(widget.maxInput),
-        ],
-        decoration: InputDecoration(
-          labelText: widget.iLabel,
-          prefixIcon: widget.prefix,
-          suffixIcon: InkWell(
-            onTap: () => widget.iController!.clear(),
-            child: Icon(Icons.clear, color: foreColor),
-          ),
-          labelStyle: TextStyle(fontSize: 16, color: foreColor),
-          isDense: widget.isMultiline! ? true : false,
-          contentPadding: widget.isMultiline! ? null : const EdgeInsets.all(5),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.bdRadius),
-            borderSide: BorderSide(color: foreColor),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.bdRadius),
-            borderSide: BorderSide(color: foreColor),
-          ),
+    return TextFormField(
+      controller: widget.iController,
+      keyboardType: widget.iType,
+      autovalidateMode: widget.validationMode,
+      validator: widget.iValidator,
+      minLines: widget.isMultiline! ? 50 : 1,
+      maxLines: widget.isMultiline! ? null : 1,
+      enabled: widget.isEnabled,
+      readOnly: widget.isReadOnly!,
+      onTap: widget.onTap,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(widget.maxInput),
+      ],
+      decoration: outlinedInputDecoration(
+        color: foreColor,
+        radius: widget.bdRadius,
+        label: widget.iLabel,
+        prefixIcon: widget.prefix,
+        suffixIcon: InkWell(
+          onTap: () => widget.iController!.clear(),
+          child: Icon(Icons.clear, color: foreColor),
         ),
-        style: TextStyle(
-          fontSize: 18,
-          color: foreColor,
-        ),
-        onChanged: widget.onChanged,
+        isDense: widget.isMultiline!,
+        contentPadding: widget.isMultiline! ? null : const EdgeInsets.all(5),
       ),
-    );
+      style: inputTextStyle(foreColor),
+      onChanged: widget.onChanged,
+    )
+        .padding(all: 10);
   }
 }

@@ -1,7 +1,5 @@
-// Package imports:
 import 'package:froom/froom.dart';
 
-// Project imports:
 import '../../../../../common/utils/constants/song_constants.dart';
 import '../../../../models/song/songdraft.dart';
 

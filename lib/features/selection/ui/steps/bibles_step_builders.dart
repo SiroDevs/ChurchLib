@@ -74,31 +74,29 @@ mixin BiblesStepBuilders on State<BiblesStep> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SelectionTitle(
-                title: 'Choose your Bibles',
-                noun: 'bibles',
-                count: state.selectedAbbrs.length,
-                max: state.maxSelections,
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                'Your first pick is the primary Bible',
-                style: TextStyle(fontSize: 13, color: ThemeColors.grey),
-              ),
-              const SizedBox(height: 12),
-              _searchAndStrip(),
-              const SizedBox(height: 4),
-            ],
-          ),
-        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SelectionTitle(
+              title: 'Choose your Bibles',
+              noun: 'bibles',
+              count: state.selectedAbbrs.length,
+              max: state.maxSelections,
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              'Your first pick is the primary Bible',
+              style: TextStyle(fontSize: 13, color: ThemeColors.grey),
+            ),
+            const SizedBox(height: 12),
+            _searchAndStrip(),
+            const SizedBox(height: 4),
+          ],
+        )
+            .padding(left: 24, top: 16, right: 24, bottom: 0),
         Expanded(
           child: filtered.isEmpty
-              ? const Center(child: Text('No Bibles match your search'))
+              ? Text('No Bibles match your search').center()
               : buildList(context, state, entries),
         ),
       ],

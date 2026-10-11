@@ -1,26 +1,23 @@
-// Dart imports:
 import 'dart:async';
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/app_util.dart';
+import '../../../../common/widgets/search/search_songs_utils.dart';
+import '../../../../common/widgets/state/custom_snackbar.dart';
+import '../../../../common/widgets/state/general_progress.dart';
+import '../../../../common/widgets/state/skeleton.dart';
 import '../../../../common/windows/open_windows.dart';
 import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../common/widgets/state/custom_snackbar.dart';
-import '../../../../common/widgets/state/general_progress.dart';
-import '../../../../common/widgets/state/skeleton.dart';
-import '../../../../common/widgets/search/search_songs_utils.dart';
-import '../../../song/songs/songs_screen.dart';
 import '../../../song/likes/likes_screen.dart';
+import '../../../song/songs/songs_screen.dart';
 import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../../main/shell/shell_nav_item.dart';
@@ -149,15 +146,14 @@ class HomeScreenState extends State<SongSearchScreen> {
             titleBar: SongTitleBar(parent: this),
             body: Column(
               children: [
-                Expanded(
-                  child: IndexedStack(
-                    index: pages.indexOf(currentPage),
-                    children: <Widget>[
-                      SongsScreen(parent: this),
-                      LikesScreen(books: books),
-                    ],
-                  ),
-                ),
+                IndexedStack(
+                  index: pages.indexOf(currentPage),
+                  children: <Widget>[
+                    SongsScreen(parent: this),
+                    LikesScreen(books: books),
+                  ],
+                )
+                    .expanded(),
               ],
             ),
           );

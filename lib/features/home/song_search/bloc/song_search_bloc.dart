@@ -1,10 +1,8 @@
 import 'dart:async';
 
-// Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Project imports:
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/network_utils.dart';
 import '../../../../core/di/injectable.dart';

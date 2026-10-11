@@ -1,20 +1,17 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-// Project imports:
 import 'common/navigator/app_router.dart';
+import 'common/widgets/text_scale_factor.dart';
 import 'core/auth/auth_bloc.dart';
 import 'core/di/injectable.dart';
 import 'core/theme/bloc/theme_bloc.dart';
 import 'core/theme/theme_data.dart';
 import 'domain/repos/auth_repo.dart';
 import 'domain/repos/pref_repo.dart';
-import 'common/widgets/text_scale_factor.dart';
 import 'l10n/app_localizations.dart';
 
 class MyApp extends StatefulWidget {

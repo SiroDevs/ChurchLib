@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../domain/entities/bible/verse_display.dart';
 import '../../cubit/bible_search_cubit.dart';
@@ -58,69 +58,61 @@ class BibleSearchResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.bibles.isEmpty) {
-      return const Center(child: Text('No downloaded Bibles to search yet.'));
+      return Text('No downloaded Bibles to search yet.').center();
     }
     if (state.query.length < 3) return _recentSearches();
     if (state.isSearching && state.results.isEmpty) {
-      return const Center(
-        child: CircularProgressIndicator(color: ThemeColors.primary),
-      );
+      return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.results.isEmpty) {
-      return Center(child: Text('No results for ${state.query}'));
+      return Text('No results for ${state.query}').center();
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-          child: Text(
-            '${state.results.length} results',
-            style: const TextStyle(fontSize: 12, color: ThemeColors.grey),
-          ),
-        ),
-        Expanded(
-          child: ListView.separated(
-            itemCount: state.results.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
-            itemBuilder: (context, i) {
-              final verse = state.results[i];
-              return SearchResultItem(
-                verse: verse,
-                query: state.query,
-                bookName: state.bookNames[verse.bookId] ?? verse.bookId,
-                onTap: () => onTapResult(verse),
-              );
-            },
-          ),
-        ),
+        Text(
+          '${state.results.length} results',
+          style: const TextStyle(fontSize: 12, color: ThemeColors.grey),
+        )
+            .padding(left: 16, top: 4, right: 16, bottom: 4),
+        ListView.separated(
+          itemCount: state.results.length,
+          separatorBuilder: (_, __) => const Divider(height: 1),
+          itemBuilder: (context, i) {
+            final verse = state.results[i];
+            return SearchResultItem(
+              verse: verse,
+              query: state.query,
+              bookName: state.bookNames[verse.bookId] ?? verse.bookId,
+              onTap: () => onTapResult(verse),
+            );
+          },
+        )
+            .expanded(),
       ],
     );
   }
 
   Widget _recentSearches() {
     if (state.history.isEmpty) {
-      return const Center(child: Text('Type at least 3 letters to search.'));
+      return Text('Type at least 3 letters to search.').center();
     }
     return ListView(
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 8, 0),
-          child: Row(
-            children: [
-              const Expanded(
-                child: Text(
-                  'Recent searches',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.primary,
-                  ),
-                ),
+        Row(
+          children: [
+            Text(
+              'Recent searches',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: ThemeColors.primary,
               ),
-              TextButton(onPressed: onClearHistory, child: const Text('Clear')),
-            ],
-          ),
-        ),
+            )
+                .expanded(),
+            TextButton(onPressed: onClearHistory, child: const Text('Clear')),
+          ],
+        )
+            .padding(left: 16, top: 12, right: 8, bottom: 0),
         for (final h in state.history)
           ListTile(
             dense: true,
@@ -177,28 +169,26 @@ class SearchResultItem extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '$bookName $chapterNumber:${verse.number}',
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: ThemeColors.primary,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$bookName $chapterNumber:${verse.number}',
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: ThemeColors.primary,
             ),
-            const SizedBox(height: 2),
-            Text.rich(
-              TextSpan(children: spans),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-      ),
+          ),
+          const SizedBox(height: 2),
+          Text.rich(
+            TextSpan(children: spans),
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      )
+          .padding(horizontal: 16, vertical: 10),
     );
   }
 }

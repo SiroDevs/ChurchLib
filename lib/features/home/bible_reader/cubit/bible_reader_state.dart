@@ -52,8 +52,6 @@ class BibleReaderState {
     return null;
   }
 
-  /// Up to 3-letter uppercase language code (e.g. "ENG"), or '' when the
-  /// language is unknown (still loading, or no saved Bible matches).
   String get activeBibleLanguageCode {
     final language = activeBibleLanguage?.trim() ?? '';
     if (language.isEmpty) return '';

@@ -1,4 +1,3 @@
-// Project imports:
 import '../../../common/utils/app_util.dart';
 import '../../../common/utils/constants/pref_constants.dart';
 import '../../../core/di/injectable.dart';

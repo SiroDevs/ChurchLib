@@ -1,13 +1,10 @@
-// Flutter imports:
 // ignore_for_file: annotate_overrides
 
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../common/widgets/state/error_view.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../bloc/selection_bloc.dart';
@@ -45,9 +42,7 @@ class _BiblesStepState extends State<BiblesStep> with BiblesStepBuilders, Bibles
   Widget build(BuildContext context) {
     return BlocBuilder<SelectionBloc, SelectionState>(
       builder: (context, state) => switch (state.bibleStatus) {
-        BibleStatus.loading => const Center(
-            child: CircularProgressIndicator(color: ThemeColors.primary),
-          ),
+        BibleStatus.loading => CircularProgressIndicator(color: ThemeColors.primary).center(),
         BibleStatus.error => ErrorView(
             message: state.bibleMessage,
             onRetry: () => context

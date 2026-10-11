@@ -11,14 +11,14 @@ class SongViewer extends StatelessWidget {
     return ListView.builder(
       itemCount: verses.length,
       itemBuilder: (context, index) {
-        return Card(
-          elevation: 5,
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          child: Text(
-            verses[index].replaceAll('#', '\n'),
-            style: const TextStyle(fontSize: 16),
-          ).padding(all: 10),
-        );
+        return Text(
+          verses[index].replaceAll('#', '\n'),
+          style: const TextStyle(fontSize: 16),
+        ).padding(all: 10)
+            .card(
+              elevation: 5,
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            );
       },
     );
   }

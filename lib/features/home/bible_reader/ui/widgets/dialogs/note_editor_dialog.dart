@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../../core/di/injectable.dart';
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../data/models/bible/bible_note.dart';
@@ -86,85 +86,75 @@ class _NoteEditorDialogState extends State<_NoteEditorDialog> {
   Widget build(BuildContext context) {
     final r = widget.request;
     return Dialog(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 560, maxHeight: 620),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: _loading
-              ? const SizedBox(
-                  height: 160,
-                  child: Center(
-                    child: CircularProgressIndicator(color: ThemeColors.primary),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: _loading
+            ? CircularProgressIndicator(color: ThemeColors.primary).center()
+                .height(160)
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        r.title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                          .expanded(),
+                      IconButton(
+                        tooltip: 'Save note',
+                        onPressed: _saved ? null : _save,
+                        icon: const Icon(Icons.check),
+                      ),
+                      IconButton(
+                        tooltip: 'Close',
+                        onPressed: _close,
+                        icon: const Icon(Icons.close),
+                      ),
+                    ],
                   ),
-                )
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            r.title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          tooltip: 'Save note',
-                          onPressed: _saved ? null : _save,
-                          icon: const Icon(Icons.check),
-                        ),
-                        IconButton(
-                          tooltip: 'Close',
-                          onPressed: _close,
-                          icon: const Icon(Icons.close),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
+                  const SizedBox(height: 8),
+                  Text(r.verseText)
+                      .padding(all: 14)
+                      .decorated(
                         color: Theme.of(context)
                             .colorScheme
                             .surfaceContainerHighest
                             .withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(r.verseText),
+                      )
+                      .width(double.infinity),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Your notes',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColors.primary,
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Your notes',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColors.primary,
-                      ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: _controller,
+                    autofocus: true,
+                    minLines: 6,
+                    maxLines: 12,
+                    onChanged: (_) {
+                      if (_saved) setState(() => _saved = false);
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Write your thoughts on this verse...',
+                      border: OutlineInputBorder(),
                     ),
-                    const SizedBox(height: 8),
-                    Flexible(
-                      child: TextField(
-                        controller: _controller,
-                        autofocus: true,
-                        minLines: 6,
-                        maxLines: 12,
-                        onChanged: (_) {
-                          if (_saved) setState(() => _saved = false);
-                        },
-                        decoration: const InputDecoration(
-                          hintText: 'Write your thoughts on this verse...',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-        ),
-      ),
+                  )
+                      .flexible(),
+                ],
+              ),
+      )
+          .constrained(maxWidth: 560, maxHeight: 620),
     );
   }
 }

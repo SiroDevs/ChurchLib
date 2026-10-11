@@ -1,13 +1,12 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
-import '../../../../../common/windows/window_frame.dart';
+import '../../../../../common/utils/dialog_utils.dart';
 import '../../../../../common/windows/open_windows.dart';
+import '../../../../../common/windows/window_frame.dart';
 import '../../../../../core/theme/theme_colors.dart';
 import '../cubit/scripture_lists_cubit.dart';
 
@@ -27,25 +26,14 @@ class _ScriptureListsView extends StatelessWidget {
   const _ScriptureListsView();
 
   Future<void> _delete(BuildContext context, int listId) async {
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete this list?'),
-        content: const Text("This can't be undone."),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: FilledButton.styleFrom(backgroundColor: ThemeColors.error),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
+    final ok = await showConfirmDialog(
+      context,
+      title: 'Delete this list?',
+      message: "This can't be undone.",
+      confirmLabel: 'Delete',
+      destructive: true,
     );
-    if (ok == true && context.mounted) {
+    if (ok && context.mounted) {
       await context.read<ScriptureListsCubit>().delete(listId);
     }
   }
@@ -63,34 +51,30 @@ class _ScriptureListsView extends StatelessWidget {
         icon: Icons.list_alt,
         title: 'Scripture Lists',
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 720),
-          child: BlocBuilder<ScriptureListsCubit, ScriptureListsState>(
-            builder: (context, state) => _body(context, state),
-          ),
+      body: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 720),
+        child: BlocBuilder<ScriptureListsCubit, ScriptureListsState>(
+          builder: (context, state) => _body(context, state),
         ),
-      ),
+      )
+          .center(),
     );
   }
 
   Widget _body(BuildContext context, ScriptureListsState state) {
     if (state.status == ScriptureListsStatus.loading) {
-      return const Center(
-        child: CircularProgressIndicator(color: ThemeColors.primary),
-      );
+      return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.status == ScriptureListsStatus.error) {
-      return Center(child: Text(state.error!));
+      return Text(state.error!).center();
     }
     if (state.lists.isEmpty) {
-      return const Center(
-        child: Text(
-          'No saved scripture lists yet.\nBuild one in Scripture Opener.',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: ThemeColors.mediumGrey),
-        ),
-      );
+      return Text(
+        'No saved scripture lists yet.\nBuild one in Scripture Opener.',
+        textAlign: TextAlign.center,
+        style: TextStyle(color: ThemeColors.mediumGrey),
+      )
+          .center();
     }
     final fmt = DateFormat('MMM d, yyyy');
     return ListView.separated(

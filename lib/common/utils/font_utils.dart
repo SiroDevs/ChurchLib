@@ -1,7 +1,5 @@
-// Dart imports:
 import 'dart:math';
 
-// Project imports:
 import 'app_util.dart';
 
 double calcFontSize({

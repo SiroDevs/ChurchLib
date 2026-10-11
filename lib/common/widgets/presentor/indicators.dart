@@ -1,8 +1,9 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../core/theme/theme_colors.dart';
+import '../../utils/indicator_utils.dart';
 
 class PresentorIndicator extends StatelessWidget {
   final double? width;
@@ -20,29 +21,13 @@ class PresentorIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 2,
-      bottom: 2,
+    return elasticIndicator(
+      animation: animation,
+      color: ThemeColors.bgColorAccent(context),
       width: width,
       left: left,
       right: right,
-      child: ScaleTransition(
-        scale: Tween(begin: 0.0, end: 1.0).animate(
-          CurvedAnimation(
-            parent: animation,
-            curve: Curves.elasticOut,
-          ),
-        ),
-        child: Container(
-          margin: const EdgeInsets.all(2),
-          decoration: BoxDecoration(
-            color: ThemeColors.bgColorAccent(context),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-      ),
+      margin: const EdgeInsets.all(2),
     );
   }
 }
@@ -65,20 +50,18 @@ class IndicatorItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: width,
-        margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: isSelected! ? Colors.transparent : ThemeColors.primary,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
+    return Container(
+      width: width,
+      margin: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: isSelected! ? Colors.transparent : ThemeColors.primary,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10),
         ),
-        alignment: alignment,
-        child: child,
       ),
-    );
+      alignment: alignment,
+      child: child,
+    )
+        .gestures(onTap: onTap);
   }
 }

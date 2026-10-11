@@ -1,11 +1,8 @@
-// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 
-// Package imports:
 import 'package:http/http.dart' as http;
 
-// Project imports:
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/api_constants.dart';
 import '../../../../domain/repos/bible/retry_policy.dart';

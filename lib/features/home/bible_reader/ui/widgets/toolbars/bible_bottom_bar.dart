@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../cubit/bible_reader_cubit.dart';
 
 class BibleBottomBar extends StatelessWidget {
@@ -40,56 +40,44 @@ class BibleBottomBar extends StatelessWidget {
 
     return Material(
       color: scheme.secondaryContainer,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: scheme.outlineVariant)),
-        ),
-        child: SizedBox(
-          height: 64,
-          child: Row(
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: _autoScrollControls(),
-                ),
-              ),
-              _BarButton(
-                icon: Icons.chevron_left,
-                label: 'Previous',
-                tooltip: 'Previous chapter (Alt + ←)',
-                onTap: hasPrev ? onPrevious : null,
-              ),
-              const SizedBox(width: 4),
-              _BarButton(
-                icon: Icons.menu_book_outlined,
-                label: 'Chapter ${chapter.number}',
-                tooltip: 'Pick chapter',
-                onTap: state.chapters.isEmpty ? null : onPickChapter,
-                highlighted: true,
-              ),
-              const SizedBox(width: 4),
-              _BarButton(
-                icon: Icons.chevron_right,
-                label: 'Next',
-                tooltip: 'Next chapter (Alt + →)',
-                onTap: hasNext ? onNext : null,
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: _BarButton(
-                    icon: Icons.tune,
-                    label: 'Quick Options',
-                    tooltip: 'Quick Options',
-                    onTap: onQuickOptions,
-                  ),
-                ),
-              ),
-            ],
+      child: Row(
+        children: [
+          _autoScrollControls().alignment(Alignment.centerLeft).expanded(),
+          _BarButton(
+            icon: Icons.chevron_left,
+            label: 'Previous',
+            tooltip: 'Previous chapter (Alt + ←)',
+            onTap: hasPrev ? onPrevious : null,
           ),
-        ),
-      ),
+          const SizedBox(width: 4),
+          _BarButton(
+            icon: Icons.menu_book_outlined,
+            label: 'Chapter ${chapter.number}',
+            tooltip: 'Pick chapter',
+            onTap: state.chapters.isEmpty ? null : onPickChapter,
+            highlighted: true,
+          ),
+          const SizedBox(width: 4),
+          _BarButton(
+            icon: Icons.chevron_right,
+            label: 'Next',
+            tooltip: 'Next chapter (Alt + →)',
+            onTap: hasNext ? onNext : null,
+          ),
+          _BarButton(
+            icon: Icons.tune,
+            label: 'Quick Options',
+            tooltip: 'Quick Options',
+            onTap: onQuickOptions,
+          )
+              .alignment(Alignment.centerRight)
+              .expanded(),
+        ],
+      )
+          .height(64)
+          .decorated(
+            border: Border(top: BorderSide(color: scheme.outlineVariant)),
+          ),
     );
   }
 
@@ -156,25 +144,23 @@ class _BarButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 24, color: color),
-              const SizedBox(height: 2),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: highlighted ? FontWeight.w700 : FontWeight.w500,
-                  color: color,
-                ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 24, color: color),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: highlighted ? FontWeight.w700 : FontWeight.w500,
+                color: color,
               ),
-            ],
-          ),
-        ),
+            ),
+          ],
+        )
+            .padding(horizontal: 14, vertical: 6),
       ),
     );
   }

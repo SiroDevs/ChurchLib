@@ -1,5 +1,6 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
+
+import 'package:styled_widget/styled_widget.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -37,22 +38,19 @@ class CustomButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding ?? 10,
-              vertical: verticalPadding ?? 10,
+          child: Text(
+            buttonText,
+            style: TextStyle(
+              color: textColor,
+              fontSize: fontSize ?? 15,
+              fontWeight: FontWeight.bold,
             ),
-            child: Center(
-              child: Text(
-                buttonText,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: fontSize ?? 15,
-                  fontWeight: FontWeight.bold,
-                ),
+          )
+              .center()
+              .padding(
+                horizontal: horizontalPadding ?? 10,
+                vertical: verticalPadding ?? 10,
               ),
-            ),
-          ),
         ),
       ),
     );

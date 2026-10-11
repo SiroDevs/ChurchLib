@@ -1,11 +1,10 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
+import '../../../../common/utils/dialog_utils.dart';
 import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
@@ -46,40 +45,24 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
     super.dispose();
   }
 
-  Future<bool> _confirm(String title, String message) async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: FilledButton.styleFrom(backgroundColor: ThemeColors.error),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
-    );
-    return result ?? false;
-  }
-
   Future<void> _clearReading() async {
-    final ok = await _confirm(
-      'Clear reading history?',
-      "This will permanently delete your reading history. This can't be undone.",
+    final ok = await showConfirmDialog(
+      context,
+      title: 'Clear reading history?',
+      message: "This will permanently delete your reading history. This can't be undone.",
+      confirmLabel: 'Delete',
+      destructive: true,
     );
     if (ok && mounted) await context.read<BibleHistoryCubit>().clearReading();
   }
 
   Future<void> _clearSearches() async {
-    final ok = await _confirm(
-      'Clear search history?',
-      "This will permanently delete your search history. This can't be undone.",
+    final ok = await showConfirmDialog(
+      context,
+      title: 'Clear search history?',
+      message: "This will permanently delete your search history. This can't be undone.",
+      confirmLabel: 'Delete',
+      destructive: true,
     );
     if (ok && mounted) await context.read<BibleHistoryCubit>().clearSearches();
   }
@@ -105,50 +88,46 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
           ),
         ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 720),
-          child: BlocBuilder<BibleHistoryCubit, BibleHistoryState>(
-            builder: (context, state) => TabBarView(
-              controller: _tabController,
-              children: [_readingTab(state), _searchesTab(state)],
-            ),
+      body: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 720),
+        child: BlocBuilder<BibleHistoryCubit, BibleHistoryState>(
+          builder: (context, state) => TabBarView(
+            controller: _tabController,
+            children: [_readingTab(state), _searchesTab(state)],
           ),
         ),
-      ),
+      )
+          .center(),
     );
   }
 
   Widget _readingTab(BibleHistoryState state) {
     if (state.isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(color: ThemeColors.primary),
-      );
+      return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.reading.isEmpty) {
-      return const Center(
-        child: Text(
-          'No reading history yet.',
-          style: TextStyle(color: ThemeColors.mediumGrey),
-        ),
-      );
+      return Text(
+        'No reading history yet.',
+        style: TextStyle(color: ThemeColors.mediumGrey),
+      )
+          .center();
     }
     final fmt = DateFormat('h:mm a');
     return ListView(
       children: [
         for (final group in state.reading) ...[
-          Container(
-            width: double.infinity,
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            child: Text(
-              group.dateLabel,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
+          Text(
+            group.dateLabel,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
             ),
-          ),
+          )
+              .padding(horizontal: 16, vertical: 6)
+              .decorated(
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              )
+              .width(double.infinity),
           for (final entry in group.entries)
             ListTile(
               leading: Icon(
@@ -180,12 +159,11 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
   Widget _searchesTab(BibleHistoryState state) {
     if (state.isLoading) return const SizedBox.shrink();
     if (state.searches.isEmpty) {
-      return const Center(
-        child: Text(
-          'No searches yet.',
-          style: TextStyle(color: ThemeColors.mediumGrey),
-        ),
-      );
+      return Text(
+        'No searches yet.',
+        style: TextStyle(color: ThemeColors.mediumGrey),
+      )
+          .center();
     }
     final fmt = DateFormat('MMM d, h:mm a');
     return ListView.separated(

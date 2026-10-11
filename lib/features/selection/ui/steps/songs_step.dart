@@ -1,21 +1,19 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_alert/flutter_platform_alert.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/app_assets.dart';
-import '../../../../core/theme/theme_styles.dart';
-import '../../../../data/models/song/songbook.dart';
-import '../../../../domain/entities/basic_model.dart';
-import '../../../../l10n/app_localizations.dart';
 import '../../../../common/widgets/general/list_items.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
 import '../../../../common/widgets/state/skeleton.dart';
+import '../../../../core/theme/theme_styles.dart';
+import '../../../../data/models/song/songbook.dart';
+import '../../../../domain/entities/basic_model.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../bloc/selection_bloc.dart';
 import '../widgets/selection_title.dart';
 
@@ -96,16 +94,14 @@ class _SongsStepState extends State<SongsStep> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
-          child: SelectionTitle(
-            title: 'Choose your Songbooks',
-            noun: 'songbooks',
-            count: state.selectedBookIds.length,
-            max: maxSongbookSelections,
-          ),
-        ),
-        Expanded(child: grid),
+        SelectionTitle(
+          title: 'Choose your Songbooks',
+          noun: 'songbooks',
+          count: state.selectedBookIds.length,
+          max: maxSongbookSelections,
+        )
+            .padding(left: 24, top: 16, right: 24, bottom: 8),
+        grid.expanded(),
       ],
     );
   }

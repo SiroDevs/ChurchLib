@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../../../common/utils/reader_utils.dart';
 import '../../../../../../core/di/injectable.dart';
 import '../../../../../../core/theme/bloc/theme_bloc.dart';
@@ -93,18 +91,17 @@ class _OptionsContentState extends State<_OptionsContent> {
                 Row(
                   children: [
                     const Text('Aa', style: TextStyle(fontSize: 14)),
-                    Expanded(
-                      child: Slider(
-                        value: state.fontSize
-                            .clamp(readerMinFontSize, readerMaxFontSize)
-                            .toDouble(),
-                        min: readerMinFontSize.toDouble(),
-                        max: readerMaxFontSize.toDouble(),
-                        divisions: (readerMaxFontSize - readerMinFontSize) ~/ 2,
-                        label: '${state.fontSize}',
-                        onChanged: (v) => cubit.setFontSize(v.round()),
-                      ),
-                    ),
+                    Slider(
+                      value: state.fontSize
+                          .clamp(readerMinFontSize, readerMaxFontSize)
+                          .toDouble(),
+                      min: readerMinFontSize.toDouble(),
+                      max: readerMaxFontSize.toDouble(),
+                      divisions: (readerMaxFontSize - readerMinFontSize) ~/ 2,
+                      label: '${state.fontSize}',
+                      onChanged: (v) => cubit.setFontSize(v.round()),
+                    )
+                        .expanded(),
                     const Text('Aa', style: TextStyle(fontSize: 26)),
                   ],
                 ),

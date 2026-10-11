@@ -1,18 +1,16 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
-import '../../../../../common/windows/window_frame.dart';
 import '../../../../../common/utils/constants/pref_constants.dart';
+import '../../../../../common/windows/window_frame.dart';
 import '../../../../../core/di/injectable.dart';
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../domain/entities/bible/bible_reader.dart';
 import '../../../../../domain/repos/pref_repo.dart';
-import '../cubit/scripture_list_detail_cubit.dart';
 import '../../scripture_queue/cubit/scripture_queue_cubit.dart';
+import '../cubit/scripture_list_detail_cubit.dart';
 
 class ScriptureListDetailScreen extends StatelessWidget {
   final int listId;
@@ -91,12 +89,7 @@ class _ScriptureListDetailView extends StatelessWidget {
                 ),
             ],
           ),
-          body: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 720),
-              child: _body(state),
-            ),
-          ),
+          body: _body(state).constrained(maxWidth: 720).center(),
           floatingActionButton: ready
               ? FloatingActionButton.extended(
                   onPressed: () => _play(context, state),
@@ -112,12 +105,10 @@ class _ScriptureListDetailView extends StatelessWidget {
 
   Widget _body(ScriptureListDetailState state) {
     if (state.status == ScriptureListDetailStatus.loading) {
-      return const Center(
-        child: CircularProgressIndicator(color: ThemeColors.primary),
-      );
+      return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.status == ScriptureListDetailStatus.error) {
-      return Center(child: Text(state.error!));
+      return Text(state.error!).center();
     }
     return ListView.separated(
       itemCount: state.items.length,

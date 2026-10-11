@@ -1,17 +1,14 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Project imports:
-import '../../../common/windows/open_windows.dart';
 import '../../../common/utils/app_util.dart';
+import '../../../common/widgets/list_items/search_song_item.dart';
+import '../../../common/widgets/state/general_progress.dart';
+import '../../../common/windows/open_windows.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
 import '../../home/song_search/bloc/song_search_bloc.dart';
-import '../../../common/widgets/list_items/search_song_item.dart';
-import '../../../common/widgets/state/general_progress.dart';
 
 class LikesScreen extends StatelessWidget {
   final List<SongBook> books;

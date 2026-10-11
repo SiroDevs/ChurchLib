@@ -1,10 +1,7 @@
-// Dart imports:
 import 'dart:async';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Project imports:
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/constants/pref_constants.dart';
 import '../../../../core/di/injectable.dart';

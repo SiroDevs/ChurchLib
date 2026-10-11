@@ -1,5 +1,6 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
+
+import 'package:styled_widget/styled_widget.dart';
 
 class MetaCard extends StatelessWidget {
   final String _title;
@@ -10,23 +11,16 @@ class MetaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                child: Text(_title, style: const TextStyle(fontSize: 18)),
-              ),
-              _children,
-            ],
-          ),
-        ),
-      ),
-    );
+    return Column(
+      children: [
+        Text(_title, style: const TextStyle(fontSize: 18))
+            .padding(bottom: 16),
+        _children,
+      ],
+    )
+        .padding(all: 16)
+        .card()
+        .width(double.infinity)
+        .padding(left: 8, right: 8, top: 8);
   }
 }
