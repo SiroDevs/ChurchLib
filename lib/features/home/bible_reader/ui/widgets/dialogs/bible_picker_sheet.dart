@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../../../common/utils/app_util.dart';
+import '../../../../../../common/utils/formatting/app_util.dart';
 import '../../../../../../data/models/bible/bible_version.dart';
 
 const bibleManageResult = '__manage__';

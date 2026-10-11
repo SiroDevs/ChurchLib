@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/di/injectable.dart';
 import '../../domain/repos/pref_repo.dart';
-import '../utils/constants/pref_constants.dart';
+import '../constants/pref_constants.dart';
 import 'route_names.dart';
 
 String? appRouterRedirect(GoRouterState state) {

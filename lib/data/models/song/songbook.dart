@@ -1,7 +1,7 @@
 import 'package:froom/froom.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../common/utils/constants/song_constants.dart';
+import '../../../common/constants/song_constants.dart';
 
 part 'songbook.g.dart';
 

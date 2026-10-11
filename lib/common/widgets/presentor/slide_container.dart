@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '../../../core/theme/theme_colors.dart';
-import '../../utils/app_util.dart';
-import '../../utils/indicator_utils.dart';
+import '../../utils/formatting/app_util.dart';
+import '../../utils/theme/shape_utils.dart';
 import 'indicators.dart';
 
 class SlideContainer extends StatelessWidget {

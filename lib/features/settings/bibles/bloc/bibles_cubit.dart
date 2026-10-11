@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../common/utils/app_util.dart';
-import '../../../../common/utils/constants/pref_constants.dart';
+import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/constants/pref_constants.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/bible/bible_version.dart';
 import '../../../../domain/repos/bible/bible_repo.dart';

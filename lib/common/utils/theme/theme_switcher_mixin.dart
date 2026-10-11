@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/di/injectable.dart';
-import '../../core/theme/bloc/theme_bloc.dart';
-import '../../core/theme/theme_data.dart';
-import '../../domain/repos/pref_repo.dart';
+import '../../../core/di/injectable.dart';
+import '../../../core/theme/bloc/theme_bloc.dart';
+import '../../../core/theme/theme_data.dart';
+import '../../../domain/repos/pref_repo.dart';
 
 mixin ThemeSwitcherMixin<T extends StatefulWidget> on State<T> {
   late final ThemeBloc _themeBloc;

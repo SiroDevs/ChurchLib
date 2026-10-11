@@ -6,7 +6,7 @@ import 'package:textstyle_extensions/textstyle_extensions.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
 import '../../../data/models/song/songext.dart';
-import '../../utils/app_util.dart';
+import '../../utils/formatting/app_util.dart';
 import 'tag_item.dart';
 
 // ignore: must_be_immutable

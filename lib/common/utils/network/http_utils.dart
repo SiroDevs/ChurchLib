@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'app_util.dart';
+import '../formatting/app_util.dart';
 
 const _requestTimeout = Duration(seconds: 60);
 

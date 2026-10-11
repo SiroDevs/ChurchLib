@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/utils/constants/pref_constants.dart';
+import '../../../../common/constants/pref_constants.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../bible_reader/ui/bible_reader_screen.dart';

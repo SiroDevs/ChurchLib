@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../common/utils/app_util.dart';
-import '../../../../common/utils/constants/app_constants.dart';
+import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/constants/app_constants.dart';
 import '../../../../common/widgets/presentor/presentor.dart';
 import '../../../../data/models/song/songext.dart';
 

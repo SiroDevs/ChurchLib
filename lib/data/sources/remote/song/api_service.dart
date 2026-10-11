@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../common/utils/constants/api_constants.dart';
-import '../../../../common/utils/http_utils.dart';
+import '../../../../common/constants/api_constants.dart';
+import '../../../../common/utils/network/http_utils.dart';
 
 Future<bool> isConnectedToInternet() async {
   try {

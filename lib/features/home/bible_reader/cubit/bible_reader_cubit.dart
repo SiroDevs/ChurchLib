@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../common/utils/app_util.dart';
-import '../../../../common/utils/reader_utils.dart';
+import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/utils/reader/reader_utils.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/bible/bible_book.dart';
 import '../../../../data/models/bible/bible_chapter.dart';

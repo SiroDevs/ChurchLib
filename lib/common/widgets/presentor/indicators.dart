@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '../../../core/theme/theme_colors.dart';
-import '../../utils/indicator_utils.dart';
+import '../../utils/theme/shape_utils.dart';
 
 class PresentorIndicator extends StatelessWidget {
   final double? width;

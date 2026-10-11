@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../../common/utils/constants/pref_constants.dart';
+import '../../../../../common/constants/pref_constants.dart';
 import '../../../../../common/windows/window_frame.dart';
 import '../../../../../core/di/injectable.dart';
 import '../../../../../core/theme/theme_colors.dart';

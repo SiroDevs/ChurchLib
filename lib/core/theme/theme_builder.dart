@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common/utils/constants/app_constants.dart';
-import '../../common/utils/shape_utils.dart';
+import '../../common/constants/app_constants.dart';
+import '../../common/utils/theme/shape_utils.dart';
 
 ThemeData buildThemeData(ColorScheme scheme, Color background) {
   final radius = BorderRadius.circular(12);

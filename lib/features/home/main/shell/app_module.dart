@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/utils/constants/app_assets.dart';
+import '../../../../common/constants/app_assets.dart';
 
 enum AppModule {
   songlib('SongLib', AppAssets.iconSonglib),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../common/utils/picker_utils.dart';
+import '../../../../../../common/utils/display/picker_utils.dart';
 
 Future<int?> showVersePicker(
   BuildContext context, {

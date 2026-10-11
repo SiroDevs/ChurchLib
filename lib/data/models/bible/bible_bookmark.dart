@@ -1,7 +1,7 @@
 import 'package:froom/froom.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../common/utils/constants/bible_constants.dart';
+import '../../../common/constants/bible_constants.dart';
 
 part 'bible_bookmark.g.dart';
 

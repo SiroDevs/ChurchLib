@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../common/utils/picker_utils.dart';
+import '../../../../../../common/utils/display/picker_utils.dart';
 import '../../../../../../data/models/bible/bible_chapter.dart';
 
 Future<BibleChapter?> showChapterPicker(

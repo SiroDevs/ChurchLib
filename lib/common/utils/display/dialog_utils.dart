@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/theme_colors.dart';
+import '../../../core/theme/theme_colors.dart';
 
 Future<bool> showConfirmDialog(
   BuildContext context, {

@@ -1,5 +1,5 @@
 import '../../../data/models/song/songext.dart';
-import '../../utils/app_util.dart';
+import '../../utils/formatting/app_util.dart';
 
 List<SongExt> filterSongsByQuery(String query, List<SongExt> songs) {
   return songs.where((song) {

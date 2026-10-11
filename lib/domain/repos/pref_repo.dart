@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../common/utils/constants/pref_constants.dart';
+import '../../common/constants/pref_constants.dart';
 
 @singleton
 abstract class PrefRepo {

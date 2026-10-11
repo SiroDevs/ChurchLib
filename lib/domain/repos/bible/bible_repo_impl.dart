@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../../../common/utils/app_util.dart';
+import '../../../common/utils/formatting/app_util.dart';
 import '../../../common/utils/async_semaphore.dart';
 import '../../../data/models/bible/bible_book.dart';
 import '../../../data/models/bible/bible_chapter.dart';

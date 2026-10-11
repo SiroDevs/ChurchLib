@@ -1,5 +1,5 @@
-import '../../domain/repos/pref_repo.dart';
-import 'constants/pref_constants.dart';
+import '../../../domain/repos/pref_repo.dart';
+import '../../constants/pref_constants.dart';
 
 const readerDefaultFontSize = 26;
 const readerMinFontSize = 14;

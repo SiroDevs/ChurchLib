@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../../common/utils/shape_utils.dart';
+import '../../../../../common/utils/theme/shape_utils.dart';
 import '../../../../../data/models/bible/bible_version.dart';
 import '../../bloc/bibles_cubit.dart';
 import 'hover_bible_row.dart';

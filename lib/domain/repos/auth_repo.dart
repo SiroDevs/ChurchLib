@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 
-import '../../common/utils/app_util.dart';
+import '../../common/utils/formatting/app_util.dart';
 
 enum AuthStatus { authenticated, unauthenticated,  guest }
 

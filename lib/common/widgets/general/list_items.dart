@@ -8,7 +8,7 @@ import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../domain/entities/basic_model.dart';
-import '../../utils/app_util.dart';
+import '../../utils/formatting/app_util.dart';
 
 var locale = 'en';
 
