@@ -23,8 +23,8 @@ class SettingCard extends StatelessWidget {
         Text(
           title,
           style: TextStyles.headingStyle3,
-        ).padding(left: Sizes.sm, top: Sizes.sm),
-        for (final widget in widgets) Card(child: widget),
+        ).padding(left: Sizes.sm, top: Sizes.sm, bottom: Sizes.m),
+        for (final widget in widgets) Card(child: widget).padding(bottom: 10),
       ],
     );
   }

@@ -371,7 +371,7 @@ abstract class AppLocalizations {
   /// Title for display settings section
   ///
   /// In en, this message translates to:
-  /// **'Display'**
+  /// **'Display Settings'**
   String get displayTitle;
 
   /// Title for user's collection section

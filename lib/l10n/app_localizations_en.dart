@@ -145,7 +145,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appSettings => 'Settings';
 
   @override
-  String get displayTitle => 'Display';
+  String get displayTitle => 'Display Settings';
 
   @override
   String get collectionTitle => 'Your Collection';

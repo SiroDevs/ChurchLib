@@ -6,6 +6,8 @@ import 'package:styled_widget/styled_widget.dart';
 
 import '../../../../common/navigator/route_names.dart';
 import '../../../../common/windows/window_frame.dart';
+import '../../../../core/theme/theme_fonts.dart';
+import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/bible/bible_version.dart';
 import '../bloc/bibles_cubit.dart';
 import 'widgets/bibles_dialogs.dart';
@@ -73,8 +75,9 @@ class _BiblesViewState extends State<_BiblesView> {
 
   Widget _content(BiblesState state) {
     final cubit = context.read<BiblesCubit>();
-    final primary =
-        state.bibles.where((b) => b.abbreviation == state.primaryAbbr).firstOrNull;
+    final primary = state.bibles
+        .where((b) => b.abbreviation == state.primaryAbbr)
+        .firstOrNull;
     final others = state.bibles.where((b) {
       if (b.abbreviation == state.primaryAbbr) return false;
       return !state.multiBibleEnabled ||
@@ -85,13 +88,19 @@ class _BiblesViewState extends State<_BiblesView> {
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 90),
       children: [
         if (widget.embedded)
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              tooltip: 'How Bible management works',
-              icon: const Icon(Icons.info_outline),
-              onPressed: () => showBiblesInfo(context),
-            ),
+          Row(
+            children: [
+              Text(
+                "Manage Your Bibles",
+                style: TextStyles.headingStyle3,
+              ).padding(left: Sizes.sm, top: Sizes.sm),
+              const Spacer(),
+              IconButton(
+                tooltip: 'How Bible management works',
+                icon: const Icon(Icons.info_outline),
+                onPressed: () => showBiblesInfo(context),
+              ),
+            ],
           ),
         SectionHeaderRow(
           left: SectionHeaderRow.label(context, 'Primary Bible'),
@@ -117,9 +126,7 @@ class _BiblesViewState extends State<_BiblesView> {
           ),
         ],
       ],
-    )
-        .constrained(maxWidth: 720)
-        .center();
+    ).constrained(maxWidth: 720).center();
   }
 
   @override
