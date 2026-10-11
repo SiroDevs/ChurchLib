@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../common/utils/app_util.dart';
+import '../../common/utils/formatting/app_util.dart';
 import '../../domain/repos/pref_repo.dart';
 import '../di/injectable.dart';
 import 'theme_builder.dart';

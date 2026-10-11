@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../core/theme/theme_colors.dart';
+import '../../../core/theme/theme_colors.dart';
 
 Future<T?> showGridPickerDialog<T>(
   BuildContext context, {

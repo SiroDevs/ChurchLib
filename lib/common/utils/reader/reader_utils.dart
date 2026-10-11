@@ -1,9 +1,9 @@
-import '../../data/models/bible/bible_book.dart';
-import '../../data/models/bible/bible_chapter.dart';
-import '../../data/models/bible/bible_version.dart';
-import '../../domain/entities/bible/bible_reader.dart';
-import '../../domain/entities/bible/verse_display.dart';
-import '../../domain/repos/bible/bible_tracking_repo.dart';
+import '../../../data/models/bible/bible_book.dart';
+import '../../../data/models/bible/bible_chapter.dart';
+import '../../../data/models/bible/bible_version.dart';
+import '../../../domain/entities/bible/bible_reader.dart';
+import '../../../domain/entities/bible/verse_display.dart';
+import '../../../domain/repos/bible/bible_tracking_repo.dart';
 
 export 'reader_prefs_utils.dart';
 export 'reader_share_utils.dart';

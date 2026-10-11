@@ -1,6 +1,6 @@
 import 'package:froom/froom.dart';
 
-import '../../../../../common/utils/constants/song_constants.dart';
+import '../../../../../common/constants/song_constants.dart';
 import '../../../../models/song/song.dart';
 import '../../../../models/song/songext.dart';
 

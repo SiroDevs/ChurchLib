@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../../common/utils/constants/app_assets.dart';
-import '../../../../../common/utils/constants/app_constants.dart';
+import '../../../../../common/constants/app_assets.dart';
+import '../../../../../common/constants/app_constants.dart';
 import '../../../../../core/theme/theme_colors.dart';
 import 'progress_rings.dart';
 

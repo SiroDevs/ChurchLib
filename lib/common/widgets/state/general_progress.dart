@@ -6,7 +6,7 @@ import 'package:textstyle_extensions/textstyle_extensions.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
 import '../../../core/theme/theme_styles.dart';
-import '../../utils/constants/app_assets.dart';
+import '../../constants/app_assets.dart';
 import '../action/app_button.dart';
 
 class CircularProgress extends StatelessWidget {

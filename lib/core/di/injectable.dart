@@ -6,8 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../common/utils/app_util.dart';
-import '../../common/utils/constants/app_constants.dart';
+import '../../common/utils/formatting/app_util.dart';
+import '../../common/constants/app_constants.dart';
 import '../../data/sources/local/app_database.dart';
 import '../../data/sources/remote/bible/bible_api_service.dart';
 import '../../domain/repos/bible/bible_annotation_repo.dart';

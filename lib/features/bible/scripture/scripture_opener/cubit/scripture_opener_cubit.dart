@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../common/utils/constants/pref_constants.dart';
+import '../../../../../common/constants/pref_constants.dart';
 import '../../../../../core/di/injectable.dart';
 import '../../../../../data/models/bible/bible_book.dart';
 import '../../../../../data/models/bible/bible_chapter.dart';

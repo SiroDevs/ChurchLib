@@ -1,5 +1,5 @@
-import '../../domain/repos/pref_repo.dart';
-import 'constants/pref_constants.dart';
+import '../../../domain/repos/pref_repo.dart';
+import '../../constants/pref_constants.dart';
 
 const readerDefaultFontSize = 26;
 const readerMinFontSize = 14;
@@ -20,10 +20,8 @@ String readerLastChapterId(PrefRepo prefs) =>
 String readerLastVerseId(PrefRepo prefs) =>
     prefs.getPrefString(PrefConstants.bibleLastVerseIdKey);
 
-bool readerMultiBibleEnabled(PrefRepo prefs) => prefs.getPrefBool(
-      PrefConstants.bibleMultiBibleEnabledKey,
-      defaultValue: true,
-    );
+bool readerMultiBibleEnabled(PrefRepo prefs) =>
+    !prefs.getPrefBool(PrefConstants.bibleMultiBibleDisabledKey);
 
 int readerStoredFontSize(PrefRepo prefs) {
   final stored = prefs.getPrefInt(PrefConstants.bibleFontSizeKey);
@@ -39,7 +37,7 @@ void saveReaderFontSize(PrefRepo prefs, int size) =>
     prefs.setPrefInt(PrefConstants.bibleFontSizeKey, size);
 
 void saveReaderMultiBibleEnabled(PrefRepo prefs, bool enabled) =>
-    prefs.setPrefBool(PrefConstants.bibleMultiBibleEnabledKey, enabled);
+    prefs.setPrefBool(PrefConstants.bibleMultiBibleDisabledKey, !enabled);
 
 void saveReaderLastVerseId(PrefRepo prefs, String verseId) =>
     prefs.setPrefString(PrefConstants.bibleLastVerseIdKey, verseId);

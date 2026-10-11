@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../utils/theme_switcher_mixin.dart';
+import '../utils/theme/theme_switcher_mixin.dart';
 
 class ThemeButton extends StatefulWidget {
   final bool showLabel;

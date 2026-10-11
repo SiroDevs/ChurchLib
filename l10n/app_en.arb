@@ -181,7 +181,7 @@
     "@appSettings": {
         "description": "Title for app settings section"
     },
-    "displayTitle": "Display",
+    "displayTitle": "Display Settings",
     "@displayTitle": {
         "description": "Title for display settings section"
     },

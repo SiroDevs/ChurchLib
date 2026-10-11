@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../common/utils/dialog_utils.dart';
+import '../../../../common/utils/display/dialog_utils.dart';
 import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';

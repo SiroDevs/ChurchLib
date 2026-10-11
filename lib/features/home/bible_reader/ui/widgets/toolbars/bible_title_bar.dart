@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../../../common/utils/reader_utils.dart';
+import '../../../../../../common/utils/reader/reader_utils.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import 'reader_actions.dart';
 

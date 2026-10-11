@@ -1,4 +1,4 @@
-name: Build & Release
+name: Build & Release ChurchLib
 
 on:
   push:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 env:
-  FLUTTER_VERSION: "3.47.6"
+  FLUTTER_VERSION: "3.47.6"   # must be a real Flutter git tag (check `flutter --version`)
   FLUTTER_CHANNEL: stable
   ENTRY: lib/main.dart
   APP_NAME: ChurchLib
@@ -211,15 +211,44 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: ${{ env.FLUTTER_CHANNEL }}
           architecture: x64
-          cache: true
+          # no cache: this job rewrites the SDK's Dart binary, and must not poison
+          # the cache shared with the windows-x64 job (same cache key)
+          cache: false
 
       - name: Bootstrap ARM64 Dart SDK
         shell: pwsh
         run: |
           $flutterRoot = $env:FLUTTER_ROOT
+          $update = Join-Path $flutterRoot "bin\internal\update_dart_sdk.ps1"
+          $dart   = Join-Path $flutterRoot "bin\cache\dart-sdk\bin\dart.exe"
+
+          function Get-PeMachine($path) {
+            $fs = [IO.File]::OpenRead($path)
+            try {
+              $br = New-Object IO.BinaryReader($fs)
+              $fs.Position = 0x3C; $pe = $br.ReadInt32()
+              $fs.Position = $pe + 4
+              return ('{0:X4}' -f $br.ReadUInt16())   # AA64 = arm64, 8664 = x64
+            } finally { $fs.Dispose() }
+          }
+
+          Write-Host "OSArchitecture=$([Runtime.InteropServices.RuntimeInformation]::OSArchitecture)"
+          Write-Host "ProcessArchitecture=$([Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)"
+          Write-Host "PROCESSOR_ARCHITECTURE=$env:PROCESSOR_ARCHITECTURE"
+          Write-Host "--- arch logic in update_dart_sdk.ps1 ---"
+          Select-String -Path $update -Pattern 'ARCH|arm|Arch' | ForEach-Object { $_.Line }
+
+          # Force the script to see an ARM64 host and re-download the Dart SDK
+          $env:PROCESSOR_ARCHITECTURE = "ARM64"
           $stamp = Join-Path $flutterRoot "bin\cache\dart-sdk\revision"
           if (Test-Path $stamp) { Remove-Item $stamp -Force }
-          & "$flutterRoot\bin\internal\update_dart_sdk.ps1"
+          & $update
+
+          $machine = Get-PeMachine $dart
+          Write-Host "dart.exe machine type: $machine"
+          if ($machine -ne "AA64") {
+            throw "Dart SDK is not ARM64 (machine=$machine); Flutter would build an x64 app."
+          }
 
       - name: Flutter diagnostics
         shell: pwsh
@@ -250,7 +279,7 @@ jobs:
       - name: Build
         shell: pwsh
         run: |
-          flutter build windows --release --target-platform windows-arm64 -t $env:ENTRY --no-tree-shake-icons
+          flutter build windows --release -t $env:ENTRY --no-tree-shake-icons
 
       - name: Verify build
         shell: pwsh
@@ -556,11 +585,13 @@ jobs:
       - linux
       - macos-x64
       - macos-arm64
+    # windows-arm64 is intentionally not required: the release ships without it if it fails.
+    # !cancelled() lets this job run even though a job in `needs` failed.
     if: >
+      !cancelled() &&
       github.ref == 'refs/heads/main' &&
       needs.check-version.outputs.should_release == 'true' &&
       needs.windows-x64.result == 'success' &&
-      needs.windows-arm64.result == 'success' &&
       needs.linux.result == 'success' &&
       needs.macos-x64.result == 'success' &&
       needs.macos-arm64.result == 'success'

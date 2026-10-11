@@ -5,7 +5,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../core/theme/theme_data.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/models.dart';
-import '../../utils/app_util.dart';
+import '../../utils/formatting/app_util.dart';
 import '../../windows/open_windows.dart';
 import '../list_items/search_book_item.dart';
 import '../list_items/search_song_item.dart';

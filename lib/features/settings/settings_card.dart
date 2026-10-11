@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../common/utils/theme_switcher_mixin.dart';
+import '../../common/utils/theme/theme_switcher_mixin.dart';
 import '../../common/widgets/inputs/radio_input.dart';
 import '../../core/theme/theme_data.dart';
 import '../../core/theme/theme_fonts.dart';
@@ -23,8 +23,8 @@ class SettingCard extends StatelessWidget {
         Text(
           title,
           style: TextStyles.headingStyle3,
-        ).padding(left: Sizes.sm, top: Sizes.sm),
-        for (final widget in widgets) Card(child: widget),
+        ).padding(left: Sizes.sm, top: Sizes.sm, bottom: Sizes.m),
+        for (final widget in widgets) Card(child: widget).padding(bottom: 10),
       ],
     );
   }

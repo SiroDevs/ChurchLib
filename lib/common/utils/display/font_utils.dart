@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'app_util.dart';
+import '../formatting/app_util.dart';
 
 double calcFontSize({
   required double height,

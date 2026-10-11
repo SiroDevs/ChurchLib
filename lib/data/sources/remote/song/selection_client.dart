@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 
-import '../../../../common/utils/constants/api_constants.dart';
+import '../../../../common/constants/api_constants.dart';
 import 'api_service.dart';
 
 class SelectionClient {

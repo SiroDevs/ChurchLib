@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../../../common/utils/app_util.dart';
-import '../../../../common/utils/constants/api_constants.dart';
+import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/constants/api_constants.dart';
 import '../../../../domain/repos/bible/retry_policy.dart';
 import 'bible_dtos.dart';
 

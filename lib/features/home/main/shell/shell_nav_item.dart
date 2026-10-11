@@ -11,12 +11,16 @@ class ShellNavItem extends StatelessWidget {
     super.key,
     this.onPressed,
     this.isSelected = false,
+    this.indent = 0,
+    this.trailing,
   });
 
   final IconData icon;
   final String label;
   final VoidCallback? onPressed;
   final bool isSelected;
+  final double indent;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class ShellNavItem extends StatelessWidget {
         onTap: onPressed,
         child: Row(
         children: [
-          const SizedBox(width: 12),
+          SizedBox(width: 12 + indent),
           Icon(icon, size: 22, color: fg),
           const SizedBox(width: 18),
           Text(
@@ -45,6 +49,8 @@ class ShellNavItem extends StatelessWidget {
             ),
           )
               .expanded(),
+          if (trailing != null) trailing!,
+          if (trailing != null) const SizedBox(width: 8),
         ],
       )
             .height(46),

@@ -1,6 +1,6 @@
 import 'package:froom/froom.dart';
 
-import '../../../../../common/utils/constants/bible_constants.dart';
+import '../../../../../common/constants/bible_constants.dart';
 import '../../../../models/bible/bible_chapter.dart';
 
 @dao

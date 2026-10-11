@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
-import '../../../common/utils/constants/api_constants.dart';
+import '../../../common/constants/api_constants.dart';
 import '../../../data/models/song/song.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/sources/remote/song/selection_client.dart';

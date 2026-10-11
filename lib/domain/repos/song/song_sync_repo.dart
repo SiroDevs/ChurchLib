@@ -1,4 +1,4 @@
-import '../../../common/utils/constants/pref_constants.dart';
+import '../../../common/constants/pref_constants.dart';
 import '../../../core/di/injectable.dart';
 import '../database_repo.dart';
 import '../pref_repo.dart';

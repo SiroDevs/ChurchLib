@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'app.dart';
-import 'common/utils/app_util.dart';
-import 'common/utils/app_window.dart';
+import 'common/utils/formatting/app_util.dart';
+import 'common/utils/display/app_window.dart';
 import 'common/utils/env/environments.dart';
 import 'common/utils/env/flavor_config.dart';
 import 'core/di/injectable.dart';

@@ -8,9 +8,9 @@ import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '../../common/navigator/route_names.dart';
-import '../../common/utils/constants/app_assets.dart';
-import '../../common/utils/constants/app_constants.dart';
-import '../../common/utils/constants/pref_constants.dart';
+import '../../common/constants/app_assets.dart';
+import '../../common/constants/app_constants.dart';
+import '../../common/constants/pref_constants.dart';
 import '../../core/di/injectable.dart';
 import '../../core/theme/theme_colors.dart';
 import '../../domain/repos/pref_repo.dart';
