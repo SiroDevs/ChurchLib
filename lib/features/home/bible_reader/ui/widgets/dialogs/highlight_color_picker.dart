@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
 import '../verses/verse_row.dart';

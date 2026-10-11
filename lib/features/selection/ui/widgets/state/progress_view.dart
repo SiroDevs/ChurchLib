@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../common/utils/constants/app_assets.dart';
+import '../../../../../common/utils/constants/app_constants.dart';
 import '../../../../../core/theme/theme_colors.dart';
 import 'progress_rings.dart';
-import '../../../../../common/utils/constants/app_constants.dart';
 
 class ProgressView extends StatelessWidget {
   final String title;
@@ -50,100 +51,82 @@ class ProgressView extends StatelessWidget {
           radius: radius,
           feedback: ringLabel,
         ),
-        Positioned(
-          left: 24,
-          right: 24,
-          top: 0,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
+        SafeArea(
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
-          ),
-        ),
+          )
+              .padding(top: 24),
+        )
+            .positioned(left: 24, right: 24, top: 0),
         if (message.isNotEmpty)
-          Positioned(
-            left: 24,
-            right: 24,
-            bottom: 0,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 24),
-                child: Text(
-                  message,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 13, color: Colors.white70),
-                ),
-              ),
-            ),
-          ),
+          SafeArea(
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 13, color: Colors.white70),
+            )
+                .padding(bottom: 24),
+          )
+              .positioned(left: 24, right: 24, bottom: 0),
       ],
     );
   }
 
   Widget _indeterminate() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(AppAssets.iconApp, height: 96, width: 96),
-            const SizedBox(height: 32),
-            const CircularProgressIndicator(color: ThemeColors.primary),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            if (message.isNotEmpty) ...[
-              const SizedBox(height: 8),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 13, color: ThemeColors.grey),
-              ),
-            ],
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(AppAssets.iconApp, height: 96, width: 96),
+        const SizedBox(height: 32),
+        const CircularProgressIndicator(color: ThemeColors.primary),
+        const SizedBox(height: 16),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
-      ),
-    );
+        if (message.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 13, color: ThemeColors.grey),
+          ),
+        ],
+      ],
+    )
+        .padding(all: 32)
+        .center();
   }
 
   Widget _error() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.error_outline, size: 56, color: ThemeColors.error),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            if (message.isNotEmpty) ...[
-              const SizedBox(height: 8),
-              Text(message, textAlign: TextAlign.center),
-            ],
-            if (actions.isNotEmpty) ...[
-              const SizedBox(height: 24),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: actions),
-            ],
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(Icons.error_outline, size: 56, color: ThemeColors.error),
+        const SizedBox(height: 16),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
-      ),
-    );
+        if (message.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Text(message, textAlign: TextAlign.center),
+        ],
+        if (actions.isNotEmpty) ...[
+          const SizedBox(height: 24),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: actions),
+        ],
+      ],
+    )
+        .padding(all: 32)
+        .center();
   }
 }

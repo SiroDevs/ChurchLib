@@ -1,4 +1,3 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 class RadioInput extends StatefulWidget {
@@ -49,80 +48,44 @@ class RadioInputState extends State<RadioInput> {
         ),
       ),
     );
-    if (widget.vertical!) {
-      return Container(
-        margin: widget.margin ??
-            const EdgeInsets.only(top: 10, left: 10, right: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            if (widget.label!.isNotEmpty) ...[labelWidget],
-            Column(
-              children: widget.options.map((option) {
-                return Row(
-                  children: <Widget>[
-                    Radio(
-                      value: option,
-                      groupValue: _selectedOption,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onChanged: (value) {
-                        if (!widget.isReadOnly!) {
-                          setState(() {
-                            _selectedOption = value.toString();
-                            widget.onChanged!(_selectedOption);
-                          });
-                        }
-                      },
-                    ),
-                    Text(
-                      option,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                );
-              }).toList(),
-            ),
-          ],
-        ),
+    final optionRows = widget.options.map((option) {
+      return Row(
+        children: <Widget>[
+          Radio(
+            value: option,
+            groupValue: _selectedOption,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            onChanged: (value) {
+              if (!widget.isReadOnly!) {
+                setState(() {
+                  _selectedOption = value.toString();
+                  widget.onChanged!(_selectedOption);
+                });
+              }
+            },
+          ),
+          Text(
+            option,
+            style: const TextStyle(fontSize: 16),
+          ),
+        ],
       );
-    } else {
-      return Container(
-        margin: widget.margin ??
-            const EdgeInsets.only(top: 10, left: 10, right: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            if (widget.label!.isNotEmpty) ...[labelWidget],
-            Row(
-              children: widget.options.map((option) {
-                return Row(
-                  children: <Widget>[
-                    Radio(
-                      value: option,
-                      groupValue: _selectedOption,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onChanged: (value) {
-                        if (!widget.isReadOnly!) {
-                          setState(() {
-                            _selectedOption = value.toString();
-                            widget.onChanged!(_selectedOption);
-                          });
-                        }
-                      },
-                    ),
-                    Text(
-                      option,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-      );
-    }
+    }).toList();
+
+    return Container(
+      margin:
+          widget.margin ?? const EdgeInsets.only(top: 10, left: 10, right: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          if (widget.label!.isNotEmpty) ...[labelWidget],
+          if (widget.vertical!)
+            Column(children: optionRows)
+          else
+            Row(children: optionRows),
+        ],
+      ),
+    );
   }
 }

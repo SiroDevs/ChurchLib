@@ -1,4 +1,3 @@
-
 class SongConstants {
   SongConstants._();
   static const String editsTable = 'song_edits';

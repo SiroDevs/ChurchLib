@@ -1,15 +1,11 @@
-// Dart imports:
 import 'dart:convert';
 
-// Flutter imports:
 import 'package:flutter/foundation.dart';
 
-// Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Project imports:
 import '../../common/utils/app_util.dart';
 import '../../common/utils/constants/app_constants.dart';
 import '../../data/sources/local/app_database.dart';
@@ -23,6 +19,7 @@ import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/database_repo_impl.dart';
 import '../../features/bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
 import 'injectable.config.dart';
+
 final getIt = GetIt.instance;
 
 @InjectableInit(

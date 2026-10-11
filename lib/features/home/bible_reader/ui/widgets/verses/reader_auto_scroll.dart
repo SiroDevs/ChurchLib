@@ -1,8 +1,6 @@
-// Dart imports:
 import 'dart:async';
 import 'dart:math' as math;
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 mixin ReaderAutoScrollMixin<T extends StatefulWidget> on State<T> {

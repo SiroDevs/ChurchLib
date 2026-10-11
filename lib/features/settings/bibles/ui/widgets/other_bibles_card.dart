@@ -1,7 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
+import '../../../../../common/utils/shape_utils.dart';
 import '../../../../../data/models/bible/bible_version.dart';
 import '../../../../../domain/repos/bible/bible_selection_repo.dart';
 import '../../bloc/bibles_cubit.dart';
@@ -57,29 +58,24 @@ class OtherBiblesCard extends StatelessWidget {
       );
     }
 
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: scheme.outlineVariant),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Column(
-          children: [
-            SectionHeaderRow(
-              padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-              left: SectionHeaderRow.label(context, 'Other Bibles'),
-              right: SectionHeaderRow.label(
-                context,
-                'Hover a Bible to set it as Secondary',
-              ),
-            ),
-            ...rows,
-          ],
+    return Column(
+      children: [
+        SectionHeaderRow(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          left: SectionHeaderRow.label(context, 'Other Bibles'),
+          right: SectionHeaderRow.label(
+            context,
+            'Hover a Bible to set it as Secondary',
+          ),
         ),
-      ),
-    );
+        ...rows,
+      ],
+    )
+        .padding(vertical: 4)
+        .card(
+          margin: EdgeInsets.zero,
+          elevation: 0,
+          shape: outlinedShape(scheme, BorderRadius.circular(12)),
+        );
   }
 }

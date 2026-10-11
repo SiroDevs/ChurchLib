@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../core/di/injectable.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../domain/entities/basic_model.dart';
@@ -77,40 +77,40 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onHorizontalDragStart: _handleDragStart,
-      onHorizontalDragUpdate: _handleDragUpdate,
-      onHorizontalDragEnd: (DragEndDetails dragEndDetails) =>
-          _handleDragEnd(dragEndDetails, context),
-      onDoubleTap: bottomNavBarDoubleTapGestures == true
-          ? () => _handleDoubleTap(context)
-          : null,
-      child: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: ThemeColors.bgColorPrimary(context),
-        currentIndex: widget.selectedIndex,
-        elevation: 5,
-        selectedItemColor: ThemeColors.foreColorPrimary(context),
-        unselectedItemColor: ThemeColors.bgColorWB(context),
-        unselectedLabelStyle: const TextStyle(fontSize: 12),
-        selectedLabelStyle: const TextStyle(fontSize: 12),
-        onTap: widget.onPageChange,
-        items: widget.pages.map((page) {
-          final isActive = widget.selectedIndex == widget.pages.indexOf(page);
-          return BottomNavigationBarItem(
-            label: page.title,
-            icon: Padding(
-              padding: const EdgeInsets.all(8),
-              child: AppNavIcon(
-                page.icon,
-                color: isActive
-                    ? ThemeColors.foreColorPrimary(context)
-                    : ThemeColors.bgColorWB(context),
-              ),
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: ThemeColors.bgColorPrimary(context),
+      currentIndex: widget.selectedIndex,
+      elevation: 5,
+      selectedItemColor: ThemeColors.foreColorPrimary(context),
+      unselectedItemColor: ThemeColors.bgColorWB(context),
+      unselectedLabelStyle: const TextStyle(fontSize: 12),
+      selectedLabelStyle: const TextStyle(fontSize: 12),
+      onTap: widget.onPageChange,
+      items: widget.pages.map((page) {
+        final isActive = widget.selectedIndex == widget.pages.indexOf(page);
+        return BottomNavigationBarItem(
+          label: page.title,
+          icon: Padding(
+            padding: const EdgeInsets.all(8),
+            child: AppNavIcon(
+              page.icon,
+              color: isActive
+                  ? ThemeColors.foreColorPrimary(context)
+                  : ThemeColors.bgColorWB(context),
             ),
-          );
-        }).toList(),
-      ),
-    );
+          ),
+        );
+      }).toList(),
+    )
+        .gestures(
+          onHorizontalDragStart: _handleDragStart,
+          onHorizontalDragUpdate: _handleDragUpdate,
+          onHorizontalDragEnd: (DragEndDetails dragEndDetails) =>
+              _handleDragEnd(dragEndDetails, context),
+          onDoubleTap: bottomNavBarDoubleTapGestures == true
+              ? () => _handleDoubleTap(context)
+              : null,
+        );
   }
 }

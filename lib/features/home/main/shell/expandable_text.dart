@@ -1,5 +1,6 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
+
+import 'package:styled_widget/styled_widget.dart';
 
 class ExpandableText extends StatefulWidget {
   const ExpandableText(this.text, {super.key, this.style, this.tooltip});
@@ -57,7 +58,7 @@ class _ExpandableTextState extends State<ExpandableText> {
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(child: text),
+                  text.expanded(),
                   Icon(
                     _expanded ? Icons.expand_less : Icons.expand_more,
                     size: 20,

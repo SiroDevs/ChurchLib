@@ -1,13 +1,11 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:go_router/go_router.dart';
 
-// Project imports:
 import '../../common/navigator/route_names.dart';
 import '../../common/utils/app_util.dart';
 import '../../common/utils/constants/pref_constants.dart';
+import '../../common/utils/dialog_utils.dart';
 import '../../common/widgets/state/custom_snackbar.dart';
 import '../../core/di/injectable.dart';
 import '../../domain/repos/bible/bible_repo.dart';
@@ -27,27 +25,6 @@ class SettingsActions {
     final router = GoRouter.of(context);
     Navigator.of(context).pop();
     router.goNamed(RouteNames.selection);
-  }
-
-  Future<bool> _confirm(String title, String message) async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Continue'),
-          ),
-        ],
-      ),
-    );
-    return result ?? false;
   }
 
   void _clearBibleLibPrefs() {
@@ -84,9 +61,10 @@ class SettingsActions {
   }
 
   Future<void> resetBibleLib() async {
-    final ok = await _confirm(
-      'Start over with BibleLib?',
-      "This deletes every downloaded Bible, bookmark and note. This can't be undone.",
+    final ok = await showConfirmDialog(
+      context,
+      title: 'Start over with BibleLib?',
+      message: "This deletes every downloaded Bible, bookmark and note. This can't be undone.",
     );
     if (!ok || !context.mounted) return;
     try {
@@ -114,9 +92,10 @@ class SettingsActions {
   }
 
   Future<void> resetChurchLib() async {
-    final ok = await _confirm(
-      'Reset ChurchLib?',
-      'This erases everything — songbooks, Bibles, bookmarks, notes and '
+    final ok = await showConfirmDialog(
+      context,
+      title: 'Reset ChurchLib?',
+      message: 'This erases everything — songbooks, Bibles, bookmarks, notes and '
           "settings — and takes you back to the setup screen. This can't be undone.",
     );
     if (!ok || !context.mounted) return;

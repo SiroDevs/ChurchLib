@@ -1,5 +1,6 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
+
+import 'package:styled_widget/styled_widget.dart';
 
 const double _kWindowRadius = 16;
 
@@ -22,10 +23,8 @@ Future<T?> showAppWindow<T>(
       shadowColor: Colors.transparent,
       elevation: 0,
       insetPadding: inset,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: width, maxHeight: height),
-        child: _WindowFrame(child: child),
-      ),
+      child: _WindowFrame(child: child)
+          .constrained(maxWidth: width, maxHeight: height),
     ),
   );
 }
@@ -102,32 +101,30 @@ class WindowAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: barHeight,
-            child: Row(
-              children: [
-                const SizedBox(width: 14),
-                Icon(icon, size: 18),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: titleWidget ??
-                      Text(
-                        title ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                ),
-                ...actions,
-                IconButton(
-                  tooltip: 'Close',
-                  icon: const Icon(Icons.close, size: 20),
-                  onPressed: onClose ?? () => Navigator.of(context).pop(),
-                ),
-                const SizedBox(width: 4),
-              ],
-            ),
-          ),
+          Row(
+            children: [
+              const SizedBox(width: 14),
+              Icon(icon, size: 18),
+              const SizedBox(width: 10),
+              Expanded(
+                child: titleWidget ??
+                    Text(
+                      title ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+              ),
+              ...actions,
+              IconButton(
+                tooltip: 'Close',
+                icon: const Icon(Icons.close, size: 20),
+                onPressed: onClose ?? () => Navigator.of(context).pop(),
+              ),
+              const SizedBox(width: 4),
+            ],
+          )
+              .constrained(height: barHeight),
           if (bottom != null) bottom!,
           Divider(height: 1, color: scheme.outlineVariant),
         ],

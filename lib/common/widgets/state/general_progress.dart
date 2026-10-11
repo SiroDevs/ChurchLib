@@ -1,41 +1,36 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:styled_widget/styled_widget.dart';
 import 'package:textstyle_extensions/textstyle_extensions.dart';
 
-// Project imports:
-import '../../utils/constants/app_assets.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
 import '../../../core/theme/theme_styles.dart';
+import '../../utils/constants/app_assets.dart';
 import '../action/app_button.dart';
 
 class CircularProgress extends StatelessWidget {
-  const CircularProgress({Key? key}) : super(key: key);
+  const CircularProgress({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        child: CircularProgressIndicator(
-          color: ThemeColors.primary,
-          strokeWidth: 5,
-          backgroundColor: Colors.white.withValues(alpha: 0.3),
-        ),
+    return SizedBox(
+      child: CircularProgressIndicator(
+        color: ThemeColors.primary,
+        strokeWidth: 5,
+        backgroundColor: Colors.white.withValues(alpha: 0.3),
       ),
-    );
+    ).center();
   }
 }
 
 class SmallCircularProgress extends StatelessWidget {
-  const SmallCircularProgress({Key? key}) : super(key: key);
+  const SmallCircularProgress({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsetsGeometry.all(10),
       child: CircularProgressIndicator(
         color: ThemeColors.primary,
         strokeWidth: 3,
@@ -101,12 +96,8 @@ class BottomLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: SizedBox(
-        height: 24,
-        width: 24,
-        child: CircularProgressIndicator(strokeWidth: 1.5),
-      ),
-    );
+    return CircularProgressIndicator(strokeWidth: 1.5)
+        .constrained(width: 24, height: 24)
+        .center();
   }
 }

@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import 'app.dart';
 import 'common/utils/app_util.dart';
 import 'common/utils/app_window.dart';

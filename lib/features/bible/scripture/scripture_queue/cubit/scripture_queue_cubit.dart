@@ -1,7 +1,5 @@
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Project imports:
 import '../../../../../data/models/bible/scripture_item.dart';
 
 part 'scripture_queue_state.dart';

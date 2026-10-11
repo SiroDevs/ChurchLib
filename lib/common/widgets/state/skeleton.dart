@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:skeleton_loader/skeleton_loader.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_styles.dart';
 
@@ -59,37 +57,35 @@ class SelectionLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    var rowWidget = Container(
-      margin: const EdgeInsets.all(Sizes.sm),
-      child: Row(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(Sizes.m),
-            width: 20,
-            height: 20,
-            color: Colors.black,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: Sizes.xs),
-                height: 20,
-                width: size.width - 150,
-                color: Colors.black,
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: Sizes.xs),
-                height: 15,
-                width: size.width - 200,
-                color: Colors.black,
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+    var rowWidget = Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(Sizes.m),
+          width: 20,
+          height: 20,
+          color: Colors.black,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: Sizes.xs),
+              height: 20,
+              width: size.width - 150,
+              color: Colors.black,
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: Sizes.xs),
+              height: 15,
+              width: size.width - 200,
+              color: Colors.black,
+            ),
+          ],
+        )
+      ],
+    )
+        .padding(all: Sizes.sm);
 
     return SingleChildScrollView(
       child: SkeletonLoader(
@@ -109,48 +105,46 @@ class HomeLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    var rowWidget = Container(
-        margin:
-            const EdgeInsets.only(left: Sizes.m, right: Sizes.m, top: Sizes.m),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+    var rowWidget = Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(bottom: Sizes.xs),
+          height: 15,
+          width: size.width - 120,
+          color: Colors.black,
+        ),
+        Container(
+          margin: const EdgeInsets.only(bottom: Sizes.xs),
+          height: 30,
+          width: size.width - 50,
+          color: Colors.black,
+        ),
+        Row(
           children: [
             Container(
-              margin: const EdgeInsets.only(bottom: Sizes.xs),
-              height: 15,
-              width: size.width - 120,
+              height: 10,
+              width: size.width / 6,
               color: Colors.black,
             ),
+            SizedBox(width: Sizes.xs),
             Container(
-              margin: const EdgeInsets.only(bottom: Sizes.xs),
-              height: 30,
-              width: size.width - 50,
+              height: 10,
+              width: size.width / 6,
               color: Colors.black,
             ),
-            Row(
-              children: [
-                Container(
-                  height: 10,
-                  width: size.width / 6,
-                  color: Colors.black,
-                ),
-                SizedBox(width: Sizes.xs),
-                Container(
-                  height: 10,
-                  width: size.width / 6,
-                  color: Colors.black,
-                ),
-                SizedBox(width: Sizes.xs),
-                Container(
-                  height: 10,
-                  width: size.width / 5,
-                  color: Colors.black,
-                ),
-              ],
+            SizedBox(width: Sizes.xs),
+            Container(
+              height: 10,
+              width: size.width / 5,
+              color: Colors.black,
             ),
           ],
-        ));
+        ),
+      ],
+    )
+        .padding(left: Sizes.m, right: Sizes.m, top: Sizes.m);
 
     return SingleChildScrollView(
       child: SkeletonLoader(

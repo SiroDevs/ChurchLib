@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../bloc/selection_bloc.dart';
 
@@ -12,43 +12,40 @@ class StepHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final steps = flow.steps;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 8, 24, 8),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              for (var i = 0; i < steps.length; i++) ...[
-                _Dot(
-                  number: i + 1,
-                  done: i < flow.index,
-                  active: i == flow.index,
-                ),
-                if (i < steps.length - 1)
-                  Expanded(
-                    child: Container(
-                      height: 2,
-                      color: i < flow.index
-                          ? ThemeColors.primary
-                          : ThemeColors.lightGrey,
-                    ),
-                  ),
-              ],
+    return Column(
+      children: [
+        Row(
+          children: [
+            for (var i = 0; i < steps.length; i++) ...[
+              _Dot(
+                number: i + 1,
+                done: i < flow.index,
+                active: i == flow.index,
+              ),
+              if (i < steps.length - 1)
+                Container(
+                  height: 2,
+                  color: i < flow.index
+                      ? ThemeColors.primary
+                      : ThemeColors.lightGrey,
+                )
+                    .expanded(),
             ],
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Step ${flow.index + 1} of ${steps.length}'
+          ' · ${steps[flow.index].label}',
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: ThemeColors.primary,
           ),
-          const SizedBox(height: 8),
-          Text(
-            'Step ${flow.index + 1} of ${steps.length}'
-            ' · ${steps[flow.index].label}',
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: ThemeColors.primary,
-            ),
-          ),
-        ],
-      ),
-    );
+        ),
+      ],
+    )
+        .padding(left: 24, top: 8, right: 24, bottom: 8);
   }
 }
 

@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../cubit/scripture_opener_cubit.dart';
 import 'book_results_grid.dart';
 import 'field_pointer_arrow.dart';
@@ -28,10 +28,7 @@ class ScriptureSearchRow extends StatelessWidget {
   final VoidCallback onQueueAndClose;
   final VoidCallback onQueueAndFinish;
 
-  Widget _loading() => const SizedBox(
-        height: 100,
-        child: Center(child: CircularProgressIndicator()),
-      );
+  Widget _loading() => CircularProgressIndicator().center().height(100);
 
   Widget _field(
     int flex,
@@ -40,16 +37,14 @@ class ScriptureSearchRow extends StatelessWidget {
     bool enabled,
     ExpandedField field,
   ) =>
-      Expanded(
-        flex: flex,
-        child: ScriptureField(
-          label: label,
-          value: value,
-          enabled: enabled,
-          isActive: row.expanded == field,
-          onTap: () => cubit.toggleField(row.key, field),
-        ),
-      );
+      ScriptureField(
+        label: label,
+        value: value,
+        enabled: enabled,
+        isActive: row.expanded == field,
+        onTap: () => cubit.toggleField(row.key, field),
+      )
+          .expanded(flex: flex);
 
   Widget _panel(BuildContext context) {
     switch (row.expanded) {
@@ -88,37 +83,32 @@ class ScriptureSearchRow extends StatelessWidget {
   Widget build(BuildContext context) {
     if (row.locked) return LockedScriptureRow(row: row);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              _field(fieldWeights[0], 'Book', row.bookLabel, true,
-                  ExpandedField.book),
-              const SizedBox(width: 8),
-              _field(fieldWeights[1], 'Chapter', row.chapterLabel,
-                  row.canExpandChapter, ExpandedField.chapter),
-              const SizedBox(width: 8),
-              _field(fieldWeights[2], 'Verse', row.verseLabel,
-                  row.canExpandVerse, ExpandedField.verse),
-            ],
+    return Column(
+      children: [
+        Row(
+          children: [
+            _field(fieldWeights[0], 'Book', row.bookLabel, true,
+                ExpandedField.book),
+            const SizedBox(width: 8),
+            _field(fieldWeights[1], 'Chapter', row.chapterLabel,
+                row.canExpandChapter, ExpandedField.chapter),
+            const SizedBox(width: 8),
+            _field(fieldWeights[2], 'Verse', row.verseLabel,
+                row.canExpandVerse, ExpandedField.verse),
+          ],
+        ),
+        if (row.expanded != ExpandedField.none)
+          _panel(context).padding(top: 6),
+        if (isActive && row.isComplete && row.expanded == ExpandedField.none)
+          ScriptureActionButtons(
+            reference: row.reference,
+            onOpenScripture: onOpen,
+            onAddToQueue: () => cubit.addToQueue(row.key),
+            onAddToQueueAndClose: onQueueAndClose,
+            onAddToQueueAndFinish: onQueueAndFinish,
           ),
-          if (row.expanded != ExpandedField.none)
-            Padding(
-              padding: const EdgeInsets.only(top: 6),
-              child: _panel(context),
-            ),
-          if (isActive && row.isComplete && row.expanded == ExpandedField.none)
-            ScriptureActionButtons(
-              reference: row.reference,
-              onOpenScripture: onOpen,
-              onAddToQueue: () => cubit.addToQueue(row.key),
-              onAddToQueueAndClose: onQueueAndClose,
-              onAddToQueueAndFinish: onQueueAndFinish,
-            ),
-        ],
-      ),
-    );
+      ],
+    )
+        .padding(vertical: 6);
   }
 }

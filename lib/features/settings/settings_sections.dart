@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../home/main/shell/app_module.dart';
 import 'sections/appearance_section.dart';
 import 'sections/biblelib_sections.dart';

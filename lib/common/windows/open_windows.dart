@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../data/models/models.dart';
 import '../../domain/entities/bible/bible_reader.dart';
 import '../../features/bible/bookmarks/ui/bookmarks_notes_screen.dart';

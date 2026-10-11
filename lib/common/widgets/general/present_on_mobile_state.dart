@@ -48,127 +48,122 @@ class PresentOnMobileState extends State<PresentOnMobile>
 
   @override
   Widget build(BuildContext context) {
-    var contentContainer = Expanded(
-      child: PageView.builder(
-        scrollDirection: widget.contentScrollAxis!,
-        physics: pageScrollPhysics,
-        onPageChanged: (index) {
-          if (changePageByTapView == false || changePageByTapView == null) {
-            selectTab(index);
-          }
-          if (selectedIndex == index) {
-            changePageByTapView = null;
-          }
-          setState(() {});
-        },
-        controller: pageController,
+    var contentContainer = PageView.builder(
+      scrollDirection: widget.contentScrollAxis!,
+      physics: pageScrollPhysics,
+      onPageChanged: (index) {
+        if (changePageByTapView == false || changePageByTapView == null) {
+          selectTab(index);
+        }
+        if (selectedIndex == index) {
+          changePageByTapView = null;
+        }
+        setState(() {});
+      },
+      controller: pageController,
 
-        itemCount: widget.contents!.length,
+      itemCount: widget.contents!.length,
 
-        itemBuilder: (BuildContext? context, int? index) {
-          return widget.contents![index!];
-        },
-      ),
-    );
-    var indicatorContainer = SizedBox(
-      height: widget.tabsWidth,
-      child: ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.tabs!.length,
-        itemBuilder: (context, index) {
-          Tab? tab = widget.tabs![index];
+      itemBuilder: (BuildContext? context, int? index) {
+        return widget.contents![index!];
+      },
+    )
+        .expanded();
+    var indicatorContainer = ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemCount: widget.tabs!.length,
+      itemBuilder: (context, index) {
+        Tab? tab = widget.tabs![index];
 
-          Alignment? alignment = Alignment.centerLeft;
-          if (widget.direction == TextDirection.rtl) {
-            alignment = Alignment.centerRight;
-          }
+        Alignment? alignment = Alignment.centerLeft;
+        if (widget.direction == TextDirection.rtl) {
+          alignment = Alignment.centerRight;
+        }
 
-          var itemBGColor = widget.tabBackgroundColor;
-          if (selectedIndex == index) {
-            itemBGColor = widget.selectedTabBackgroundColor;
-          }
+        var itemBGColor = widget.tabBackgroundColor;
+        if (selectedIndex == index) {
+          itemBGColor = widget.selectedTabBackgroundColor;
+        }
 
-          double? left, right;
-          if (widget.direction == TextDirection.rtl) {
-            left = (widget.indicatorSide == IndicatorSide.end) ? 0 : null;
-            right = (widget.indicatorSide == IndicatorSide.start) ? 0 : null;
-          } else {
-            left = (widget.indicatorSide == IndicatorSide.start) ? 0 : null;
-            right = (widget.indicatorSide == IndicatorSide.end) ? 0 : null;
-          }
+        double? left, right;
+        if (widget.direction == TextDirection.rtl) {
+          left = (widget.indicatorSide == IndicatorSide.end) ? 0 : null;
+          right = (widget.indicatorSide == IndicatorSide.start) ? 0 : null;
+        } else {
+          left = (widget.indicatorSide == IndicatorSide.start) ? 0 : null;
+          right = (widget.indicatorSide == IndicatorSide.end) ? 0 : null;
+        }
 
-          return Stack(
-            children: <Widget>[
-              Positioned(
-                top: 2,
-                bottom: 2,
-                width: widget.indicatorWidth,
-                left: left,
-                right: right,
-                child: ScaleTransition(
-                  scale: Tween(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
-                      parent: animationControllers![index]!,
-                      curve: Curves.elasticOut,
-                    ),
-                  ),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: ThemeColors.accent,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                      ),
-                    ),
+        return Stack(
+          children: <Widget>[
+            ScaleTransition(
+              scale: Tween(begin: 0.0, end: 1.0).animate(
+                CurvedAnimation(
+                  parent: animationControllers![index]!,
+                  curve: Curves.elasticOut,
+                ),
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: ThemeColors.accent,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  changePageByTapView = true;
-                  setState(() {
-                    selectTab(index);
-                  });
-
-                  pageController!.animateToPage(index,
-                      duration: widget.changePageDuration!,
-                      curve: widget.changePageCurve!);
-                },
-                child: Container(
+            )
+                .positioned(
+                  top: 2,
+                  bottom: 2,
                   width: widget.indicatorWidth,
-                  margin: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: itemBGColor,
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                    ),
-                  ),
-                  alignment: alignment,
-                  child: tab.child,
+                  left: left,
+                  right: right,
+                ),
+            Container(
+              width: widget.indicatorWidth,
+              margin: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: itemBGColor,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
                 ),
               ),
-            ],
-          );
-        },
-      ),
-    );
+              alignment: alignment,
+              child: tab.child,
+            )
+                .gestures(
+                  onTap: () {
+                    changePageByTapView = true;
+                    setState(() {
+                      selectTab(index);
+                    });
+
+                    pageController!.animateToPage(index,
+                        duration: widget.changePageDuration!,
+                        curve: widget.changePageCurve!);
+                  },
+                ),
+          ],
+        );
+      },
+    )
+        .constrained(height: widget.tabsWidth);
     return Directionality(
       textDirection: widget.direction!,
       child: Column(
         children: <Widget>[
           contentContainer,
           indicatorContainer,
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.symmetric(vertical: 20),
-            child: Text(
-              '  ${widget.songbook!}',
-              style: TextStyle(
-                  fontSize: widget.tabsWidth! / 2, color: Colors.white),
-            ),
-          ),
+          Text(
+            '  ${widget.songbook!}',
+            style: TextStyle(
+                fontSize: widget.tabsWidth! / 2, color: Colors.white),
+          )
+              .width(double.infinity)
+              .padding(vertical: 20),
         ],
       ),
     );

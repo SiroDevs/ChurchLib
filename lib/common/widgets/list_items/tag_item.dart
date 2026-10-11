@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
+import 'package:styled_widget/styled_widget.dart';
 import 'package:textstyle_extensions/textstyle_extensions.dart';
 
-// Project imports:
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
 import '../../../core/theme/theme_styles.dart';
@@ -23,23 +21,21 @@ class TagItem extends StatelessWidget {
   Widget build(BuildContext context) {
     try {
       if (tagText.isNotEmpty) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          margin: const EdgeInsets.only(right: Sizes.xs),
-          decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.light
-                ? ThemeColors.primary
-                : ThemeColors.primary2,
-            borderRadius: const BorderRadius.all(Radius.circular(5)),
-          ),
-          child: Text(
-            tagText,
-            style: TextStyles.headingStyle5
-                .textColor(Colors.white)
-                .letterSpace(1)
-                .italic,
-          ),
-        );
+        return Text(
+          tagText,
+          style: TextStyles.headingStyle5
+              .textColor(Colors.white)
+              .letterSpace(1)
+              .italic,
+        )
+            .padding(horizontal: 10, vertical: 3)
+            .decorated(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? ThemeColors.primary
+                  : ThemeColors.primary2,
+              borderRadius: const BorderRadius.all(Radius.circular(5)),
+            )
+            .padding(right: Sizes.xs);
       } else {
         return const SizedBox.shrink();
       }

@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../core/theme/theme_colors.dart';
 
 class PresentOnPc extends StatefulWidget {
@@ -38,48 +38,45 @@ class PresentOnPcState extends State<PresentOnPc> with TickerProviderStateMixin 
 
   @override
   Widget build(BuildContext context) {
-    var indicatorContainer = SizedBox(
-      height: widget.tabsWidth,
-      child: ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.infos!.length,
-        itemBuilder: (context, index) {
-          bool isSelected = index == widget.index;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: RawMaterialButton(
-              fillColor: isSelected ? ThemeColors.primary : Colors.white,
-              highlightColor: Colors.white.withValues(alpha: .1),
-              focusElevation: 0,
-              hoverColor: ThemeColors.lightGrey,
-              hoverElevation: 1,
-              highlightElevation: 0,
-              elevation: 0,
-              padding: EdgeInsets.zero,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                ),
-              ),
-              onPressed: () => widget.onSelect!(index),
-              child: Text(
-                widget.infos![index],
+    var indicatorContainer = ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemCount: widget.infos!.length,
+      itemBuilder: (context, index) {
+        bool isSelected = index == widget.index;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: RawMaterialButton(
+            fillColor: isSelected ? ThemeColors.primary : Colors.white,
+            highlightColor: Colors.white.withValues(alpha: .1),
+            focusElevation: 0,
+            hoverColor: ThemeColors.lightGrey,
+            hoverElevation: 1,
+            highlightElevation: 0,
+            elevation: 0,
+            padding: EdgeInsets.zero,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20),
               ),
             ),
-          );
-        },
-      ),
-    );
+            onPressed: () => widget.onSelect!(index),
+            child: Text(
+              widget.infos![index],
+            ),
+          ),
+        );
+      },
+    )
+        .constrained(height: widget.tabsWidth);
     return Column(
       children: <Widget>[
-        Expanded(
-          child: IndexedStack(
-            index: widget.index,
-            children: widget.contents!,
-          ),
-        ),
+        IndexedStack(
+          index: widget.index,
+          children: widget.contents!,
+        )
+            .expanded(),
         indicatorContainer,
         const SizedBox(height: 20),
       ],

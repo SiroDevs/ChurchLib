@@ -1,7 +1,5 @@
-// Package imports:
 import 'package:froom/froom.dart';
 
-// Project imports:
 import '../../../../../common/utils/constants/bible_constants.dart';
 import '../../../../models/bible/bible_version.dart';
 

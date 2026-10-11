@@ -1,5 +1,6 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
+
+import 'package:styled_widget/styled_widget.dart';
 
 class ScriptureActionButtons extends StatelessWidget {
   const ScriptureActionButtons({
@@ -20,42 +21,37 @@ class ScriptureActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget outlined(IconData icon, String label, VoidCallback onTap) =>
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed: onTap,
-            icon: Icon(icon, size: 18),
-            label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
-          ),
-        );
+        OutlinedButton.icon(
+          onPressed: onTap,
+          icon: Icon(icon, size: 18),
+          label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+        )
+            .expanded();
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Column(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: onOpenScripture,
-              icon: const Icon(Icons.menu_book),
-              label: Text(
-                'Open Scripture · $reference',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
+    return Column(
+      children: [
+        FilledButton.icon(
+          onPressed: onOpenScripture,
+          icon: const Icon(Icons.menu_book),
+          label: Text(
+            'Open Scripture · $reference',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 8),
-          Row(children: [outlined(Icons.playlist_add, 'Add to Queue', onAddToQueue)]),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              outlined(Icons.close, 'Queue & Close', onAddToQueueAndClose),
-              const SizedBox(width: 8),
-              outlined(Icons.done, 'Queue & Finish', onAddToQueueAndFinish),
-            ],
-          ),
-        ],
-      ),
-    );
+        )
+            .width(double.infinity),
+        const SizedBox(height: 8),
+        Row(children: [outlined(Icons.playlist_add, 'Add to Queue', onAddToQueue)]),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            outlined(Icons.close, 'Queue & Close', onAddToQueueAndClose),
+            const SizedBox(width: 8),
+            outlined(Icons.done, 'Queue & Finish', onAddToQueueAndFinish),
+          ],
+        ),
+      ],
+    )
+        .padding(top: 10);
   }
 }

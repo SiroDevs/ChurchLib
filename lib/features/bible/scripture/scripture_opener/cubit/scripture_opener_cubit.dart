@@ -1,7 +1,5 @@
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Project imports:
 import '../../../../../common/utils/constants/pref_constants.dart';
 import '../../../../../core/di/injectable.dart';
 import '../../../../../data/models/bible/bible_book.dart';

@@ -1,10 +1,9 @@
-// Dart imports:
 import 'dart:math' as math;
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../core/theme/theme_colors.dart';
 
 part 'fab_action_widgets.dart';
@@ -81,27 +80,21 @@ class ExpandableFabState extends State<ExpandableFab>
   }
 
   Widget buildTapToCloseFab() {
-    return SizedBox(
-      width: 56.0,
-      height: 56.0,
-      child: Center(
-        child: Material(
-          shape: const CircleBorder(),
-          clipBehavior: Clip.antiAlias,
-          elevation: 4.0,
-          child: InkWell(
-            onTap: toggle,
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.close,
-                color: ThemeColors.primary,
-              ),
-            ),
-          ),
-        ),
+    return Material(
+      shape: const CircleBorder(),
+      clipBehavior: Clip.antiAlias,
+      elevation: 4.0,
+      child: InkWell(
+        onTap: toggle,
+        child: Icon(
+          Icons.close,
+          color: ThemeColors.primary,
+        )
+            .padding(all: 8.0),
       ),
-    );
+    )
+        .center()
+        .constrained(width: 56.0, height: 56.0);
   }
 
   List<Widget> buildExpandingActionButtons() {

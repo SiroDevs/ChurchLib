@@ -1,15 +1,12 @@
-// Dart imports:
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:go_router/go_router.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../common/navigator/route_names.dart';
 import '../../common/utils/constants/app_assets.dart';
 import '../../common/utils/constants/app_constants.dart';
@@ -139,39 +136,38 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
           ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Spacer(),
-                const _ShadowedIcon(size: 200),
-                const SizedBox(height: 10),
-                const Text(
-                  AppConstants.appTitle,
-                  style: TextStyle(
-                    fontSize: 50,
-                    letterSpacing: 5,
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.accent1,
-                    shadows: _textShadows,
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Spacer(),
+              const _ShadowedIcon(size: 200),
+              const SizedBox(height: 10),
+              const Text(
+                AppConstants.appTitle,
+                style: TextStyle(
+                  fontSize: 50,
+                  letterSpacing: 5,
+                  fontWeight: FontWeight.bold,
+                  color: ThemeColors.accent1,
+                  shadows: _textShadows,
                 ),
-                const SizedBox(height: 5),
-                const Spacer(),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
-                  child: Divider(
-                    color: Colors.white70,
-                    thickness: 2,
-                    height: 50,
-                  ),
+              ),
+              const SizedBox(height: 5),
+              const Spacer(),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                child: Divider(
+                  color: Colors.white70,
+                  thickness: 2,
+                  height: 50,
                 ),
-                withLoveFromRow,
-                appDevelopers,
-                const SizedBox(height: 20),
-              ],
-            ),
-          ),
+              ),
+              withLoveFromRow,
+              appDevelopers,
+              const SizedBox(height: 20),
+            ],
+          )
+              .center(),
         ],
       ),
     );

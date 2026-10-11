@@ -14,58 +14,48 @@ class SongTitleBar extends StatelessWidget {
 
     return Row(
       children: [
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: onSearchPage
-                  ? SearchWidget(
-                      searchFocus: parent.searchFocus,
-                      searchController: parent.searchController,
-                      onSearch: parent.onSearch,
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(left: 6),
-                      child: Text(l10n.likesTitle, style: text),
-                    ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: onSearchPage
+                ? SearchWidget(
+                    searchFocus: parent.searchFocus,
+                    searchController: parent.searchController,
+                    onSearch: parent.onSearch,
+                  )
+                : Text(l10n.likesTitle, style: text).padding(left: 6),
+          ),
+        )
+            .expanded(flex: 1),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            if (onSearchPage && song.songId != 0)
+              Text(
+                songHeaderTitle(song),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: text,
+              )
+                  .padding(horizontal: 16)
+                  .expanded(),
+
+            IconButton(
+              tooltip: 'Present Song',
+              onPressed: () => parent.presentSelected(context),
+              icon: const Icon(Icons.north_east),
             ),
-          ),
-        ),
 
-        Expanded(
-          flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if (onSearchPage && song.songId != 0)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      songHeaderTitle(song),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: text,
-                    ),
-                  ),
-                ),
-
-              IconButton(
-                tooltip: 'Present Song',
-                onPressed: () => parent.presentSelected(context),
-                icon: const Icon(Icons.north_east),
-              ),
-
-              IconButton(
-                tooltip: 'Copy Song',
-                onPressed: () => copySongToClipboard(context, song),
-                icon: const Icon(Icons.copy),
-              ),
-            ],
-          ),
-        ),
+            IconButton(
+              tooltip: 'Copy Song',
+              onPressed: () => copySongToClipboard(context, song),
+              icon: const Icon(Icons.copy),
+            ),
+          ],
+        )
+            .expanded(flex: 1),
       ],
     );
   }

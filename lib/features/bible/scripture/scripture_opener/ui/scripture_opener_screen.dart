@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../../common/windows/window_frame.dart';
 import '../cubit/scripture_opener_cubit.dart';
 import 'widgets/scripture_search_row.dart';
@@ -58,46 +56,39 @@ class _ScriptureOpenerViewState extends State<_ScriptureOpenerView> {
 
   Widget _body(BuildContext context, ScriptureOpenerState state) {
     if (state.isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return CircularProgressIndicator().center();
     }
     if (state.error != null) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Text(state.error!, textAlign: TextAlign.center),
-        ),
-      );
+      return Text(state.error!, textAlign: TextAlign.center).padding(all: 24)
+          .center();
     }
 
     final cubit = context.read<ScriptureOpenerCubit>();
     final activeKey = state.activeRow?.key;
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 640),
-        child: ListView.builder(
-          controller: _scroll,
-          padding: const EdgeInsets.all(16),
-          itemCount: state.rows.length,
-          itemBuilder: (_, i) {
-            final row = state.rows[i];
-            return ScriptureSearchRow(
-              key: ValueKey(row.key),
-              row: row,
-              isActive: row.key == activeKey,
-              cubit: cubit,
-              onOpen: () => _pop(cubit.openScripture(row.key)),
-              onQueueAndClose: () async {
-                if (await cubit.addToQueueAndClose(row.key)) _pop();
-              },
-              onQueueAndFinish: () async {
-                final target = await cubit.addToQueueAndFinish(row.key);
-                if (target != null) _pop(target);
-              },
-            );
+    return ListView.builder(
+      controller: _scroll,
+      padding: const EdgeInsets.all(16),
+      itemCount: state.rows.length,
+      itemBuilder: (_, i) {
+        final row = state.rows[i];
+        return ScriptureSearchRow(
+          key: ValueKey(row.key),
+          row: row,
+          isActive: row.key == activeKey,
+          cubit: cubit,
+          onOpen: () => _pop(cubit.openScripture(row.key)),
+          onQueueAndClose: () async {
+            if (await cubit.addToQueueAndClose(row.key)) _pop();
           },
-        ),
-      ),
-    );
+          onQueueAndFinish: () async {
+            final target = await cubit.addToQueueAndFinish(row.key);
+            if (target != null) _pop(target);
+          },
+        );
+      },
+    )
+        .constrained(maxWidth: 640)
+        .center();
   }
 
   @override

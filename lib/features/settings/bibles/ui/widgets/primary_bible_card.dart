@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../data/models/bible/bible_version.dart';
 
 class PrimaryBibleCard extends StatelessWidget {
@@ -17,62 +17,56 @@ class PrimaryBibleCard extends StatelessWidget {
 
     final scheme = Theme.of(context).colorScheme;
     final abbr = bible.abbreviation.toUpperCase();
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 0,
-      color: scheme.primaryContainer,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: scheme.primary),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Text(
+            abbr.length > 3 ? abbr.substring(0, 3) : abbr,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: scheme.onSurfaceVariant,
+            ),
+          )
+              .alignment(Alignment.center)
+              .decorated(
+                color: scheme.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(10),
+              )
+              .constrained(width: 50, height: 50),
+          const SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  abbr.length > 3 ? abbr.substring(0, 3) : abbr,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: scheme.onSurfaceVariant,
-                  ),
+              Text(
+                bible.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      bible.name,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '${bible.languageName.toUpperCase()} BIBLE • PRIMARY',
-                      style: TextStyle(fontSize: 11, color: scheme.primary),
-                    ),
-                  ],
-                ),
+              Text(
+                '${bible.languageName.toUpperCase()} BIBLE • PRIMARY',
+                style: TextStyle(fontSize: 11, color: scheme.primary),
               ),
             ],
+          )
+              .expanded(),
+        ],
+      )
+          .padding(all: 12),
+    )
+        .card(
+          margin: EdgeInsets.zero,
+          elevation: 0,
+          color: scheme.primaryContainer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: scheme.primary),
           ),
-        ),
-      ),
-    );
+          clipBehavior: Clip.antiAlias,
+        );
   }
 }

@@ -1,15 +1,12 @@
-// Dart imports:
 import 'dart:developer' as logger show log;
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:typed_data';
 
-// Package imports:
 import 'package:path/path.dart' as p;
 import 'package:path/path.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-// Project imports:
 import 'date_util.dart';
 
 Future<void> saveFile(String path, Uint8List content) async {
@@ -70,7 +67,10 @@ Future<String> britamDirx() async {
   }
 }
 
-Future<File> generatePdfFile(String fileName, pw.Document pdf) async {
+Future<File> _writePdf(
+  String fileName,
+  Future<List<int>> Function() bytes,
+) async {
   late File pdfFile;
   final path = await downloadDir();
 
@@ -78,7 +78,7 @@ Future<File> generatePdfFile(String fileName, pw.Document pdf) async {
     try {
       pdfFile = File(join(path, '$fileName ${filesDateTimeStamp()}.pdf'));
       logger.log('Saved to: ${pdfFile.path}');
-      await pdfFile.writeAsBytes(await pdf.save());
+      await pdfFile.writeAsBytes(await bytes());
       return pdfFile;
     } catch (e) {
       logger.log("An error occurred while saving file.");
@@ -90,25 +90,11 @@ Future<File> generatePdfFile(String fileName, pw.Document pdf) async {
   return pdfFile;
 }
 
-Future<File> generatePdfFileDownload(String fileName, List<int> pdf) async {
-  late File pdfFile;
-  final path = await downloadDir();
+Future<File> generatePdfFile(String fileName, pw.Document pdf) =>
+    _writePdf(fileName, () => pdf.save());
 
-  if (path.isNotEmpty) {
-    try {
-      pdfFile = File(join(path, '$fileName ${filesDateTimeStamp()}.pdf'));
-      logger.log('Saved to: ${pdfFile.path}');
-      await pdfFile.writeAsBytes(pdf);
-      return pdfFile;
-    } catch (e) {
-      logger.log("An error occurred while saving file.");
-      logger.log("Error: $e");
-    }
-  } else {
-    logger.log("Unable to determine the download path.");
-  }
-  return pdfFile;
-}
+Future<File> generatePdfFileDownload(String fileName, List<int> pdf) =>
+    _writePdf(fileName, () async => pdf);
 
 Future<File> generatePdfFileX(String fileName, pw.Document pdf) async {
   final resultPort = ReceivePort();

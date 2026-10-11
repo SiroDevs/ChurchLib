@@ -1,14 +1,10 @@
-// Dart imports:
 import 'dart:io';
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-// Project imports:
 import '../app_util.dart';
 
 bool isDesktop = Platform.isWindows || Platform.isLinux || Platform.isMacOS;

@@ -1,8 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../common/utils/constants/app_constants.dart';
+import '../../common/utils/shape_utils.dart';
+
 ThemeData buildThemeData(ColorScheme scheme, Color background) {
   final radius = BorderRadius.circular(12);
   final isDark = scheme.brightness == Brightness.dark;
@@ -47,10 +47,7 @@ ThemeData buildThemeData(ColorScheme scheme, Color background) {
       surfaceTintColor: Colors.transparent,
       elevation: 0,
       margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: scheme.outlineVariant),
-      ),
+      shape: outlinedShape(scheme, BorderRadius.circular(16)),
     ),
     dialogTheme: DialogThemeData(
       backgroundColor: scheme.surface,
@@ -70,10 +67,7 @@ ThemeData buildThemeData(ColorScheme scheme, Color background) {
       color: scheme.surface,
       surfaceTintColor: Colors.transparent,
       elevation: 6,
-      shape: RoundedRectangleBorder(
-        borderRadius: radius,
-        side: BorderSide(color: scheme.outlineVariant),
-      ),
+      shape: outlinedShape(scheme, radius),
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: scheme.secondaryContainer,

@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
 import '../../../core/theme/theme_styles.dart';
@@ -105,14 +103,17 @@ class AppButtonState extends State<AppButton> {
       fontWeight: FontWeight.bold,
     );
 
+    final mainAxis = widget.centered
+        ? MainAxisAlignment.center
+        : MainAxisAlignment.start;
+    final crossAxis = widget.centered
+        ? CrossAxisAlignment.center
+        : CrossAxisAlignment.start;
+
     var withIcon = widget.alignHorizontally
         ? Row(
-            mainAxisAlignment: widget.centered
-                ? MainAxisAlignment.center
-                : MainAxisAlignment.start,
-            crossAxisAlignment: widget.centered
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.start,
+            mainAxisAlignment: mainAxis,
+            crossAxisAlignment: crossAxis,
             children: [
               widget.prefix,
               const SizedBox(width: 5),
@@ -126,12 +127,8 @@ class AppButtonState extends State<AppButton> {
             ],
           )
         : Column(
-            mainAxisAlignment: widget.centered
-                ? MainAxisAlignment.center
-                : MainAxisAlignment.start,
-            crossAxisAlignment: widget.centered
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.start,
+            mainAxisAlignment: mainAxis,
+            crossAxisAlignment: crossAxis,
             children: [
               widget.prefix,
               const SizedBox(width: 5),

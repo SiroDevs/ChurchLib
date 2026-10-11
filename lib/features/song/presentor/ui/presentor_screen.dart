@@ -1,28 +1,25 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
-import '../../../../common/windows/window_frame.dart';
 import '../../../../common/utils/app_util.dart';
 import '../../../../common/utils/app_window.dart';
 import '../../../../common/utils/constants/pref_constants.dart';
 import '../../../../common/utils/font_utils.dart';
+import '../../../../common/widgets/action/fab_widget.dart';
+import '../../../../common/widgets/app_intents.dart';
+import '../../../../common/widgets/presentor/slide_container.dart';
+import '../../../../common/widgets/state/custom_snackbar.dart';
+import '../../../../common/widgets/theme_button.dart';
+import '../../../../common/windows/window_frame.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/models.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../common/widgets/app_intents.dart';
-import '../../../../common/widgets/theme_button.dart';
-import '../../../../common/widgets/action/fab_widget.dart';
-import '../../../../common/widgets/presentor/slide_container.dart';
-import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../bloc/presentor_bloc.dart';
 import '../utils/presentor_utils.dart';
 import '../utils/slide_utils.dart';

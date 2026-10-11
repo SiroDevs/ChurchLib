@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../../core/theme/theme_colors.dart';
 import 'verse_spans.dart';
 
@@ -99,104 +99,97 @@ class _VerseRowState extends State<VerseRow> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 32,
-              child: InkWell(
-                onTap: widget.onToggleSelected,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 3),
-                  child: widget.isSelected
-                      ? const Icon(Icons.check_circle,
-                          size: 18, color: ThemeColors.primary)
-                      : Text(
-                          '${widget.number}',
-                          style: TextStyle(
-                            fontSize: widget.fontSize * 0.62,
-                            fontWeight: FontWeight.bold,
-                            color: ThemeColors.primary,
-                          ),
+            InkWell(
+              onTap: widget.onToggleSelected,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 3),
+                child: widget.isSelected
+                    ? const Icon(Icons.check_circle,
+                        size: 18, color: ThemeColors.primary)
+                    : Text(
+                        '${widget.number}',
+                        style: TextStyle(
+                          fontSize: widget.fontSize * 0.62,
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColors.primary,
                         ),
+                      ),
+              ),
+            )
+                .width(32),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _richText(
+                  TextSpan(children: highlightSpans(widget.text, baseStyle, hitStyle, widget.highlightQuery)),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _richText(
-                    TextSpan(children: highlightSpans(widget.text, baseStyle, hitStyle, widget.highlightQuery)),
-                  ),
-                  for (final e in widget.parallelTexts.entries)
-                    if (e.value.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: _richText(
+                for (final e in widget.parallelTexts.entries)
+                  if (e.value.isNotEmpty)
+                    _richText(
+                      TextSpan(
+                        children: [
                           TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '[${e.key.toUpperCase()}]  ',
-                                style: TextStyle(
-                                  fontSize: widget.fontSize * 0.6,
-                                  fontWeight: FontWeight.w700,
-                                  color: ThemeColors.primary,
-                                ),
-                              ),
-                              TextSpan(
-                                text: e.value,
-                                style: TextStyle(
-                                  fontSize: widget.fontSize * 0.88,
-                                  height: 1.45,
-                                  color: theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.72),
-                                ),
-                              ),
-                            ],
+                            text: '[${e.key.toUpperCase()}]  ',
+                            style: TextStyle(
+                              fontSize: widget.fontSize * 0.6,
+                              fontWeight: FontWeight.w700,
+                              color: ThemeColors.primary,
+                            ),
                           ),
-                        ),
+                          TextSpan(
+                            text: e.value,
+                            style: TextStyle(
+                              fontSize: widget.fontSize * 0.88,
+                              height: 1.45,
+                              color: theme.colorScheme.onSurface
+                                  .withValues(alpha: 0.72),
+                            ),
+                          ),
+                        ],
                       ),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: 84,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (widget.hasNote || (_hovering && !widget.isSelectionMode))
-                    IconButton(
-                      visualDensity: VisualDensity.compact,
-                      iconSize: 18,
-                      tooltip: widget.hasNote ? 'SongEdit note' : 'Add note',
-                      onPressed: widget.onOpenNote,
-                      icon: Icon(
-                        widget.hasNote
-                            ? Icons.sticky_note_2
-                            : Icons.sticky_note_2_outlined,
-                        color: widget.hasNote
-                            ? ThemeColors.primary
-                            : ThemeColors.mediumGrey,
-                      ),
+                    )
+                        .padding(top: 6),
+              ],
+            )
+                .expanded(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (widget.hasNote || (_hovering && !widget.isSelectionMode))
+                  IconButton(
+                    visualDensity: VisualDensity.compact,
+                    iconSize: 18,
+                    tooltip: widget.hasNote ? 'SongEdit note' : 'Add note',
+                    onPressed: widget.onOpenNote,
+                    icon: Icon(
+                      widget.hasNote
+                          ? Icons.sticky_note_2
+                          : Icons.sticky_note_2_outlined,
+                      color: widget.hasNote
+                          ? ThemeColors.primary
+                          : ThemeColors.mediumGrey,
                     ),
-                  if (widget.isBookmarked || _hovering)
-                    IconButton(
-                      visualDensity: VisualDensity.compact,
-                      iconSize: 20,
-                      tooltip: widget.isBookmarked
-                          ? 'Remove bookmark'
-                          : 'Bookmark verse',
-                      onPressed: widget.onToggleBookmark,
-                      icon: Icon(
-                        widget.isBookmarked
-                            ? Icons.bookmark_rounded
-                            : Icons.bookmark_border_rounded,
-                        color: widget.isBookmarked
-                            ? (bg ?? ThemeColors.primary)
-                            : ThemeColors.mediumGrey,
-                      ),
+                  ),
+                if (widget.isBookmarked || _hovering)
+                  IconButton(
+                    visualDensity: VisualDensity.compact,
+                    iconSize: 20,
+                    tooltip: widget.isBookmarked
+                        ? 'Remove bookmark'
+                        : 'Bookmark verse',
+                    onPressed: widget.onToggleBookmark,
+                    icon: Icon(
+                      widget.isBookmarked
+                          ? Icons.bookmark_rounded
+                          : Icons.bookmark_border_rounded,
+                      color: widget.isBookmarked
+                          ? (bg ?? ThemeColors.primary)
+                          : ThemeColors.mediumGrey,
                     ),
-                ],
-              ),
-            ),
+                  ),
+              ],
+            )
+                .width(84),
           ],
         ),
        ),

@@ -1,4 +1,3 @@
-// Project imports:
 import '../../data/models/bible/bible_book.dart';
 import '../../data/models/bible/bible_chapter.dart';
 import '../../domain/entities/bible/verse_display.dart';

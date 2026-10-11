@@ -1,11 +1,9 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import '../dialogs/export.dart';
@@ -65,38 +63,36 @@ class SelectionBar extends StatelessWidget {
     return Material(
       color: ThemeColors.primary.withValues(alpha: 0.14),
       elevation: 1,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: Row(
-          children: [
-            IconButton(
-              tooltip: 'Cancel selection (Esc)',
-              onPressed: cubit.clearSelection,
-              icon: const Icon(Icons.close),
-            ),
-            Text(
-              '$count selected',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            const Spacer(),
-            IconButton(
-              tooltip: 'Bookmark / highlight',
-              onPressed: () => _bookmark(context),
-              icon: const Icon(Icons.bookmark_rounded),
-            ),
-            IconButton(
-              tooltip: count == 1 ? 'Add note' : 'Select a single verse to add a note',
-              onPressed: count == 1 ? () => _notes(context) : null,
-              icon: const Icon(Icons.edit_note),
-            ),
-            IconButton(
-              tooltip: 'Copy',
-              onPressed: () => _copy(context),
-              icon: const Icon(Icons.content_copy),
-            ),
-          ],
-        ),
-      ),
+      child: Row(
+        children: [
+          IconButton(
+            tooltip: 'Cancel selection (Esc)',
+            onPressed: cubit.clearSelection,
+            icon: const Icon(Icons.close),
+          ),
+          Text(
+            '$count selected',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+          const Spacer(),
+          IconButton(
+            tooltip: 'Bookmark / highlight',
+            onPressed: () => _bookmark(context),
+            icon: const Icon(Icons.bookmark_rounded),
+          ),
+          IconButton(
+            tooltip: count == 1 ? 'Add note' : 'Select a single verse to add a note',
+            onPressed: count == 1 ? () => _notes(context) : null,
+            icon: const Icon(Icons.edit_note),
+          ),
+          IconButton(
+            tooltip: 'Copy',
+            onPressed: () => _copy(context),
+            icon: const Icon(Icons.content_copy),
+          ),
+        ],
+      )
+          .padding(horizontal: 12, vertical: 6),
     );
   }
 }

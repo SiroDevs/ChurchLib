@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:card_swiper/card_swiper.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../core/theme/theme_colors.dart';
 
 class PageSwiper extends SwiperPlugin {
@@ -64,17 +62,17 @@ class PageSwiperControl extends SwiperPlugin {
     required int quarterTurns,
     required bool previous,
   }) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        if (previous) {
-          config!.controller.previous(animation: true);
-        } else {
-          config!.controller.next(animation: true);
-        }
-      },
-      child: Padding(padding: padding, child: indicator),
-    );
+    return Padding(padding: padding, child: indicator)
+        .gestures(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            if (previous) {
+              config!.controller.previous(animation: true);
+            } else {
+              config!.controller.next(animation: true);
+            }
+          },
+        );
   }
 
   @override

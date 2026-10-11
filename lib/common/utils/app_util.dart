@@ -1,13 +1,10 @@
-// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as logging show log;
 import 'dart:io';
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../l10n/app_localizations.dart';
 
 export 'song_text_utils.dart';

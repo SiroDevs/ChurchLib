@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../data/models/bible/bible_version.dart';
 
 const _badgeOrange = Color(0xFFE1550F);
@@ -19,13 +19,11 @@ class BiblePill extends StatelessWidget {
 
   Widget _badge() {
     if (bible.downloadFailed) {
-      return Container(
-        decoration: BoxDecoration(
-          color: Colors.red.shade700,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: const Icon(Icons.error_outline, color: _onDark),
-      );
+      return const Icon(Icons.error_outline, color: _onDark)
+          .decorated(
+            color: Colors.red.shade700,
+            borderRadius: BorderRadius.circular(16),
+          );
     }
     if (_downloading) {
       return Stack(
@@ -37,44 +35,34 @@ class BiblePill extends StatelessWidget {
             backgroundColor: _onDark.withValues(alpha: 0.25),
             strokeWidth: 3,
           ),
-          Padding(
-            padding: const EdgeInsets.all(7),
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                color: _badgeOrange,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                  '${(progress * 100).toInt()}%',
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: _onDark,
-                  ),
-                ),
-              ),
+          Text(
+            '${(progress * 100).toInt()}%',
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: _onDark,
             ),
-          ),
+          )
+              .center()
+              .decorated(color: _badgeOrange, shape: BoxShape.circle)
+              .padding(all: 7),
         ],
       );
     }
     final abbr = bible.abbreviation.toUpperCase();
-    return Container(
-      decoration: BoxDecoration(
-        color: _badgeOrange,
-        borderRadius: BorderRadius.circular(16),
+    return Text(
+      abbr.length > 3 ? abbr.substring(0, 3) : abbr,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: _onDark,
       ),
-      alignment: Alignment.center,
-      child: Text(
-        abbr.length > 3 ? abbr.substring(0, 3) : abbr,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: _onDark,
-        ),
-      ),
-    );
+    )
+        .alignment(Alignment.center)
+        .decorated(
+          color: _badgeOrange,
+          borderRadius: BorderRadius.circular(16),
+        );
   }
 
   Widget _status() {
@@ -86,21 +74,17 @@ class BiblePill extends StatelessWidget {
             : null;
     return Row(
       children: [
-        Flexible(
-          child: Text(
-            '${bible.languageName.toUpperCase()} BIBLE',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 12, color: soft),
-          ),
-        ),
+        Text(
+          '${bible.languageName.toUpperCase()} BIBLE',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: 12, color: soft),
+        )
+            .flexible(),
         if (label != null)
           Text(label, style: TextStyle(fontSize: 12, color: soft))
         else
-          Padding(
-            padding: const EdgeInsets.only(left: 6),
-            child: Icon(Icons.check_circle, size: 14, color: soft),
-          ),
+          Icon(Icons.check_circle, size: 14, color: soft).padding(left: 6),
       ],
     );
   }
@@ -136,36 +120,32 @@ class BiblePill extends StatelessWidget {
               ),
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: SizedBox(width: 60, height: 60, child: _badge()),
-                ),
+                _badge().constrained(width: 60, height: 60).padding(all: 8),
                 const SizedBox(width: 4),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        bible.name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: _onDark,
-                        ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      bible.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: _onDark,
                       ),
-                      Text(
-                        bible.description,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 14, color: _onDark),
-                      ),
-                      _status(),
-                    ],
-                  ),
-                ),
+                    ),
+                    Text(
+                      bible.description,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 14, color: _onDark),
+                    ),
+                    _status(),
+                  ],
+                )
+                    .expanded(),
                 const SizedBox(width: 12),
               ],
             ),

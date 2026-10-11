@@ -1,4 +1,3 @@
-// Package imports:
 import 'package:injectable/injectable.dart';
 
 class Environments {

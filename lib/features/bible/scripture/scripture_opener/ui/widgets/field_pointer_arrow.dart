@@ -1,5 +1,6 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
+
+import 'package:styled_widget/styled_widget.dart';
 
 const fieldWeights = [13, 10, 10];
 const fieldIndexBook = 0;
@@ -17,14 +18,12 @@ class FieldPointerArrow extends StatelessWidget {
     return Row(
       children: [
         for (var i = 0; i < fieldWeights.length; i++)
-          Expanded(
-            flex: fieldWeights[i],
-            child: Center(
-              child: i == fieldIndex
-                  ? Icon(Icons.arrow_drop_up, color: color)
-                  : const SizedBox(height: 24),
-            ),
-          ),
+          Center(
+            child: i == fieldIndex
+                ? Icon(Icons.arrow_drop_up, color: color)
+                : const SizedBox(height: 24),
+          )
+              .expanded(flex: fieldWeights[i]),
       ],
     );
   }

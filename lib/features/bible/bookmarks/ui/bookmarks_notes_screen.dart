@@ -1,10 +1,9 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
+import '../../../../common/utils/dialog_utils.dart';
 import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/bible/bible_note.dart';
@@ -56,36 +55,17 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
     super.dispose();
   }
 
-  Future<bool> _confirm(String title, String message) async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: FilledButton.styleFrom(backgroundColor: ThemeColors.error),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
-    );
-    return result ?? false;
-  }
-
   Future<void> _deleteSelected(BookmarksNotesState state) async {
     final onBookmarks = _tabController.index == 0;
     final count = onBookmarks
         ? state.selectedBookmarkKeys.length
         : state.selectedNoteKeys.length;
-    final ok = await _confirm(
-      'Delete selected?',
-      "This will permanently delete $count selected item(s). This can't be undone.",
+    final ok = await showConfirmDialog(
+      context,
+      title: 'Delete selected?',
+      message: "This will permanently delete $count selected item(s). This can't be undone.",
+      confirmLabel: 'Delete',
+      destructive: true,
     );
     if (!ok || !mounted) return;
     final cubit = context.read<BookmarksNotesCubit>();
@@ -98,10 +78,13 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
 
   Future<void> _clearAll() async {
     final onBookmarks = _tabController.index == 0;
-    final ok = await _confirm(
-      onBookmarks ? 'Clear all bookmarks?' : 'Clear all notes?',
-      'This will permanently delete all your ${onBookmarks ? 'bookmarks' : 'notes'} '
+    final ok = await showConfirmDialog(
+      context,
+      title: onBookmarks ? 'Clear all bookmarks?' : 'Clear all notes?',
+      message: 'This will permanently delete all your ${onBookmarks ? 'bookmarks' : 'notes'} '
       "across every Bible. This can't be undone.",
+      confirmLabel: 'Delete',
+      destructive: true,
     );
     if (!ok || !mounted) return;
     final cubit = context.read<BookmarksNotesCubit>();
@@ -167,18 +150,15 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
                 ),
             ],
           ),
-          body: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 720),
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  BookmarksTab(state: state, onOpen: _openInReader),
-                  NotesTab(state: state, onEdit: _editNote),
-                ],
-              ),
-            ),
-          ),
+          body: TabBarView(
+            controller: _tabController,
+            children: [
+              BookmarksTab(state: state, onOpen: _openInReader),
+              NotesTab(state: state, onEdit: _editNote),
+            ],
+          )
+              .constrained(maxWidth: 720)
+              .center(),
         );
       },
     );

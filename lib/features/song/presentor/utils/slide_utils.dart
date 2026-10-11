@@ -1,4 +1,3 @@
-// Dart imports:
 import 'dart:math';
 
 int getSlideByNumber(int verseNumber, bool hasChorus, int totalWidgets) {

@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import 'field_pointer_arrow.dart';
 
 class NumberResultsGrid extends StatelessWidget {
@@ -29,23 +29,21 @@ class NumberResultsGrid extends StatelessWidget {
           elevation: 2,
           borderRadius: BorderRadius.circular(10),
           clipBehavior: Clip.antiAlias,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 280),
-            child: GridView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(6),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 6,
-                mainAxisExtent: 44,
-              ),
-              itemCount: labels.length,
-              itemBuilder: (_, i) => _NumberCell(
-                label: labels[i],
-                isSelected: i == selectedIndex,
-                onTap: () => onSelect(i),
-              ),
+          child: GridView.builder(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(6),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 6,
+              mainAxisExtent: 44,
             ),
-          ),
+            itemCount: labels.length,
+            itemBuilder: (_, i) => _NumberCell(
+              label: labels[i],
+              isSelected: i == selectedIndex,
+              onTap: () => onSelect(i),
+            ),
+          )
+              .constrained(maxHeight: 280),
         ),
       ],
     );
@@ -66,27 +64,24 @@ class _NumberCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Padding(
-      padding: const EdgeInsets.all(4),
-      child: Material(
-        color: isSelected ? scheme.primaryContainer : scheme.surfaceContainerHighest,
+    return Material(
+      color: isSelected ? scheme.primaryContainer : scheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(8),
-          onTap: onTap,
-          child: Center(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected
-                    ? scheme.onPrimaryContainer
-                    : scheme.onSurfaceVariant,
-              ),
-            ),
+        onTap: onTap,
+        child: Text(
+          label,
+          style: TextStyle(
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: isSelected
+                ? scheme.onPrimaryContainer
+                : scheme.onSurfaceVariant,
           ),
-        ),
+        )
+            .center(),
       ),
-    );
+    )
+        .padding(all: 4);
   }
 }

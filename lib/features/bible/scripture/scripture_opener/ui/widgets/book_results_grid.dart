@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../../data/models/bible/bible_book.dart';
 import 'field_pointer_arrow.dart';
 
@@ -30,18 +30,14 @@ class BookResultsGrid extends StatelessWidget {
     final longest = ot.length > nt.length ? ot.length : nt.length;
     final rowCount = (longest + 1) ~/ 2;
 
-    Widget pair(List<BibleBook> list, int row, Color shade) => Expanded(
-          flex: 2,
-          child: Container(
-            color: shade,
-            child: Row(
-              children: [
-                for (var i = 0; i < 2; i++)
-                  Expanded(child: _cell(list, row * 2 + i)),
-              ],
-            ),
-          ),
-        );
+    Widget pair(List<BibleBook> list, int row, Color shade) => Row(
+      children: [
+        for (var i = 0; i < 2; i++)
+          _cell(list, row * 2 + i).expanded(),
+      ],
+    )
+        .decorated(color: shade)
+        .expanded(flex: 2);
 
     return Column(
       children: [
@@ -51,48 +47,42 @@ class BookResultsGrid extends StatelessWidget {
           elevation: 2,
           borderRadius: BorderRadius.circular(10),
           clipBehavior: Clip.antiAlias,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 320),
-            child: Column(
-              children: [
-                Row(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  _header('Old Testament', otShade, scheme.primary),
+                  _header('New Testament', ntShade, scheme.tertiary),
+                ],
+              ),
+              const Divider(height: 1),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: rowCount,
+                itemBuilder: (_, row) => Row(
                   children: [
-                    _header('Old Testament', otShade, scheme.primary),
-                    _header('New Testament', ntShade, scheme.tertiary),
+                    pair(ot, row, otShade),
+                    pair(nt, row, ntShade),
                   ],
                 ),
-                const Divider(height: 1),
-                Flexible(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: rowCount,
-                    itemBuilder: (_, row) => Row(
-                      children: [
-                        pair(ot, row, otShade),
-                        pair(nt, row, ntShade),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+              )
+                  .flexible(),
+            ],
+          )
+              .constrained(maxHeight: 320),
         ),
       ],
     );
   }
 
-  Widget _header(String text, Color shade, Color color) => Expanded(
-        child: Container(
-          color: shade,
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          alignment: Alignment.center,
-          child: Text(
-            text,
-            style: TextStyle(fontWeight: FontWeight.bold, color: color),
-          ),
-        ),
-      );
+  Widget _header(String text, Color shade, Color color) => Text(
+    text,
+    style: TextStyle(fontWeight: FontWeight.bold, color: color),
+  )
+      .alignment(Alignment.center)
+      .padding(vertical: 8)
+      .decorated(color: shade)
+      .expanded();
 
   Widget _cell(List<BibleBook> list, int index) {
     if (index >= list.length) return const SizedBox.shrink();
@@ -118,31 +108,26 @@ class _BookCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Padding(
-      padding: const EdgeInsets.all(3),
-      child: Material(
-        color: isSelected ? scheme.primaryContainer : scheme.surfaceContainerHighest,
+    return Material(
+      color: isSelected ? scheme.primaryContainer : scheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(6),
+      child: InkWell(
         borderRadius: BorderRadius.circular(6),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(6),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 9),
-            child: Center(
-              child: Text(
-                book.abbreviation.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                  color: isSelected
-                      ? scheme.onPrimaryContainer
-                      : scheme.onSurfaceVariant,
-                ),
-              ),
-            ),
+        onTap: onTap,
+        child: Text(
+          book.abbreviation.toUpperCase(),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: isSelected
+                ? scheme.onPrimaryContainer
+                : scheme.onSurfaceVariant,
           ),
-        ),
+        )
+            .center()
+            .padding(vertical: 9),
       ),
-    );
+    )
+        .padding(all: 3);
   }
 }

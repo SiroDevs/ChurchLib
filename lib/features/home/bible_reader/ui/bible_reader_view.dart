@@ -1,14 +1,11 @@
-// Dart imports:
 import 'dart:async';
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
@@ -131,23 +128,22 @@ class BiblerReaderViewState extends State<BiblerReaderView>
                       minHeight: 2,
                       color: ThemeColors.primary,
                     ),
-                  Expanded(
-                    child: Listener(
-                      onPointerDown: (_) => stopAutoScroll(),
-                      child: ColoredBox(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.black
-                            : Colors.white,
-                        child: ReaderBody(
-                          state: state,
-                          scrollController: scrollController,
-                          viewportKey: _viewportKey,
-                          keyFor: _keyFor,
-                          onScrollEnd: _scheduleScrollReport,
-                        ),
+                  Listener(
+                    onPointerDown: (_) => stopAutoScroll(),
+                    child: ColoredBox(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black
+                          : Colors.white,
+                      child: ReaderBody(
+                        state: state,
+                        scrollController: scrollController,
+                        viewportKey: _viewportKey,
+                        keyFor: _keyFor,
+                        onScrollEnd: _scheduleScrollReport,
                       ),
                     ),
-                  ),
+                  )
+                      .expanded(),
                   if (state.activeChapter != null)
                     BlocBuilder<ScriptureQueueCubit, ScriptureQueueState>(
                       bloc: getIt<ScriptureQueueCubit>(),

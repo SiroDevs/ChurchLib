@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../common/windows/window_frame.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
 import '../../../../domain/entities/bible/verse_display.dart';
@@ -87,26 +85,22 @@ class _BibleSearchViewState extends State<_BibleSearchView> {
               ),
             ),
           ),
-          body: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 860),
-              child: Column(
-                children: [
-                  if (state.bibles.length > 1)
-                    BibleFilterStrip(state: state, onSelect: cubit.selectBible),
-                  Expanded(
-                    child: BibleSearchResults(
-                      state: state,
-                      onTapResult: (verse) =>
-                          _openResult(context, verse, state.selectedAbbr),
-                      onTapHistory: _searchFromHistory,
-                      onClearHistory: cubit.clearHistory,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          body: Column(
+            children: [
+              if (state.bibles.length > 1)
+                BibleFilterStrip(state: state, onSelect: cubit.selectBible),
+              BibleSearchResults(
+                state: state,
+                onTapResult: (verse) =>
+                    _openResult(context, verse, state.selectedAbbr),
+                onTapHistory: _searchFromHistory,
+                onClearHistory: cubit.clearHistory,
+              )
+                  .expanded(),
+            ],
+          )
+              .constrained(maxWidth: 860)
+              .center(),
         );
       },
     );

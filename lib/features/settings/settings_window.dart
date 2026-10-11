@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../common/windows/window_frame.dart';
 import '../home/main/shell/app_module.dart';
 import '../home/main/shell/shell_nav_item.dart';

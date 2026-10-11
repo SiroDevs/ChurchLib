@@ -1,7 +1,7 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
+import 'package:styled_widget/styled_widget.dart';
+
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../data/models/bible/bible_book.dart';
 
@@ -53,7 +53,7 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
     Widget list(List<BibleBook> src) {
       final items = filter(src);
       if (items.isEmpty) {
-        return const Center(child: Text('No books found'));
+        return Text('No books found').center();
       }
       return ListView.separated(
         itemCount: items.length,
@@ -65,17 +65,15 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
             dense: true,
             selected: active,
             selectedColor: ThemeColors.primary,
-            leading: SizedBox(
-              width: 36,
-              child: Text(
-                b.id.length > 3 ? b.id.substring(0, 3) : b.id,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: ThemeColors.primary,
-                ),
+            leading: Text(
+              b.id.length > 3 ? b.id.substring(0, 3) : b.id,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: ThemeColors.primary,
               ),
-            ),
+            )
+                .width(36),
             title: Text(b.name),
             onTap: () => Navigator.pop(context, b),
           );
@@ -84,45 +82,41 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
     }
 
     return Dialog(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 460, maxHeight: 640),
-        child: DefaultTabController(
-          length: singleList ? 1 : 2,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                child: TextField(
-                  autofocus: true,
-                  onChanged: (v) => setState(() => _query = v),
-                  decoration: InputDecoration(
-                    hintText: 'Search books...',
-                    prefixIcon: const Icon(Icons.search),
-                    isDense: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
+      child: DefaultTabController(
+        length: singleList ? 1 : 2,
+        child: Column(
+          children: [
+            TextField(
+              autofocus: true,
+              onChanged: (v) => setState(() => _query = v),
+              decoration: InputDecoration(
+                hintText: 'Search books...',
+                prefixIcon: const Icon(Icons.search),
+                isDense: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              if (!singleList)
-                const TabBar(
-                  labelColor: ThemeColors.primary,
-                  indicatorColor: ThemeColors.primary,
-                  tabs: [
-                    Tab(text: 'Old Testament'),
-                    Tab(text: 'New Testament'),
-                  ],
-                ),
-              Expanded(
-                child: singleList
-                    ? list(ordered)
-                    : TabBarView(children: [list(ot), list(nt)]),
+            )
+                .padding(left: 16, top: 16, right: 16, bottom: 8),
+            if (!singleList)
+              const TabBar(
+                labelColor: ThemeColors.primary,
+                indicatorColor: ThemeColors.primary,
+                tabs: [
+                  Tab(text: 'Old Testament'),
+                  Tab(text: 'New Testament'),
+                ],
               ),
-            ],
-          ),
+            Expanded(
+              child: singleList
+                  ? list(ordered)
+                  : TabBarView(children: [list(ot), list(nt)]),
+            ),
+          ],
         ),
-      ),
+      )
+          .constrained(maxWidth: 460, maxHeight: 640),
     );
   }
 }

@@ -1,10 +1,8 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styled_widget/styled_widget.dart';
 
-// Project imports:
 import '../../../../../../common/utils/reader_utils.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import 'reader_actions.dart';
@@ -22,52 +20,50 @@ class BibleTitleBar extends StatelessWidget {
         : (abbr.isEmpty ? state.activeBible : '$abbr: ${state.activeBible}');
     final chapterLabel = state.activeChapter?.reference ?? '';
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 12, right: 6),
-      child: Row(
-        children: [
-          _PickerButton(
-            label: bibleLabel,
-            tooltip: 'Switch Your Primary Bible',
-            onTap: state.savedBibles.isEmpty
-                ? null
-                : () => pickBibleAction(context, state),
-          ),
-          const SizedBox(width: 8),
-          _PickerButton(
-            label: chapterLabel,
-            tooltip: 'Pick a Bible Boook',
-            icon: Icons.menu_book_outlined,
-            bold: true,
-            onTap: state.chapters.isEmpty
-                ? null
-                : () => chooseBookAction(context, state),
-          ),
-          const Spacer(),
-          TextButton.icon(
-            onPressed: state.activeChapter == null
-                ? null
-                : () => openScriptureAction(context, state),
-            icon: const Icon(Icons.auto_stories_outlined, size: 20),
-            label: const Text('Scripture Opener'),
-          ),
-          IconButton(
-            tooltip: 'Smaller text',
-            onPressed: state.fontSize <= readerMinFontSize
-                ? null
-                : () => cubit.setFontSize(state.fontSize - 2),
-            icon: const _AaIcon(plus: false),
-          ),
-          IconButton(
-            tooltip: 'Larger text',
-            onPressed: state.fontSize >= readerMaxFontSize
-                ? null
-                : () => cubit.setFontSize(state.fontSize + 2),
-            icon: const _AaIcon(plus: true),
-          ),
-        ],
-      ),
-    );
+    return Row(
+      children: [
+        _PickerButton(
+          label: bibleLabel,
+          tooltip: 'Switch Your Primary Bible',
+          onTap: state.savedBibles.isEmpty
+              ? null
+              : () => pickBibleAction(context, state),
+        ),
+        const SizedBox(width: 8),
+        _PickerButton(
+          label: chapterLabel,
+          tooltip: 'Pick a Bible Boook',
+          icon: Icons.menu_book_outlined,
+          bold: true,
+          onTap: state.chapters.isEmpty
+              ? null
+              : () => chooseBookAction(context, state),
+        ),
+        const Spacer(),
+        TextButton.icon(
+          onPressed: state.activeChapter == null
+              ? null
+              : () => openScriptureAction(context, state),
+          icon: const Icon(Icons.auto_stories_outlined, size: 20),
+          label: const Text('Scripture Opener'),
+        ),
+        IconButton(
+          tooltip: 'Smaller text',
+          onPressed: state.fontSize <= readerMinFontSize
+              ? null
+              : () => cubit.setFontSize(state.fontSize - 2),
+          icon: const _AaIcon(plus: false),
+        ),
+        IconButton(
+          tooltip: 'Larger text',
+          onPressed: state.fontSize >= readerMaxFontSize
+              ? null
+              : () => cubit.setFontSize(state.fontSize + 2),
+          icon: const _AaIcon(plus: true),
+        ),
+      ],
+    )
+        .padding(left: 12, right: 6);
   }
 }
 
@@ -105,14 +101,13 @@ class _PickerButton extends StatelessWidget {
               Icon(icon, size: 20),
               const SizedBox(width: 8),
             ],
-            Flexible(
-              child: Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: style,
-              ),
-            ),
+            Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: style,
+            )
+                .flexible(),
             const Icon(Icons.arrow_drop_down),
           ],
         ),
