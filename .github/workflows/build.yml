@@ -19,7 +19,6 @@ env:
   FLUTTER_CHANNEL: stable
   ENTRY: lib/main.dart
   APP_NAME: ChurchLib
-  PKG_NAME: churchlib
 
 jobs:
 
@@ -84,6 +83,10 @@ jobs:
 # ============================================================
 # WINDOWS
 # ============================================================
+# Signing uses SignPath Foundation (free for open-source projects).
+# It stays OFF until you add the repository variable SIGNPATH_ORGANIZATION_ID
+# (and the secret SIGNPATH_API_TOKEN), so the build keeps working unsigned
+# while your SignPath application is pending.
 
   windows-x64:
     name: Windows x64
@@ -92,6 +95,8 @@ jobs:
     runs-on: windows-latest
     env:
       CL: /D_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS
+      VERSION: ${{ needs.check-version.outputs.version }}
+      RELEASE_DIR: build/windows/x64/runner/Release
 
     steps:
       - name: Checkout
@@ -110,15 +115,6 @@ jobs:
         run: |
           flutter --version
           flutter doctor -v
-          Write-Host "PROCESSOR_ARCHITECTURE=$env:PROCESSOR_ARCHITECTURE"
-
-      - name: Read version
-        id: version
-        shell: pwsh
-        run: |
-          $line = (Select-String -Path pubspec.yaml -Pattern '^version:\s*(.+)$').Matches[0].Groups[1].Value.Trim()
-          $version = $line.Split('+')[0]
-          "version=$version" >> $env:GITHUB_OUTPUT
 
       - name: Prepare
         shell: pwsh
@@ -139,12 +135,43 @@ jobs:
       - name: Verify build
         shell: pwsh
         run: |
-          $release = "build/windows/x64/runner/Release"
-          if (-not (Test-Path $release)) {
+          if (-not (Test-Path $env:RELEASE_DIR)) {
             Get-ChildItem build/windows -Recurse -Directory
             throw "Windows x64 Release directory not found"
           }
-          Get-ChildItem $release
+          Get-ChildItem $env:RELEASE_DIR
+
+      # ---- sign ChurchLib.exe before it is packed into the installer / zip ----
+      - name: Upload unsigned app exe
+        id: unsigned-app
+        if: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-app-exe
+          path: ${{ env.RELEASE_DIR }}/${{ env.APP_NAME }}.exe
+          retention-days: 1
+
+      - name: Sign app exe (SignPath)
+        if: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: churchlib
+          signing-policy-slug: release-signing
+          artifact-configuration-slug: app-exe
+          github-artifact-id: ${{ steps.unsigned-app.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed/app
+
+      - name: Use signed app exe
+        if: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+        shell: pwsh
+        run: |
+          $signed = "signed/app/$env:APP_NAME.exe"
+          if (-not (Test-Path $signed)) { Get-ChildItem signed -Recurse; throw "Signed exe missing" }
+          Copy-Item $signed "$env:RELEASE_DIR/$env:APP_NAME.exe" -Force
+          Get-AuthenticodeSignature "$env:RELEASE_DIR/$env:APP_NAME.exe" | Format-List
 
       - name: Install Inno Setup
         shell: pwsh
@@ -152,39 +179,67 @@ jobs:
           $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           if (-not (Test-Path $iscc)) { choco install innosetup -y --no-progress }
 
-      - name: Build installers
+      - name: Build installer
         shell: pwsh
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
         run: |
           $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           $source = "$env:GITHUB_WORKSPACE\build\windows\x64\runner\Release"
           $output = "$env:GITHUB_WORKSPACE\dist"
           New-Item -ItemType Directory -Force $output | Out-Null
 
-          foreach ($mode in @("user", "system")) {
-            & $iscc `
-              "/DMyAppVersion=$env:VERSION" `
-              "/DSourceDir=$source" `
-              "/DRepoRoot=$env:GITHUB_WORKSPACE" `
-              "/DOutputDir=$output" `
-              "/DArch=x64" `
-              "/DInstallMode=$mode" `
-              "$env:GITHUB_WORKSPACE\windows\packaging\churchlib.iss"
-            if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed for $mode installation" }
-          }
+          & $iscc `
+            "/DMyAppVersion=$env:VERSION" `
+            "/DSourceDir=$source" `
+            "/DRepoRoot=$env:GITHUB_WORKSPACE" `
+            "/DOutputDir=$output" `
+            "/DArch=x64" `
+            "$env:GITHUB_WORKSPACE\windows\packaging\churchlib.iss"
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed" }
+          Get-ChildItem $output
+
+      # ---- sign the installer ----
+      - name: Upload unsigned installer
+        id: unsigned-installer
+        if: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-installer
+          path: dist/${{ env.APP_NAME }}_${{ env.VERSION }}_x64.exe
+          retention-days: 1
+
+      - name: Sign installer (SignPath)
+        if: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: churchlib
+          signing-policy-slug: release-signing
+          artifact-configuration-slug: installer
+          github-artifact-id: ${{ steps.unsigned-installer.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed/installer
+
+      - name: Use signed installer
+        if: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+        shell: pwsh
+        run: |
+          $name = "$($env:APP_NAME)_$($env:VERSION)_x64.exe"
+          if (-not (Test-Path "signed/installer/$name")) { Get-ChildItem signed -Recurse; throw "Signed installer missing" }
+          Copy-Item "signed/installer/$name" "dist/$name" -Force
+          Get-AuthenticodeSignature "dist/$name" | Format-List
 
       - name: Build ZIP
         shell: pwsh
         run: |
           Compress-Archive `
-            -Path "build/windows/x64/runner/Release/*" `
-            -DestinationPath "dist/${{ env.PKG_NAME }}-x64.zip"
+            -Path "$env:RELEASE_DIR/*" `
+            -DestinationPath "dist/$($env:APP_NAME)_$($env:VERSION)_x64.zip"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: windows-x64
+          name: release-windows-x64
           path: dist/*
           if-no-files-found: error
 
@@ -197,6 +252,8 @@ jobs:
     needs: check-version
     if: needs.check-version.outputs.should_release == 'true'
     runs-on: ${{ matrix.runner }}
+    env:
+      VERSION: ${{ needs.check-version.outputs.version }}
 
     strategy:
       fail-fast: false
@@ -271,26 +328,26 @@ jobs:
           RPM=$(find dist -type f -name "*.rpm" | head -1)
           [ -n "$DEB" ] || { echo "DEB not produced"; find dist -type f || true; exit 1; }
           [ -n "$RPM" ] || { echo "RPM not produced"; find dist -type f || true; exit 1; }
-          cp "$DEB" "out/${PKG_NAME}-${{ matrix.arch }}.deb"
-          cp "$RPM" "out/${PKG_NAME}-${{ matrix.arch }}.rpm"
+          cp "$DEB" "out/${APP_NAME}_${VERSION}_${{ matrix.arch }}.deb"
+          cp "$RPM" "out/${APP_NAME}_${VERSION}_${{ matrix.arch }}.rpm"
 
       - name: Build tar.gz
         run: |
           BUNDLE="build/linux/${{ matrix.arch }}/release/bundle"
           mkdir -p stage
           cp -r "$BUNDLE" "stage/${APP_NAME}"
-          tar -czf "out/${PKG_NAME}-${{ matrix.arch }}.tar.gz" -C stage "${APP_NAME}"
+          tar -czf "out/${APP_NAME}_${VERSION}_${{ matrix.arch }}.tar.gz" -C stage "${APP_NAME}"
           ls -lh out
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: linux-${{ matrix.arch }}
+          name: release-linux-${{ matrix.arch }}
           path: out/*
           if-no-files-found: error
 
 # ============================================================
-# macOS
+# macOS  (Developer ID signed + notarized + stapled)
 # ============================================================
 
   macos-x64:
@@ -322,42 +379,23 @@ jobs:
         run: |
           flutter build macos --release -t "$ENTRY" --no-tree-shake-icons
 
-      - name: Find app
-        run: |
-          APP=$(find build/macos/Build/Products/Release -maxdepth 1 -name "*.app" -type d | head -1)
-          if [ -z "$APP" ]; then
-            echo "No macOS app found"
-            find build/macos/Build/Products/Release -maxdepth 2
-            exit 1
-          fi
-          echo "APP=$APP" >> "$GITHUB_ENV"
-
-      - name: Verify architecture
-        run: |
-          BIN="$APP/Contents/MacOS/$(basename "$APP" .app)"
-          file "$BIN"
-          lipo -info "$BIN"
-
-      - name: Create DMG
-        run: |
-          brew install create-dmg
-          mkdir -p dist
-          create-dmg \
-            --volname "${APP_NAME}" \
-            --window-pos 200 120 \
-            --window-size 800 400 \
-            --icon-size 100 \
-            --icon "$(basename "$APP")" 200 190 \
-            --hide-extension "$(basename "$APP")" \
-            --app-drop-link 600 185 \
-            "dist/${PKG_NAME}-x64.dmg" \
-            "$APP"
+      - name: Sign, notarize and package DMG
+        uses: ./.github/actions/macos-package
+        with:
+          arch: x64
+          version: ${{ needs.check-version.outputs.version }}
+          app-name: ${{ env.APP_NAME }}
+          certificate-base64: ${{ secrets.MACOS_CERTIFICATE }}
+          certificate-password: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          apple-id: ${{ secrets.APPLE_ID }}
+          apple-app-password: ${{ secrets.APPLE_APP_PASSWORD }}
+          apple-team-id: ${{ secrets.APPLE_TEAM_ID }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: macos-x64
-          path: dist/*
+          name: release-macos-x64
+          path: dist/*.dmg
           if-no-files-found: error
 
   macos-arm64:
@@ -389,42 +427,23 @@ jobs:
         run: |
           flutter build macos --release -t "$ENTRY" --no-tree-shake-icons
 
-      - name: Find app
-        run: |
-          APP=$(find build/macos/Build/Products/Release -maxdepth 1 -name "*.app" -type d | head -1)
-          if [ -z "$APP" ]; then
-            echo "No macOS app found"
-            find build/macos/Build/Products/Release -maxdepth 2
-            exit 1
-          fi
-          echo "APP=$APP" >> "$GITHUB_ENV"
-
-      - name: Verify architecture
-        run: |
-          BIN="$APP/Contents/MacOS/$(basename "$APP" .app)"
-          file "$BIN"
-          lipo -info "$BIN"
-
-      - name: Create DMG
-        run: |
-          brew install create-dmg
-          mkdir -p dist
-          create-dmg \
-            --volname "${APP_NAME}" \
-            --window-pos 200 120 \
-            --window-size 800 400 \
-            --icon-size 100 \
-            --icon "$(basename "$APP")" 200 190 \
-            --hide-extension "$(basename "$APP")" \
-            --app-drop-link 600 185 \
-            "dist/${PKG_NAME}-arm64.dmg" \
-            "$APP"
+      - name: Sign, notarize and package DMG
+        uses: ./.github/actions/macos-package
+        with:
+          arch: arm64
+          version: ${{ needs.check-version.outputs.version }}
+          app-name: ${{ env.APP_NAME }}
+          certificate-base64: ${{ secrets.MACOS_CERTIFICATE }}
+          certificate-password: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          apple-id: ${{ secrets.APPLE_ID }}
+          apple-app-password: ${{ secrets.APPLE_APP_PASSWORD }}
+          apple-team-id: ${{ secrets.APPLE_TEAM_ID }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: macos-arm64
-          path: dist/*
+          name: release-macos-arm64
+          path: dist/*.dmg
           if-no-files-found: error
 
 # ============================================================
@@ -457,6 +476,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+          pattern: release-*      # skips the temporary unsigned-* artifacts
           merge-multiple: true
 
       - name: Generate checksums
