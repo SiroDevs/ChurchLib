@@ -1,0 +1,22 @@
+// Real tokens signed by the web portal's own signer (Ed25519LicenseCrypto).
+// The key pair is throwaway and exists only for these tests, so these tests
+// prove the Dart verifier accepts exactly what the server produces.
+//
+// Token times (UTC), T0 = 2026-10-13 08:00:
+//   trial     issued T0,      trial ends T0 + 7 days, expires T0 + 30 days
+//   licensed  issued T0 + 3d, never expires
+//   expired   issued T0 + 8d
+//   revoked   issued T0 + 9d
+
+final DateTime t0 = DateTime.utc(2026, 10, 13, 8);
+Duration days(int n) => Duration(days: n);
+
+const String testPublicKey = 'uullG/10sQpmgY/+x6K/2F5YxfGfAwpf12iKh7MyOmA=';
+const String testMachine = '2f4131c6b680a650029edf36d3fde637f8c220d5db3d3b0584de870f64ad92f6';
+const String otherMachine = '807ae35e0ef0b99a5dfae721ffd37ed0a8bfbec3e4b234b53f4403236bf81ced';
+
+const String trialToken = 'eyJ2IjoxLCJtaWQiOiIyZjQxMzFjNmI2ODBhNjUwMDI5ZWRmMzZkM2ZkZTYzN2Y4YzIyMGQ1ZGIzZDNiMDU4NGRlODcwZjY0YWQ5MmY2IiwidHJlIjoiMjAyNi0xMC0yMFQwODowMDowMC4wMDBaIiwibGsiOm51bGwsInN0IjoidHJpYWwiLCJpYXQiOiIyMDI2LTEwLTEzVDA4OjAwOjAwLjAwMFoiLCJleHAiOiIyMDI2LTExLTEyVDA4OjAwOjAwLjAwMFoifQ.x9BI9weTuGc4qsR1gb7DBEQZWIxEhGaGtKtAp5ILFKDUM9H_UnH7b7SJ0i6h6d6YK1PCrMBaT17myaW1etnjDg';
+const String trialTokenOtherMachine = 'eyJ2IjoxLCJtaWQiOiI4MDdhZTM1ZTBlZjBiOTlhNWRmYWU3MjFmZmQzN2VkMGE4YmZiZWMzZTRiMjM0YjUzZjQ0MDMyMzZiZjgxY2VkIiwidHJlIjoiMjAyNi0xMC0yMFQwODowMDowMC4wMDBaIiwibGsiOm51bGwsInN0IjoidHJpYWwiLCJpYXQiOiIyMDI2LTEwLTEzVDA4OjAwOjAwLjAwMFoiLCJleHAiOiIyMDI2LTExLTEyVDA4OjAwOjAwLjAwMFoifQ.UH1Wnoalex0nmEgw_WiucIF65c7c0LTmjHJnopGhEavFGUWnWtFVkAPjn1LH_LD-HrWpAQe4zPGHe79UfE6eBQ';
+const String licensedToken = 'eyJ2IjoxLCJtaWQiOiIyZjQxMzFjNmI2ODBhNjUwMDI5ZWRmMzZkM2ZkZTYzN2Y4YzIyMGQ1ZGIzZDNiMDU4NGRlODcwZjY0YWQ5MmY2IiwidHJlIjoiMjAyNi0xMC0yMFQwODowMDowMC4wMDBaIiwibGsiOiJDTC1URVNULUFBQUEtQkJCQiIsInN0IjoibGljZW5zZWQiLCJpYXQiOiIyMDI2LTEwLTE2VDA4OjAwOjAwLjAwMFoiLCJleHAiOm51bGx9.dO2IK3uFfY_3A1B5YO5Pit0lWK8IBYbCj9ECtNqCO2q2V1Axm0dHAYnzgZUhxj8aoEq60vuDXR16-yckbicxAw';
+const String expiredToken = 'eyJ2IjoxLCJtaWQiOiIyZjQxMzFjNmI2ODBhNjUwMDI5ZWRmMzZkM2ZkZTYzN2Y4YzIyMGQ1ZGIzZDNiMDU4NGRlODcwZjY0YWQ5MmY2IiwidHJlIjoiMjAyNi0xMC0yMFQwODowMDowMC4wMDBaIiwibGsiOm51bGwsInN0IjoiZXhwaXJlZCIsImlhdCI6IjIwMjYtMTAtMjFUMDg6MDA6MDAuMDAwWiIsImV4cCI6IjIwMjYtMTEtMjBUMDg6MDA6MDAuMDAwWiJ9.6lY-WEJbnlX7xNt1IIOsi1f6tGhQIPHkqnb1FV1u5CTYh1wSLibbUUxcIeTtkenwsnMj-josEQgNUZliDKNbCA';
+const String revokedToken = 'eyJ2IjoxLCJtaWQiOiIyZjQxMzFjNmI2ODBhNjUwMDI5ZWRmMzZkM2ZkZTYzN2Y4YzIyMGQ1ZGIzZDNiMDU4NGRlODcwZjY0YWQ5MmY2IiwidHJlIjoiMjAyNi0xMC0yMFQwODowMDowMC4wMDBaIiwibGsiOm51bGwsInN0IjoicmV2b2tlZCIsImlhdCI6IjIwMjYtMTAtMjJUMDg6MDA6MDAuMDAwWiIsImV4cCI6IjIwMjYtMTEtMjFUMDg6MDA6MDAuMDAwWiJ9.wQ-73Dvb33wRmWbRxrTDx6FsYfgm-yZ87mg0B4k75G9lQ4jDCuctb7vfA-lCRoeL7jjGYhTCVv1u6s6uZk1nAQ';

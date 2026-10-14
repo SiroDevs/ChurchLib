@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../data/models/song/songbook.dart';
 import '../../data/models/song/songext.dart';
 import '../../features/home/main/ui/home_screen.dart';
+import '../../features/license/ui/paywall_screen.dart';
 import '../../features/selection/bloc/selection_bloc.dart';
 import '../../features/selection/ui/selection_screen.dart';
 import '../../features/song/presentor/ui/presentor_screen.dart';
@@ -34,6 +35,11 @@ final List<RouteBase> appRoutes = [
     name: RouteNames.main,
     pageBuilder: (_, state) =>
         NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
+  ),
+  GoRoute(
+    path: '/${RouteNames.license}',
+    name: RouteNames.license,
+    builder: (_, __) => const PaywallScreen(),
   ),
   GoRoute(
     path: '/${RouteNames.presentor}',

@@ -351,5 +351,244 @@
   "darkMode": "Giza",
   "@darkMode": {
     "description": "Lebo ya hali ya giza"
-  }
+  },
+
+    "licenseTitle": "Leseni",
+    "@licenseTitle": {
+        "description": "Title of the license section"
+    },
+    "licenseTrialActive": "Jaribio la bure",
+    "@licenseTrialActive": {
+        "description": "Label shown while the free trial is running"
+    },
+    "licenseDayLeft": "Siku 1 imebaki",
+    "@licenseDayLeft": {
+        "description": "Shown when one trial day remains"
+    },
+    "licenseDaysLeft": "Siku {days} zimebaki",
+    "@licenseDaysLeft": {
+        "description": "Shown when several trial days remain",
+        "placeholders": {
+            "days": {
+                "type": "String",
+                "example": "5"
+            }
+        }
+    },
+    "licenseBuy": "Nunua leseni",
+    "@licenseBuy": {
+        "description": "Button that opens the purchase window"
+    },
+    "licenseUnlock": "Fungua ChurchLib",
+    "@licenseUnlock": {
+        "description": "Title of the purchase window"
+    },
+    "licenseTrialEndedTitle": "Jaribio lako la bure limeisha",
+    "@licenseTrialEndedTitle": {
+        "description": "Heading when the trial is over"
+    },
+    "licenseTrialEndedBody": "Fungua ChurchLib mara moja na uitumie daima kwenye kompyuta hii.",
+    "@licenseTrialEndedBody": {
+        "description": "Explains what buying a license gives"
+    },
+    "licenseRevokedTitle": "Leseni hii haifanyi kazi tena",
+    "@licenseRevokedTitle": {
+        "description": "Heading when the license was withdrawn"
+    },
+    "licenseRevokedBody": "Tafadhali wasiliana nasi tukusaidie.",
+    "@licenseRevokedBody": {
+        "description": "Asks the person to contact support"
+    },
+    "licenseConnectTitle": "Unganisha kwenye intaneti",
+    "@licenseConnectTitle": {
+        "description": "Heading when the first online check could not happen"
+    },
+    "licenseConnectBody": "ChurchLib inahitaji kuingia mtandaoni mara moja ili kuanza jaribio lako la bure. Baada ya hapo inafanya kazi bila intaneti.",
+    "@licenseConnectBody": {
+        "description": "Explains why internet is needed once"
+    },
+    "licenseClockTitle": "Angalia tarehe na saa ya kompyuta yako",
+    "@licenseClockTitle": {
+        "description": "Heading when the clock looks wrong"
+    },
+    "licenseClockBody": "Saa inaonekana kuwa si sahihi. Irekebishe kisha ujaribu tena.",
+    "@licenseClockBody": {
+        "description": "Asks the person to fix the clock"
+    },
+    "licenseNotConfigured": "Seva ya leseni haijawekwa kwenye toleo hili la ChurchLib.",
+    "@licenseNotConfigured": {
+        "description": "Shown by builds that have no license server configured"
+    },
+    "licenseChecking": "Inakagua leseni yako…",
+    "@licenseChecking": {
+        "description": "Shown while the license is being checked"
+    },
+    "licenseRetry": "Jaribu tena",
+    "@licenseRetry": {
+        "description": "Retry button"
+    },
+    "licensePriceLine": "{local} au {usd}, mara moja, kwa kompyuta hii",
+    "@licensePriceLine": {
+        "description": "Price line with both currencies",
+        "placeholders": {
+            "local": {
+                "type": "String",
+                "example": "KES 5,000"
+            },
+            "usd": {
+                "type": "String",
+                "example": "$40"
+            }
+        }
+    },
+    "licenseHowToPay": "Jinsi ya kulipa",
+    "@licenseHowToPay": {
+        "description": "Heading above the payment instructions"
+    },
+    "licenseSendTo": "Tuma {amount} kwa",
+    "@licenseSendTo": {
+        "description": "Instruction before the payment number or email",
+        "placeholders": {
+            "amount": {
+                "type": "String",
+                "example": "KES 5,000"
+            }
+        }
+    },
+    "licenseAfterPaying": "Kisha weka msimbo wa muamala hapa chini. Tutaidhinisha na ChurchLib itafunguka.",
+    "@licenseAfterPaying": {
+        "description": "Explains what happens after paying"
+    },
+    "licenseNameLabel": "Jina lililotumika kulipa",
+    "@licenseNameLabel": {
+        "description": "Form field label"
+    },
+    "licensePhoneLabel": "Namba ya simu",
+    "@licensePhoneLabel": {
+        "description": "Form field label"
+    },
+    "licenseCodeMpesa": "Msimbo wa uthibitisho wa M-Pesa",
+    "@licenseCodeMpesa": {
+        "description": "Form field label"
+    },
+    "licenseCodePaypal": "Kitambulisho cha muamala wa PayPal",
+    "@licenseCodePaypal": {
+        "description": "Form field label"
+    },
+    "licenseSubmitPayment": "Tuma malipo",
+    "@licenseSubmitPayment": {
+        "description": "Button that sends the payment details"
+    },
+    "licenseCodeInvalid": "Weka herufi na namba 8 hadi 20 kutoka kwenye ujumbe au risiti yako",
+    "@licenseCodeInvalid": {
+        "description": "Validation message for the transaction code"
+    },
+    "licenseNameInvalid": "Weka jina lililotumika kulipa",
+    "@licenseNameInvalid": {
+        "description": "Validation message for the name"
+    },
+    "licensePhoneInvalid": "Weka namba ya simu",
+    "@licensePhoneInvalid": {
+        "description": "Validation message for the phone number"
+    },
+    "licensePaymentPendingTitle": "Malipo yamepokelewa",
+    "@licensePaymentPendingTitle": {
+        "description": "Heading while a payment waits for approval"
+    },
+    "licensePaymentPendingBody": "Tunayakagua. Kwa kawaida huchukua saa chache. ChurchLib itafunguka yenyewe likiidhinishwa.",
+    "@licensePaymentPendingBody": {
+        "description": "Explains the wait for approval"
+    },
+    "licenseCheckAgain": "Angalia tena",
+    "@licenseCheckAgain": {
+        "description": "Button that checks the payment status"
+    },
+    "licenseHaveKey": "Una ufunguo wa leseni?",
+    "@licenseHaveKey": {
+        "description": "Link that reveals the license key box"
+    },
+    "licenseKeyLabel": "Ufunguo wa leseni",
+    "@licenseKeyLabel": {
+        "description": "Label for the license key"
+    },
+    "licenseRedeem": "Tumia ufunguo",
+    "@licenseRedeem": {
+        "description": "Button that applies a license key"
+    },
+    "licenseActivated": "Leseni imewashwa. Asante!",
+    "@licenseActivated": {
+        "description": "Success message after unlocking"
+    },
+    "licenseComputerId": "Kompyuta hii",
+    "@licenseComputerId": {
+        "description": "Label for the short computer id"
+    },
+    "licenseCopy": "Nakili",
+    "@licenseCopy": {
+        "description": "Copy button tooltip"
+    },
+    "licenseCopied": "Imenakiliwa",
+    "@licenseCopied": {
+        "description": "Shown after copying"
+    },
+    "licenseSupport": "Unahitaji msaada?",
+    "@licenseSupport": {
+        "description": "Label before the support links"
+    },
+    "licenseStatusLicensed": "Imepewa leseni",
+    "@licenseStatusLicensed": {
+        "description": "Status of a paid license"
+    },
+    "licenseSince": "Tangu {date}",
+    "@licenseSince": {
+        "description": "Date the license was issued",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "13 Oct 2026"
+            }
+        }
+    },
+    "licenseLastChecked": "Ilikaguliwa mwisho {when}",
+    "@licenseLastChecked": {
+        "description": "When the server was last asked",
+        "placeholders": {
+            "when": {
+                "type": "String",
+                "example": "5 minutes ago"
+            }
+        }
+    },
+    "licenseNeverChecked": "Haijakaguliwa bado",
+    "@licenseNeverChecked": {
+        "description": "Shown before the first check"
+    },
+    "licenseCheckNow": "Kagua sasa",
+    "@licenseCheckNow": {
+        "description": "Button that asks the server now"
+    },
+    "licenseMoveTitle": "Hamisha kwenye kompyuta nyingine",
+    "@licenseMoveTitle": {
+        "description": "Title of the release-license action"
+    },
+    "licenseMoveDesc": "Achilia leseni hii hapa ili uitumie kwenye kompyuta mpya.",
+    "@licenseMoveDesc": {
+        "description": "Explains the release-license action"
+    },
+    "licenseMoveConfirm": "Kompyuta hii itarudi kwenye jaribio la bure. Kisha weka ufunguo wako wa leseni kwenye kompyuta mpya.",
+    "@licenseMoveConfirm": {
+        "description": "Confirmation text before releasing a license"
+    },
+    "licenseRelease": "Achilia",
+    "@licenseRelease": {
+        "description": "Confirm button of the release dialog"
+    },
+    "licenseTrialEndedBanner": "Jaribio la bure limeisha. ChurchLib itaomba leseni utakapoifungua tena.",
+    "@licenseTrialEndedBanner": {
+        "description": "Sidebar banner after the trial ended"
+    },
+    "licenseDeveloperBuild": "Toleo la msanidi: ukaguzi wa leseni umezimwa.",
+    "@licenseDeveloperBuild": {
+        "description": "Shown in debug builds without a license server"
+    }
 }
