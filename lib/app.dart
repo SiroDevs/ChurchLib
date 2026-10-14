@@ -8,6 +8,7 @@ import 'common/navigator/app_router.dart';
 import 'common/widgets/text_scale_factor.dart';
 import 'core/auth/auth_bloc.dart';
 import 'core/di/injectable.dart';
+import 'core/license/license_cubit.dart';
 import 'core/theme/bloc/theme_bloc.dart';
 import 'core/theme/theme_data.dart';
 import 'domain/repos/auth_repo.dart';
@@ -40,9 +41,12 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: _authRepo,
-      child: BlocProvider(
-        create: (_) => AuthBloc(authRepo: _authRepo),
-        child: const AppView(),
+      child: BlocProvider.value(
+        value: getIt<LicenseCubit>(),
+        child: BlocProvider(
+          create: (_) => AuthBloc(authRepo: _authRepo),
+          child: const AppView(),
+        ),
       ),
     );
   }
@@ -62,7 +66,10 @@ class AppViewState extends State<AppView> {
   @override
   void initState() {
     super.initState();
-    _router = buildAppRouter(context.read<AuthBloc>());
+    _router = buildAppRouter(
+      context.read<AuthBloc>(),
+      context.read<LicenseCubit>(),
+    );
   }
 
   @override

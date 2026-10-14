@@ -411,4 +411,179 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get misc => 'misc';
+
+  @override
+  String get licenseTitle => 'License';
+
+  @override
+  String get licenseTrialActive => 'Free trial';
+
+  @override
+  String get licenseDayLeft => '1 day left';
+
+  @override
+  String licenseDaysLeft(String days) {
+    return '$days days left';
+  }
+
+  @override
+  String get licenseBuy => 'Buy license';
+
+  @override
+  String get licenseUnlock => 'Unlock ChurchLib';
+
+  @override
+  String get licenseTrialEndedTitle => 'Your free trial has ended';
+
+  @override
+  String get licenseTrialEndedBody =>
+      'Unlock ChurchLib once and use it for good on this computer.';
+
+  @override
+  String get licenseRevokedTitle => 'This license is no longer active';
+
+  @override
+  String get licenseRevokedBody =>
+      'Please contact support and we will help you.';
+
+  @override
+  String get licenseConnectTitle => 'Connect to the internet';
+
+  @override
+  String get licenseConnectBody =>
+      'ChurchLib needs to go online once to start your free trial. After that it works offline.';
+
+  @override
+  String get licenseClockTitle => 'Check your computer\'s date and time';
+
+  @override
+  String get licenseClockBody =>
+      'The clock looks wrong. Correct it, then try again.';
+
+  @override
+  String get licenseNotConfigured =>
+      'The license server is not set up in this version of ChurchLib.';
+
+  @override
+  String get licenseChecking => 'Checking your license…';
+
+  @override
+  String get licenseRetry => 'Try again';
+
+  @override
+  String licensePriceLine(String local, String usd) {
+    return '$local or $usd, one time, for this computer';
+  }
+
+  @override
+  String get licenseHowToPay => 'How to pay';
+
+  @override
+  String licenseSendTo(String amount) {
+    return 'Send $amount to';
+  }
+
+  @override
+  String get licenseAfterPaying =>
+      'Then enter the transaction code below. We approve it and ChurchLib unlocks.';
+
+  @override
+  String get licenseNameLabel => 'Name used for payment';
+
+  @override
+  String get licensePhoneLabel => 'Phone number';
+
+  @override
+  String get licenseCodeMpesa => 'M-Pesa confirmation code';
+
+  @override
+  String get licenseCodePaypal => 'PayPal transaction ID';
+
+  @override
+  String get licenseSubmitPayment => 'Submit payment';
+
+  @override
+  String get licenseCodeInvalid =>
+      'Enter the 8 to 20 letters and numbers from your message or receipt';
+
+  @override
+  String get licenseNameInvalid => 'Enter the name used for payment';
+
+  @override
+  String get licensePhoneInvalid => 'Enter the phone number';
+
+  @override
+  String get licensePaymentPendingTitle => 'Payment received';
+
+  @override
+  String get licensePaymentPendingBody =>
+      'We are checking it. This usually takes a few hours. ChurchLib unlocks by itself once it is approved.';
+
+  @override
+  String get licenseCheckAgain => 'Check again';
+
+  @override
+  String get licenseHaveKey => 'Have a license key?';
+
+  @override
+  String get licenseKeyLabel => 'License key';
+
+  @override
+  String get licenseRedeem => 'Use key';
+
+  @override
+  String get licenseActivated => 'License activated. Thank you!';
+
+  @override
+  String get licenseComputerId => 'This computer';
+
+  @override
+  String get licenseCopy => 'Copy';
+
+  @override
+  String get licenseCopied => 'Copied';
+
+  @override
+  String get licenseSupport => 'Need help?';
+
+  @override
+  String get licenseStatusLicensed => 'Licensed';
+
+  @override
+  String licenseSince(String date) {
+    return 'Since $date';
+  }
+
+  @override
+  String licenseLastChecked(String when) {
+    return 'Last checked $when';
+  }
+
+  @override
+  String get licenseNeverChecked => 'Not checked yet';
+
+  @override
+  String get licenseCheckNow => 'Check now';
+
+  @override
+  String get licenseMoveTitle => 'Move to another computer';
+
+  @override
+  String get licenseMoveDesc =>
+      'Free this license here so you can use it on a new computer.';
+
+  @override
+  String get licenseMoveConfirm =>
+      'This computer will go back to the free trial. Then enter your license key on the new computer.';
+
+  @override
+  String get licenseRelease => 'Release';
+
+  @override
+  String get licenseTrialEndedBanner =>
+      'Free trial ended. ChurchLib will ask for a license next time you open it.';
+
+  @override
+  String get licenseDeveloperBuild =>
+      'Developer build: license checks are off.';
 }
