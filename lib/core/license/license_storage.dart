@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/constants/pref_constants.dart';
-import 'license_models.dart';
+import '../../domain/entities/license/exports.dart';
 
 /// Keeps the signed token and a few display details between launches.
 ///

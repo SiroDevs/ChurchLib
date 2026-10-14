@@ -4,7 +4,7 @@ import '../home/main/shell/app_module.dart';
 import 'sections/appearance_section.dart';
 import 'sections/biblelib_sections.dart';
 import 'sections/general_section.dart';
-import '../license/ui/license_section.dart';
+import '../license/ui/widgets/license_section.dart';
 import 'sections/songlib_sections.dart';
 
 class SettingsNode {

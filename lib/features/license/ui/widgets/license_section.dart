@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../../common/utils/display/dialog_utils.dart';
-import '../../../common/widgets/state/custom_snackbar.dart';
-import '../../../common/windows/open_windows.dart';
-import '../../../core/license/license_cubit.dart';
-import '../../../core/license/license_models.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../settings/settings_card.dart';
+import '../../../../common/utils/display/dialog_utils.dart';
+import '../../../../common/widgets/state/custom_snackbar.dart';
+import '../../../../common/windows/open_windows.dart';
+import '../../../../core/license/license_cubit.dart';
+import '../../../../domain/entities/license/exports.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../settings/settings_card.dart';
 import 'license_widgets.dart';
 
 /// Settings > License.

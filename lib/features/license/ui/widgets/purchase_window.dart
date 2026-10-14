@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/widgets/state/custom_snackbar.dart';
-import '../../../common/windows/window_frame.dart';
-import '../../../core/license/license_cubit.dart';
-import '../../../core/license/license_models.dart';
-import '../../../l10n/app_localizations.dart';
-import 'purchase_panel.dart';
+import '../../../../common/widgets/state/custom_snackbar.dart';
+import '../../../../common/windows/window_frame.dart';
+import '../../../../core/license/license_cubit.dart';
+import '../../../../domain/entities/license/exports.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../screens/purchase_panel.dart';
 
 /// "Buy license" opened from inside the running app (trial banner, settings).
 class PurchaseWindow extends StatelessWidget {

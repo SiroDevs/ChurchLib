@@ -1,5 +1,5 @@
+import '../../domain/entities/license/exports.dart';
 import 'license_config.dart';
-import 'license_models.dart';
 
 class LicenseEvaluation {
   const LicenseEvaluation(

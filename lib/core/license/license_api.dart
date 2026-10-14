@@ -5,8 +5,8 @@ import 'dart:math';
 
 import 'package:http/http.dart' as http;
 
+import '../../domain/entities/license/token_resp.dart';
 import 'license_config.dart';
-import 'license_models.dart';
 
 class LicenseApiException implements Exception {
   const LicenseApiException(this.message, {this.offline = false});

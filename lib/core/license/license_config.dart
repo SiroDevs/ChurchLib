@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import '../../common/constants/api_constants.dart';
+
 /// Build-time settings. Pass them when building:
 ///
 ///   flutter build windows \
@@ -11,13 +13,13 @@ import 'package:flutter/foundation.dart';
 /// development isn't blocked.
 class LicenseConfig {
   LicenseConfig._();
-
   /// Address of the admin portal, without a trailing slash.
-  static const String apiBaseUrl = String.fromEnvironment('LICENSE_API_URL');
+  static final String apiBaseUrl = ApiConstants.licenceApi;
 
   /// 32-byte Ed25519 public key, base64 (Dashboard > Settings).
-  static const String publicKeyBase64 =
-      String.fromEnvironment('LICENSE_PUBLIC_KEY');
+  static const String publicKeyBase64 = String.fromEnvironment(
+    'LICENSE_PUBLIC_KEY',
+  );
 
   static bool get isConfigured =>
       apiBaseUrl.isNotEmpty && publicKeyBase64.isNotEmpty;

@@ -9,7 +9,7 @@ import '../../../../core/theme/bloc/theme_bloc.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../license/ui/license_banner.dart';
+import '../../../license/ui/widgets/license_banner.dart';
 import 'app_module.dart';
 import 'how_it_works_sheet.dart';
 import 'shell_nav_item.dart';

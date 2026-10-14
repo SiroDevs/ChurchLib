@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/windows/open_windows.dart';
-import '../../../core/license/license_cubit.dart';
-import '../../../core/license/license_models.dart';
-import '../../../core/theme/theme_colors.dart';
-import '../../../l10n/app_localizations.dart';
+import '../../../../common/windows/open_windows.dart';
+import '../../../../core/license/license_cubit.dart';
+import '../../../../domain/entities/license/exports.dart';
+import '../../../../core/theme/theme_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import 'license_widgets.dart';
 
-/// Small card at the bottom of the sidebar while on a free trial.
-///
-/// Also appears if the trial ends (or a license is withdrawn) while the app is
-/// open: the session carries on, and the lock applies on the next start.
 class LicenseBanner extends StatelessWidget {
   const LicenseBanner({super.key});
 

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cryptography/cryptography.dart';
 
-import 'license_models.dart';
+import '../../domain/entities/license/token_resp.dart';
 
 class LicenseTokenVerifier {
   LicenseTokenVerifier(this.publicKeyBase64);

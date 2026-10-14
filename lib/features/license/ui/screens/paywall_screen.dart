@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/constants/app_assets.dart';
-import '../../../core/license/license_cubit.dart';
-import '../../../core/license/license_models.dart';
-import '../../../l10n/app_localizations.dart';
-import 'license_widgets.dart';
+import '../../../../common/constants/app_assets.dart';
+import '../../../../core/license/license_cubit.dart';
+import '../../../../domain/entities/license/exports.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../widgets/license_widgets.dart';
 import 'purchase_panel.dart';
 
 /// Full-screen page shown instead of the app when ChurchLib may not be used:

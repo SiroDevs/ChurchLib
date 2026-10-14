@@ -8,4 +8,5 @@ class ApiConstants {
   static const int songsPageLimit = 500;
 
   static String bibleApi = 'https://biblive.vercel.app/v2';
+  static String licenceApi = 'https://churchlib.sirodevs.com';
 }

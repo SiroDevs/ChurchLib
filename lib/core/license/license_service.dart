@@ -1,9 +1,9 @@
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../domain/entities/license/exports.dart';
 import 'license_api.dart';
 import 'license_config.dart';
 import 'license_evaluator.dart';
-import 'license_models.dart';
 import 'license_storage.dart';
 import 'license_verifier.dart';
 import 'machine_id.dart';
