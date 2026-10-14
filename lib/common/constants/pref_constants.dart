@@ -44,9 +44,4 @@ class PrefConstants {
   static const wakeLockCheckKey = 'wake_lock_check';
 
   static const splashBgIndexKey = 'splash_bg_index';
-
-  static const licenseTokenKey = 'license_token';
-  static const licenseLastSeenKey = 'license_last_seen';
-  static const licenseMetaKey = 'license_meta';
-  static const licenseFallbackIdKey = 'license_fallback_id';
 }

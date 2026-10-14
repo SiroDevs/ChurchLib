@@ -1,0 +1,30 @@
+import 'package:froom/froom.dart';
+
+import '../../../../../common/constants/bible_constants.dart';
+import '../../../../models/bible/scripture_item.dart';
+
+@dao
+abstract class ScriptureItemsDao {
+  @Insert(onConflict: OnConflictStrategy.abort)
+  Future<void> insertAll(List<ScriptureItem> items);
+
+  @Query(
+    'SELECT * FROM ${BibleConstants.scriptureItemsTable} '
+    'WHERE listId = :listId ORDER BY sortOrder ASC',
+  )
+  Future<List<ScriptureItem>> getForList(int listId);
+
+  @Query(
+    'SELECT COUNT(*) FROM ${BibleConstants.scriptureItemsTable} '
+    'WHERE listId = :listId',
+  )
+  Future<int?> countForList(int listId);
+
+  @Query(
+    'DELETE FROM ${BibleConstants.scriptureItemsTable} WHERE listId = :listId',
+  )
+  Future<void> deleteForList(int listId);
+
+  @Query('DELETE FROM ${BibleConstants.scriptureItemsTable}')
+  Future<void> deleteAll();
+}

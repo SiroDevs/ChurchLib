@@ -1,0 +1,23 @@
+import 'package:froom/froom.dart';
+
+import '../../../../../common/constants/song_constants.dart';
+import '../../../../models/song/songlist.dart';
+import '../../../../models/song/songlistext.dart';
+
+@dao
+abstract class SongListsDao {
+  @Query('SELECT * FROM ${SongConstants.listsTable}')
+  Future<List<SongList>> fetchSongLists();
+
+  @Query('SELECT * FROM ${SongConstants.listsTableViews}')
+  Stream<List<SongListExt>> fetchSongListExts();
+
+  @Insert(onConflict: OnConflictStrategy.replace)
+  Future<void> insertSongList(SongList songList);
+
+  @delete
+  Future<void> deleteSongList(SongList songList);
+
+  @Query("DELETE FROM ${SongConstants.listsTable}")
+  Future<void> deleteAllSongLists();
+}
