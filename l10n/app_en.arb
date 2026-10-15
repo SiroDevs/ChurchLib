@@ -520,5 +520,244 @@
     "misc": "misc",
     "@misc": {
         "description": "Miscellaneous category label"
+    },
+
+    "licenseTitle": "License",
+    "@licenseTitle": {
+        "description": "Title of the license section"
+    },
+    "licenseTrialActive": "Free trial",
+    "@licenseTrialActive": {
+        "description": "Label shown while the free trial is running"
+    },
+    "licenseDayLeft": "1 day left",
+    "@licenseDayLeft": {
+        "description": "Shown when one trial day remains"
+    },
+    "licenseDaysLeft": "{days} days left",
+    "@licenseDaysLeft": {
+        "description": "Shown when several trial days remain",
+        "placeholders": {
+            "days": {
+                "type": "String",
+                "example": "5"
+            }
+        }
+    },
+    "licenseBuy": "Buy license",
+    "@licenseBuy": {
+        "description": "Button that opens the purchase window"
+    },
+    "licenseUnlock": "Unlock ChurchLib",
+    "@licenseUnlock": {
+        "description": "Title of the purchase window"
+    },
+    "licenseTrialEndedTitle": "Your free trial has ended",
+    "@licenseTrialEndedTitle": {
+        "description": "Heading when the trial is over"
+    },
+    "licenseTrialEndedBody": "Unlock ChurchLib once and use it for good on this computer.",
+    "@licenseTrialEndedBody": {
+        "description": "Explains what buying a license gives"
+    },
+    "licenseRevokedTitle": "This license is no longer active",
+    "@licenseRevokedTitle": {
+        "description": "Heading when the license was withdrawn"
+    },
+    "licenseRevokedBody": "Please contact support and we will help you.",
+    "@licenseRevokedBody": {
+        "description": "Asks the person to contact support"
+    },
+    "licenseConnectTitle": "Connect to the internet",
+    "@licenseConnectTitle": {
+        "description": "Heading when the first online check could not happen"
+    },
+    "licenseConnectBody": "ChurchLib needs to go online once to start your free trial. After that it works offline.",
+    "@licenseConnectBody": {
+        "description": "Explains why internet is needed once"
+    },
+    "licenseClockTitle": "Check your computer's date and time",
+    "@licenseClockTitle": {
+        "description": "Heading when the clock looks wrong"
+    },
+    "licenseClockBody": "The clock looks wrong. Correct it, then try again.",
+    "@licenseClockBody": {
+        "description": "Asks the person to fix the clock"
+    },
+    "licenseNotConfigured": "The license server is not set up in this version of ChurchLib.",
+    "@licenseNotConfigured": {
+        "description": "Shown by builds that have no license server configured"
+    },
+    "licenseChecking": "Checking your license…",
+    "@licenseChecking": {
+        "description": "Shown while the license is being checked"
+    },
+    "licenseRetry": "Try again",
+    "@licenseRetry": {
+        "description": "Retry button"
+    },
+    "licensePriceLine": "{local} or {usd}, one time, for this computer",
+    "@licensePriceLine": {
+        "description": "Price line with both currencies",
+        "placeholders": {
+            "local": {
+                "type": "String",
+                "example": "KES 5,000"
+            },
+            "usd": {
+                "type": "String",
+                "example": "$40"
+            }
+        }
+    },
+    "licenseHowToPay": "How to pay",
+    "@licenseHowToPay": {
+        "description": "Heading above the payment instructions"
+    },
+    "licenseSendTo": "Send {amount} to",
+    "@licenseSendTo": {
+        "description": "Instruction before the payment number or email",
+        "placeholders": {
+            "amount": {
+                "type": "String",
+                "example": "KES 5,000"
+            }
+        }
+    },
+    "licenseAfterPaying": "Then enter the transaction code below. We approve it and ChurchLib unlocks.",
+    "@licenseAfterPaying": {
+        "description": "Explains what happens after paying"
+    },
+    "licenseNameLabel": "Name used for payment",
+    "@licenseNameLabel": {
+        "description": "Form field label"
+    },
+    "licensePhoneLabel": "Phone number",
+    "@licensePhoneLabel": {
+        "description": "Form field label"
+    },
+    "licenseCodeMpesa": "M-Pesa confirmation code",
+    "@licenseCodeMpesa": {
+        "description": "Form field label"
+    },
+    "licenseCodePaypal": "PayPal transaction ID",
+    "@licenseCodePaypal": {
+        "description": "Form field label"
+    },
+    "licenseSubmitPayment": "Submit payment",
+    "@licenseSubmitPayment": {
+        "description": "Button that sends the payment details"
+    },
+    "licenseCodeInvalid": "Enter the 8 to 20 letters and numbers from your message or receipt",
+    "@licenseCodeInvalid": {
+        "description": "Validation message for the transaction code"
+    },
+    "licenseNameInvalid": "Enter the name used for payment",
+    "@licenseNameInvalid": {
+        "description": "Validation message for the name"
+    },
+    "licensePhoneInvalid": "Enter the phone number",
+    "@licensePhoneInvalid": {
+        "description": "Validation message for the phone number"
+    },
+    "licensePaymentPendingTitle": "Payment received",
+    "@licensePaymentPendingTitle": {
+        "description": "Heading while a payment waits for approval"
+    },
+    "licensePaymentPendingBody": "We are checking it. This usually takes a few hours. ChurchLib unlocks by itself once it is approved.",
+    "@licensePaymentPendingBody": {
+        "description": "Explains the wait for approval"
+    },
+    "licenseCheckAgain": "Check again",
+    "@licenseCheckAgain": {
+        "description": "Button that checks the payment status"
+    },
+    "licenseHaveKey": "Have a license key?",
+    "@licenseHaveKey": {
+        "description": "Link that reveals the license key box"
+    },
+    "licenseKeyLabel": "License key",
+    "@licenseKeyLabel": {
+        "description": "Label for the license key"
+    },
+    "licenseRedeem": "Use key",
+    "@licenseRedeem": {
+        "description": "Button that applies a license key"
+    },
+    "licenseActivated": "License activated. Thank you!",
+    "@licenseActivated": {
+        "description": "Success message after unlocking"
+    },
+    "licenseComputerId": "This computer",
+    "@licenseComputerId": {
+        "description": "Label for the short computer id"
+    },
+    "licenseCopy": "Copy",
+    "@licenseCopy": {
+        "description": "Copy button tooltip"
+    },
+    "licenseCopied": "Copied",
+    "@licenseCopied": {
+        "description": "Shown after copying"
+    },
+    "licenseSupport": "Need help?",
+    "@licenseSupport": {
+        "description": "Label before the support links"
+    },
+    "licenseStatusLicensed": "Licensed",
+    "@licenseStatusLicensed": {
+        "description": "Status of a paid license"
+    },
+    "licenseSince": "Since {date}",
+    "@licenseSince": {
+        "description": "Date the license was issued",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "13 Oct 2026"
+            }
+        }
+    },
+    "licenseLastChecked": "Last checked {when}",
+    "@licenseLastChecked": {
+        "description": "When the server was last asked",
+        "placeholders": {
+            "when": {
+                "type": "String",
+                "example": "5 minutes ago"
+            }
+        }
+    },
+    "licenseNeverChecked": "Not checked yet",
+    "@licenseNeverChecked": {
+        "description": "Shown before the first check"
+    },
+    "licenseCheckNow": "Check now",
+    "@licenseCheckNow": {
+        "description": "Button that asks the server now"
+    },
+    "licenseMoveTitle": "Move to another computer",
+    "@licenseMoveTitle": {
+        "description": "Title of the release-license action"
+    },
+    "licenseMoveDesc": "Free this license here so you can use it on a new computer.",
+    "@licenseMoveDesc": {
+        "description": "Explains the release-license action"
+    },
+    "licenseMoveConfirm": "This computer will go back to the free trial. Then enter your license key on the new computer.",
+    "@licenseMoveConfirm": {
+        "description": "Confirmation text before releasing a license"
+    },
+    "licenseRelease": "Release",
+    "@licenseRelease": {
+        "description": "Confirm button of the release dialog"
+    },
+    "licenseTrialEndedBanner": "Free trial ended. ChurchLib will ask for a license next time you open it.",
+    "@licenseTrialEndedBanner": {
+        "description": "Sidebar banner after the trial ended"
+    },
+    "licenseDeveloperBuild": "Developer build: license checks are off.",
+    "@licenseDeveloperBuild": {
+        "description": "Shown in debug builds without a license server"
     }
 }

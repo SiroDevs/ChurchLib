@@ -6,4 +6,5 @@ class RouteNames {
   static const biblelibSetup = 'biblelib_setup';
   static const main = 'main';
   static const presentor = 'presentor';
+  static const license = 'license';
 }

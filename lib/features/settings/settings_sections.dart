@@ -4,6 +4,7 @@ import '../home/main/shell/app_module.dart';
 import 'sections/appearance_section.dart';
 import 'sections/biblelib_sections.dart';
 import 'sections/general_section.dart';
+import '../license/ui/widgets/license_section.dart';
 import 'sections/songlib_sections.dart';
 
 class SettingsNode {
@@ -38,6 +39,12 @@ List<SettingsNode> settingsTree({
     'Appearance',
     Icons.color_lens_outlined,
     (_) => const AppearanceSection(),
+  ),
+  SettingsNode.leaf(
+    'license',
+    'License',
+    Icons.verified_outlined,
+    (_) => const LicenseSection(),
   ),
   if (songlibEnabled)
     SettingsNode.group(

@@ -1,6 +1,6 @@
 ; ChurchLib installer – CI-friendly. Values are injected with ISCC /D switches:
 ;   /DMyAppVersion=1.0.0  /DSourceDir=<Release folder>  /DRepoRoot=<repo root>
-;   /DOutputDir=<dist>    /DArch=x64|arm64  /DInstallMode=user|system
+;   /DOutputDir=<dist>    /DArch=x64|arm64
 ; Defaults below let you still compile locally from windows\packaging.
 
 #ifndef MyAppVersion
@@ -8,9 +8,6 @@
 #endif
 #ifndef Arch
   #define Arch "x64"
-#endif
-#ifndef InstallMode
-  #define InstallMode "user"      ; "user" = per-user installer, "system" = all users (needs admin)
 #endif
 #ifndef RepoRoot
   #define RepoRoot "..\.."
@@ -46,12 +43,11 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 #endif
 OutputDir={#OutputDir}
-OutputBaseFilename={#MyAppName}-win32-{#Arch}-{#InstallMode}-setup
-#if InstallMode == "user"
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}_{#Arch}
+; One installer: defaults to a per-user install, and offers
+; "Install for all users" (UAC prompt) at the start of the wizard.
 PrivilegesRequired=lowest
-#else
-PrivilegesRequired=admin
-#endif
+PrivilegesRequiredOverridesAllowed=dialog
 SetupIconFile={#RepoRoot}\windows\runner\resources\app_icon.ico
 Compression=lzma
 SolidCompression=yes

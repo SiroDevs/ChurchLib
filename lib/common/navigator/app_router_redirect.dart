@@ -1,15 +1,26 @@
 import 'package:go_router/go_router.dart';
 
 import '../../core/di/injectable.dart';
+import '../../core/license/license_cubit.dart';
 import '../../domain/repos/pref_repo.dart';
 import '../constants/pref_constants.dart';
 import 'route_names.dart';
 
-String? appRouterRedirect(GoRouterState state) {
+String? appRouterRedirect(GoRouterState state, LicenseCubit license) {
   final loc = state.matchedLocation;
   const splash = '/${RouteNames.splash}';
   const selection = '/${RouteNames.selection}';
   if (loc == splash) return null;
+
+  // License gate: the app itself (and the presenter) need a trial or license.
+  // The setup screens stay reachable so first-time setup can finish.
+  const licenseScreen = '/${RouteNames.license}';
+  final gateOpen = license.isGateOpen;
+  if (loc == licenseScreen) return gateOpen ? '/${RouteNames.main}' : null;
+  if (!gateOpen &&
+      (loc == '/${RouteNames.main}' || loc == '/${RouteNames.presentor}')) {
+    return licenseScreen;
+  }
 
   final prefs = getIt<PrefRepo>();
 
