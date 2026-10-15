@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import 'field_pointer_arrow.dart';
 
 class NumberResultsGrid extends StatelessWidget {

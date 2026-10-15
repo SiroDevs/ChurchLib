@@ -1,5 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
 import '../../common/utils/formatting/app_util.dart';
 import '../../domain/repos/pref_repo.dart';
 import '../di/injectable.dart';

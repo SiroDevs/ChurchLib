@@ -1,7 +1,10 @@
+// Dart imports:
 import 'dart:math' as math;
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
 import 'wave.dart';
 
 const double _twoPi = math.pi * 2.0;

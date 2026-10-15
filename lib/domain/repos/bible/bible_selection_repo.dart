@@ -1,5 +1,6 @@
-import '../../../common/utils/formatting/app_util.dart';
+// Project imports:
 import '../../../common/constants/pref_constants.dart';
+import '../../../common/utils/formatting/app_util.dart';
 import '../../../core/di/injectable.dart';
 import '../../../data/models/bible/bible_version.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';

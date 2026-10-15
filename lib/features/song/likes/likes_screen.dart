@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import '../../../common/utils/formatting/app_util.dart';
 import '../../../common/widgets/list_items/search_song_item.dart';
 import '../../../common/widgets/state/general_progress.dart';

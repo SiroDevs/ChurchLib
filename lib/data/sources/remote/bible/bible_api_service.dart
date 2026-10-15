@@ -1,10 +1,13 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 
+// Package imports:
 import 'package:http/http.dart' as http;
 
-import '../../../../common/utils/formatting/app_util.dart';
+// Project imports:
 import '../../../../common/constants/api_constants.dart';
+import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../domain/repos/bible/retry_policy.dart';
 import 'bible_dtos.dart';
 

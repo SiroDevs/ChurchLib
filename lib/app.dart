@@ -1,9 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
+// Project imports:
 import 'common/navigator/app_router.dart';
 import 'common/widgets/text_scale_factor.dart';
 import 'core/auth/auth_bloc.dart';

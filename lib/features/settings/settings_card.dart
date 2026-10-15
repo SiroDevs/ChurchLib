@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../common/utils/theme/theme_switcher_mixin.dart';
 import '../../common/widgets/inputs/radio_input.dart';
 import '../../core/theme/theme_data.dart';

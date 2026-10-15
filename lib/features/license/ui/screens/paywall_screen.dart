@@ -1,9 +1,13 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import '../../../../common/constants/app_assets.dart';
 import '../../../../core/license/license_cubit.dart';
 import '../../../../domain/entities/license/exports.dart';

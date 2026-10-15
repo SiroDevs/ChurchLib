@@ -1,3 +1,4 @@
+// Project imports:
 import '../../../data/models/bible/scripture_item.dart';
 import '../../../data/models/bible/scripture_list.dart';
 import '../../../data/sources/local/app_database.dart';

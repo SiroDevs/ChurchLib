@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import 'app_module.dart';
 import 'how_it_works_content.dart';
 

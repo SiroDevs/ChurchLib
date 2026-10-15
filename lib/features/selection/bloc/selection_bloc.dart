@@ -1,8 +1,10 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/utils/formatting/app_util.dart';
+// Project imports:
 import '../../../common/constants/pref_constants.dart';
+import '../../../common/utils/formatting/app_util.dart';
 import '../../../common/utils/network/network_utils.dart';
 import '../../../core/di/injectable.dart';
 import '../../../data/models/song/song.dart';

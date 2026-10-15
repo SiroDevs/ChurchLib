@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../../../common/windows/window_frame.dart';
 import '../cubit/scripture_opener_cubit.dart';
 import 'widgets/scripture_search_row.dart';

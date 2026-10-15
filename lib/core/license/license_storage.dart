@@ -1,7 +1,10 @@
+// Dart imports:
 import 'dart:convert';
 
+// Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Project imports:
 import '../../common/constants/pref_constants.dart';
 import '../../domain/entities/license/exports.dart';
 

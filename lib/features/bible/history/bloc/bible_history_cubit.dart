@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+// Project imports:
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/shared/history_entry.dart';
 import '../../../../data/models/shared/search_entry.dart';

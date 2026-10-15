@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:froom/froom.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+// Project imports:
 import '../../../common/constants/song_constants.dart';
 
 part 'songbook.g.dart';

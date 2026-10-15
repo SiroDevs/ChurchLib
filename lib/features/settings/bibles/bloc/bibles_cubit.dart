@@ -1,5 +1,7 @@
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import '../../../../common/constants/pref_constants.dart';
 import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/utils/reader/bible_settings_signal.dart';

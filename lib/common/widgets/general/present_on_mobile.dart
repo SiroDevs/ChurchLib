@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:dartx/dartx.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../core/theme/theme_colors.dart';
 
 part 'present_on_mobile_state.dart';

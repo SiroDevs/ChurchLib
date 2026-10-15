@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:skeleton_loader/skeleton_loader.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_styles.dart';
 

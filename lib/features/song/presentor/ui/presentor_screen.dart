@@ -1,14 +1,17 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../common/utils/formatting/app_util.dart';
-import '../../../../common/utils/display/app_window.dart';
+// Project imports:
 import '../../../../common/constants/pref_constants.dart';
+import '../../../../common/utils/display/app_window.dart';
 import '../../../../common/utils/display/font_utils.dart';
+import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/action/fab_widget.dart';
 import '../../../../common/widgets/app_intents.dart';
 import '../../../../common/widgets/presentor/slide_container.dart';

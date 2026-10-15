@@ -1,11 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:go_router/go_router.dart';
 
-import '../../common/navigator/route_names.dart';
-import '../../common/utils/formatting/app_util.dart';
+// Project imports:
 import '../../common/constants/pref_constants.dart';
+import '../../common/navigator/route_names.dart';
 import '../../common/utils/display/dialog_utils.dart';
+import '../../common/utils/formatting/app_util.dart';
 import '../../common/widgets/state/custom_snackbar.dart';
 import '../../core/di/injectable.dart';
 import '../../domain/repos/bible/bible_repo.dart';

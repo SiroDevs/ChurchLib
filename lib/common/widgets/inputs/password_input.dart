@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// Package imports:
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../utils/theme/shape_utils.dart';
 
 class PasswordInput extends StatefulWidget {

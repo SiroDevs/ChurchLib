@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import '../../../../../../common/windows/open_windows.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
 import '../../../../main/shell/shell_nav_item.dart';
