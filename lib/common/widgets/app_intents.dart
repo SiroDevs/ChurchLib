@@ -1,6 +1,20 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+
+/// Keys that make text smaller: - (also on the numpad).
+final List<ShortcutActivator> smallerFontKeys = [
+  const SingleActivator(LogicalKeyboardKey.minus),
+  const SingleActivator(LogicalKeyboardKey.numpadSubtract),
+];
+
+/// Keys that make text bigger: = (and + / numpad +, so no Shift is needed).
+final List<ShortcutActivator> biggerFontKeys = [
+  const SingleActivator(LogicalKeyboardKey.equal),
+  const SingleActivator(LogicalKeyboardKey.numpadAdd),
+  const CharacterActivator('+'),
+];
 
 class SlideNumberIntent extends Intent {
   final int slideNumber;

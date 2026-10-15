@@ -51,14 +51,14 @@ class BibleTitleBar extends StatelessWidget {
           label: const Text('Scripture Opener'),
         ),
         IconButton(
-          tooltip: 'Smaller text',
+          tooltip: 'Smaller text (-)',
           onPressed: state.fontSize <= readerMinFontSize
               ? null
               : () => cubit.setFontSize(state.fontSize - 2),
           icon: const _AaIcon(plus: false),
         ),
         IconButton(
-          tooltip: 'Larger text',
+          tooltip: 'Larger text (=)',
           onPressed: state.fontSize >= readerMaxFontSize
               ? null
               : () => cubit.setFontSize(state.fontSize + 2),

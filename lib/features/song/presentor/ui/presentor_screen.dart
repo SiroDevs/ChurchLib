@@ -1,6 +1,9 @@
+// Dart imports:
+import 'dart:math';
+
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,10 +26,12 @@ import '../../../../data/models/models.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../bloc/presentor_bloc.dart';
+import '../utils/presentor_shortcuts.dart';
 import '../utils/presentor_utils.dart';
 import '../utils/slide_utils.dart';
 
 part 'widgets/fab_widget.dart';
+part 'widgets/verses_panel.dart';
 part 'presentor_details.dart';
 part 'widgets/presentor_slide.dart';
 
@@ -51,6 +56,9 @@ class PresentorScreenState extends State<PresentorScreen> {
   late SongExt song;
   late String songTitle, songBook;
   bool hasChorus = false, likeChanged = false, slideVertical = true;
+  bool showVerses = true;
+  final activeSlide = ValueNotifier<int>(0);
+  final detailsKey = GlobalKey<PresentorDetailsState>();
 
   @override
   void initState() {
@@ -63,6 +71,7 @@ class PresentorScreenState extends State<PresentorScreen> {
 
   @override
   void dispose() {
+    activeSlide.dispose();
     setFullScreen(false);
     super.dispose();
   }
@@ -74,6 +83,15 @@ class PresentorScreenState extends State<PresentorScreen> {
     });
     String message = song.liked ? l10n.songLiked : l10n.songDisliked;
     CustomSnackbar.show(context, message, isSuccess: song.liked);
+  }
+
+  void _toggleVerses() {
+    setState(() => showVerses = !showVerses);
+    // The button takes keyboard focus; give it back so the arrow keys, - and
+    // = keep working on the slides.
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => detailsKey.currentState?.focusNode.requestFocus(),
+    );
   }
 
   Future<void> setFullScreen(bool value) async {
@@ -117,6 +135,12 @@ class PresentorScreenState extends State<PresentorScreen> {
               appBar: AppBar(
                 title: Text('$songTitle - $songBook'),
                 actions: [
+                  IconButton(
+                    tooltip: showVerses ? 'Hide verses' : 'Show verses',
+                    isSelected: showVerses,
+                    onPressed: _toggleVerses,
+                    icon: const Icon(Icons.list),
+                  ),
                   Tooltip(
                     message: song.liked ? l10n.songDislike : l10n.songLike,
                     child: IconButton(
@@ -130,7 +154,17 @@ class PresentorScreenState extends State<PresentorScreen> {
                   SizedBox(width: 20),
                 ],
               ),
-              body: PresentorDetails(parent: this),
+              body: Row(
+                children: [
+                  Expanded(child: PresentorDetails(key: detailsKey, parent: this)),
+                  if (showVerses)
+                    PresentorVersesPanel(
+                      song: song,
+                      hasChorus: hasChorus,
+                      activeSlide: activeSlide,
+                    ),
+                ],
+              ),
             ),
           );
         },

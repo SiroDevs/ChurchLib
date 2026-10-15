@@ -9,10 +9,29 @@ class PresentorDetails extends StatefulWidget {
   State<PresentorDetails> createState() => PresentorDetailsState();
 }
 
+const double _minFontSize = 12, _maxFontSize = 200, _fontStep = 2;
+
 class PresentorDetailsState extends State<PresentorDetails> {
   late PresentorScreenState parent;
-  int currentSlide = 0;
+  int _currentSlide = 0;
+
+  int get currentSlide => _currentSlide;
+
+  // Also tells the verses sidebar which slide is showing.
+  set currentSlide(int value) {
+    _currentSlide = value;
+    parent.activeSlide.value = value;
+  }
+
+  /// Size the text would like to be: what the user picked with - and =, or
+  /// else one worked out from the screen height.
   double fontSize = 18;
+
+  /// Size the text is really drawn at; smaller than [fontSize] whenever the
+  /// text would not fit on the slide.
+  double shownFontSize = 18;
+  double? userFontSize;
+  double _autoFontSize = 18, _autoForHeight = 0;
   List<String> stanzas = [];
   List<Widget> slides = [];
   late FocusNode focusNode;
@@ -22,23 +41,25 @@ class PresentorDetailsState extends State<PresentorDetails> {
     super.initState();
     parent = widget.parent;
     focusNode = FocusNode();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        final size = MediaQuery.of(context).size;
-        setState(() {
-          fontSize = calcFontSize(
-            height: size.height,
-            content: parent.song.content,
-          );
-        });
-      }
-    });
   }
 
   @override
   void dispose() {
     focusNode.dispose();
     super.dispose();
+  }
+
+  double _preferredFontSize(double screenHeight) {
+    final picked = userFontSize;
+    if (picked != null) return picked;
+    if (screenHeight != _autoForHeight) {
+      _autoForHeight = screenHeight;
+      _autoFontSize = max(
+        _minFontSize,
+        calcFontSize(height: screenHeight, content: parent.song.content),
+      );
+    }
+    return _autoFontSize;
   }
 
   void setSlideByNumber(int slide) {
@@ -66,24 +87,13 @@ class PresentorDetailsState extends State<PresentorDetails> {
   }
 
   void resizeFont(bool decrease) {
-    final newFontSize = decrease ? fontSize - 2.0 : fontSize + 2.0;
-    final constrainedFontSize = newFontSize.clamp(12.0, 72.0);
-
-    if (constrainedFontSize != fontSize) {
-      setState(() {
-        fontSize = constrainedFontSize;
-        if (stanzas.isNotEmpty) {
-          slides = presentorWidgets(
-            parent.songTitle,
-            parent.songBook,
-            fontSize,
-            stanzas,
-          );
-        }
-      });
-
-      focusNode.requestFocus();
-    }
+    // Step from the size on screen, so a key press always changes what the
+    // user sees. Bigger stops once the longest verse would stop fitting.
+    final current = shownFontSize;
+    final wanted = decrease ? current - _fontStep : current + _fontStep;
+    final next = min(_maxFontSize, max(_minFontSize, wanted));
+    setState(() => userFontSize = next);
+    focusNode.requestFocus();
   }
 
   void _buildSlides(List<String> newStanzas) {
@@ -93,6 +103,7 @@ class PresentorDetailsState extends State<PresentorDetails> {
         parent.songBook,
         fontSize,
         newStanzas,
+        onFontFit: (size) => shownFontSize = size,
       );
     }
   }
@@ -103,6 +114,7 @@ class PresentorDetailsState extends State<PresentorDetails> {
       bloc: context.read<PresentorBloc>(),
       builder: (context, state) {
         if (state is PresentorLoadedState) {
+          fontSize = _preferredFontSize(MediaQuery.sizeOf(context).height);
           if (state.stanzas.isNotEmpty || slides.isEmpty) {
             stanzas = state.stanzas;
             _buildSlides(state.stanzas);
@@ -115,36 +127,13 @@ class PresentorDetailsState extends State<PresentorDetails> {
                   songbook: parent.songBook,
                   tabs: state.tabs,
                   slides: slides,
+                  onSlideChanged: (index) => currentSlide = index,
                   indicatorWidth: MediaQuery.of(context).size.height * 0.08156,
                 )
               : SizedBox();
 
           return Shortcuts(
-            shortcuts: <ShortcutActivator, Intent>{
-              SingleActivator(LogicalKeyboardKey.escape): CloseIntent(),
-              SingleActivator(LogicalKeyboardKey.arrowUp): PreviousIntent(),
-              SingleActivator(LogicalKeyboardKey.arrowLeft): PreviousIntent(),
-              SingleActivator(LogicalKeyboardKey.arrowDown): NextIntent(),
-              SingleActivator(LogicalKeyboardKey.arrowRight): NextIntent(),
-              SingleActivator(LogicalKeyboardKey.minus): SmallerFontIntent(),
-              SingleActivator(LogicalKeyboardKey.equal): BiggerFontIntent(),
-              SingleActivator(LogicalKeyboardKey.digit1): SlideNumberIntent(1),
-              SingleActivator(LogicalKeyboardKey.digit2): SlideNumberIntent(2),
-              SingleActivator(LogicalKeyboardKey.digit3): SlideNumberIntent(3),
-              SingleActivator(LogicalKeyboardKey.digit4): SlideNumberIntent(4),
-              SingleActivator(LogicalKeyboardKey.digit5): SlideNumberIntent(5),
-              SingleActivator(LogicalKeyboardKey.digit6): SlideNumberIntent(6),
-              SingleActivator(LogicalKeyboardKey.digit7): SlideNumberIntent(7),
-              SingleActivator(LogicalKeyboardKey.numpad1): SlideNumberIntent(1),
-              SingleActivator(LogicalKeyboardKey.numpad2): SlideNumberIntent(2),
-              SingleActivator(LogicalKeyboardKey.numpad3): SlideNumberIntent(3),
-              SingleActivator(LogicalKeyboardKey.numpad4): SlideNumberIntent(4),
-              SingleActivator(LogicalKeyboardKey.numpad5): SlideNumberIntent(5),
-              SingleActivator(LogicalKeyboardKey.numpad6): SlideNumberIntent(6),
-              SingleActivator(LogicalKeyboardKey.numpad7): SlideNumberIntent(7),
-              CharacterActivator('c'): SlideLetterIntent('C'),
-              CharacterActivator('l'): SlideLetterIntent('L'),
-            },
+            shortcuts: presentorShortcuts,
             child: Actions(
               actions: <Type, Action<Intent>>{
                 CloseIntent: CallbackAction<CloseIntent>(
@@ -170,6 +159,7 @@ class PresentorDetailsState extends State<PresentorDetails> {
                 ),
               },
               child: Focus(
+                focusNode: focusNode,
                 autofocus: true,
                 onKeyEvent: (node, event) => KeyEventResult.ignored,
                 child: presentation,

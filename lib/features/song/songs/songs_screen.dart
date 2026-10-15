@@ -14,6 +14,8 @@ import '../../../common/widgets/list_items/search_song_item.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
+import '../../home/main/shell/app_module.dart';
+import '../../home/main/shell/module_focus.dart';
 import '../../home/song_search/bloc/song_search_bloc.dart';
 import '../../home/song_search/ui/song_search_screen.dart';
 
@@ -90,8 +92,8 @@ class _SongsScreenState extends State<SongsScreen> {
                 onInvoke: (intent) => onSongOpen(),
               ),
             },
-            child: Focus(
-              autofocus: true,
+            child: ModuleFocus(
+              module: AppModule.songlib,
               onKeyEvent: (node, event) {
                 logger('Key pressed: ${event.logicalKey.keyLabel}');
                 return KeyEventResult.ignored;
