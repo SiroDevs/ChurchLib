@@ -1,6 +1,10 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:go_router/go_router.dart';
 
+// Project imports:
 import '../../core/auth/auth_bloc.dart';
 import '../../core/license/license_cubit.dart';
 import 'app_router_redirect.dart';

@@ -1,16 +1,20 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../common/navigator/route_names.dart';
+// Project imports:
 import '../../common/constants/app_assets.dart';
 import '../../common/constants/app_constants.dart';
 import '../../common/constants/pref_constants.dart';
+import '../../common/navigator/route_names.dart';
 import '../../core/di/injectable.dart';
 import '../../core/theme/theme_colors.dart';
 import '../../domain/repos/pref_repo.dart';

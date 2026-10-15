@@ -1,5 +1,7 @@
+// Package imports:
 import 'package:package_info_plus/package_info_plus.dart';
 
+// Project imports:
 import '../../domain/entities/license/exports.dart';
 import 'license_api.dart';
 import 'license_config.dart';

@@ -1,10 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
 import 'app.dart';
-import 'common/utils/formatting/app_util.dart';
 import 'common/utils/display/app_window.dart';
 import 'common/utils/env/environments.dart';
 import 'common/utils/env/flavor_config.dart';
+import 'common/utils/formatting/app_util.dart';
 import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
 

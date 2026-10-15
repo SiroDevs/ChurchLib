@@ -1,3 +1,4 @@
+// Project imports:
 import '../../../data/models/shared/entry_source.dart';
 import '../../../data/models/shared/history_entry.dart';
 import '../../../data/models/shared/search_entry.dart';

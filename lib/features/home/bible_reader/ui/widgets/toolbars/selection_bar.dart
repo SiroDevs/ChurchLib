@@ -1,9 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import '../dialogs/export.dart';

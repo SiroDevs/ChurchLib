@@ -1,11 +1,15 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/search/search_songs_utils.dart';

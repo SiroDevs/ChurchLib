@@ -1,9 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../common/utils/formatting/app_util.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../common/widgets/list_items/search_book_item.dart';

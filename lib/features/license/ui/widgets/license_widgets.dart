@@ -1,7 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:url_launcher/url_launcher.dart';
 
+// Project imports:
 import '../../../../common/constants/app_constants.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../domain/entities/license/exports.dart';

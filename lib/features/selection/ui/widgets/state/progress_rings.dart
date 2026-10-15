@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../../../common/widgets/state/advanced/advanced_progress.dart';
 import '../../../../../core/theme/theme_colors.dart';
 

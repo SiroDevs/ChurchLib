@@ -1,5 +1,7 @@
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import '../../../../../core/di/injectable.dart';
 import '../../../../../data/models/bible/scripture_item.dart';
 import '../../../../../domain/repos/bible/scripture_repo.dart';

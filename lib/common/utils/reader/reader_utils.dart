@@ -1,3 +1,4 @@
+// Project imports:
 import '../../../data/models/bible/bible_book.dart';
 import '../../../data/models/bible/bible_chapter.dart';
 import '../../../data/models/bible/bible_version.dart';

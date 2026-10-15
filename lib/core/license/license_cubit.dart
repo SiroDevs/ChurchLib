@@ -1,7 +1,10 @@
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import '../../common/utils/formatting/app_util.dart';
 import '../../common/utils/network/network_utils.dart';
 import '../../domain/entities/license/exports.dart';

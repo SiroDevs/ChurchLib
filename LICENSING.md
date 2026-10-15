@@ -4,17 +4,16 @@ The app now talks to the ChurchLib admin portal (`/api/v1/*`) to start a 7-day f
 
 ## Before you build
 
-1. `flutter pub get`. Three packages were added: `crypto`, `cryptography`, `device_info_plus`.
+1. `flutter pub get`.
 2. Give the build two values (Dashboard → Settings shows both):
 
    | Value | What it is |
    |---|---|
-   | `LICENSE_API_URL` | Address of the admin portal, e.g. `https://your-portal.example.com` |
    | `LICENSE_PUBLIC_KEY` | The 32-byte public key shown under *Desktop app connection* |
 
    ```sh
    flutter build windows \
-     --dart-define=LICENSE_API_URL=https://your-portal.example.com \
+     --dart-define=LICENSE_API_URL=https://churchlib.sirodevs.com \
      --dart-define=LICENSE_PUBLIC_KEY=<public key>
    ```
    Add the same two `--dart-define` flags to every build command in your release pipeline (Windows, macOS, Linux), including staging if it has its own portal.

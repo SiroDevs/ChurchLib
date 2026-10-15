@@ -1,5 +1,7 @@
+// Package imports:
 import 'package:froom/froom.dart';
 
+// Project imports:
 import '../../../common/constants/song_constants.dart';
 
 @Entity(tableName: SongConstants.searchesTable)

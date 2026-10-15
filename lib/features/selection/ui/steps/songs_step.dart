@@ -1,11 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../common/utils/formatting/app_util.dart';
+// Project imports:
 import '../../../../common/constants/app_assets.dart';
+import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/general/list_items.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';

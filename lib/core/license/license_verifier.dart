@@ -1,7 +1,10 @@
+// Dart imports:
 import 'dart:convert';
 
+// Package imports:
 import 'package:cryptography/cryptography.dart';
 
+// Project imports:
 import '../../domain/entities/license/token_resp.dart';
 
 class LicenseTokenVerifier {

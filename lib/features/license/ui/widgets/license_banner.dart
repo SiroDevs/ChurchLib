@@ -1,11 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import '../../../../common/windows/open_windows.dart';
 import '../../../../core/license/license_cubit.dart';
-import '../../../../domain/entities/license/exports.dart';
 import '../../../../core/theme/theme_colors.dart';
+import '../../../../domain/entities/license/exports.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'license_widgets.dart';
 

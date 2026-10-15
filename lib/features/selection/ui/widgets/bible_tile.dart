@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/sources/remote/bible/bible_dtos.dart';
 import '../../bloc/selection_bloc.dart';

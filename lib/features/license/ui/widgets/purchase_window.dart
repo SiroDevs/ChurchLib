@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/windows/window_frame.dart';
 import '../../../../core/license/license_cubit.dart';

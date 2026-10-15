@@ -1,7 +1,10 @@
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:injectable/injectable.dart';
 
+// Project imports:
 import '../../common/utils/formatting/app_util.dart';
 
 enum AuthStatus { authenticated, unauthenticated,  guest }

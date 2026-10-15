@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Project imports:
 import 'license_api.dart';
 import 'license_config.dart';
 import 'license_cubit.dart';
