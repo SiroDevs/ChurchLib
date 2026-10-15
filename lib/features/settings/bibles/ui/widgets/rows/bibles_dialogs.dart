@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../data/models/bible/bible_version.dart';
+import '../../../../../../data/models/bible/bible_version.dart';
 
 const biblesManagementInfo =
     'You can add a Bible to the Multi-Bible Reader by hovering over it in '

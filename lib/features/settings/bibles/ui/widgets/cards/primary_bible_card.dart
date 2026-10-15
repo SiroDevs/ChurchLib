@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../../data/models/bible/bible_version.dart';
+import '../../../../../../data/models/bible/bible_version.dart';
 
 class PrimaryBibleCard extends StatelessWidget {
   const PrimaryBibleCard({super.key, required this.primary, required this.onTap});

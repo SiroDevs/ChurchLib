@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../../common/utils/theme/shape_utils.dart';
-import '../../../../../data/models/bible/bible_version.dart';
-import '../../bloc/bibles_cubit.dart';
-import 'hover_bible_row.dart';
-import 'section_header_row.dart';
+import '../../../../../../common/utils/theme/shape_utils.dart';
+import '../../../../../../data/models/bible/bible_version.dart';
+import '../../../bloc/bibles_cubit.dart';
+import '../../../utils/bible_action.dart';
+import '../rows/bible_pill.dart';
+import '../rows/section_header_row.dart';
 
 class SecondaryBiblesCard extends StatefulWidget {
   const SecondaryBiblesCard({
@@ -61,32 +62,31 @@ class _SecondaryBiblesCardState extends State<SecondaryBiblesCard> {
       final abbr = secondary[i];
       final bible = state.bibles.where((b) => b.abbreviation == abbr).firstOrNull;
       if (bible == null) continue;
-      if (rows.isNotEmpty) {
-        rows.add(const Divider(height: 1, indent: 16, endIndent: 16));
-      }
       rows.add(
-        HoverBibleRow(
-          bible: bible,
-          progress: state.downloadProgress[abbr],
-          leading: showControls
-              ? _reorderControls(abbr, i, secondary.length)
-              : null,
-          actions: [
-            BibleAction(
-              Icons.remove_circle_outline,
-              'Remove from secondary',
-              () => widget.cubit.toggleSecondaryBible(abbr),
-            ),
-            BibleAction(
-              Icons.delete_outline,
-              'Delete',
-              () => widget.onDelete(bible),
-              destructive: true,
-            ),
+        Row(
+          children: [
+            if (showControls) _reorderControls(abbr, i, secondary.length),
+            BiblePill(
+              bible: bible,
+              progress: state.downloadProgress[abbr],
+              actions: [
+                BibleAction(
+                  Icons.remove_circle_outline,
+                  'Remove from secondary',
+                  () => widget.cubit.toggleSecondaryBible(abbr),
+                ),
+                BibleAction(
+                  Icons.delete_outline,
+                  'Delete',
+                  () => widget.onDelete(bible),
+                  destructive: true,
+                ),
+              ],
+              onRestart: () => widget.cubit.restartDownload(abbr),
+              onContinue: () => widget.cubit.retryDownload(abbr),
+            ).expanded(),
           ],
-          onRestart: () => widget.cubit.restartDownload(abbr),
-          onContinue: () => widget.cubit.retryDownload(abbr),
-        ),
+        ).padding(horizontal: 16, top: 8, bottom: 5),
       );
     }
 
@@ -111,7 +111,7 @@ class _SecondaryBiblesCardState extends State<SecondaryBiblesCard> {
         ...rows,
       ],
     )
-        .padding(vertical: 4)
+        .padding(top: 4, bottom: 5)
         .card(
           margin: EdgeInsets.zero,
           elevation: 0,
