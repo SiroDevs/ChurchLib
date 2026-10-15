@@ -10,12 +10,12 @@ import '../../../../core/theme/theme_fonts.dart';
 import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/bible/bible_version.dart';
 import '../bloc/bibles_cubit.dart';
-import 'widgets/bibles_dialogs.dart';
-import 'widgets/multi_bible_toggle_card.dart';
-import 'widgets/other_bibles_card.dart';
-import 'widgets/primary_bible_card.dart';
-import 'widgets/secondary_bibles_card.dart';
-import 'widgets/section_header_row.dart';
+import 'widgets/rows/bibles_dialogs.dart';
+import 'widgets/cards/multi_bible_toggle_card.dart';
+import 'widgets/cards/other_bibles_card.dart';
+import 'widgets/cards/primary_bible_card.dart';
+import 'widgets/cards/secondary_bibles_card.dart';
+import 'widgets/rows/section_header_row.dart';
 
 class BiblesScreen extends StatelessWidget {
   const BiblesScreen({super.key, this.embedded = false});

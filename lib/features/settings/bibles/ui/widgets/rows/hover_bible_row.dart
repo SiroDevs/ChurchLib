@@ -2,17 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../../../data/models/bible/bible_version.dart';
+import '../../../../../../data/models/bible/bible_version.dart';
+import '../../../utils/bible_action.dart';
 import 'bible_pill.dart';
-
-class BibleAction {
-  const BibleAction(this.icon, this.label, this.onTap, {this.destructive = false});
-
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-  final bool destructive;
-}
 
 class HoverBibleRow extends StatefulWidget {
   const HoverBibleRow({
@@ -43,45 +35,41 @@ class _HoverBibleRowState extends State<HoverBibleRow> {
     mainAxisSize: MainAxisSize.min,
     children: [
       if (failed)
-        TextButton(
-          onPressed: widget.onRestart,
-          child: const Text('Restart'),
-        ),
-      TextButton(
-        onPressed: widget.onContinue,
-        child: const Text('Continue'),
-      ),
+        TextButton(onPressed: widget.onRestart, child: const Text('Restart')),
+      TextButton(onPressed: widget.onContinue, child: const Text('Continue')),
     ],
-  )
-      .padding(left: 8);
+  ).padding(left: 8);
 
   Widget _actionBar(ColorScheme scheme) => Visibility(
-        visible: _hovering,
-        maintainSize: true,
-        maintainState: true,
-        maintainAnimation: true,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            for (final action in widget.actions)
-              TextButton.icon(
-                onPressed: action.onTap,
-                icon: Icon(action.icon, size: 18),
-                label: Text(action.label),
-                style: TextButton.styleFrom(
-                  foregroundColor:
-                      action.destructive ? scheme.error : scheme.primary,
-                ),
-              ),
-          ],
-        )
-            .padding(top: 2),
-      );
+    visible: _hovering,
+    maintainSize: true,
+    maintainState: true,
+    maintainAnimation: true,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        for (final action in widget.actions)
+          TextButton.icon(
+            onPressed: action.onTap,
+            icon: Icon(action.icon, size: 18),
+            label: Text(action.label),
+            style: TextButton.styleFrom(
+              foregroundColor: action.destructive
+                  ? scheme.error
+                  : scheme.primary,
+            ),
+          ),
+      ],
+    ).padding(top: 2),
+  );
 
   @override
   Widget build(BuildContext context) {
     final bible = widget.bible;
-    final progress = (widget.progress ?? bible.downloadProgress).clamp(0.0, 1.0);
+    final progress = (widget.progress ?? bible.downloadProgress).clamp(
+      0.0,
+      1.0,
+    );
     final downloading = widget.progress != null;
     final needsAction =
         bible.downloadFailed || (!bible.isDownloaded && !downloading);
@@ -94,15 +82,20 @@ class _HoverBibleRowState extends State<HoverBibleRow> {
           Row(
             children: [
               if (widget.leading != null) widget.leading!,
-              BiblePill(bible: bible, progress: progress).expanded(),
+              BiblePill(
+                bible: bible,
+                progress: progress,
+                actions: [],
+                onRestart: () {},
+                onContinue: () {},
+              ).expanded(),
               if (needsAction) _downloadButtons(bible.downloadFailed),
             ],
           ),
           if (widget.actions.isNotEmpty)
             _actionBar(Theme.of(context).colorScheme),
         ],
-      )
-          .padding(horizontal: 16, vertical: 8),
+      ).padding(horizontal: 16, vertical: 8),
     );
   }
 }
