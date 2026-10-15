@@ -29,7 +29,23 @@ const _songlib = [
     'Presenting',
     'Double-click a song, press Enter, or choose Present song from Quick '
         'Options to open it in the presenter. Step through the verses one '
-        'slide at a time; the slide direction can be changed in Settings.',
+        'slide at a time; the slide direction can be changed in Settings. '
+        'The words are sized to fit your screen, so a long verse shrinks to '
+        'stay on the slide instead of running off it. The list button in the '
+        'presenter title bar shows every verse in a small sidebar on the '
+        'right, with the verse on the current slide highlighted. The sidebar '
+        'is open by default; press the button again to hide it.',
+  ),
+  HowItWorksEntry(
+    'Presenter keys',
+    'Right or Down arrow: next slide.\n'
+        'Left or Up arrow: previous slide.\n'
+        '1 to 7: jump to that verse.\n'
+        'C: jump to the chorus.\n'
+        'L: jump to the last slide.\n'
+        '- : make the text smaller.\n'
+        '= : make the text bigger, as far as the longest verse still fits.\n'
+        'Esc: close the presenter.',
   ),
   HowItWorksEntry(
     'Quick Options',
@@ -54,12 +70,15 @@ const _biblelib = [
     'Reading',
     'Use the Bible button at the top to switch translation and the chapter '
         'button to jump to another chapter. Previous and Next at the bottom '
-        'move chapter by chapter, or press Alt with the left or right arrow.',
+        'move chapter by chapter, or press Alt with the left or right arrow. '
+        'The Up and Down arrow keys scroll the chapter. These keys only work '
+        'while BibleLib is the open app.',
   ),
   HowItWorksEntry(
     'Text size and auto scroll',
-    'Aa- and Aa+ in the title bar change the text size. Auto scroll at the '
-        'bottom left scrolls the chapter for you; use the plus and minus '
+    'Aa- and Aa+ in the title bar change the text size, or press - on your '
+        'keyboard to make it smaller and = to make it bigger. Auto scroll at '
+        'the bottom left scrolls the chapter for you; use the plus and minus '
         'beside it to set the speed, and touch the text to stop.',
   ),
   HowItWorksEntry(

@@ -9,6 +9,9 @@ class PresentorSlide extends StatefulWidget {
   final String? songbook;
   final TextDirection? direction;
 
+  /// Called whenever the visible slide changes, including by swiping.
+  final ValueChanged<int>? onSlideChanged;
+
   const PresentorSlide({
     super.key,
     required this.index,
@@ -18,6 +21,7 @@ class PresentorSlide extends StatefulWidget {
     this.indicatorWidth = 3,
     this.indicatorSide,
     this.direction = TextDirection.ltr,
+    this.onSlideChanged,
   }) : assert(
          tabs != null && slides != null && tabs.length == slides.length,
        );
@@ -106,6 +110,7 @@ class _PresentorSlideState extends State<PresentorSlide>
       physics: const AlwaysScrollableScrollPhysics(),
       itemCount: widget.slides!.length,
       onPageChanged: (index) {
+        widget.onSlideChanged?.call(index);
         setState(() {
           if (changePageByTapView == false || changePageByTapView == null) {
             selectTab(index);

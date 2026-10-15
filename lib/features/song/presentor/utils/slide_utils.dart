@@ -36,3 +36,11 @@ int getSlideByLetter(String letter, bool hasChorus, int totalWidgets) {
       return 0;
   }
 }
+
+/// Index, in the song's verses (content split on "##"), of the verse shown on
+/// [slide]. With a chorus the slides alternate verse, chorus, verse, chorus...
+int rawVerseForSlide(int slide, bool hasChorus) {
+  if (!hasChorus) return slide;
+  if (slide.isOdd) return 1;
+  return slide == 0 ? 0 : slide ~/ 2 + 1;
+}

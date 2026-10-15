@@ -64,8 +64,9 @@ List<Widget> presentorWidgets(
   String title,
   String book,
   double fontSize,
-  List<String> stanzas,
-) {
+  List<String> stanzas, {
+  ValueChanged<double>? onFontFit,
+}) {
   try {
     List<Widget> slides = [];
     for (final stanza in stanzas) {
@@ -73,6 +74,8 @@ List<Widget> presentorWidgets(
         SliderContent(
           lyrics: stanza,
           fontSize: fontSize,
+          fitWith: stanzas,
+          onFontFit: onFontFit,
           onDoubleTap: () => Share.share(
             '${stanza.replaceAll("#", "\n")}\n\n$title,\n$book',
             subject: 'Share verse',

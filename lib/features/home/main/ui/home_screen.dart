@@ -46,10 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
         index: _enabled.indexOf(_current),
         children: [
           for (final m in _enabled)
-            switch (m) {
-              AppModule.songlib => const SongSearchScreen(),
-              AppModule.biblelib => const BibleReaderScreen(),
-            },
+            // Only the module on screen may hold keyboard focus, so the other
+            // one's shortcuts (and text fields) stay quiet.
+            ExcludeFocus(
+              excluding: m != _current,
+              child: switch (m) {
+                AppModule.songlib => const SongSearchScreen(),
+                AppModule.biblelib => const BibleReaderScreen(),
+              },
+            ),
         ],
       ),
     );

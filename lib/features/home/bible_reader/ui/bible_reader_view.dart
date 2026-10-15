@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:math' as math;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -10,16 +11,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../common/utils/reader/reader_prefs_utils.dart';
+import '../../../../common/widgets/app_intents.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
 import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
+import '../../main/shell/module_focus.dart';
 import '../cubit/bible_reader_cubit.dart';
 import 'widgets/dialogs/reader_options_sheet.dart';
 import 'widgets/toolbars/export.dart';
 import 'widgets/verses/reader_auto_scroll.dart';
 import 'widgets/verses/reader_body.dart';
+
+/// How far one press of the Up / Down arrow scrolls the chapter.
+const double _arrowScrollStep = 90;
 
 class BiblerReaderView extends StatefulWidget {
   const BiblerReaderView({super.key});
@@ -56,6 +63,27 @@ class BiblerReaderViewState extends State<BiblerReaderView>
         (_) => _scrollToVerse(verseId, retry: false),
       );
     }
+  }
+
+  void _scrollBy(double delta) {
+    if (!scrollController.hasClients) return;
+    stopAutoScroll();
+    final position = scrollController.position;
+    final target = math.min(
+      position.maxScrollExtent,
+      math.max(position.minScrollExtent, position.pixels + delta),
+    );
+    scrollController.animateTo(
+      target,
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.easeOut,
+    );
+  }
+
+  void _changeFontSize(BibleReaderCubit cubit, int delta) {
+    final current = cubit.state.fontSize;
+    final next = clampReaderFontSize(current + delta);
+    if (next != current) cubit.setFontSize(next);
   }
 
   void _onStateChanged(BuildContext context, BibleReaderState state) {
@@ -110,9 +138,15 @@ class BiblerReaderViewState extends State<BiblerReaderView>
             cubit.navigateChapter(1),
         const SingleActivator(LogicalKeyboardKey.escape): () =>
             cubit.clearSelection(),
+        const SingleActivator(LogicalKeyboardKey.arrowDown): () =>
+            _scrollBy(_arrowScrollStep),
+        const SingleActivator(LogicalKeyboardKey.arrowUp): () =>
+            _scrollBy(-_arrowScrollStep),
+        for (final key in smallerFontKeys) key: () => _changeFontSize(cubit, -2),
+        for (final key in biggerFontKeys) key: () => _changeFontSize(cubit, 2),
       },
-      child: Focus(
-        autofocus: true,
+      child: ModuleFocus(
+        module: AppModule.biblelib,
         child: BlocConsumer<BibleReaderCubit, BibleReaderState>(
           listenWhen: (p, c) =>
               p.activeChapter?.id != c.activeChapter?.id ||
