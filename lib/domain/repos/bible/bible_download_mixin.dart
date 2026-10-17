@@ -19,10 +19,13 @@ mixin BibleDownloadMixin {
 
     Future<void> reportProgress(String step, double progress) async {
       await _appDB.bibleVersionsDao.updateProgress(abbr, progress);
+      bibleDownloads.update(abbr, progress);
       if (onProgress != null) await onProgress(step, progress);
     }
 
+    bibleDownloads.start(abbr);
     try {
+      bibleDownloads.throwIfCancelled(abbr);
       await reportProgress('Fetching books...', 0.05);
       final booksResp = await retrying(() => _service.getBooks(path));
       final bookEntities = <BibleBook>[
@@ -39,6 +42,7 @@ mixin BibleDownloadMixin {
       await _appDB.bibleBooksDao.insertAll(bookEntities);
       logger('✅ ${bookEntities.length} books saved for $abbr');
 
+      bibleDownloads.throwIfCancelled(abbr);
       await reportProgress('Fetching chapters...', 0.15);
       final chaptersResp = await retrying(() => _service.getChapters(path));
       final chapterEntities = <BibleChapter>[];
@@ -62,6 +66,7 @@ mixin BibleDownloadMixin {
       for (final c in chapterEntities) {
         (chaptersByBook[c.bookId] ??= []).add(c);
       }
+      bibleDownloads.throwIfCancelled(abbr);
       final bookIds = booksResp
           .map((b) => b.id)
           .where((id) => (chaptersByBook[id]?.isNotEmpty ?? false))
@@ -78,6 +83,7 @@ mixin BibleDownloadMixin {
       await Future.wait(
         bookIds.map((bookId) {
           return semaphore.withPermit(() async {
+            if (bibleDownloads.isCancelled(abbr)) return;
             try {
               final chaptersForBook = chaptersByBook[bookId] ?? const [];
               final pendingChapters = chaptersForBook
@@ -108,16 +114,22 @@ mixin BibleDownloadMixin {
         }),
       );
 
+      bibleDownloads.throwIfCancelled(abbr);
       logger('✅ Verses saved in ${bookIds.length} book batches for $abbr');
 
       await _appDB.bibleVersionsDao.markDownloaded(abbr);
       if (onProgress != null) await onProgress('Done!', 1.0);
       logger('✅ Download complete for $abbr');
+    } on BibleDownloadCancelled {
+      logger('⏹ Download stopped for $abbr');
+      rethrow;
     } catch (e) {
       final existing = await _appDB.bibleVersionsDao.getByAbbr(abbr);
       final lastKnownProgress = existing?.downloadProgress ?? 0.0;
       await _appDB.bibleVersionsDao.markFailed(abbr, lastKnownProgress);
       rethrow;
+    } finally {
+      bibleDownloads.finish(abbr);
     }
   }
 
@@ -129,6 +141,7 @@ mixin BibleDownloadMixin {
   ) async {
     final verseEntities = <BibleVerseCache>[];
     for (final chapter in chapters) {
+      if (bibleDownloads.isCancelled(abbr)) break;
       try {
         final content = await retrying(
           () => _service.getVersesForChapter(path, bookId, chapter.number),
