@@ -43,28 +43,53 @@ class _BiblePillState extends State<BiblePill> {
       (bible.downloadFailed ||
           (!bible.isDownloaded && widget.progress == null));
 
+  bool get _complete =>
+      bible.isDownloaded && !bible.downloadFailed && widget.progress == null;
+
+  BibleAction? get _deleteAction =>
+      widget.actions.where((a) => a.destructive).firstOrNull;
+
   ButtonStyle _buttonStyle(Color color) => TextButton.styleFrom(
     foregroundColor: color,
     visualDensity: VisualDensity.compact,
   );
 
-  Widget _downloadButtons() => Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      if (bible.downloadFailed && widget.onRestart != null)
-        TextButton(
-          onPressed: widget.onRestart,
-          style: _buttonStyle(onDark),
-          child: const Text('Restart'),
-        ),
-      if (widget.onContinue != null)
-        TextButton(
-          onPressed: widget.onContinue,
-          style: _buttonStyle(onDark),
-          child: const Text('Continue'),
-        ),
-    ],
-  ).padding(right: 8);
+  ButtonStyle _compactStyle(Color color) => TextButton.styleFrom(
+    foregroundColor: color,
+    minimumSize: const Size(0, 24),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    textStyle: const TextStyle(fontSize: 13),
+  );
+
+  Widget _downloadButtons() {
+    final delete = _deleteAction;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (widget.onContinue != null)
+          TextButton(
+            onPressed: widget.onContinue,
+            style: _compactStyle(onDark),
+            child: const Text('Continue'),
+          ),
+        if (widget.onRestart != null)
+          TextButton(
+            onPressed: widget.onRestart,
+            style: _compactStyle(onDark),
+            child: const Text('Restart'),
+          ),
+        if (delete != null)
+          TextButton(
+            onPressed: delete.onTap,
+            style: _compactStyle(Colors.red.shade300),
+            child: const Text('Delete'),
+          ),
+      ],
+    ).padding(right: 8);
+  }
 
   Widget _actionBar() => AnimatedOpacity(
     opacity: _hovering ? 1 : 0,
@@ -229,7 +254,7 @@ class _BiblePillState extends State<BiblePill> {
                   const SizedBox(width: 12),
               ],
             ),
-            if (widget.actions.isNotEmpty) _actionBar(),
+            if (_complete && widget.actions.isNotEmpty) _actionBar(),
           ],
         ),
       ),
