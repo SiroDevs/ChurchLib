@@ -7,15 +7,16 @@ import '../../../../common/widgets/app_intents.dart';
 
 /// Keyboard shortcuts of the song presenter.
 ///
-/// Esc closes, arrows move between slides, 1-7 jump to a verse, C / L jump to
+/// Esc closes, up / down move between slides, left / right move to the
+/// previous / next song in the songbook, 1-7 jump to a verse, C / L jump to
 /// the chorus / last slide, - and = make the text smaller / bigger.
 final Map<ShortcutActivator, Intent> presentorShortcuts =
     <ShortcutActivator, Intent>{
   const SingleActivator(LogicalKeyboardKey.escape): const CloseIntent(),
   const SingleActivator(LogicalKeyboardKey.arrowUp): const PreviousIntent(),
-  const SingleActivator(LogicalKeyboardKey.arrowLeft): const PreviousIntent(),
+  const SingleActivator(LogicalKeyboardKey.arrowLeft): const PreviousSongIntent(),
   const SingleActivator(LogicalKeyboardKey.arrowDown): const NextIntent(),
-  const SingleActivator(LogicalKeyboardKey.arrowRight): const NextIntent(),
+  const SingleActivator(LogicalKeyboardKey.arrowRight): const NextSongIntent(),
   for (final key in smallerFontKeys) key: const SmallerFontIntent(),
   for (final key in biggerFontKeys) key: const BiggerFontIntent(),
   const SingleActivator(LogicalKeyboardKey.digit1): const SlideNumberIntent(1),

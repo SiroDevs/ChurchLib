@@ -290,7 +290,7 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get keyboardShortcutsTexts =>
-      'Herufi I - Onyesha mikato ya kibodi \nESC Key - Toka kwenye Wasilisho la Wimbo \n\nMshale wa CHINI - Nenda kwa Mstari Ufuatao \n Kishale cha JUU - Nenda kwa Mstari Uliotangulia \n\nHerufi C - Nenda kwenye Pambio ya Wimbo \nBarua S - Nenda kwa Mstari wa Pili  Toka Mwisho\nHerufi L - Nenda kwa Mstari wa Mwisho \n\nNambari 1, 2, 3, 4, 5, 6, 7 - Nenda kwa Mstari kwa Nambari';
+      'Herufi I - Onyesha mikato ya kibodi \nESC Key - Toka kwenye Wasilisho la Wimbo \n\nMshale wa CHINI - Nenda kwa Mstari Ufuatao \n Kishale cha JUU - Nenda kwa Mstari Uliotangulia \n\nKishale cha KULIA - Nenda kwa Wimbo Ufuatao \nKishale cha KUSHOTO - Nenda kwa Wimbo Uliotangulia \n\nHerufi C - Nenda kwenye Pambio ya Wimbo \nBarua S - Nenda kwa Mstari wa Pili  Toka Mwisho\nHerufi L - Nenda kwa Mstari wa Mwisho \n\nNambari 1, 2, 3, 4, 5, 6, 7 - Nenda kwa Mstari kwa Nambari';
 
   @override
   String get hintsCurrentUpdate => 'In this Latest Update';

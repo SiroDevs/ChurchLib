@@ -59,6 +59,7 @@ class PresentorScreenState extends State<PresentorScreen> {
   bool showVerses = true;
   final activeSlide = ValueNotifier<int>(0);
   final detailsKey = GlobalKey<PresentorDetailsState>();
+  late final List<SongExt> bookSongs;
 
   @override
   void initState() {
@@ -67,6 +68,28 @@ class PresentorScreenState extends State<PresentorScreen> {
     hasChorus = song.content.contains("CHORUS");
     songTitle = songItemTitle(song.songNo, widget.song.title);
     songBook = refineTitle(song.songbook);
+    bookSongs = _songsOfBook();
+  }
+
+  List<SongExt> _songsOfBook() {
+    final list = widget.songs.where((s) => s.book == widget.song.book).toList()
+      ..sort((a, b) => a.songNo.compareTo(b.songNo));
+    return list.any((s) => s.rid == widget.song.rid) ? list : [widget.song];
+  }
+
+  void changeSong(int step, PresentorBloc bloc) {
+    final index = bookSongs.indexWhere((s) => s.rid == song.rid);
+    final target = index + step;
+    if (index < 0 || target < 0 || target >= bookSongs.length) return;
+    final next = bookSongs[target];
+    setState(() {
+      song = next;
+      hasChorus = next.content.contains("CHORUS");
+      songTitle = songItemTitle(next.songNo, next.title);
+      songBook = refineTitle(next.songbook);
+    });
+    detailsKey.currentState?.resetForSong();
+    bloc.add(LoadSong(next));
   }
 
   @override
@@ -159,6 +182,7 @@ class PresentorScreenState extends State<PresentorScreen> {
                   Expanded(child: PresentorDetails(key: detailsKey, parent: this)),
                   if (showVerses)
                     PresentorVersesPanel(
+                      key: ValueKey(song.rid),
                       song: song,
                       hasChorus: hasChorus,
                       activeSlide: activeSlide,

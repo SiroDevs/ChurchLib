@@ -38,6 +38,14 @@ class PreviousIntent extends Intent {
   const PreviousIntent();
 }
 
+class NextSongIntent extends Intent {
+  const NextSongIntent();
+}
+
+class PreviousSongIntent extends Intent {
+  const PreviousSongIntent();
+}
+
 class BiggerFontIntent extends Intent {
   const BiggerFontIntent();
 }
