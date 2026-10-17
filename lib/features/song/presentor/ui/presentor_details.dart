@@ -62,6 +62,16 @@ class PresentorDetailsState extends State<PresentorDetails> {
     return _autoFontSize;
   }
 
+  void resetForSong() {
+    _autoForHeight = 0;
+    slides = [];
+    stanzas = [];
+    currentSlide = 0;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) focusNode.requestFocus();
+    });
+  }
+
   void setSlideByNumber(int slide) {
     setState(() {
       currentSlide = getSlideByNumber(slide, parent.hasChorus, slides.length);
@@ -144,6 +154,14 @@ class PresentorDetailsState extends State<PresentorDetails> {
                 ),
                 NextIntent: CallbackAction<NextIntent>(
                   onInvoke: (intent) => setNextSlide(),
+                ),
+                PreviousSongIntent: CallbackAction<PreviousSongIntent>(
+                  onInvoke: (intent) =>
+                      parent.changeSong(-1, context.read<PresentorBloc>()),
+                ),
+                NextSongIntent: CallbackAction<NextSongIntent>(
+                  onInvoke: (intent) =>
+                      parent.changeSong(1, context.read<PresentorBloc>()),
                 ),
                 SlideNumberIntent: CallbackAction<SlideNumberIntent>(
                   onInvoke: (intent) => setSlideByNumber(intent.slideNumber),

@@ -4,24 +4,16 @@ import 'package:flutter/foundation.dart';
 // Project imports:
 import '../../common/constants/api_constants.dart';
 
-/// Build-time settings. Pass them when building:
-///
-///   flutter build windows \
-///     --dart-define=LICENSE_API_URL=https://your-portal.example.com \
-///     --dart-define=LICENSE_PUBLIC_KEY=<public key from Dashboard > Settings>
-///
-/// Release builds without these show a "not configured" screen instead of
-/// silently running for free. Debug builds without them are unlocked so
-/// development isn't blocked.
 class LicenseConfig {
   LicenseConfig._();
   /// Address of the admin portal, without a trailing slash.
   static final String apiBaseUrl = ApiConstants.licenceApi;
 
   /// 32-byte Ed25519 public key, base64 (Dashboard > Settings).
-  static const String publicKeyBase64 = String.fromEnvironment(
-    'LICENSE_PUBLIC_KEY',
-  );
+  // static const String publicKeyBase64 = String.fromEnvironment(
+  //   'LICENSE_PUBLIC_KEY',
+  // );
+  static const String publicKeyBase64 = "vCv4TEH8xQQhUL2JOY8ViZbtM9LmVOYOPeT+hV2ksak=";
 
   static bool get isConfigured =>
       apiBaseUrl.isNotEmpty && publicKeyBase64.isNotEmpty;
