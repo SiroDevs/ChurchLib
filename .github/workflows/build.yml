@@ -141,6 +141,28 @@ jobs:
           }
           Get-ChildItem $env:RELEASE_DIR
 
+      - name: Bundle Visual C++ runtime
+        shell: pwsh
+        run: |
+          $dlls = 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll'
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vsPath = & $vswhere -latest -products * -property installationPath
+          $found = @()
+          if ($vsPath) {
+            $found = Get-ChildItem "$vsPath\VC\Redist\MSVC" -Recurse -File -Include $dlls |
+              Where-Object { $_.FullName -match '\\x64\\Microsoft\.VC\d+\.CRT\\' } |
+              Sort-Object FullName -Descending
+          }
+          foreach ($dll in $dlls) {
+            $src = $found | Where-Object { $_.Name -eq $dll } | Select-Object -First 1
+            if (-not $src) { $src = Get-Item "$env:SystemRoot\System32\$dll" }
+            Copy-Item $src.FullName $env:RELEASE_DIR -Force
+            Write-Host "Bundled $($src.FullName)"
+          }
+          foreach ($dll in $dlls) {
+            if (-not (Test-Path "$env:RELEASE_DIR/$dll")) { throw "$dll missing from release folder" }
+          }
+
       # ---- sign ChurchLib.exe before it is packed into the installer / zip ----
       - name: Upload unsigned app exe
         id: unsigned-app
