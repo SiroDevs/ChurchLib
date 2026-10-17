@@ -87,6 +87,7 @@ class _SecondaryBiblesCardState extends State<SecondaryBiblesCard> {
               ],
               onRestart: () => widget.cubit.restartDownload(abbr),
               onContinue: () => widget.cubit.retryDownload(abbr),
+              onStop: () => widget.cubit.stopDownload(abbr),
             ).expanded(),
           ],
         ).padding(horizontal: 16, top: 8, bottom: 5),

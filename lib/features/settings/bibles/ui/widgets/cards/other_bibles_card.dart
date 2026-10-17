@@ -56,6 +56,7 @@ class OtherBiblesCard extends StatelessWidget {
           ],
           onRestart: () => cubit.restartDownload(bible.abbreviation),
           onContinue: () => cubit.retryDownload(bible.abbreviation),
+          onStop: () => cubit.stopDownload(bible.abbreviation),
         ).padding(horizontal: 16, top: 8),
       );
     }

@@ -63,7 +63,7 @@ class _VerseRowState extends State<VerseRow> {
 
   String _parallelLabel(String abbr) {
     final language = widget.parallelLanguages[abbr]?.trim() ?? '';
-    return (language.isEmpty ? abbr : language).toUpperCase();
+    return language.isEmpty ? abbr : language.split(RegExp(r'[\s(]+')).first;
   }
 
   Widget _richText(TextSpan span) =>
@@ -148,7 +148,7 @@ class _VerseRowState extends State<VerseRow> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: '[${_parallelLabel(e.key)}]  ',
+                              text: '[${_parallelLabel(e.key).toUpperCase()}]  ',
                               style: TextStyle(
                                 fontSize: widget.fontSize * 0.75,
                                 fontWeight: FontWeight.w700,

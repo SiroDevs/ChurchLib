@@ -12,6 +12,7 @@ import '../../../data/sources/local/app_database.dart';
 import '../../../data/sources/remote/bible/bible_api_service.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';
 import '../../entities/bible/verse_display.dart';
+import 'bible_download_tracker.dart';
 import 'bible_repo.dart';
 import 'retry_policy.dart';
 

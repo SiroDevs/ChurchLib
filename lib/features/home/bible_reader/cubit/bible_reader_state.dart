@@ -60,11 +60,9 @@ class BibleReaderState {
     return '';
   }
 
-  String get activeBibleLanguageCode {
+  String get activeBibleLanguageLabel {
     final language = activeBibleLanguage?.trim() ?? '';
-    if (language.isEmpty) return '';
-    final upper = language.toUpperCase();
-    return upper.length <= 3 ? upper : upper.substring(0, 3);
+    return language.isEmpty ? '' : language.split(RegExp(r'[\s(]+')).first;
   }
 
   bool get isRtl {

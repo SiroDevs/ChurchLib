@@ -17,10 +17,12 @@ class BibleTitleBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<BibleReaderCubit>();
-    final abbr = state.activeBibleLanguageCode;
+    final language = state.activeBibleLanguageLabel;
     final bibleLabel = state.activeBible.isEmpty
         ? '…'
-        : (abbr.isEmpty ? state.activeBible : '$abbr: ${state.activeBible}');
+        : (language.isEmpty
+              ? state.activeBible
+              : '$language: ${state.activeBible}');
     final chapterLabel = state.activeChapter?.reference ?? '';
 
     return Row(

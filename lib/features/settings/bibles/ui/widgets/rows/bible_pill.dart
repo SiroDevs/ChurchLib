@@ -16,6 +16,7 @@ class BiblePill extends StatefulWidget {
     this.actions = const [],
     this.onRestart,
     this.onContinue,
+    this.onStop,
   });
 
   final BibleVersion bible;
@@ -23,25 +24,55 @@ class BiblePill extends StatefulWidget {
   final List<BibleAction> actions;
   final VoidCallback? onRestart;
   final VoidCallback? onContinue;
+  final VoidCallback? onStop;
 
   @override
   State<BiblePill> createState() => _BiblePillState();
 }
 
-class _BiblePillState extends State<BiblePill> {
+class _BiblePillState extends State<BiblePill>
+    with SingleTickerProviderStateMixin {
   bool _hovering = false;
+
+  late final AnimationController _shimmer = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1600),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _syncShimmer();
+  }
+
+  @override
+  void didUpdateWidget(covariant BiblePill oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _syncShimmer();
+  }
+
+  @override
+  void dispose() {
+    _shimmer.dispose();
+    super.dispose();
+  }
+
+  void _syncShimmer() {
+    if (_downloading) {
+      if (!_shimmer.isAnimating) _shimmer.repeat();
+    } else if (_shimmer.isAnimating) {
+      _shimmer.stop();
+    }
+  }
 
   BibleVersion get bible => widget.bible;
 
   double get progress =>
       (widget.progress ?? bible.downloadProgress).clamp(0.0, 1.0);
 
-  bool get _downloading => !bible.isDownloaded && !bible.downloadFailed;
+  bool get _downloading => widget.progress != null;
 
-  bool get _needsAction =>
-      (widget.onRestart != null || widget.onContinue != null) &&
-      (bible.downloadFailed ||
-          (!bible.isDownloaded && widget.progress == null));
+  bool get _stopped => !_complete && !_downloading && !bible.downloadFailed;
 
   bool get _complete =>
       bible.isDownloaded && !bible.downloadFailed && widget.progress == null;
@@ -62,24 +93,36 @@ class _BiblePillState extends State<BiblePill> {
     textStyle: const TextStyle(fontSize: 13),
   );
 
-  Widget _downloadButtons() {
+  Widget? _downloadButtons() {
+    if (_complete) return null;
+    if (_downloading) {
+      if (widget.onStop == null) return null;
+      return TextButton(
+        onPressed: widget.onStop,
+        style: _compactStyle(onDark),
+        child: const Text('Stop'),
+      ).padding(right: 8);
+    }
     final delete = _deleteAction;
+    final hasAny =
+        widget.onRestart != null || widget.onContinue != null || delete != null;
+    if (!hasAny) return null;
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (widget.onContinue != null)
-          TextButton(
-            onPressed: widget.onContinue,
-            style: _compactStyle(onDark),
-            child: const Text('Continue'),
-          ),
         if (widget.onRestart != null)
           TextButton(
             onPressed: widget.onRestart,
             style: _compactStyle(onDark),
             child: const Text('Restart'),
+          ),
+        if (widget.onContinue != null)
+          TextButton(
+            onPressed: widget.onContinue,
+            style: _compactStyle(onDark),
+            child: const Text('Continue'),
           ),
         if (delete != null)
           TextButton(
@@ -124,6 +167,30 @@ class _BiblePillState extends State<BiblePill> {
               ),
     ),
   ).positioned(top: 20, right: 0, bottom: 0);
+
+  Widget _shimmerLayer() => IgnorePointer(
+    child: AnimatedBuilder(
+      animation: _shimmer,
+      builder: (context, _) => Align(
+        alignment: Alignment(-2.4 + 4.8 * _shimmer.value, 0),
+        child: FractionallySizedBox(
+          widthFactor: 0.4,
+          heightFactor: 1,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withValues(alpha: 0),
+                  Colors.white.withValues(alpha: 0.14),
+                  Colors.white.withValues(alpha: 0),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 
   Widget _badge() {
     if (bible.downloadFailed) {
@@ -175,6 +242,8 @@ class _BiblePillState extends State<BiblePill> {
         ? ' · Download failed'
         : _downloading
         ? ' · Fetching verses'
+        : _stopped
+        ? ' · Download stopped'
         : null;
     return Row(
       children: [
@@ -221,6 +290,7 @@ class _BiblePillState extends State<BiblePill> {
                   ),
                 ),
               ),
+            if (_downloading) _shimmerLayer(),
             Row(
               children: [
                 _badge().constrained(width: 60, height: 60).padding(all: 8),
@@ -248,10 +318,7 @@ class _BiblePillState extends State<BiblePill> {
                     _status(),
                   ],
                 ).expanded(),
-                if (_needsAction)
-                  _downloadButtons()
-                else
-                  const SizedBox(width: 12),
+                _downloadButtons() ?? const SizedBox(width: 12),
               ],
             ),
             if (_complete && widget.actions.isNotEmpty) _actionBar(),

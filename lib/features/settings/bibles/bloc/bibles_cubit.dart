@@ -8,6 +8,7 @@ import '../../../../common/utils/reader/bible_settings_signal.dart';
 import '../../../../common/utils/reader/reader_prefs_utils.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/bible/bible_version.dart';
+import '../../../../domain/repos/bible/bible_download_tracker.dart';
 import '../../../../domain/repos/bible/bible_repo.dart';
 import '../../../../domain/repos/bible/bible_selection_repo.dart';
 import '../../../../domain/repos/pref_repo.dart';
@@ -15,15 +16,33 @@ import '../../../../domain/repos/pref_repo.dart';
 part 'bibles_state.dart';
 
 class BiblesCubit extends Cubit<BiblesState> {
-  BiblesCubit() : super(const BiblesState()) {
+  BiblesCubit()
+    : super(BiblesState(downloadProgress: bibleDownloads.progress)) {
+    bibleDownloads.addListener(_onDownloadsChanged);
     load();
   }
 
   final _bibleRepo = getIt<BibleRepo>();
   final _prefs = getIt<PrefRepo>();
 
-  Future<void> load() async {
-    emit(state.copyWith(isLoading: true));
+  void _onDownloadsChanged() {
+    if (isClosed) return;
+    final previous = state.downloadProgress.keys.toSet();
+    final current = bibleDownloads.progress;
+    emit(state.copyWith(downloadProgress: current));
+    if (previous.any((abbr) => !current.containsKey(abbr))) {
+      load(silent: true);
+    }
+  }
+
+  @override
+  Future<void> close() {
+    bibleDownloads.removeListener(_onDownloadsChanged);
+    return super.close();
+  }
+
+  Future<void> load({bool silent = false}) async {
+    if (!silent) emit(state.copyWith(isLoading: true));
     final bibles = await _bibleRepo.getBibles();
     bibles.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
     final primary = _prefs.getPrefString(PrefConstants.biblePrimaryKey);
@@ -60,37 +79,24 @@ class BiblesCubit extends Cubit<BiblesState> {
       csv.isEmpty ? [] : csv.split(',').where((e) => e.isNotEmpty).toList();
 
   Future<void> _download(String abbr) async {
-    emit(state.copyWith(
-      downloadProgress: {...state.downloadProgress, abbr: 0},
-      retrying: {...state.retrying}..remove(abbr),
-    ));
+    if (bibleDownloads.isActive(abbr)) return;
     try {
-      await _bibleRepo.downloadBible(
-        abbr,
-        onProgress: (step, progress) async {
-          if (!isClosed) {
-            emit(state.copyWith(
-              downloadProgress: {...state.downloadProgress, abbr: progress},
-            ));
-          }
-        },
-      );
+      await _bibleRepo.downloadBible(abbr);
+    } on BibleDownloadCancelled {
+      logger('Bibles screen: download stopped for $abbr');
     } catch (e) {
       logger('Bibles screen: download failed for $abbr: $e');
-    } finally {
-      if (!isClosed) {
-        final progress = {...state.downloadProgress}..remove(abbr);
-        emit(state.copyWith(downloadProgress: progress));
-        await load();
-      }
     }
   }
 
   void retryDownload(String abbr) => _download(abbr);
 
+  void stopDownload(String abbr) => bibleDownloads.cancel(abbr);
+
   Future<void> restartDownload(String abbr) async {
-    emit(state.copyWith(retrying: {...state.retrying, abbr}));
+    if (bibleDownloads.isActive(abbr)) return;
     await _bibleRepo.clearBibleContent(abbr);
+    await load(silent: true);
     await _download(abbr);
   }
 
