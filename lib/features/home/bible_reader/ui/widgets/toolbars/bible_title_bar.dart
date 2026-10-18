@@ -7,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../common/utils/reader/reader_utils.dart';
+import '../../../../../presentation/presentation_sources.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import 'reader_actions.dart';
 
@@ -45,6 +46,11 @@ class BibleTitleBar extends StatelessWidget {
               : () => chooseBookAction(context, state),
         ),
         const Spacer(),
+        IconButton(
+          tooltip: 'Present Chapter',
+          onPressed: state.verses.isEmpty ? null : () => presentChapter(state),
+          icon: const Icon(Icons.north_east),
+        ),
         TextButton.icon(
           onPressed: state.activeChapter == null
               ? null

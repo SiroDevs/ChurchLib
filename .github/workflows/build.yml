@@ -266,6 +266,106 @@ jobs:
           if-no-files-found: error
 
 # ============================================================
+# macOS  (Developer ID signed + notarized + stapled)
+# ============================================================
+
+  macos-x64:
+    name: macOS Intel
+    needs: check-version
+    if: needs.check-version.outputs.should_release == 'true'
+    runs-on: macos-26-intel
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+        with:
+          version: ${{ env.FLUTTER_VERSION }}
+          arch: x64
+
+      - name: Prepare
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+          flutter gen-l10n
+
+      - name: Generate code (build_runner)
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build
+        run: |
+          flutter build macos --release -t "$ENTRY" --no-tree-shake-icons
+
+      - name: Sign, notarize and package DMG
+        uses: ./.github/actions/macos-package
+        with:
+          arch: x64
+          version: ${{ needs.check-version.outputs.version }}
+          app-name: ${{ env.APP_NAME }}
+          certificate-base64: ${{ secrets.MACOS_CERTIFICATE }}
+          certificate-password: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          apple-id: ${{ secrets.APPLE_ID }}
+          apple-app-password: ${{ secrets.APPLE_APP_PASSWORD }}
+          apple-team-id: ${{ secrets.APPLE_TEAM_ID }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-macos-x64
+          path: dist/*.dmg
+          if-no-files-found: error
+
+  macos-arm64:
+    name: macOS Apple Silicon
+    needs: check-version
+    if: needs.check-version.outputs.should_release == 'true'
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: ./.github/actions/setup-flutter
+        with:
+          version: ${{ env.FLUTTER_VERSION }}
+          arch: arm64
+
+      - name: Prepare
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+          flutter gen-l10n
+
+      - name: Generate code (build_runner)
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build
+        run: |
+          flutter build macos --release -t "$ENTRY" --no-tree-shake-icons
+
+      - name: Sign, notarize and package DMG
+        uses: ./.github/actions/macos-package
+        with:
+          arch: arm64
+          version: ${{ needs.check-version.outputs.version }}
+          app-name: ${{ env.APP_NAME }}
+          certificate-base64: ${{ secrets.MACOS_CERTIFICATE }}
+          certificate-password: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          apple-id: ${{ secrets.APPLE_ID }}
+          apple-app-password: ${{ secrets.APPLE_APP_PASSWORD }}
+          apple-team-id: ${{ secrets.APPLE_TEAM_ID }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-macos-arm64
+          path: dist/*.dmg
+          if-no-files-found: error
+
+# ============================================================
 # LINUX
 # ============================================================
 
@@ -378,6 +478,8 @@ jobs:
       - check-version
       - windows-x64
       - linux
+      - macos-x64
+      - macos-arm64
     if: >
       !cancelled() &&
       github.ref == 'refs/heads/main' &&

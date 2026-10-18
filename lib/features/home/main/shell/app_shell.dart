@@ -13,6 +13,8 @@ import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../license/ui/widgets/license_banner.dart';
+import '../../../presentation/presentation_controller.dart';
+import '../../../presentation/presentation_panel.dart';
 import 'app_module.dart';
 import 'how_it_works_sheet.dart';
 import 'shell_nav_item.dart';
@@ -41,26 +43,36 @@ class AppShell extends StatelessWidget {
     return Scaffold(
       backgroundColor: scheme.surface,
       body: SafeArea(
-        child: Column(
-          children: [
-            _TopBar(module: module, titleBar: titleBar),
-            Divider(height: 1, color: scheme.outlineVariant),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  width: kShellSidebarWidth,
-                  decoration: BoxDecoration(
-                    color: scheme.secondaryContainer,
-                    border: Border(right: divider),
-                  ),
-                  child: _Sidebar(module: module, items: sidebarItems),
-                ),
-                body.expanded(),
+        child: ListenableBuilder(
+          listenable: PresentationController.instance,
+          builder: (context, _) => Row(
+            children: [
+              Column(
+                children: [
+                  _TopBar(module: module, titleBar: titleBar),
+                  Divider(height: 1, color: scheme.outlineVariant),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        width: kShellSidebarWidth,
+                        decoration: BoxDecoration(
+                          color: scheme.secondaryContainer,
+                          border: Border(right: divider),
+                        ),
+                        child: _Sidebar(module: module, items: sidebarItems),
+                      ),
+                      body.expanded(),
+                    ],
+                  ).expanded(),
+                ],
+              ).expanded(flex: 6),
+              if (PresentationController.instance.active) ...[
+                VerticalDivider(width: 1, color: scheme.outlineVariant),
+                const PresentationPanel().expanded(flex: 4),
               ],
-            )
-                .expanded(),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -101,45 +113,47 @@ class AppSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scope = HomeModuleScope.maybeOf(context);
-    final others = (scope?.enabled ?? const <AppModule>[])
-        .where((m) => m != module)
-        .toList();
+    final modules = AppModule.values.where(
+      (m) => m == module || (scope?.enabled.contains(m) ?? false),
+    );
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(module.icon, width: 26, height: 26),
-            const SizedBox(width: 8),
-            Text(
-              module.label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
+        for (final m in modules)
+          if (m == module)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(m.icon, width: 26, height: 26),
+                const SizedBox(width: 8),
+                Text(
+                  m.label,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            )
+                .padding(left: 6, top: 4, right: 12, bottom: 4)
+                .decorated(
+                  color: ThemeColors.primary.withValues(alpha: .85),
+                  borderRadius: BorderRadius.circular(8),
+                )
+          else
+            Tooltip(
+              message: 'Switch to ${m.label}',
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () => scope!.onSwitch(m),
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Image.asset(m.icon, width: 28, height: 28),
+                ),
               ),
             ),
-          ],
-        )
-            .padding(left: 6, top: 4, right: 12, bottom: 4)
-            .decorated(
-              color: ThemeColors.primary.withValues(alpha: .85),
-              borderRadius: BorderRadius.circular(8),
-            ),
-        for (final other in others)
-          Tooltip(
-            message: 'Switch to ${other.label}',
-            child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () => scope!.onSwitch(other),
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Image.asset(other.icon, width: 28, height: 28),
-              ),
-            ),
-          ),
       ],
     );
   }
@@ -175,6 +189,7 @@ class _Sidebar extends StatelessWidget {
             .expanded(),
         const LicenseBanner(),
         divider,
+        const PresentationToggle(),
         ShellNavItem(
           Icons.help_outline,
           'How it works',

@@ -72,26 +72,23 @@ class _PresentorVersesPanelState extends State<PresentorVersesPanel> {
         child: Column(
           children: [
             for (var i = 0; i < verses.length; i++)
-              Card(
+              Container(
                 key: keys[i],
-                elevation: i == _activeVerse ? 6 : 2,
-                color: i == _activeVerse ? scheme.primaryContainer : null,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: i == _activeVerse
-                      ? BorderSide(color: scheme.primary, width: 2)
-                      : BorderSide.none,
-                ),
+                width: double.infinity,
                 margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      verses[i].replaceAll('#', '\n'),
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: i == _activeVerse
+                      ? Colors.grey.withValues(alpha: 0.45)
+                      : null,
+                  border: Border.all(color: scheme.outlineVariant),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  verses[i].replaceAll('#', '\n'),
+                  softWrap: false,
+                  overflow: TextOverflow.clip,
+                  style: const TextStyle(fontSize: 12),
                 ),
               ),
           ],

@@ -8,6 +8,8 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../../presentation/presentation_sources.dart';
+import '../../../../../presentation/presentation_controller.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import '../dialogs/export.dart';
 import 'verse_row.dart';
@@ -127,6 +129,10 @@ class ReaderBody extends StatelessWidget {
                   isSelectionMode: state.isSelectionMode,
                   onToggleSelected: () =>
                       cubit.toggleVerseSelected(v.verseId),
+                  onPresent: () {
+                    if (!PresentationController.instance.active) return;
+                    presentChapter(state, at: state.verses.indexOf(v));
+                  },
                 ),
               const SizedBox(height: 48),
             ],

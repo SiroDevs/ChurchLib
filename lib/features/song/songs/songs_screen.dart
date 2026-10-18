@@ -16,6 +16,7 @@ import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
 import '../../home/main/shell/app_module.dart';
 import '../../home/main/shell/module_focus.dart';
+import '../../presentation/presentation_controller.dart';
 import '../../home/song_search/bloc/song_search_bloc.dart';
 import '../../home/song_search/ui/song_search_screen.dart';
 
@@ -54,7 +55,9 @@ class _SongsScreenState extends State<SongsScreen> {
     return LayoutBuilder(
       builder: (context, dimens) {
         final outline = Theme.of(context).colorScheme.outlineVariant;
-        var bigScreenView = Row(
+        var bigScreenView = ListenableBuilder(
+          listenable: PresentationController.instance,
+          builder: (context, _) => Row(
           children: [
             Column(
               children: [
@@ -74,8 +77,10 @@ class _SongsScreenState extends State<SongsScreen> {
                   border: Border(right: BorderSide(color: outline)),
                 )
                 .expanded(),
-            SongViewer(song: parent.selectedSong).expanded(),
+            if (!PresentationController.instance.active)
+              SongViewer(song: parent.selectedSong).expanded(),
           ],
+          ),
         );
         return Shortcuts(
           shortcuts: <ShortcutActivator, Intent>{

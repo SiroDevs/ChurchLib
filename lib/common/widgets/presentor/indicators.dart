@@ -57,7 +57,12 @@ class IndicatorItem extends StatelessWidget {
       width: width,
       margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color: isSelected! ? Colors.transparent : ThemeColors.primary,
+        color: Colors.transparent,
+        border: Border.all(
+          color: isSelected!
+              ? Colors.transparent
+              : Theme.of(context).colorScheme.outlineVariant,
+        ),
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),

@@ -35,6 +35,7 @@ class VerseRow extends StatefulWidget {
   final bool isSelected;
   final bool isSelectionMode;
   final VoidCallback onToggleSelected;
+  final VoidCallback? onPresent;
 
   const VerseRow({
     super.key,
@@ -52,6 +53,7 @@ class VerseRow extends StatefulWidget {
     this.isSelected = false,
     this.isSelectionMode = false,
     required this.onToggleSelected,
+    this.onPresent,
   });
 
   @override
@@ -88,7 +90,7 @@ class _VerseRowState extends State<VerseRow> {
       onExit: (_) => setState(() => _hovering = false),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: widget.isSelectionMode ? widget.onToggleSelected : null,
+        onTap: widget.isSelectionMode ? widget.onToggleSelected : widget.onPresent,
         onLongPress: widget.onToggleSelected,
         onSecondaryTap: widget.onToggleSelected,
         child: Container(
@@ -148,7 +150,7 @@ class _VerseRowState extends State<VerseRow> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: '[${_parallelLabel(e.key).toUpperCase()}]  ',
+                              text: '[${_parallelLabel(e.key)}]  ',
                               style: TextStyle(
                                 fontSize: widget.fontSize * 0.75,
                                 fontWeight: FontWeight.w700,
