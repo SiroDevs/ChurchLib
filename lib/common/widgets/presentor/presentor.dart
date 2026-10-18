@@ -73,12 +73,14 @@ class SliderContent extends StatelessWidget {
             width: width,
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              alignment: textAlign == TextAlign.center
-                  ? Alignment.center
-                  : Alignment.centerLeft,
+              alignment: switch (textAlign) {
+                TextAlign.center => Alignment.center,
+                TextAlign.right => Alignment.centerRight,
+                _ => Alignment.centerLeft,
+              },
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minWidth: textAlign == TextAlign.justify ? width : 0,
+                  minWidth: 0,
                   maxWidth: width,
                 ),
                 child: Text(

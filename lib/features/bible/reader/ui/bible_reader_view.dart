@@ -1,18 +1,14 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:math' as math;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../../../common/utils/reader/reader_prefs_utils.dart';
-import '../../../../common/widgets/app_intents.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../home/ui/shell/app_module.dart';
@@ -25,9 +21,6 @@ import 'widgets/dialogs/reader_options_sheet.dart';
 import 'widgets/toolbars/toolbars.dart';
 import 'widgets/verses/reader_auto_scroll.dart';
 import 'widgets/verses/reader_body.dart';
-
-/// How far one press of the Up / Down arrow scrolls the chapter.
-const double _arrowScrollStep = 90;
 
 class BiblerReaderView extends StatefulWidget {
   const BiblerReaderView({super.key});
@@ -64,27 +57,6 @@ class BiblerReaderViewState extends State<BiblerReaderView>
         (_) => _scrollToVerse(verseId, retry: false),
       );
     }
-  }
-
-  void _scrollBy(double delta) {
-    if (!scrollController.hasClients) return;
-    stopAutoScroll();
-    final position = scrollController.position;
-    final target = math.min(
-      position.maxScrollExtent,
-      math.max(position.minScrollExtent, position.pixels + delta),
-    );
-    scrollController.animateTo(
-      target,
-      duration: const Duration(milliseconds: 100),
-      curve: Curves.easeOut,
-    );
-  }
-
-  void _changeFontSize(BibleReaderCubit cubit, int delta) {
-    final current = cubit.state.fontSize;
-    final next = clampReaderFontSize(current + delta);
-    if (next != current) cubit.setFontSize(next);
   }
 
   void _onStateChanged(BuildContext context, BibleReaderState state) {
@@ -131,104 +103,88 @@ class BiblerReaderViewState extends State<BiblerReaderView>
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<BibleReaderCubit>();
-    return CallbackShortcuts(
-      bindings: {
-        const SingleActivator(LogicalKeyboardKey.arrowLeft, alt: true): () =>
-            cubit.navigateChapter(-1),
-        const SingleActivator(LogicalKeyboardKey.arrowRight, alt: true): () =>
-            cubit.navigateChapter(1),
-        const SingleActivator(LogicalKeyboardKey.escape): () =>
-            cubit.clearSelection(),
-        const SingleActivator(LogicalKeyboardKey.arrowDown): () =>
-            _scrollBy(_arrowScrollStep),
-        const SingleActivator(LogicalKeyboardKey.arrowUp): () =>
-            _scrollBy(-_arrowScrollStep),
-        for (final key in smallerFontKeys) key: () => _changeFontSize(cubit, -2),
-        for (final key in biggerFontKeys) key: () => _changeFontSize(cubit, 2),
-      },
-      child: ModuleFocus(
-        module: AppModule.biblelib,
-        child: BlocConsumer<BibleReaderCubit, BibleReaderState>(
-          listenWhen: (p, c) =>
-              p.activeChapter?.id != c.activeChapter?.id ||
-              (!identical(p.verses, c.verses) && c.restoreVerseId != null),
-          listener: _onStateChanged,
-          builder: (context, state) {
-            return AppShell(
-              module: AppModule.biblelib,
-              onPresent: () => presentChapter(state),
-              sidebarItems: bibleSidebarItems(context),
-              titleBar: state.isSelectionMode
-                  ? SelectionBar(state: state)
-                  : BibleTitleBar(state: state),
-              body: Column(
-                children: [
-                  if (state.isLoading && state.verses.isNotEmpty)
-                    const LinearProgressIndicator(
-                      minHeight: 2,
-                      color: ThemeColors.primary,
-                    ),
-                  Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Listener(
-                        onPointerDown: (_) => stopAutoScroll(),
-                        child: ColoredBox(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.black
-                              : Colors.white,
-                          child: ReaderBody(
-                            state: state,
-                            scrollController: scrollController,
-                            viewportKey: _viewportKey,
-                            keyFor: _keyFor,
-                            onScrollEnd: _scheduleScrollReport,
-                          ),
+    return ModuleFocus(
+      module: AppModule.biblelib,
+      child: BlocConsumer<BibleReaderCubit, BibleReaderState>(
+        listenWhen: (p, c) =>
+            p.activeChapter?.id != c.activeChapter?.id ||
+            (!identical(p.verses, c.verses) && c.restoreVerseId != null),
+        listener: _onStateChanged,
+        builder: (context, state) {
+          return AppShell(
+            module: AppModule.biblelib,
+            onPresent: () => presentBible(state),
+            sidebarItems: bibleSidebarItems(context),
+            titleBar: state.isSelectionMode
+                ? SelectionBar(state: state)
+                : BibleTitleBar(state: state),
+            body: Column(
+              children: [
+                if (state.isLoading && state.verses.isNotEmpty)
+                  const LinearProgressIndicator(
+                    minHeight: 2,
+                    color: ThemeColors.primary,
+                  ),
+                Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Listener(
+                      onPointerDown: (_) => stopAutoScroll(),
+                      child: ColoredBox(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
+                        child: ReaderBody(
+                          state: state,
+                          scrollController: scrollController,
+                          viewportKey: _viewportKey,
+                          keyFor: _keyFor,
+                          onScrollEnd: _scheduleScrollReport,
                         ),
                       ),
-                      if (state.activeChapter != null)
-                        Positioned(
-                          right: 16,
-                          bottom: 16,
-                          child: FloatingActionButton.extended(
-                            heroTag: 'scripture-opener',
-                            tooltip: 'Scripture Opener',
-                            onPressed: () => openScriptureAction(context, state),
-                            icon: const Icon(Icons.auto_stories_outlined),
-                            label: const Text('Scripture Opener'),
-                          ),
-                        ),
-                    ],
-                  ).expanded(),
-                  if (state.activeChapter != null)
-                    BlocBuilder<ScriptureQueueCubit, ScriptureQueueState>(
-                      bloc: getIt<ScriptureQueueCubit>(),
-                      builder: (context, queueState) => queueState.isOpen
-                          ? ScriptureQueueBar(queueState: queueState)
-                          : BibleBottomBar(
-                              state: state,
-                              autoScrolling: autoScrolling,
-                              autoScrollSpeed: autoSpeed,
-                              onToggleAutoScroll: toggleAutoScroll,
-                              onSpeedUp: () => changeSpeed(
-                                ReaderAutoScrollMixin.autoSpeedStep,
-                              ),
-                              onSpeedDown: () => changeSpeed(
-                                -ReaderAutoScrollMixin.autoSpeedStep,
-                              ),
-                              onPrevious: () => cubit.navigateChapter(-1),
-                              onNext: () => cubit.navigateChapter(1),
-                              onPickChapter: () =>
-                                  pickChapterAction(context, state),
-                              onQuickOptions: () =>
-                                  showReaderOptionsSheet(context),
-                            ),
                     ),
-                ],
-              ),
-            );
-          },
-        ),
+                    if (state.activeChapter != null)
+                      Positioned(
+                        right: 16,
+                        bottom: 16,
+                        child: FloatingActionButton.extended(
+                          heroTag: 'scripture-opener',
+                          tooltip: 'Scripture Opener',
+                          onPressed: () => openScriptureAction(context, state),
+                          icon: const Icon(Icons.auto_stories_outlined),
+                          label: const Text('Scripture Opener'),
+                        ),
+                      ),
+                  ],
+                ).expanded(),
+                if (state.activeChapter != null)
+                  BlocBuilder<ScriptureQueueCubit, ScriptureQueueState>(
+                    bloc: getIt<ScriptureQueueCubit>(),
+                    builder: (context, queueState) => queueState.isOpen
+                        ? ScriptureQueueBar(queueState: queueState)
+                        : BibleBottomBar(
+                            state: state,
+                            autoScrolling: autoScrolling,
+                            autoScrollSpeed: autoSpeed,
+                            onToggleAutoScroll: toggleAutoScroll,
+                            onSpeedUp: () => changeSpeed(
+                              ReaderAutoScrollMixin.autoSpeedStep,
+                            ),
+                            onSpeedDown: () => changeSpeed(
+                              -ReaderAutoScrollMixin.autoSpeedStep,
+                            ),
+                            onPrevious: () => cubit.navigateChapter(-1),
+                            onNext: () => cubit.navigateChapter(1),
+                            onPickChapter: () =>
+                                pickChapterAction(context, state),
+                            onQuickOptions: () =>
+                                showReaderOptionsSheet(context),
+                          ),
+                  ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

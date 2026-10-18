@@ -1,10 +1,7 @@
-// Dart imports:
 import 'dart:async';
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../home/ui/shell/shell_nav_item.dart';
 import '../controller/presentation_controller.dart';
 

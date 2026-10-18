@@ -9,7 +9,7 @@ import '../../../../../../common/utils/theme/shape_utils.dart';
 import '../../../../../../data/models/bible/bible_version.dart';
 import '../../../bloc/bibles_cubit.dart';
 import '../../../utils/bible_action.dart';
-import '../pill/bible_pill.dart';
+import '../rows/bible_pill.dart';
 import '../rows/section_header_row.dart';
 
 class SecondaryBiblesCard extends StatefulWidget {

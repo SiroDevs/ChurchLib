@@ -1,7 +1,5 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../bible/reader/ui/widgets/toolbars/bible_bottom_bar.dart';
 import '../controller/presentation_controller.dart';
 
@@ -11,13 +9,13 @@ class PresentationToolbar extends StatelessWidget {
 
   static IconData _alignIcon(TextAlign align) => switch (align) {
     TextAlign.center => Icons.format_align_center,
-    TextAlign.justify => Icons.format_align_justify,
+    TextAlign.right => Icons.format_align_right,
     _ => Icons.format_align_left,
   };
 
   static String _alignLabel(TextAlign align) => switch (align) {
     TextAlign.center => 'Center',
-    TextAlign.justify => 'Justify',
+    TextAlign.right => 'Right',
     _ => 'Left',
   };
 

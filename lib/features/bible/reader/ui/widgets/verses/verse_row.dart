@@ -6,6 +6,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
+import 'verse_row_actions.dart';
 import 'verse_spans.dart';
 
 Color? parseHexColor(String? hex) {
@@ -108,107 +109,93 @@ class _VerseRowState extends State<VerseRow> {
                 ? Border.all(color: ThemeColors.primary, width: 1.2)
                 : null,
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              InkWell(
-                onTap: widget.onToggleSelected,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 3),
-                  child: widget.isSelected
-                      ? const Icon(
-                          Icons.check_circle,
-                          size: 18,
-                          color: ThemeColors.primary,
-                        )
-                      : Text(
-                          '${widget.number}',
-                          style: TextStyle(
-                            fontSize: widget.fontSize * 1.2,
-                            fontWeight: FontWeight.bold,
-                            color: ThemeColors.primary,
-                          ),
-                        ),
-                ),
-              ).width(55),
-              Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _richText(
-                    TextSpan(
-                      children: highlightSpans(
-                        widget.text,
-                        baseStyle,
-                        hitStyle,
-                        widget.highlightQuery,
-                      ),
-                    ),
-                  ),
-                  for (final e in widget.parallelTexts.entries)
-                    if (e.value.isNotEmpty)
-                      _richText(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '[${_parallelLabel(e.key)}]  ',
+                  InkWell(
+                    onTap: widget.onToggleSelected,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 3),
+                      child: widget.isSelected
+                          ? const Icon(
+                              Icons.check_circle,
+                              size: 18,
+                              color: ThemeColors.primary,
+                            )
+                          : Text(
+                              '${widget.number}',
                               style: TextStyle(
-                                fontSize: widget.fontSize * 0.75,
-                                fontWeight: FontWeight.w700,
+                                fontSize: widget.fontSize * 1.2,
+                                fontWeight: FontWeight.bold,
                                 color: ThemeColors.primary,
                               ),
                             ),
-                            TextSpan(
-                              text: e.value,
-                              style: TextStyle(
-                                fontSize: widget.fontSize * 0.88,
-                                height: 1.45,
-                                color: theme.colorScheme.onSurface.withValues(
-                                  alpha: 0.72,
-                                ),
-                              ),
-                            ),
-                          ],
+                    ),
+                  ).width(55),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _richText(
+                        TextSpan(
+                          children: highlightSpans(
+                            widget.text,
+                            baseStyle,
+                            hitStyle,
+                            widget.highlightQuery,
+                          ),
                         ),
-                      ).padding(top: 6),
-                ],
-              ).expanded(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (widget.hasNote || (_hovering && !widget.isSelectionMode))
-                    IconButton(
-                      visualDensity: VisualDensity.compact,
-                      iconSize: 18,
-                      tooltip: widget.hasNote ? 'SongEdit note' : 'Add note',
-                      onPressed: widget.onOpenNote,
-                      icon: Icon(
-                        widget.hasNote
-                            ? Icons.sticky_note_2
-                            : Icons.sticky_note_2_outlined,
-                        color: widget.hasNote
-                            ? ThemeColors.primary
-                            : ThemeColors.mediumGrey,
                       ),
+                      for (final e in widget.parallelTexts.entries)
+                        if (e.value.isNotEmpty)
+                          _richText(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '[${_parallelLabel(e.key)}]  ',
+                                  style: TextStyle(
+                                    fontSize: widget.fontSize * 0.75,
+                                    fontWeight: FontWeight.w700,
+                                    color: ThemeColors.primary,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: e.value,
+                                  style: TextStyle(
+                                    fontSize: widget.fontSize * 0.88,
+                                    height: 1.45,
+                                    color: theme.colorScheme.onSurface.withValues(
+                                      alpha: 0.72,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ).padding(top: 6),
+                    ],
+                  ).expanded(),
+                  SizedBox(
+                    width: VerseActions.reservedWidth(
+                      hasNote: widget.hasNote,
+                      isBookmarked: widget.isBookmarked,
                     ),
-                  if (widget.isBookmarked || _hovering)
-                    IconButton(
-                      visualDensity: VisualDensity.compact,
-                      iconSize: 20,
-                      tooltip: widget.isBookmarked
-                          ? 'Remove bookmark'
-                          : 'Bookmark verse',
-                      onPressed: widget.onToggleBookmark,
-                      icon: Icon(
-                        widget.isBookmarked
-                            ? Icons.bookmark_rounded
-                            : Icons.bookmark_border_rounded,
-                        color: widget.isBookmarked
-                            ? (bg ?? ThemeColors.primary)
-                            : ThemeColors.mediumGrey,
-                      ),
-                    ),
+                  ),
                 ],
-              ).width(84),
+              ),
+              PositionedDirectional(
+                top: 0,
+                end: 0,
+                child: VerseActions(
+                  hovering: _hovering,
+                  selectionMode: widget.isSelectionMode,
+                  hasNote: widget.hasNote,
+                  isBookmarked: widget.isBookmarked,
+                  bookmarkColor: bg,
+                  onOpenNote: widget.onOpenNote,
+                  onToggleBookmark: widget.onToggleBookmark,
+                ),
+              ),
             ],
           ),
         ),

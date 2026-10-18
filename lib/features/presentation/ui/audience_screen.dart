@@ -1,9 +1,6 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
 import '../../../core/di/injectable.dart';
-import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_data.dart';
 import '../../../domain/repos/pref_repo.dart';
 import '../controller/presentation_controller.dart';
@@ -28,7 +25,7 @@ class AudienceCanvas extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = PresentationController.instance;
     return Material(
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: Colors.black,
       child: ListenableBuilder(
         listenable: Listenable.merge([
           p.session,
@@ -54,75 +51,6 @@ class AudienceCanvas extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class VerseSlide extends StatelessWidget {
-  const VerseSlide({
-    super.key,
-    required this.header,
-    required this.text,
-    required this.height,
-    required this.style,
-  });
-
-  final String header;
-  final String text;
-  final double height;
-  final PresentationStyle style;
-
-  @override
-  Widget build(BuildContext context) {
-    final gap = height * 0.06;
-    final centered = style.align == TextAlign.center;
-    final alignment = centered ? Alignment.center : Alignment.centerLeft;
-    return Padding(
-      padding: EdgeInsets.all(gap),
-      child: Column(
-        children: [
-          Align(
-            alignment: alignment,
-            child: Text(
-              header,
-              style: TextStyle(
-                fontSize: height * 0.05,
-                fontWeight: FontWeight.bold,
-                color: ThemeColors.primary,
-              ),
-            ),
-          ),
-          Expanded(
-            child: LayoutBuilder(
-              builder: (context, box) => Center(
-                child: SizedBox(
-                  width: box.maxWidth,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: alignment,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minWidth: style.align == TextAlign.justify
-                            ? box.maxWidth
-                            : 0,
-                        maxWidth: box.maxWidth,
-                      ),
-                      child: Text(
-                        text,
-                        textAlign: style.align,
-                        style: TextStyle(
-                          fontSize: height * 0.08 * style.scale,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

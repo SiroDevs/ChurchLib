@@ -71,7 +71,7 @@ class BibleTitleBar extends StatelessWidget {
           TextButton.icon(
             onPressed: state.verses.isEmpty
                 ? null
-                : () => presentChapter(state),
+                : () => presentBible(state),
             icon: const Icon(Icons.north_east, size: 20),
             label: const Text('PRESENT BIBLE'),
           ).padding(right: 10),
@@ -93,7 +93,7 @@ class BibleTitleBar extends StatelessWidget {
           TextButton.icon(
             onPressed: state.verses.isEmpty
                 ? null
-                : () => presentChapter(state),
+                : () => presentBible(state),
             icon: const Icon(Icons.north_east, size: 20),
             label: const Text('PRESENT BIBLE'),
             style: TextButton.styleFrom(

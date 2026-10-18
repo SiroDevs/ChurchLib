@@ -79,19 +79,10 @@ class ReaderBody extends StatelessWidget {
         child: SingleChildScrollView(
           key: viewportKey,
           controller: scrollController,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 8, 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (state.activeBook != null && state.activeChapter != null)
-                Text(
-                  state.activeChapter!.reference,
-                  style: TextStyle(
-                    fontSize: state.fontSize * 1.1,
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.primary,
-                  ),
-                ).padding(bottom: 12, left: 8),
               for (final v in state.verses)
                 VerseRow(
                   key: keyFor(v.verseId),
@@ -131,7 +122,7 @@ class ReaderBody extends StatelessWidget {
                       cubit.toggleVerseSelected(v.verseId),
                   onPresent: () {
                     if (!PresentationController.instance.active) return;
-                    presentChapter(state, at: state.verses.indexOf(v));
+                    presentBible(state, at: state.verses.indexOf(v));
                   },
                 ),
               const SizedBox(height: 48),
