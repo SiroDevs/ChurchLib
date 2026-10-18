@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-// ignore: invalid_use_of_internal_member, implementation_imports
 import 'package:flutter/src/foundation/_features.dart' show isWindowingEnabled;
 
 // Project imports:
@@ -12,6 +11,9 @@ import 'common/utils/formatting/app_util.dart';
 import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
 import 'features/presentation/controller/presentation_controller.dart';
+
+// ignore: invalid_use_of_internal_member, implementation_imports
+
 
 Future<void> main() async {
   // ignore: invalid_use_of_internal_member

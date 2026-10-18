@@ -1,11 +1,17 @@
 // ignore_for_file: invalid_use_of_internal_member, implementation_imports
+
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/_window.dart' as fw;
+
+// Package imports:
 import 'package:nativeapi_flutter/nativeapi_flutter.dart';
 import 'package:nativeapi_flutter/windowing.dart';
 
+// Project imports:
 import '../ui/audience_screen.dart';
 
 class _CloseDelegate with fw.RegularWindowControllerDelegate {

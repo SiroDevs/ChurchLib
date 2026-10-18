@@ -7,7 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../../../data/models/bible/bible_version.dart';
 import '../../../utils/bible_action.dart';
-import 'bible_pill.dart';
+import '../pill/bible_pill.dart';
 
 class HoverBibleRow extends StatefulWidget {
   const HoverBibleRow({

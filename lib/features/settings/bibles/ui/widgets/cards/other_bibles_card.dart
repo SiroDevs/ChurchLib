@@ -10,7 +10,7 @@ import '../../../../../../data/models/bible/bible_version.dart';
 import '../../../../../../domain/repos/bible/bible_selection_repo.dart';
 import '../../../bloc/bibles_cubit.dart';
 import '../../../utils/bible_action.dart';
-import '../rows/bible_pill.dart';
+import '../pill/bible_pill.dart';
 import '../rows/section_header_row.dart';
 
 class OtherBiblesCard extends StatelessWidget {

@@ -1,41 +1,17 @@
-import 'dart:async';
-
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
 import '../../../common/widgets/app_intents.dart';
-import '../../bible/reader/ui/widgets/toolbars/bible_bottom_bar.dart';
-import '../../home/ui/shell/shell_nav_item.dart';
 import '../../song/presentor/utils/presentor_shortcuts.dart';
-import 'audience_screen.dart';
 import '../controller/presentation_controller.dart';
-
-class PresentationToggle extends StatelessWidget {
-  const PresentationToggle({super.key, this.onPresent});
-
-  final FutureOr<void> Function()? onPresent;
-
-  @override
-  Widget build(BuildContext context) {
-    final p = PresentationController.instance;
-    return ListenableBuilder(
-      listenable: p,
-      builder: (context, _) => ShellNavItem(
-        p.active ? Icons.cancel_presentation : Icons.present_to_all,
-        p.active ? 'Stop presenting' : 'Start Presenting',
-        onPressed: () async {
-          if (p.active) {
-            p.stop(byUser: true);
-            return;
-          }
-          await onPresent?.call();
-          if (!p.active) p.start();
-        },
-      ),
-    );
-  }
-}
+import 'audience_screen.dart';
+import 'presentation_toolbar.dart';
+import 'session_grid.dart';
 
 class PresentationPanel extends StatefulWidget {
   const PresentationPanel({super.key});
@@ -96,73 +72,6 @@ class _PresentationPanelState extends State<PresentationPanel> {
     ),
   };
 
-  IconData _alignIcon(TextAlign align) => switch (align) {
-    TextAlign.center => Icons.format_align_center,
-    TextAlign.justify => Icons.format_align_justify,
-    _ => Icons.format_align_left,
-  };
-
-  String _alignLabel(TextAlign align) => switch (align) {
-    TextAlign.center => 'Center',
-    TextAlign.justify => 'Justify',
-    _ => 'Left',
-  };
-
-  Widget _toolbar(ColorScheme scheme) => ListenableBuilder(
-    listenable: Listenable.merge([p.blackout, p.align]),
-    builder: (context, _) => Material(
-      color: scheme.secondaryContainer,
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        children: [
-          BarButton(
-            icon: Icons.arrow_upward,
-            label: 'Previous',
-            tooltip: 'Previous (Up)',
-            onTap: () => p.select(p.index.value - 1),
-          ),
-          BarButton(
-            icon: Icons.arrow_downward,
-            label: 'Next',
-            tooltip: 'Next (Down)',
-            onTap: () => p.select(p.index.value + 1),
-          ),
-          BarButton(
-            icon: Icons.text_decrease,
-            label: 'Smaller',
-            tooltip: 'Smaller text (-)',
-            onTap: () => p.resize(-0.1),
-          ),
-          BarButton(
-            icon: Icons.text_increase,
-            label: 'Bigger',
-            tooltip: 'Bigger text (=)',
-            onTap: () => p.resize(0.1),
-          ),
-          BarButton(
-            icon: _alignIcon(p.align.value),
-            label: _alignLabel(p.align.value),
-            tooltip: 'Text alignment',
-            onTap: p.cycleAlign,
-          ),
-          BarButton(
-            icon: p.blackout.value ? Icons.visibility : Icons.visibility_off,
-            label: p.blackout.value ? 'Show' : 'Blackout',
-            tooltip: 'Blackout the screen',
-            onTap: p.toggleBlackout,
-            highlighted: p.blackout.value,
-          ),
-          BarButton(
-            icon: Icons.cancel_presentation,
-            label: 'Stop',
-            tooltip: 'Stop presenting (Esc)',
-            onTap: () => p.stop(byUser: true),
-          ),
-        ],
-      ),
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     final size = p.previewSize;
@@ -199,14 +108,14 @@ class _PresentationPanelState extends State<PresentationPanel> {
                     ),
                   ),
                 ),
-                _toolbar(scheme),
+                const PresentationToolbar(),
                 Expanded(
                   child: ListenableBuilder(
                     listenable: Listenable.merge([p.session, p.index]),
                     builder: (context, _) {
                       final session = p.session.value;
                       if (session == null) return const SizedBox.shrink();
-                      return _SessionGrid(
+                      return SessionGrid(
                         session: session,
                         active: p.index.value,
                       );
@@ -218,70 +127,6 @@ class _PresentationPanelState extends State<PresentationPanel> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _SessionGrid extends StatelessWidget {
-  const _SessionGrid({required this.session, required this.active});
-
-  final PresentationSession session;
-  final int active;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          session.title,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.titleMedium,
-        ).padding(horizontal: 14, top: 10),
-        GridView.builder(
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 240,
-            mainAxisExtent: 96,
-          ),
-          padding: const EdgeInsets.all(8),
-          itemCount: session.items.length,
-          itemBuilder: (context, i) => InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () => PresentationController.instance.select(i),
-            child: Container(
-              margin: const EdgeInsets.all(4),
-              padding: const EdgeInsets.all(10),
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                color: i == active ? Colors.grey.withValues(alpha: 0.45) : null,
-                border: Border.all(color: scheme.outlineVariant),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    session.labels[i],
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    session.items[i].split('\n').take(2).join('\n'),
-                    softWrap: false,
-                    overflow: TextOverflow.clip,
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ).expanded(),
-      ],
     );
   }
 }

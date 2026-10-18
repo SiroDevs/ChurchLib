@@ -18,6 +18,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../license/ui/widgets/license_banner.dart';
 import '../../../presentation/controller/presentation_controller.dart';
 import '../../../presentation/ui/presentation_panel.dart';
+import '../../../presentation/ui/presentation_toggle.dart';
 import 'app_module.dart';
 import 'how_it_works_sheet.dart';
 import 'shell_nav_item.dart';

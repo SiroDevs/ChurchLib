@@ -1,5 +1,7 @@
+// Dart imports:
 import 'dart:math';
 
+// Project imports:
 import '../../../common/utils/display/font_utils.dart';
 import '../../../common/utils/formatting/song_text_utils.dart';
 import '../../../common/widgets/presentor/presentor.dart';

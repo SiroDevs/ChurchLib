@@ -9,10 +9,10 @@ import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../core/license/license_cubit.dart';
 import '../../../../domain/entities/license/exports.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../widgets/license_key_row.dart';
 import '../widgets/license_widgets.dart';
+import '../widgets/payment_form.dart';
 import '../widgets/pending_card.dart';
-
-enum _PayMethod { mpesa, paypal }
 
 /// Price, how to pay, the form for the transaction code, and the license-key
 /// box. Used by the blocking paywall screen and by the "Buy license" window.
@@ -30,7 +30,7 @@ class _PurchasePanelState extends State<PurchasePanel> {
   final _code = TextEditingController();
   final _key = TextEditingController();
 
-  _PayMethod _method = _PayMethod.mpesa;
+  PayMethod _method = PayMethod.mpesa;
   bool _showKeyBox = false;
 
   @override
@@ -42,14 +42,11 @@ class _PurchasePanelState extends State<PurchasePanel> {
     super.dispose();
   }
 
-  static String _clean(String value) =>
-      value.replaceAll(RegExp(r'\s'), '').toUpperCase();
-
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     final outcome = await context.read<LicenseCubit>().submitPayment(
-          method: _method == _PayMethod.mpesa ? 'mpesa' : 'paypal',
-          reference: _clean(_code.text),
+          method: _method == PayMethod.mpesa ? 'mpesa' : 'paypal',
+          reference: cleanLicenseCode(_code.text),
           payerName: _name.text.trim(),
           payerPhone: _phone.text.trim(),
         );
@@ -65,7 +62,7 @@ class _PurchasePanelState extends State<PurchasePanel> {
 
   Future<void> _redeem() async {
     final l10n = AppLocalizations.of(context)!;
-    final key = _clean(_key.text);
+    final key = cleanLicenseCode(_key.text);
     if (key.length < 8) return;
     final outcome = await context.read<LicenseCubit>().redeem(key);
     if (!mounted) return;
@@ -84,7 +81,7 @@ class _PurchasePanelState extends State<PurchasePanel> {
     return BlocBuilder<LicenseCubit, LicenseState>(
       builder: (context, state) {
         final pricing = state.pricing;
-        final isMpesa = _method == _PayMethod.mpesa;
+        final isMpesa = _method == PayMethod.mpesa;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,15 +102,15 @@ class _PurchasePanelState extends State<PurchasePanel> {
                 style: theme.textTheme.titleMedium,
               ),
               const SizedBox(height: 10),
-              SegmentedButton<_PayMethod>(
+              SegmentedButton<PayMethod>(
                 segments: const [
                   ButtonSegment(
-                    value: _PayMethod.mpesa,
+                    value: PayMethod.mpesa,
                     icon: Icon(Icons.smartphone),
                     label: Text('M-Pesa'),
                   ),
                   ButtonSegment(
-                    value: _PayMethod.paypal,
+                    value: PayMethod.paypal,
                     icon: Icon(Icons.payments_outlined),
                     label: Text('PayPal'),
                   ),
@@ -148,58 +145,14 @@ class _PurchasePanelState extends State<PurchasePanel> {
               const SizedBox(height: 10),
               Text(l10n.licenseAfterPaying, style: theme.textTheme.bodySmall),
               const SizedBox(height: 16),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: _code,
-                      textCapitalization: TextCapitalization.characters,
-                      decoration: InputDecoration(
-                        labelText:
-                            isMpesa ? l10n.licenseCodeMpesa : l10n.licenseCodePaypal,
-                        border: const OutlineInputBorder(),
-                      ),
-                      validator: (v) =>
-                          RegExp(r'^[A-Z0-9]{8,20}$').hasMatch(_clean(v ?? ''))
-                              ? null
-                              : l10n.licenseCodeInvalid,
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      controller: _name,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: InputDecoration(
-                        labelText: l10n.licenseNameLabel,
-                        border: const OutlineInputBorder(),
-                      ),
-                      validator: (v) => (v ?? '').trim().length < 2
-                          ? l10n.licenseNameInvalid
-                          : null,
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      controller: _phone,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        labelText: l10n.licensePhoneLabel,
-                        border: const OutlineInputBorder(),
-                      ),
-                      validator: (v) => (v ?? '').trim().length < 9
-                          ? l10n.licensePhoneInvalid
-                          : null,
-                    ),
-                    const SizedBox(height: 16),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 46,
-                      child: FilledButton(
-                        onPressed: state.busy ? null : _submit,
-                        child: Text(l10n.licenseSubmitPayment),
-                      ),
-                    ),
-                  ],
-                ),
+              PaymentForm(
+                formKey: _formKey,
+                method: _method,
+                code: _code,
+                name: _name,
+                phone: _phone,
+                busy: state.busy,
+                onSubmit: _submit,
               ),
             ],
             const SizedBox(height: 18),
@@ -209,25 +162,10 @@ class _PurchasePanelState extends State<PurchasePanel> {
               child: Text(l10n.licenseHaveKey),
             ),
             if (_showKeyBox)
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _key,
-                      textCapitalization: TextCapitalization.characters,
-                      decoration: InputDecoration(
-                        labelText: l10n.licenseKeyLabel,
-                        hintText: 'CL-XXXX-XXXX-XXXX',
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  FilledButton.tonal(
-                    onPressed: state.busy ? null : _redeem,
-                    child: Text(l10n.licenseRedeem),
-                  ),
-                ],
+              LicenseKeyRow(
+                controller: _key,
+                busy: state.busy,
+                onRedeem: _redeem,
               ),
             const SizedBox(height: 14),
             Row(
