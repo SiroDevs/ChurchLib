@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -28,12 +31,14 @@ class AppShell extends StatelessWidget {
     required this.titleBar,
     required this.sidebarItems,
     required this.body,
+    this.onPresent,
   });
 
   final AppModule module;
   final Widget titleBar;
   final List<Widget> sidebarItems;
   final Widget body;
+  final FutureOr<void> Function()? onPresent;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +65,11 @@ class AppShell extends StatelessWidget {
                           color: scheme.secondaryContainer,
                           border: Border(right: divider),
                         ),
-                        child: _Sidebar(module: module, items: sidebarItems),
+                        child: _Sidebar(
+                          module: module,
+                          items: sidebarItems,
+                          onPresent: onPresent,
+                        ),
                       ),
                       body.expanded(),
                     ],
@@ -160,10 +169,15 @@ class AppSwitcher extends StatelessWidget {
 }
 
 class _Sidebar extends StatelessWidget {
-  const _Sidebar({required this.module, required this.items});
+  const _Sidebar({
+    required this.module,
+    required this.items,
+    this.onPresent,
+  });
 
   final AppModule module;
   final List<Widget> items;
+  final FutureOr<void> Function()? onPresent;
 
   void _toggleTheme(BuildContext context, bool isDark) {
     final mode = isDark ? ThemeMode.light : ThemeMode.dark;
@@ -188,7 +202,7 @@ class _Sidebar extends StatelessWidget {
         ).expanded(),
         const LicenseBanner(),
         divider,
-        const PresentationToggle(),
+        PresentationToggle(onPresent: onPresent),
         ShellNavItem(
           Icons.help_outline,
           'How it works',

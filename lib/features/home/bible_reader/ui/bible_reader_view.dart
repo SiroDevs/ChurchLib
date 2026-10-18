@@ -16,6 +16,7 @@ import '../../../../common/widgets/app_intents.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
+import '../../../presentation/presentation_sources.dart';
 import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../../main/shell/module_focus.dart';
@@ -155,6 +156,7 @@ class BiblerReaderViewState extends State<BiblerReaderView>
           builder: (context, state) {
             return AppShell(
               module: AppModule.biblelib,
+              onPresent: () => presentChapter(state),
               sidebarItems: bibleSidebarItems(context),
               titleBar: state.isSelectionMode
                   ? SelectionBar(state: state)
@@ -166,22 +168,38 @@ class BiblerReaderViewState extends State<BiblerReaderView>
                       minHeight: 2,
                       color: ThemeColors.primary,
                     ),
-                  Listener(
-                    onPointerDown: (_) => stopAutoScroll(),
-                    child: ColoredBox(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.black
-                          : Colors.white,
-                      child: ReaderBody(
-                        state: state,
-                        scrollController: scrollController,
-                        viewportKey: _viewportKey,
-                        keyFor: _keyFor,
-                        onScrollEnd: _scheduleScrollReport,
+                  Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Listener(
+                        onPointerDown: (_) => stopAutoScroll(),
+                        child: ColoredBox(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black
+                              : Colors.white,
+                          child: ReaderBody(
+                            state: state,
+                            scrollController: scrollController,
+                            viewportKey: _viewportKey,
+                            keyFor: _keyFor,
+                            onScrollEnd: _scheduleScrollReport,
+                          ),
+                        ),
                       ),
-                    ),
-                  )
-                      .expanded(),
+                      if (state.activeChapter != null)
+                        Positioned(
+                          right: 16,
+                          bottom: 16,
+                          child: FloatingActionButton.extended(
+                            heroTag: 'scripture-opener',
+                            tooltip: 'Scripture Opener',
+                            onPressed: () => openScriptureAction(context, state),
+                            icon: const Icon(Icons.auto_stories_outlined),
+                            label: const Text('Scripture Opener'),
+                          ),
+                        ),
+                    ],
+                  ).expanded(),
                   if (state.activeChapter != null)
                     BlocBuilder<ScriptureQueueCubit, ScriptureQueueState>(
                       bloc: getIt<ScriptureQueueCubit>(),

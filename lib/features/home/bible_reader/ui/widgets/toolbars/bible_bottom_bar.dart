@@ -46,14 +46,14 @@ class BibleBottomBar extends StatelessWidget {
       child: Row(
         children: [
           _autoScrollControls().alignment(Alignment.centerLeft).expanded(),
-          _BarButton(
+          BarButton(
             icon: Icons.chevron_left,
             label: 'Previous',
             tooltip: 'Previous chapter (Alt + ←)',
             onTap: hasPrev ? onPrevious : null,
           ),
           const SizedBox(width: 4),
-          _BarButton(
+          BarButton(
             icon: Icons.menu_book_outlined,
             label: 'Chapter ${chapter.number}',
             tooltip: 'Pick chapter',
@@ -61,13 +61,13 @@ class BibleBottomBar extends StatelessWidget {
             highlighted: true,
           ),
           const SizedBox(width: 4),
-          _BarButton(
+          BarButton(
             icon: Icons.chevron_right,
             label: 'Next',
             tooltip: 'Next chapter (Alt + →)',
             onTap: hasNext ? onNext : null,
           ),
-          _BarButton(
+          BarButton(
             icon: Icons.tune,
             label: 'Quick Options',
             tooltip: 'Quick Options',
@@ -89,7 +89,7 @@ class BibleBottomBar extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(width: 8),
-        _BarButton(
+        BarButton(
           icon: autoScrolling
               ? Icons.pause_circle_outline
               : Icons.play_circle_outline,
@@ -118,8 +118,8 @@ class BibleBottomBar extends StatelessWidget {
   }
 }
 
-class _BarButton extends StatelessWidget {
-  const _BarButton({
+class BarButton extends StatelessWidget {
+  const BarButton({
     required this.icon,
     required this.label,
     required this.tooltip,

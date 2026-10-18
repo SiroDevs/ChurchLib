@@ -16,6 +16,13 @@ class _CloseDelegate with fw.RegularWindowControllerDelegate {
   void onWindowCloseRequested(fw.RegularWindowController c) => onClose();
 }
 
+class PresentationStyle {
+  const PresentationStyle(this.scale, this.align);
+
+  final double scale;
+  final TextAlign align;
+}
+
 class PresentationSession {
   const PresentationSession({
     required this.title,
@@ -27,7 +34,8 @@ class PresentationSession {
   final String title;
   final List<String> labels;
   final List<String> items;
-  final Widget Function(int index, double height) slide;
+  final Widget Function(int index, double height, PresentationStyle style)
+  slide;
 }
 
 class PresentationController extends ChangeNotifier {
@@ -37,6 +45,8 @@ class PresentationController extends ChangeNotifier {
   final session = ValueNotifier<PresentationSession?>(null);
   final index = ValueNotifier<int>(0);
   final blackout = ValueNotifier<bool>(false);
+  final scale = ValueNotifier<double>(1);
+  final align = ValueNotifier<TextAlign>(TextAlign.left);
   fw.RegularWindowController? _window;
   bool _active = false;
   bool _autoStart = true;
@@ -73,6 +83,15 @@ class PresentationController extends ChangeNotifier {
   }
 
   void toggleBlackout() => blackout.value = !blackout.value;
+
+  void resize(double delta) =>
+      scale.value = (scale.value + delta).clamp(0.5, 2.0).toDouble();
+
+  void cycleAlign() => align.value = switch (align.value) {
+    TextAlign.left => TextAlign.center,
+    TextAlign.center => TextAlign.justify,
+    _ => TextAlign.left,
+  };
 
   void toggle() => _active ? stop(byUser: true) : start();
 

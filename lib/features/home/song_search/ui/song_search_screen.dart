@@ -123,6 +123,7 @@ class HomeScreenState extends State<SongSearchScreen> {
           final onSearchPage = currentPage == PageType.search;
           final homeView = AppShell(
             module: AppModule.songlib,
+            onPresent: presentSelected,
             sidebarItems: [
               ShellNavItem(
                 Icons.search,

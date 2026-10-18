@@ -17,7 +17,12 @@ class BibleTitleBar extends StatelessWidget {
   const BibleTitleBar({super.key, required this.state});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => ListenableBuilder(
+    listenable: PresentationController.instance,
+    builder: (context, _) => _content(context),
+  );
+
+  Widget _content(BuildContext context) {
     final cubit = context.read<BibleReaderCubit>();
     final language = state.activeBibleLanguageLabel;
     final bibleLabel = state.activeBible.isEmpty
@@ -71,13 +76,6 @@ class BibleTitleBar extends StatelessWidget {
             label: const Text('PRESENT BIBLE'),
           ).padding(right: 10),
         ] else ...[
-          TextButton.icon(
-            onPressed: state.activeChapter == null
-                ? null
-                : () => openScriptureAction(context, state),
-            icon: const Icon(Icons.auto_stories_outlined, size: 20),
-            label: const Text('SCRIPTURE OPENER'),
-          ),
           IconButton(
             tooltip: 'Smaller text (-)',
             onPressed: state.fontSize <= readerMinFontSize

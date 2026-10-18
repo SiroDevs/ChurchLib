@@ -19,10 +19,13 @@ Future<void> presentSong(SongExt song) async {
           '${songItemTitle(song.songNo, song.title)} - ${refineTitle(song.songbook)}',
       labels: List<String>.from(loaded['labels']),
       items: [for (final s in stanzas) s.replaceAll('#', '\n')],
-      slide: (i, h) => SliderContent(
+      slide: (i, h, style) => SliderContent(
         lyrics: stanzas[i],
-        fontSize: max(24, calcFontSize(height: h, content: song.content)),
+        fontSize:
+            max(24, calcFontSize(height: h, content: song.content)) *
+            style.scale,
         fitWith: stanzas,
+        textAlign: style.align,
       ),
     ),
   );
@@ -37,10 +40,11 @@ void presentChapter(BibleReaderState state, {int at = 0}) {
       title: '${state.activeBible}  ·  ${state.activeBook?.name ?? reference}',
       labels: [for (final v in verses) '${v.number}'],
       items: [for (final v in verses) v.text],
-      slide: (i, h) => VerseSlide(
+      slide: (i, h, style) => VerseSlide(
         header: '${state.activeBible}  ·  $reference:${verses[i].number}',
         text: verses[i].text,
         height: h,
+        style: style,
       ),
     ),
     at: at,

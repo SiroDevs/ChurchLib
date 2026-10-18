@@ -6,7 +6,12 @@ class SongTitleBar extends StatelessWidget {
   final HomeScreenState parent;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => ListenableBuilder(
+    listenable: PresentationController.instance,
+    builder: (context, _) => _content(context),
+  );
+
+  Widget _content(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final text = Theme.of(context).textTheme.titleLarge;
     final onSearchPage = parent.currentPage == PageType.search;

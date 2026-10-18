@@ -28,7 +28,13 @@ class AudienceCanvas extends StatelessWidget {
     return Material(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: ListenableBuilder(
-        listenable: Listenable.merge([p.session, p.index, p.blackout]),
+        listenable: Listenable.merge([
+          p.session,
+          p.index,
+          p.blackout,
+          p.scale,
+          p.align,
+        ]),
         builder: (context, _) {
           final session = p.session.value;
           if (p.blackout.value) {
@@ -39,8 +45,11 @@ class AudienceCanvas extends StatelessWidget {
           }
           if (session == null) return const SizedBox.expand();
           return LayoutBuilder(
-            builder: (context, box) =>
-                session.slide(p.index.value, box.maxHeight),
+            builder: (context, box) => session.slide(
+              p.index.value,
+              box.maxHeight,
+              PresentationStyle(p.scale.value, p.align.value),
+            ),
           );
         },
       ),
@@ -54,45 +63,56 @@ class VerseSlide extends StatelessWidget {
     required this.header,
     required this.text,
     required this.height,
+    required this.style,
   });
 
   final String header;
   final String text;
   final double height;
+  final PresentationStyle style;
 
   @override
   Widget build(BuildContext context) {
     final gap = height * 0.06;
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(top: gap),
-          child: Text(
-            header,
-            style: TextStyle(
-              fontSize: height * 0.05,
-              fontWeight: FontWeight.bold,
-              color: ThemeColors.primary,
+    final centered = style.align == TextAlign.center;
+    final alignment = centered ? Alignment.center : Alignment.centerLeft;
+    return Padding(
+      padding: EdgeInsets.all(gap),
+      child: Column(
+        children: [
+          Align(
+            alignment: alignment,
+            child: Text(
+              header,
+              style: TextStyle(
+                fontSize: height * 0.05,
+                fontWeight: FontWeight.bold,
+                color: ThemeColors.primary,
+              ),
             ),
           ),
-        ),
-        Expanded(
-          child: LayoutBuilder(
-            builder: (context, box) => Padding(
-              padding: EdgeInsets.all(gap),
-              child: Center(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: box.maxWidth - 2 * gap,
-                    ),
-                    child: Text(
-                      text,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: height * 0.08,
-                        fontWeight: FontWeight.w600,
+          Expanded(
+            child: LayoutBuilder(
+              builder: (context, box) => Center(
+                child: SizedBox(
+                  width: box.maxWidth,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: alignment,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minWidth: style.align == TextAlign.justify
+                            ? box.maxWidth
+                            : 0,
+                        maxWidth: box.maxWidth,
+                      ),
+                      child: Text(
+                        text,
+                        textAlign: style.align,
+                        style: TextStyle(
+                          fontSize: height * 0.08 * style.scale,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
@@ -100,8 +120,8 @@ class VerseSlide extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

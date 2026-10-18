@@ -24,6 +24,7 @@ class SliderContent extends StatelessWidget {
   final ValueChanged<double>? onFontFit;
   final Function()? onDoubleTap;
   final Function()? onLongPress;
+  final TextAlign textAlign;
 
   const SliderContent({
     super.key,
@@ -33,6 +34,7 @@ class SliderContent extends StatelessWidget {
     this.onFontFit,
     this.onDoubleTap,
     this.onLongPress,
+    this.textAlign = TextAlign.center,
   });
 
   static const double _hPad = 20, _vPad = 10;
@@ -67,13 +69,23 @@ class SliderContent extends StatelessWidget {
 
           // FittedBox is a safety net: the size above already fits, but if a
           // font measures slightly differently the text shrinks, never spills.
-          return FittedBox(
-            fit: BoxFit.scaleDown,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: width),
-              child: Text(
-                _display(lyrics),
-                style: style.copyWith(fontSize: size),
+          return SizedBox(
+            width: width,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: textAlign == TextAlign.center
+                  ? Alignment.center
+                  : Alignment.centerLeft,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: textAlign == TextAlign.justify ? width : 0,
+                  maxWidth: width,
+                ),
+                child: Text(
+                  _display(lyrics),
+                  textAlign: textAlign,
+                  style: style.copyWith(fontSize: size),
+                ),
               ),
             ),
           ).padding(horizontal: _hPad, vertical: _vPad).center();
