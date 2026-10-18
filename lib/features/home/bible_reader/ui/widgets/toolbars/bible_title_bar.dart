@@ -7,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../common/utils/reader/reader_utils.dart';
+import '../../../../../presentation/presentation_controller.dart';
 import '../../../../../presentation/presentation_sources.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import 'reader_actions.dart';
@@ -46,35 +47,65 @@ class BibleTitleBar extends StatelessWidget {
               : () => chooseBookAction(context, state),
         ),
         const Spacer(),
-        IconButton(
-          tooltip: 'Present Chapter',
-          onPressed: state.verses.isEmpty ? null : () => presentChapter(state),
-          icon: const Icon(Icons.north_east),
-        ),
-        TextButton.icon(
-          onPressed: state.activeChapter == null
-              ? null
-              : () => openScriptureAction(context, state),
-          icon: const Icon(Icons.auto_stories_outlined, size: 20),
-          label: const Text('Scripture Opener'),
-        ),
-        IconButton(
-          tooltip: 'Smaller text (-)',
-          onPressed: state.fontSize <= readerMinFontSize
-              ? null
-              : () => cubit.setFontSize(state.fontSize - 2),
-          icon: const _AaIcon(plus: false),
-        ),
-        IconButton(
-          tooltip: 'Larger text (=)',
-          onPressed: state.fontSize >= readerMaxFontSize
-              ? null
-              : () => cubit.setFontSize(state.fontSize + 2),
-          icon: const _AaIcon(plus: true),
-        ),
+
+        if (PresentationController.instance.active) ...[
+          IconButton(
+            tooltip: 'Smaller text (-)',
+            onPressed: state.fontSize <= readerMinFontSize
+                ? null
+                : () => cubit.setFontSize(state.fontSize - 2),
+            icon: const _AaIcon(plus: false),
+          ),
+          IconButton(
+            tooltip: 'Larger text (=)',
+            onPressed: state.fontSize >= readerMaxFontSize
+                ? null
+                : () => cubit.setFontSize(state.fontSize + 2),
+            icon: const _AaIcon(plus: true),
+          ),
+          TextButton.icon(
+            onPressed: state.verses.isEmpty
+                ? null
+                : () => presentChapter(state),
+            icon: const Icon(Icons.north_east, size: 20),
+            label: const Text('PRESENT BIBLE'),
+          ).padding(right: 10),
+        ] else ...[
+          TextButton.icon(
+            onPressed: state.activeChapter == null
+                ? null
+                : () => openScriptureAction(context, state),
+            icon: const Icon(Icons.auto_stories_outlined, size: 20),
+            label: const Text('SCRIPTURE OPENER'),
+          ),
+          IconButton(
+            tooltip: 'Smaller text (-)',
+            onPressed: state.fontSize <= readerMinFontSize
+                ? null
+                : () => cubit.setFontSize(state.fontSize - 2),
+            icon: const _AaIcon(plus: false),
+          ),
+          IconButton(
+            tooltip: 'Larger text (=)',
+            onPressed: state.fontSize >= readerMaxFontSize
+                ? null
+                : () => cubit.setFontSize(state.fontSize + 2),
+            icon: const _AaIcon(plus: true),
+          ),
+          TextButton.icon(
+            onPressed: state.verses.isEmpty
+                ? null
+                : () => presentChapter(state),
+            icon: const Icon(Icons.north_east, size: 20),
+            label: const Text('PRESENT BIBLE'),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            ),
+          ),
+        ],
       ],
-    )
-        .padding(left: 12, right: 6);
+    ).padding(left: 12, right: 6);
   }
 }
 
@@ -117,8 +148,7 @@ class _PickerButton extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: style,
-            )
-                .flexible(),
+            ).flexible(),
             const Icon(Icons.arrow_drop_down),
           ],
         ),

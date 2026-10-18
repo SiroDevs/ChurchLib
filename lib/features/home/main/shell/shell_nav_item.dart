@@ -38,27 +38,24 @@ class ShellNavItem extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Row(
-        children: [
-          SizedBox(width: 12 + indent),
-          Icon(icon, size: 22, color: fg),
-          const SizedBox(width: 18),
-          Text(
-            label.toUpperCase(),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyles.buttonTextStyle.copyWith(
-              color: fg,
-              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-            ),
-          )
-              .expanded(),
-          if (trailing != null) trailing!,
-          if (trailing != null) const SizedBox(width: 8),
-        ],
-      )
-            .height(46),
+          children: [
+            SizedBox(width: 12 + indent),
+            Icon(icon, size: 22, color: fg),
+            const SizedBox(width: 18),
+            Text(
+              label.toUpperCase(),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyles.buttonTextStyle.copyWith(
+                color: fg,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+              ),
+            ).expanded(),
+            ?trailing,
+            if (trailing != null) const SizedBox(width: 8),
+          ],
+        ).height(46),
       ),
-    )
-        .padding(horizontal: 8, vertical: 2);
+    ).padding(horizontal: 8, vertical: 2);
   }
 }

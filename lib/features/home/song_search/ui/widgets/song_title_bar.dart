@@ -26,36 +26,40 @@ class SongTitleBar extends StatelessWidget {
                   )
                 : Text(l10n.likesTitle, style: text).padding(left: 6),
           ),
-        )
-            .expanded(flex: 1),
+        ).expanded(flex: 1),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            if (onSearchPage && song.songId != 0)
-              Text(
-                songHeaderTitle(song),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: text,
-              )
-                  .padding(horizontal: 16)
-                  .expanded(),
+        if (PresentationController.instance.active) ...[
+          TextButton.icon(
+            onPressed: () => parent.presentSelected(),
+            icon: const Icon(Icons.north_east, size: 20),
+            label: const Text('PRESENT SONG'),
+          ).padding(right: 10),
+        ] else ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (onSearchPage && song.songId != 0)
+                Text(
+                  songHeaderTitle(song),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: text,
+                ).padding(horizontal: 16).expanded(),
 
-            IconButton(
-              tooltip: 'Present Song',
-              onPressed: () => parent.presentSelected(),
-              icon: const Icon(Icons.north_east),
-            ),
+              IconButton(
+                tooltip: 'Present Song',
+                onPressed: () => parent.presentSelected(),
+                icon: const Icon(Icons.north_east),
+              ),
 
-            IconButton(
-              tooltip: 'Copy Song',
-              onPressed: () => copySongToClipboard(context, song),
-              icon: const Icon(Icons.copy),
-            ),
-          ],
-        )
-            .expanded(flex: 1),
+              IconButton(
+                tooltip: 'Copy Song',
+                onPressed: () => copySongToClipboard(context, song),
+                icon: const Icon(Icons.copy),
+              ),
+            ],
+          ).expanded(flex: 1),
+        ],
       ],
     );
   }

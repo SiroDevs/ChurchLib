@@ -94,13 +94,13 @@ class _TopBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AppSwitcher(module: module).alignment(Alignment.centerLeft)
+          AppSwitcher(module: module)
+              .alignment(Alignment.centerLeft)
               .padding(horizontal: 10)
               .constrained(width: kShellSidebarWidth),
           titleBar.expanded(),
         ],
-      )
-          .constrained(minHeight: 56),
+      ).constrained(minHeight: 56),
     );
   }
 }
@@ -123,20 +123,20 @@ class AppSwitcher extends StatelessWidget {
         for (final m in modules)
           if (m == module)
             Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(m.icon, width: 26, height: 26),
-                const SizedBox(width: 8),
-                Text(
-                  m.label,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            )
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(m.icon, width: 26, height: 26),
+                    const SizedBox(width: 8),
+                    Text(
+                      m.label,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                )
                 .padding(left: 6, top: 4, right: 12, bottom: 4)
                 .decorated(
                   color: ThemeColors.primary.withValues(alpha: .85),
@@ -185,8 +185,7 @@ class _Sidebar extends StatelessWidget {
         ListView(
           padding: const EdgeInsets.only(top: 6),
           children: items,
-        )
-            .expanded(),
+        ).expanded(),
         const LicenseBanner(),
         divider,
         const PresentationToggle(),

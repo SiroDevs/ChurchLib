@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 import '../home/main/shell/shell_nav_item.dart';
 import 'audience_screen.dart';
@@ -14,7 +15,7 @@ class PresentationToggle extends StatelessWidget {
       listenable: presentation,
       builder: (context, _) => ShellNavItem(
         presentation.active ? Icons.cancel_presentation : Icons.present_to_all,
-        presentation.active ? 'Stop presenter view' : 'Presenter view',
+        presentation.active ? 'Stop presenting' : 'Start Presenting',
         onPressed: presentation.toggle,
       ),
     );
@@ -28,10 +29,20 @@ class PresentationPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = PresentationController.instance;
     final size = p.previewSize;
-    final outline = Theme.of(context).colorScheme.outlineVariant;
+    final scheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Material(
+          color: scheme.secondaryContainer,
+          elevation: 0,
+          child: Text(
+            'PRESENTATION PREVIEW',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleLarge,
+          ).constrained(minHeight: 25).center().padding(all: 20),
+        ),
         AspectRatio(
           aspectRatio: size.width / size.height,
           child: FittedBox(
@@ -45,7 +56,7 @@ class PresentationPanel extends StatelessWidget {
         Container(
           margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            border: Border.all(color: outline),
+            border: Border.all(color: scheme.outlineVariant),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -54,12 +65,12 @@ class PresentationPanel extends StatelessWidget {
               IconButton(
                 tooltip: 'Previous',
                 onPressed: () => p.select(p.index.value - 1),
-                icon: const Icon(Icons.chevron_left),
+                icon: const Icon(Icons.arrow_upward),
               ),
               IconButton(
                 tooltip: 'Next',
                 onPressed: () => p.select(p.index.value + 1),
-                icon: const Icon(Icons.chevron_right),
+                icon: const Icon(Icons.arrow_downward),
               ),
               ValueListenableBuilder<bool>(
                 valueListenable: p.blackout,

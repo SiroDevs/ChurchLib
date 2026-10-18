@@ -32,11 +32,15 @@ class AudienceCanvas extends StatelessWidget {
         builder: (context, _) {
           final session = p.session.value;
           if (p.blackout.value) {
-            return const ColoredBox(color: Colors.black, child: SizedBox.expand());
+            return const ColoredBox(
+              color: Colors.black,
+              child: SizedBox.expand(),
+            );
           }
           if (session == null) return const SizedBox.expand();
           return LayoutBuilder(
-            builder: (context, box) => session.slide(p.index.value, box.maxHeight),
+            builder: (context, box) =>
+                session.slide(p.index.value, box.maxHeight),
           );
         },
       ),
@@ -80,7 +84,9 @@ class VerseSlide extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: box.maxWidth - 2 * gap),
+                    constraints: BoxConstraints(
+                      maxWidth: box.maxWidth - 2 * gap,
+                    ),
                     child: Text(
                       text,
                       textAlign: TextAlign.center,
