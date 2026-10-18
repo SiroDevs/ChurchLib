@@ -30,7 +30,7 @@ import '../utils/presentor_shortcuts.dart';
 import '../utils/presentor_utils.dart';
 import '../utils/slide_utils.dart';
 
-part 'widgets/fab_widget.dart';
+part 'widgets/presentor_fab.dart';
 part 'widgets/verses_panel.dart';
 part 'presentor_details.dart';
 part 'widgets/presentor_slide.dart';

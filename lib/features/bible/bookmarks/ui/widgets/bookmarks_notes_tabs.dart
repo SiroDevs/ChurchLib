@@ -8,7 +8,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../data/models/bible/bible_note.dart';
-import '../../../../home/bible_reader/ui/widgets/verses/verse_row.dart' show parseHexColor;
+import '../../../reader/ui/widgets/verses/verse_row.dart' show parseHexColor;
 import '../../bloc/bookmarks_notes_cubit.dart';
 
 class BookmarksTab extends StatelessWidget {

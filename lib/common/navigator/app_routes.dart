@@ -4,12 +4,12 @@ import 'package:go_router/go_router.dart';
 // Project imports:
 import '../../data/models/song/songbook.dart';
 import '../../data/models/song/songext.dart';
-import '../../features/home/main/ui/home_screen.dart';
+import '../../features/home/ui/home_screen.dart';
 import '../../features/license/ui/screens/paywall_screen.dart';
-import '../../features/selection/bloc/selection_bloc.dart';
-import '../../features/selection/ui/selection_screen.dart';
+import '../../features/onboarding/selection/bloc/selection_bloc.dart';
+import '../../features/onboarding/selection/ui/selection_screen.dart';
+import '../../features/onboarding/splash/ui/splash_screen.dart';
 import '../../features/song/presentor/ui/presentor_screen.dart';
-import '../../features/splash/splash_screen.dart';
 import 'route_names.dart';
 
 typedef PresentorArgs = ({SongExt song, SongBook book, List<SongExt> songs});

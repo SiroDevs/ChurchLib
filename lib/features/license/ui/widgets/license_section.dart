@@ -13,7 +13,7 @@ import '../../../../common/windows/open_windows.dart';
 import '../../../../core/license/license_cubit.dart';
 import '../../../../domain/entities/license/exports.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../settings/settings_card.dart';
+import '../../../settings/ui/settings_card.dart';
 import 'license_widgets.dart';
 
 /// Settings > License.

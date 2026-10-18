@@ -11,7 +11,7 @@ import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/bible/bible_note.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
-import '../../../home/bible_reader/ui/widgets/dialogs/note_editor_dialog.dart';
+import '../../reader/ui/widgets/dialogs/note_editor_dialog.dart';
 import '../bloc/bookmarks_notes_cubit.dart';
 import 'widgets/bookmarks_notes_tabs.dart';
 

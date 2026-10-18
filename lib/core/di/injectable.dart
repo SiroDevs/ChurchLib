@@ -21,7 +21,7 @@ import '../../domain/repos/bible/bible_tracking_repo.dart';
 import '../../domain/repos/bible/scripture_repo.dart';
 import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/database_repo_impl.dart';
-import '../../features/bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
+import '../../features/bible/scripture/queue/bloc/scripture_queue_cubit.dart';
 import '../license/license_module.dart';
 import 'injectable.config.dart';
 

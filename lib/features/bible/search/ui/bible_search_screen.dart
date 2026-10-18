@@ -9,7 +9,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../../common/windows/window_frame.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
 import '../../../../domain/entities/bible/verse_display.dart';
-import '../cubit/bible_search_cubit.dart';
+import '../bloc/bible_search_cubit.dart';
 import 'widgets/bible_search_body.dart';
 
 class BibleSearchScreen extends StatelessWidget {
