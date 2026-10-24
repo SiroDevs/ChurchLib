@@ -38,6 +38,7 @@ class PrefConstants {
   static const predistinatedBooksKey = 'predestinated_books';
   static const selectedBooksKey = 'selected_books';
   static const slideVerticalKey = 'slide_vertically';
+  static const presenterVersesKey = 'presenter_show_verses';
   static const pcHintsKey = 'pc_hints';
   static const uninstallCheckKey = 'uninstall_check';
   static const donationCheckKey = 'donation_check';

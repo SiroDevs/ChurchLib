@@ -36,6 +36,10 @@ class VerseRow extends StatefulWidget {
   final bool isSelectionMode;
   final VoidCallback onToggleSelected;
 
+  /// Colour of the verse number; the theme orange unless the presentation
+  /// screen asks for black and white.
+  final Color numberColor;
+
   const VerseRow({
     super.key,
     required this.number,
@@ -52,6 +56,7 @@ class VerseRow extends StatefulWidget {
     this.isSelected = false,
     this.isSelectionMode = false,
     required this.onToggleSelected,
+    this.numberColor = ThemeColors.primary,
   });
 
   @override
@@ -124,7 +129,7 @@ class _VerseRowState extends State<VerseRow> {
                           style: TextStyle(
                             fontSize: widget.fontSize * 1.2,
                             fontWeight: FontWeight.bold,
-                            color: ThemeColors.primary,
+                            color: widget.numberColor,
                           ),
                         ),
                 ),

@@ -18,7 +18,7 @@ part 'song_search_event.dart';
 part 'song_search_state.dart';
 
 class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
-  SongSearchBloc() : super(const _MainState()) {
+  SongSearchBloc() : super(const InitialState()) {
     on<SyncData>(_onSyncData);
     on<FetchData>(_onFetchData);
     on<FilterData>(_onFilterData);

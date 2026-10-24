@@ -7,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../common/utils/reader/reader_utils.dart';
+import '../../../../../../common/widgets/action/full_screen_button.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import 'reader_actions.dart';
 
@@ -57,15 +58,16 @@ class BibleTitleBar extends StatelessWidget {
           onPressed: state.fontSize <= readerMinFontSize
               ? null
               : () => cubit.setFontSize(state.fontSize - 2),
-          icon: const _AaIcon(plus: false),
+          icon: const AaIcon(plus: false),
         ),
         IconButton(
           tooltip: 'Larger text (=)',
           onPressed: state.fontSize >= readerMaxFontSize
               ? null
               : () => cubit.setFontSize(state.fontSize + 2),
-          icon: const _AaIcon(plus: true),
+          icon: const AaIcon(plus: true),
         ),
+        const FullScreenButton(),
       ],
     )
         .padding(left: 12, right: 6);
@@ -121,8 +123,8 @@ class _PickerButton extends StatelessWidget {
   }
 }
 
-class _AaIcon extends StatelessWidget {
-  const _AaIcon({required this.plus});
+class AaIcon extends StatelessWidget {
+  const AaIcon({required this.plus});
   final bool plus;
 
   @override

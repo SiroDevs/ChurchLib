@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../../core/theme/theme_colors.dart';
 import '../../utils/formatting/app_util.dart';
 import '../../utils/theme/shape_utils.dart';
 import 'indicators.dart';
@@ -89,7 +88,7 @@ class TabIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return elasticIndicator(
       animation: animation,
-      color: ThemeColors.primary2,
+      color: Colors.grey.shade600,
       width: width * 1.1,
       left: left,
       right: right,

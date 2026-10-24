@@ -13,13 +13,13 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../common/constants/pref_constants.dart';
 import '../../../../common/utils/display/app_window.dart';
-import '../../../../common/utils/display/font_utils.dart';
 import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/action/fab_widget.dart';
+import '../../../../common/widgets/action/full_screen_button.dart';
 import '../../../../common/widgets/app_intents.dart';
+import '../../../../common/widgets/presentor/presentation_scaffold.dart';
 import '../../../../common/widgets/presentor/slide_container.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
-import '../../../../common/widgets/theme_button.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/models.dart';
@@ -56,7 +56,7 @@ class PresentorScreenState extends State<PresentorScreen> {
   late SongExt song;
   late String songTitle, songBook;
   bool hasChorus = false, likeChanged = false, slideVertical = true;
-  bool showVerses = true;
+  late bool showVerses;
   final activeSlide = ValueNotifier<int>(0);
   final detailsKey = GlobalKey<PresentorDetailsState>();
   late final List<SongExt> bookSongs;
@@ -64,6 +64,13 @@ class PresentorScreenState extends State<PresentorScreen> {
   @override
   void initState() {
     super.initState();
+    showVerses = getIt<PrefRepo>().getPrefBool(
+      PrefConstants.presenterVersesKey,
+    );
+    // Presenting fills the screen; leaving full screen (F11) leaves the
+    // presenter, the way Esc and the back button do.
+    AppWindow.fullScreen.addListener(_onFullScreenChanged);
+    AppWindow.setFullScreen(true);
     song = widget.song;
     hasChorus = song.content.contains("CHORUS");
     songTitle = songItemTitle(song.songNo, widget.song.title);
@@ -94,31 +101,27 @@ class PresentorScreenState extends State<PresentorScreen> {
 
   @override
   void dispose() {
+    AppWindow.fullScreen.removeListener(_onFullScreenChanged);
     activeSlide.dispose();
-    setFullScreen(false);
+    AppWindow.setFullScreen(false);
     super.dispose();
   }
 
-  void _toggleLike() {
-    setState(() {
-      song.liked = !song.liked;
-      likeChanged = true;
-    });
-    String message = song.liked ? l10n.songLiked : l10n.songDisliked;
-    CustomSnackbar.show(context, message, isSuccess: song.liked);
+  void _onFullScreenChanged() {
+    if (!AppWindow.fullScreen.value && mounted) {
+      Navigator.of(context).pop(likeChanged);
+    }
   }
 
   void _toggleVerses() {
     setState(() => showVerses = !showVerses);
+    // Remembered, so the panel stays the way the user left it.
+    getIt<PrefRepo>().setPrefBool(PrefConstants.presenterVersesKey, showVerses);
     // The button takes keyboard focus; give it back so the arrow keys, - and
     // = keep working on the slides.
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => detailsKey.currentState?.focusNode.requestFocus(),
     );
-  }
-
-  Future<void> setFullScreen(bool value) async {
-    await AppWindow.setFullScreen(value);
   }
 
   @override
@@ -154,41 +157,28 @@ class PresentorScreenState extends State<PresentorScreen> {
                 Navigator.of(context).pop(likeChanged);
               }
             },
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text('$songTitle - $songBook'),
-                actions: [
-                  IconButton(
-                    tooltip: showVerses ? 'Hide verses' : 'Show verses',
-                    isSelected: showVerses,
-                    onPressed: _toggleVerses,
-                    icon: const Icon(Icons.list),
-                  ),
-                  Tooltip(
-                    message: song.liked ? l10n.songDislike : l10n.songLike,
-                    child: IconButton(
-                      onPressed: _toggleLike,
-                      icon: Icon(
-                        song.liked ? Icons.favorite : Icons.favorite_border,
-                      ),
-                    ),
-                  ),
-                  ThemeButton(),
-                  SizedBox(width: 20),
-                ],
-              ),
-              body: Row(
-                children: [
-                  Expanded(child: PresentorDetails(key: detailsKey, parent: this)),
-                  if (showVerses)
-                    PresentorVersesPanel(
+            child: PresentationScaffold(
+              title: songTitle,
+              subtitle: songBook,
+              onBack: () => Navigator.of(context).pop(likeChanged),
+              actions: [
+                IconButton(
+                  tooltip: showVerses ? 'Hide verses' : 'Show verses',
+                  isSelected: showVerses,
+                  onPressed: _toggleVerses,
+                  icon: const Icon(Icons.list),
+                ),
+                const FullScreenButton(),
+              ],
+              body: PresentorDetails(key: detailsKey, parent: this),
+              endPanel: showVerses
+                  ? PresentorVersesPanel(
                       key: ValueKey(song.rid),
                       song: song,
                       hasChorus: hasChorus,
                       activeSlide: activeSlide,
-                    ),
-                ],
-              ),
+                    )
+                  : null,
             ),
           );
         },

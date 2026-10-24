@@ -16,6 +16,7 @@ import '../../../license/ui/widgets/license_banner.dart';
 import 'app_module.dart';
 import 'how_it_works_sheet.dart';
 import 'shell_nav_item.dart';
+import 'update_banner.dart';
 
 const double kShellSidebarWidth = 250;
 
@@ -173,6 +174,7 @@ class _Sidebar extends StatelessWidget {
           children: items,
         )
             .expanded(),
+        const UpdateBanner(),
         const LicenseBanner(),
         divider,
         ShellNavItem(

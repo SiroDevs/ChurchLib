@@ -6,6 +6,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../cubit/bible_reader_cubit.dart';
+import 'bible_title_bar.dart' show AaIcon;
 
 class BibleBottomBar extends StatelessWidget {
   final BibleReaderState state;
@@ -19,6 +20,10 @@ class BibleBottomBar extends StatelessWidget {
   final VoidCallback onPickChapter;
   final VoidCallback onQuickOptions;
 
+  /// Presentation screen: Quick Options gives way to the Aa- and Aa+ icons.
+  final bool presenting;
+  final VoidCallback? onSmallerFont, onBiggerFont;
+
   const BibleBottomBar({
     super.key,
     required this.state,
@@ -31,6 +36,9 @@ class BibleBottomBar extends StatelessWidget {
     required this.onNext,
     required this.onPickChapter,
     required this.onQuickOptions,
+    this.presenting = false,
+    this.onSmallerFont,
+    this.onBiggerFont,
   });
 
   @override
@@ -67,20 +75,42 @@ class BibleBottomBar extends StatelessWidget {
             tooltip: 'Next chapter (Alt + →)',
             onTap: hasNext ? onNext : null,
           ),
-          _BarButton(
-            icon: Icons.tune,
-            label: 'Quick Options',
-            tooltip: 'Quick Options',
-            onTap: onQuickOptions,
-          )
-              .alignment(Alignment.centerRight)
-              .expanded(),
+          if (presenting)
+            _fontControls().alignment(Alignment.centerRight).expanded()
+          else
+            _BarButton(
+              icon: Icons.tune,
+              label: 'Quick Options',
+              tooltip: 'Quick Options',
+              onTap: onQuickOptions,
+            )
+                .alignment(Alignment.centerRight)
+                .expanded(),
         ],
       )
           .height(64)
           .decorated(
             border: Border(top: BorderSide(color: scheme.outlineVariant)),
           ),
+    );
+  }
+
+  Widget _fontControls() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          tooltip: 'Smaller text (-)',
+          onPressed: onSmallerFont,
+          icon: const AaIcon(plus: false),
+        ),
+        IconButton(
+          tooltip: 'Larger text (=)',
+          onPressed: onBiggerFont,
+          icon: const AaIcon(plus: true),
+        ),
+        const SizedBox(width: 8),
+      ],
     );
   }
 

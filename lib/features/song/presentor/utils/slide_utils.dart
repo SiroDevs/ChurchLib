@@ -44,3 +44,18 @@ int rawVerseForSlide(int slide, bool hasChorus) {
   if (slide.isOdd) return 1;
   return slide == 0 ? 0 : slide ~/ 2 + 1;
 }
+
+/// With a chorus the slides alternate verse, chorus, verse, chorus... (see
+/// loadSong), so every odd slide is the chorus.
+bool isChorusSlide(int slide, bool hasChorus) => hasChorus && slide.isOdd;
+
+/// The stanzas the text size of [slide] is fitted against: choruses with
+/// choruses and verses with verses. A short chorus is then sized for its own
+/// lines instead of being shrunk to the size of the longest verse.
+List<String> fitGroupFor(List<String> stanzas, int slide, bool hasChorus) {
+  final chorus = isChorusSlide(slide, hasChorus);
+  return [
+    for (var i = 0; i < stanzas.length; i++)
+      if (isChorusSlide(i, hasChorus) == chorus) stanzas[i],
+  ];
+}
