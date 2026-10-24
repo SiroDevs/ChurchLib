@@ -12,8 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import 'reader_auto_scroll.dart';
 
-/// Scrolling the chapter by verse or by arrow key, and reporting which verse
-/// is at the top so the reading position can be restored.
 mixin ReaderScrollMixin<T extends StatefulWidget>
     on State<T>, ReaderAutoScrollMixin<T> {
   final viewportKey = GlobalKey();

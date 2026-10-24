@@ -56,8 +56,6 @@ class IndicatorItem extends StatelessWidget {
     return Container(
       width: width,
       margin: const EdgeInsets.all(5),
-      // Current slide: the grey fill drawn behind by the TabIndicator, no
-      // border. The others: transparent with a clearly visible border.
       decoration: BoxDecoration(
         color: Colors.transparent,
         border: Border.all(

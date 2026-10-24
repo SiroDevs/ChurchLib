@@ -39,6 +39,7 @@ class PrefConstants {
   static const selectedBooksKey = 'selected_books';
   static const slideVerticalKey = 'slide_vertically';
   static const presenterVersesKey = 'presenter_show_verses';
+  static const presenterAlignKey = 'presenter_text_align';
   static const pcHintsKey = 'pc_hints';
   static const uninstallCheckKey = 'uninstall_check';
   static const donationCheckKey = 'donation_check';

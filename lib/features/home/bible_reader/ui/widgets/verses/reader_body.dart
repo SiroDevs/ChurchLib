@@ -30,9 +30,6 @@ class ReaderBody extends StatelessWidget {
   final GlobalKey Function(String verseId) keyFor;
   final VoidCallback onScrollEnd;
 
-  /// Presentation screen: the multi-Bible reader is switched off (only until
-  /// the presentation ends; the setting itself is untouched), the heading is
-  /// left to the screen's title, and the numbers are white.
   final bool presenting;
 
   Future<void> _openNote(BuildContext context, NotesRequest? request) async {

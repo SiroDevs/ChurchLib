@@ -43,11 +43,8 @@ class HomeScreenState extends State<SongSearchScreen> {
 
   bool periodicSyncStarted = false;
 
-  /// False until the first list of songs is ready; until then the home
-  /// screen shows the shimmer skeleton instead of an empty shell.
   bool dataReady = false;
 
-  /// The presenter is open (F11 or the present button opened it).
   bool _presenting = false;
   int selectedPage = 0, selectedBook = 0;
   List<SongBook> books = [];
@@ -67,14 +64,12 @@ class HomeScreenState extends State<SongSearchScreen> {
     AppWindow.fullScreen.addListener(_onFullScreenChanged);
   }
 
-  /// F11 on SongLib opens presentation mode together with full screen.
   void _onFullScreenChanged() {
     if (!AppWindow.fullScreen.value || _presenting || !mounted) return;
-    // Both modules live side by side; only the one on screen reacts.
     final current = HomeModuleScope.maybeOf(context)?.current;
     if (current != null && current != AppModule.songlib) return;
     if (selectedSong.songId == 0 || books.isEmpty) {
-      AppWindow.setFullScreen(false); // nothing to present yet
+      AppWindow.setFullScreen(false);
       return;
     }
     presentSelected();

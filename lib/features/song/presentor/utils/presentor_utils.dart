@@ -65,10 +65,8 @@ Future<Map<String, dynamic>> loadSong(SongExt song) async {
   }
 }
 
-/// One slide per stanza. Each slide may grow to the size its own number of
-/// lines allows on a screen [screenHeight] tall (or to [pickedFontSize] when
-/// the user chose one), and shrinks only until it fits next to the stanzas of
-/// its own kind: verses together, choruses together.
+const double _chorusBoost = 1.25;
+
 List<Widget> presentorWidgets(
   String title,
   String book,
@@ -76,22 +74,31 @@ List<Widget> presentorWidgets(
   List<String> stanzas, {
   double? pickedFontSize,
   bool hasChorus = false,
+  TextAlign textAlign = TextAlign.justify,
   ValueChanged<double>? onFontFit,
 }) {
   try {
     List<Widget> slides = [];
     for (var i = 0; i < stanzas.length; i++) {
       final stanza = stanzas[i];
-      final wanted = pickedFontSize ??
-          max(
-            12.0,
-            calcLinesFontSize(height: screenHeight, lines: lineCountOf(stanza)),
-          );
+      final chorus = isChorusSlide(i, hasChorus);
+      final double wanted;
+      if (pickedFontSize != null) {
+        wanted = pickedFontSize * (chorus ? _chorusBoost : 1);
+      } else if (chorus) {
+        wanted = screenHeight;
+      } else {
+        wanted = max(
+          12.0,
+          calcLinesFontSize(height: screenHeight, lines: lineCountOf(stanza)),
+        );
+      }
       slides.add(
         SliderContent(
           lyrics: stanza,
           fontSize: wanted,
           fitWith: fitGroupFor(stanzas, i, hasChorus),
+          textAlign: textAlign,
           onFontFit: onFontFit,
           onDoubleTap: () => Share.share(
             '${stanza.replaceAll("#", "\n")}\n\n$title,\n$book',

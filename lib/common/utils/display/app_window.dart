@@ -10,8 +10,6 @@ class AppWindow {
 
   static Window? get _current => WindowManager.instance.getCurrent();
 
-  /// Whether the main window is full screen right now. BibleLib's sidebar
-  /// listens to this to collapse, and the full screen buttons swap their icon.
   static final ValueNotifier<bool> fullScreen = ValueNotifier<bool>(false);
 
   static Future<void> showMaximized() async {
@@ -48,8 +46,6 @@ class AppWindow {
     }
   }
 
-  /// F11 and the full screen buttons. Starts from what the window says, so it
-  /// stays right when the system left full screen by itself.
   static Future<void> toggleFullScreen() async {
     final window = _current;
     if (window == null) return;

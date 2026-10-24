@@ -59,8 +59,6 @@ class _PresentorVersesPanelState extends State<PresentorVersesPanel> {
 
   static const _fontSize = 12.0;
 
-  /// Wide enough for the longest line of the song, so no line wraps, but never
-  /// more than a third of the screen (a longer line is cut with an ellipsis).
   double _panelWidth(BuildContext context) {
     final scaler = MediaQuery.textScalerOf(context);
     var widest = 0.0;
@@ -75,7 +73,6 @@ class _PresentorVersesPanelState extends State<PresentorVersesPanel> {
         painter.dispose();
       }
     }
-    // Card padding and margins around the text.
     final wanted = widest + 40;
     final cap = MediaQuery.sizeOf(context).width / 3;
     return min(cap, max(130.0, wanted));

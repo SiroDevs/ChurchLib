@@ -39,8 +39,6 @@ class BiblerReaderViewState extends State<BiblerReaderView>
   @override
   final scrollController = ScrollController();
 
-  /// Keeps the chapter (and where it is scrolled to) alive when the screen
-  /// switches between the normal shell and the presentation screen.
   final _contentKey = GlobalKey();
 
   @override
@@ -57,7 +55,6 @@ class BiblerReaderViewState extends State<BiblerReaderView>
     if (next != current) cubit.setFontSize(next);
   }
 
-  /// Esc clears a verse selection first; otherwise it leaves the presentation.
   void _onEscape(BibleReaderCubit cubit) {
     if (cubit.state.isSelectionMode) {
       cubit.clearSelection();
@@ -113,7 +110,6 @@ class BiblerReaderViewState extends State<BiblerReaderView>
               (!identical(p.verses, c.verses) && c.restoreVerseId != null),
           listener: _onStateChanged,
           builder: (context, state) {
-            // Full screen is the presentation screen.
             return ValueListenableBuilder<bool>(
               valueListenable: AppWindow.fullScreen,
               builder: (context, presenting, _) =>
@@ -185,8 +181,10 @@ class BiblerReaderViewState extends State<BiblerReaderView>
 
     if (presenting) {
       return PresentationScaffold(
-        title: state.activeBible.isEmpty ? '…' : state.activeBible,
-        subtitle: state.activeChapter?.reference,
+        title: [
+          state.activeChapter?.reference ?? '',
+          state.activeBible,
+        ].where((part) => part.isNotEmpty).join(' • '),
         onBack: () => AppWindow.setFullScreen(false),
         body: content,
       );

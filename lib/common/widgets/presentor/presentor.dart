@@ -25,6 +25,8 @@ class SliderContent extends StatelessWidget {
   final Function()? onDoubleTap;
   final Function()? onLongPress;
 
+  final TextAlign textAlign;
+
   const SliderContent({
     super.key,
     required this.lyrics,
@@ -33,6 +35,7 @@ class SliderContent extends StatelessWidget {
     this.onFontFit,
     this.onDoubleTap,
     this.onLongPress,
+    this.textAlign = TextAlign.justify,
   });
 
   static const double _hPad = 20, _vPad = 10;
@@ -42,8 +45,8 @@ class SliderContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
-      shadowColor: Colors.black,
+      elevation: 0,
+      shape: const RoundedRectangleBorder(),
       child: LayoutBuilder(
         builder: (context, box) {
           final style = DefaultTextStyle.of(
@@ -67,14 +70,18 @@ class SliderContent extends StatelessWidget {
 
           // FittedBox is a safety net: the size above already fits, but if a
           // font measures slightly differently the text shrinks, never spills.
+          final text = Text(
+            _display(lyrics),
+            textAlign: textAlign,
+            style: style.copyWith(fontSize: size),
+          );
           return FittedBox(
             fit: BoxFit.scaleDown,
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: width),
-              child: Text(
-                _display(lyrics),
-                style: style.copyWith(fontSize: size),
-              ),
+              child: textAlign == TextAlign.justify
+                  ? text
+                  : SizedBox(width: width, child: text),
             ),
           ).padding(horizontal: _hPad, vertical: _vPad).center();
         },
@@ -105,8 +112,6 @@ class SliderNumbers extends StatelessWidget {
         label,
         style: TextStyle(
           fontSize: 25,
-          // Sits on grey (current slide) or on the plain background, so it
-          // follows the theme instead of being fixed white.
           color: Theme.of(context).colorScheme.onSurface,
           fontWeight: FontWeight.bold,
         ),

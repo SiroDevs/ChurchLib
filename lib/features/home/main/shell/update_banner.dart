@@ -11,8 +11,6 @@ import '../../../../core/theme/theme_colors.dart';
 import '../../../../core/update/update_checker.dart';
 import '../../../../core/update/update_cubit.dart';
 
-/// Shown in the sidebar, above the license banner, only when GitHub has a
-/// newer version than the one installed.
 class UpdateBanner extends StatefulWidget {
   const UpdateBanner({super.key});
 
