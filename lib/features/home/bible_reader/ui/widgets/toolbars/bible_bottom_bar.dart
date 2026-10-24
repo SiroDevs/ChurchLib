@@ -20,7 +20,6 @@ class BibleBottomBar extends StatelessWidget {
   final VoidCallback onPickChapter;
   final VoidCallback onQuickOptions;
 
-  /// Presentation screen: Quick Options gives way to the Aa- and Aa+ icons.
   final bool presenting;
   final VoidCallback? onSmallerFont, onBiggerFont;
 
@@ -90,7 +89,11 @@ class BibleBottomBar extends StatelessWidget {
       )
           .height(64)
           .decorated(
-            border: Border(top: BorderSide(color: scheme.outlineVariant)),
+            border: Border(
+              top: BorderSide(
+                color: presenting ? Colors.white : scheme.outlineVariant,
+              ),
+            ),
           ),
     );
   }

@@ -84,7 +84,6 @@ class AppViewState extends State<AppView> {
     super.dispose();
   }
 
-  /// F11 toggles full screen from anywhere: SongLib, BibleLib or the presenter.
   bool _onKey(KeyEvent event) {
     if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.f11) {
       AppWindow.toggleFullScreen();

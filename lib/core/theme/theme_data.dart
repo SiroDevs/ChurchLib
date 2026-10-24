@@ -80,7 +80,6 @@ class AppTheme {
     return buildThemeData(scheme, _darkBg);
   }
 
-  /// Black background, white text: the look of every presentation screen.
   static ThemeData presentationTheme() => _presentation ??= _buildPresentation();
 
   static ThemeData? _presentation;

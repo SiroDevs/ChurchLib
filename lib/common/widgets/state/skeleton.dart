@@ -161,7 +161,6 @@ class HomeLoading extends StatelessWidget {
   }
 }
 
-/// Shimmer placeholder for the Bible reader while a chapter is loading.
 class ReaderLoading extends StatelessWidget {
   const ReaderLoading({super.key});
 

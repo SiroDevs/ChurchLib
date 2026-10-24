@@ -11,7 +11,6 @@ class UpdateState extends Equatable {
 
   final UpdateStatus status;
 
-  /// The version installed and the newest one on GitHub.
   final String current, latest;
 
   bool get hasUpdate => status == UpdateStatus.available;

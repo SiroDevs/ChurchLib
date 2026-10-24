@@ -30,6 +30,7 @@ import '../utils/presentor_utils.dart';
 import '../utils/slide_utils.dart';
 
 part 'widgets/fab_widget.dart';
+part 'widgets/presentor_footer.dart';
 part 'widgets/verses_panel.dart';
 part 'presentor_details.dart';
 part 'widgets/presentor_slide.dart';
@@ -56,6 +57,8 @@ class PresentorScreenState extends State<PresentorScreen> {
   late String songTitle, songBook;
   bool hasChorus = false, likeChanged = false, slideVertical = true;
   late bool showVerses;
+
+  late TextAlign textAlign;
   final activeSlide = ValueNotifier<int>(0);
   final detailsKey = GlobalKey<PresentorDetailsState>();
   late final List<SongExt> bookSongs;
@@ -66,8 +69,7 @@ class PresentorScreenState extends State<PresentorScreen> {
     showVerses = getIt<PrefRepo>().getPrefBool(
       PrefConstants.presenterVersesKey,
     );
-    // Presenting fills the screen; leaving full screen (F11) leaves the
-    // presenter, the way Esc and the back button do.
+    textAlign = _savedAlign();
     AppWindow.fullScreen.addListener(_onFullScreenChanged);
     AppWindow.setFullScreen(true);
     song = widget.song;
@@ -106,6 +108,24 @@ class PresentorScreenState extends State<PresentorScreen> {
     super.dispose();
   }
 
+  TextAlign _savedAlign() {
+    final saved = getIt<PrefRepo>().getPrefString(
+      PrefConstants.presenterAlignKey,
+    );
+    return TextAlign.values.firstWhere(
+      (a) => a.name == saved,
+      orElse: () => TextAlign.justify,
+    );
+  }
+
+  void setAlign(TextAlign value) {
+    setState(() => textAlign = value);
+    getIt<PrefRepo>().setPrefString(PrefConstants.presenterAlignKey, value.name);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => detailsKey.currentState?.focusNode.requestFocus(),
+    );
+  }
+
   void _onFullScreenChanged() {
     if (!AppWindow.fullScreen.value && mounted) {
       Navigator.of(context).pop(likeChanged);
@@ -114,7 +134,6 @@ class PresentorScreenState extends State<PresentorScreen> {
 
   void _toggleVerses() {
     setState(() => showVerses = !showVerses);
-    // Remembered, so the panel stays the way the user left it.
     getIt<PrefRepo>().setPrefBool(PrefConstants.presenterVersesKey, showVerses);
     // The button takes keyboard focus; give it back so the arrow keys, - and
     // = keep working on the slides.
@@ -157,8 +176,7 @@ class PresentorScreenState extends State<PresentorScreen> {
               }
             },
             child: PresentationScaffold(
-              title: songTitle,
-              subtitle: songBook,
+              title: '${song.title} • $songBook',
               onBack: () => Navigator.of(context).pop(likeChanged),
               actions: [
                 IconButton(

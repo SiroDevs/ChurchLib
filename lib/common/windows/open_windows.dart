@@ -67,8 +67,6 @@ Future<ReaderTarget?> openScriptureOpener(
 Future<void> openBibles(BuildContext context) =>
     showAppWindow<void>(context, child: const BiblesScreen(), width: 860);
 
-/// The presenter is a full page (not a framed dialog) because it goes full
-/// screen as soon as it opens.
 Future<bool?> openPresentor(
   BuildContext context, {
   required SongExt song,

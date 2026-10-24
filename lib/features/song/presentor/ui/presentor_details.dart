@@ -23,12 +23,8 @@ class PresentorDetailsState extends State<PresentorDetails> {
     parent.activeSlide.value = value;
   }
 
-  /// Size the text is really drawn at; smaller than what the slide would
-  /// like whenever the text would not fit on it.
   double shownFontSize = 18;
 
-  /// What the user picked with - and =; null means each slide is sized from
-  /// its own number of lines and the screen height.
   double? userFontSize;
   List<String> stanzas = [];
   List<Widget> slides = [];
@@ -99,6 +95,7 @@ class PresentorDetailsState extends State<PresentorDetails> {
         newStanzas,
         pickedFontSize: userFontSize,
         hasChorus: parent.hasChorus,
+        textAlign: parent.textAlign,
         onFontFit: (size) => shownFontSize = size,
       );
     }
@@ -123,6 +120,9 @@ class PresentorDetailsState extends State<PresentorDetails> {
                   tabs: state.tabs,
                   slides: slides,
                   onSlideChanged: (index) => currentSlide = index,
+                  songNo: parent.song.songNo,
+                  textAlign: parent.textAlign,
+                  onAlign: parent.setAlign,
                   indicatorWidth: MediaQuery.of(context).size.height * 0.08156,
                 )
               : SizedBox();

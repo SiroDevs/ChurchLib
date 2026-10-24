@@ -7,7 +7,6 @@ sealed class SongSearchState extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Before anything was asked for; the home screen shows its skeleton.
 class InitialState extends SongSearchState {
   const InitialState();
 }

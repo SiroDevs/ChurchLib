@@ -11,15 +11,12 @@ import 'update_checker.dart';
 
 part 'update_state.dart';
 
-/// Looks on GitHub for a newer version of the app: once when started, then
-/// every few hours while the app stays open.
 class UpdateCubit extends Cubit<UpdateState> {
   UpdateCubit() : super(const UpdateState());
 
   static const _every = Duration(hours: 6);
   Timer? _timer;
 
-  /// Safe to call from several places; only the first call starts checking.
   void start() {
     if (_timer != null) return;
     _timer = Timer.periodic(_every, (_) => check());
@@ -28,7 +25,6 @@ class UpdateCubit extends Cubit<UpdateState> {
 
   Future<void> check() async {
     final latest = await fetchLatestVersion();
-    // Offline or unreadable: keep whatever was known before.
     if (latest == null || isClosed) return;
     final current = (await PackageInfo.fromPlatform()).version;
     if (isClosed) return;

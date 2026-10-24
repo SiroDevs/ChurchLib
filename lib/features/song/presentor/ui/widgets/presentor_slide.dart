@@ -8,9 +8,10 @@ class PresentorSlide extends StatefulWidget {
   final List<Widget>? slides;
   final String? songbook;
   final TextDirection? direction;
-
-  /// Called whenever the visible slide changes, including by swiping.
   final ValueChanged<int>? onSlideChanged;
+  final int songNo;
+  final TextAlign textAlign;
+  final ValueChanged<TextAlign> onAlign;
 
   const PresentorSlide({
     super.key,
@@ -22,6 +23,9 @@ class PresentorSlide extends StatefulWidget {
     this.indicatorSide,
     this.direction = TextDirection.ltr,
     this.onSlideChanged,
+    required this.songNo,
+    required this.textAlign,
+    required this.onAlign,
   }) : assert(
          tabs != null && slides != null && tabs.length == slides.length,
        );
@@ -144,7 +148,15 @@ class _PresentorSlideState extends State<PresentorSlide>
       textDirection: widget.direction!,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [pageView.expanded(), slideContainer, SizedBox(height: 10)],
+        children: [
+          pageView.expanded(),
+          PresentorFooter(
+            songNo: widget.songNo,
+            align: widget.textAlign,
+            onAlign: widget.onAlign,
+            indicators: slideContainer,
+          ),
+        ],
       ),
     );
   }

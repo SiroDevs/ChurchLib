@@ -4,12 +4,8 @@ import 'dart:math';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-/// Number of text lines in [text]; stanzas use '#' as a line break, slide
-/// items use '\n'.
 int lineCountOf(String text) => RegExp(r'[#\n]').allMatches(text).length + 1;
 
-/// Biggest comfortable font size for [lines] lines on a screen [height] tall.
-/// Fewer lines get a bigger size, so a short chorus fills the screen.
 double calcLinesFontSize({
   required double height,
   required int lines,
@@ -34,7 +30,6 @@ double getFontSize(int characters, double height, double width) {
   return sqrt((height * width) / characters);
 }
 
-// Verses and the chorus are fitted separately, so one slot is not enough.
 final Map<int, double> _fitCache = {};
 
 /// Largest font size, never above [maxFontSize], at which every entry of
