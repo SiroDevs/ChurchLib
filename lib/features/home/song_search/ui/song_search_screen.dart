@@ -11,6 +11,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../common/navigator/route_names.dart';
+import '../../../../common/utils/display/app_window.dart';
 import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/search/search_songs_utils.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
@@ -41,6 +42,13 @@ class HomeScreenState extends State<SongSearchScreen> {
   Timer? _syncTimer;
 
   bool periodicSyncStarted = false;
+
+  /// False until the first list of songs is ready; until then the home
+  /// screen shows the shimmer skeleton instead of an empty shell.
+  bool dataReady = false;
+
+  /// The presenter is open (F11 or the present button opened it).
+  bool _presenting = false;
   int selectedPage = 0, selectedBook = 0;
   List<SongBook> books = [];
   late SongExt selectedSong;
@@ -56,10 +64,25 @@ class HomeScreenState extends State<SongSearchScreen> {
   void initState() {
     super.initState();
     selectedSong = SongExt(0, 0, 0, 0, '', '', '', 0, 0, false, '');
+    AppWindow.fullScreen.addListener(_onFullScreenChanged);
+  }
+
+  /// F11 on SongLib opens presentation mode together with full screen.
+  void _onFullScreenChanged() {
+    if (!AppWindow.fullScreen.value || _presenting || !mounted) return;
+    // Both modules live side by side; only the one on screen reacts.
+    final current = HomeModuleScope.maybeOf(context)?.current;
+    if (current != null && current != AppModule.songlib) return;
+    if (selectedSong.songId == 0 || books.isEmpty) {
+      AppWindow.setFullScreen(false); // nothing to present yet
+      return;
+    }
+    presentSelected();
   }
 
   @override
   void dispose() {
+    AppWindow.fullScreen.removeListener(_onFullScreenChanged);
     _syncTimer?.cancel();
     searchFocus.dispose();
     searchController.dispose();
@@ -85,11 +108,13 @@ class HomeScreenState extends State<SongSearchScreen> {
       orElse: () => books[0],
     );
 
+    _presenting = true;
     bool? result = await context.pushNamed<bool>(
       RouteNames.presentor,
       extra: (song: song, book: book, songs: songs),
     );
 
+    _presenting = false;
     if (result == true) {
       // bloc.add(FilterData(book));
     }
@@ -123,6 +148,9 @@ class HomeScreenState extends State<SongSearchScreen> {
             filtered = state.songs;
             selectedBook = books.indexOf(state.book);
             selectedSong = state.songs[0];
+            dataReady = true;
+          } else if (state is LoadedState) {
+            dataReady = true;
           } else if (state is FailureState) {
             CustomSnackbar.show(context, feedbackMessage(state.feedback, l10n));
           } else if (state is ResettedState) {
@@ -171,7 +199,9 @@ class HomeScreenState extends State<SongSearchScreen> {
                     context.read<SongSearchBloc>().add(const ResetData()),
               ),
             ),
-            FetchingState() => Scaffold(body: HomeLoading()),
+            FetchingState() ||
+            InitialState() => const Scaffold(body: HomeLoading()),
+            _ when !dataReady => const Scaffold(body: HomeLoading()),
             _ => homeView,
           };
         },

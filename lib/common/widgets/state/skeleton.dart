@@ -160,3 +160,36 @@ class HomeLoading extends StatelessWidget {
     );
   }
 }
+
+/// Shimmer placeholder for the Bible reader while a chapter is loading.
+class ReaderLoading extends StatelessWidget {
+  const ReaderLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final verse = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(height: 16, color: Colors.black),
+        const SizedBox(height: 8),
+        Container(height: 16, color: Colors.black),
+        const SizedBox(height: 8),
+        FractionallySizedBox(
+          widthFactor: .55,
+          child: Container(height: 16, color: Colors.black),
+        ),
+      ],
+    ).padding(left: 16, right: 16, top: 12, bottom: 12);
+
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: SkeletonLoader(
+        builder: verse,
+        items: 10,
+        period: const Duration(seconds: 3),
+        highlightColor: ThemeColors.primary,
+        direction: SkeletonDirection.ltr,
+      ),
+    );
+  }
+}

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../../../common/widgets/state/skeleton.dart';
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
 import '../../../cubit/bible_reader_cubit.dart';
@@ -20,6 +21,7 @@ class ReaderBody extends StatelessWidget {
     required this.viewportKey,
     required this.keyFor,
     required this.onScrollEnd,
+    this.presenting = false,
   });
 
   final BibleReaderState state;
@@ -27,6 +29,11 @@ class ReaderBody extends StatelessWidget {
   final GlobalKey viewportKey;
   final GlobalKey Function(String verseId) keyFor;
   final VoidCallback onScrollEnd;
+
+  /// Presentation screen: the multi-Bible reader is switched off (only until
+  /// the presentation ends; the setting itself is untouched), the heading is
+  /// left to the screen's title, and the numbers are white.
+  final bool presenting;
 
   Future<void> _openNote(BuildContext context, NotesRequest? request) async {
     if (request == null) return;
@@ -60,12 +67,14 @@ class ReaderBody extends StatelessWidget {
         ).padding(all: 32).center();
     }
     if (state.isLoading && state.verses.isEmpty) {
-      return CircularProgressIndicator(color: ThemeColors.primary).center();
+      return const ReaderLoading();
     }
 
     final cubit = context.read<BibleReaderCubit>();
     final parallelActive =
-        state.multiBibleReaderEnabled && state.parallelVerses.isNotEmpty;
+        state.multiBibleReaderEnabled &&
+        !presenting &&
+        state.parallelVerses.isNotEmpty;
 
     return Directionality(
       textDirection: state.isRtl ? TextDirection.rtl : TextDirection.ltr,
@@ -81,7 +90,9 @@ class ReaderBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (state.activeBook != null && state.activeChapter != null)
+              if (!presenting &&
+                  state.activeBook != null &&
+                  state.activeChapter != null)
                 Text(
                   state.activeChapter!.reference,
                   style: TextStyle(
@@ -96,6 +107,7 @@ class ReaderBody extends StatelessWidget {
                   number: v.number,
                   text: v.text,
                   fontSize: state.fontSize.toDouble(),
+                  numberColor: presenting ? Colors.white70 : ThemeColors.primary,
                   highlightQuery: state.highlightQuery,
                   parallelTexts: parallelActive
                       ? {

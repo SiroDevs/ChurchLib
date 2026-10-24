@@ -23,15 +23,13 @@ class PresentorDetailsState extends State<PresentorDetails> {
     parent.activeSlide.value = value;
   }
 
-  /// Size the text would like to be: what the user picked with - and =, or
-  /// else one worked out from the screen height.
-  double fontSize = 18;
-
-  /// Size the text is really drawn at; smaller than [fontSize] whenever the
-  /// text would not fit on the slide.
+  /// Size the text is really drawn at; smaller than what the slide would
+  /// like whenever the text would not fit on it.
   double shownFontSize = 18;
+
+  /// What the user picked with - and =; null means each slide is sized from
+  /// its own number of lines and the screen height.
   double? userFontSize;
-  double _autoFontSize = 18, _autoForHeight = 0;
   List<String> stanzas = [];
   List<Widget> slides = [];
   late FocusNode focusNode;
@@ -49,21 +47,7 @@ class PresentorDetailsState extends State<PresentorDetails> {
     super.dispose();
   }
 
-  double _preferredFontSize(double screenHeight) {
-    final picked = userFontSize;
-    if (picked != null) return picked;
-    if (screenHeight != _autoForHeight) {
-      _autoForHeight = screenHeight;
-      _autoFontSize = max(
-        _minFontSize,
-        calcFontSize(height: screenHeight, content: parent.song.content),
-      );
-    }
-    return _autoFontSize;
-  }
-
   void resetForSong() {
-    _autoForHeight = 0;
     slides = [];
     stanzas = [];
     currentSlide = 0;
@@ -106,13 +90,15 @@ class PresentorDetailsState extends State<PresentorDetails> {
     focusNode.requestFocus();
   }
 
-  void _buildSlides(List<String> newStanzas) {
+  void _buildSlides(List<String> newStanzas, double screenHeight) {
     if (newStanzas.isNotEmpty) {
       slides = presentorWidgets(
         parent.songTitle,
         parent.songBook,
-        fontSize,
+        screenHeight,
         newStanzas,
+        pickedFontSize: userFontSize,
+        hasChorus: parent.hasChorus,
         onFontFit: (size) => shownFontSize = size,
       );
     }
@@ -124,10 +110,9 @@ class PresentorDetailsState extends State<PresentorDetails> {
       bloc: context.read<PresentorBloc>(),
       builder: (context, state) {
         if (state is PresentorLoadedState) {
-          fontSize = _preferredFontSize(MediaQuery.sizeOf(context).height);
           if (state.stanzas.isNotEmpty || slides.isEmpty) {
             stanzas = state.stanzas;
-            _buildSlides(state.stanzas);
+            _buildSlides(state.stanzas, MediaQuery.sizeOf(context).height);
           }
 
           var presentation = state.stanzas.isNotEmpty

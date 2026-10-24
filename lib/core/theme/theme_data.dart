@@ -80,4 +80,33 @@ class AppTheme {
     return buildThemeData(scheme, _darkBg);
   }
 
+  /// Black background, white text: the look of every presentation screen.
+  static ThemeData presentationTheme() => _presentation ??= _buildPresentation();
+
+  static ThemeData? _presentation;
+
+  static ThemeData _buildPresentation() {
+    final scheme = ColorScheme.fromSeed(
+      seedColor: ThemeColors.primary,
+      brightness: Brightness.dark,
+    ).copyWith(
+      primary: Colors.white,
+      onPrimary: Colors.black,
+      primaryContainer: const Color(0xFF2B2B2B),
+      onPrimaryContainer: Colors.white,
+      secondary: Colors.white,
+      onSecondary: Colors.black,
+      secondaryContainer: Colors.black,
+      onSecondaryContainer: Colors.white,
+      surface: Colors.black,
+      onSurface: Colors.white,
+      surfaceContainerLowest: Colors.black,
+      surfaceContainerLow: Colors.black,
+      surfaceContainer: Colors.black,
+      onSurfaceVariant: Colors.white70,
+      outline: Colors.white54,
+      outlineVariant: Colors.white24,
+    );
+    return buildThemeData(scheme, Colors.black);
+  }
 }

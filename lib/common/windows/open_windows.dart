@@ -67,17 +67,17 @@ Future<ReaderTarget?> openScriptureOpener(
 Future<void> openBibles(BuildContext context) =>
     showAppWindow<void>(context, child: const BiblesScreen(), width: 860);
 
+/// The presenter is a full page (not a framed dialog) because it goes full
+/// screen as soon as it opens.
 Future<bool?> openPresentor(
   BuildContext context, {
   required SongExt song,
   required SongBook book,
   required List<SongExt> songs,
-}) => showAppWindow<bool>(
-  context,
-  child: PresentorScreen(song: song, book: book, songs: songs),
-  width: 1600,
-  height: 1000,
-  inset: const EdgeInsets.all(12),
+}) => Navigator.of(context, rootNavigator: true).push<bool>(
+  MaterialPageRoute(
+    builder: (_) => PresentorScreen(song: song, book: book, songs: songs),
+  ),
 );
 
 Future<void> openSettings(BuildContext context, AppModule module) =>

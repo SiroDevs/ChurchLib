@@ -57,18 +57,17 @@ class BibleTitleBar extends StatelessWidget {
           onPressed: state.fontSize <= readerMinFontSize
               ? null
               : () => cubit.setFontSize(state.fontSize - 2),
-          icon: const _AaIcon(plus: false),
+          icon: const AaIcon(plus: false),
         ),
         IconButton(
           tooltip: 'Larger text (=)',
           onPressed: state.fontSize >= readerMaxFontSize
               ? null
               : () => cubit.setFontSize(state.fontSize + 2),
-          icon: const _AaIcon(plus: true),
+          icon: const AaIcon(plus: true),
         ),
       ],
-    )
-        .padding(left: 12, right: 6);
+    ).padding(left: 12, right: 6);
   }
 }
 
@@ -111,8 +110,7 @@ class _PickerButton extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: style,
-            )
-                .flexible(),
+            ).flexible(),
             const Icon(Icons.arrow_drop_down),
           ],
         ),
@@ -121,8 +119,8 @@ class _PickerButton extends StatelessWidget {
   }
 }
 
-class _AaIcon extends StatelessWidget {
-  const _AaIcon({required this.plus});
+class AaIcon extends StatelessWidget {
+  const AaIcon({super.key, required this.plus});
   final bool plus;
 
   @override

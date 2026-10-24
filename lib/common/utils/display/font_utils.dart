@@ -4,36 +4,38 @@ import 'dart:math';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
-import '../formatting/app_util.dart';
+/// Number of text lines in [text]; stanzas use '#' as a line break, slide
+/// items use '\n'.
+int lineCountOf(String text) => RegExp(r'[#\n]').allMatches(text).length + 1;
+
+/// Biggest comfortable font size for [lines] lines on a screen [height] tall.
+/// Fewer lines get a bigger size, so a short chorus fills the screen.
+double calcLinesFontSize({
+  required double height,
+  required int lines,
+  double lineHeightMultiplier = 1.2,
+}) {
+  final availableHeight = height - 275;
+  final heightPerLine = availableHeight / max(1, lines);
+  return heightPerLine / lineHeightMultiplier;
+}
 
 double calcFontSize({
   required double height,
   required String content,
   double lineHeightMultiplier = 1.2,
-}) {
-  var verses = content.split("##");
-  final lineBreakCount = '#'.allMatches(verses[0]).length + 1;
-  final availableHeight = height - 275;
-
-  final heightPerLine = availableHeight / lineBreakCount;
-
-  double calculatedFontSize = heightPerLine / lineHeightMultiplier;
-
-  logger('Height: $height');
-  logger('Height Per Line: $heightPerLine');
-  logger('Line break count: $lineBreakCount');
-  logger('Final font size: $calculatedFontSize');
-
-  return calculatedFontSize;
-}
+}) => calcLinesFontSize(
+  height: height,
+  lines: lineCountOf(content.split("##")[0]),
+  lineHeightMultiplier: lineHeightMultiplier,
+);
 
 double getFontSize(int characters, double height, double width) {
   return sqrt((height * width) / characters);
 }
 
-int? _fitKey;
-double _fitValue = 0;
+// Verses and the chorus are fitted separately, so one slot is not enough.
+final Map<int, double> _fitCache = {};
 
 /// Largest font size, never above [maxFontSize], at which every entry of
 /// [texts] fits inside [maxWidth] x [maxHeight] when wrapped like a [Text].
@@ -66,7 +68,8 @@ double fitFontSize({
     textDirection,
     minFontSize,
   );
-  if (key == _fitKey) return _fitValue;
+  final cached = _fitCache[key];
+  if (cached != null) return cached;
 
   bool fits(double size) {
     for (final text in unique) {
@@ -100,7 +103,7 @@ double fitFontSize({
     result = low;
   }
 
-  _fitKey = key;
-  _fitValue = result;
+  if (_fitCache.length > 32) _fitCache.clear();
+  _fitCache[key] = result;
   return result;
 }

@@ -105,7 +105,9 @@ class SliderNumbers extends StatelessWidget {
         label,
         style: TextStyle(
           fontSize: 25,
-          color: Colors.white,
+          // Sits on grey (current slide) or on the plain background, so it
+          // follows the theme instead of being fixed white.
+          color: Theme.of(context).colorScheme.onSurface,
           fontWeight: FontWeight.bold,
         ),
       )

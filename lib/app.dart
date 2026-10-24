@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:go_router/go_router.dart';
 
 // Project imports:
 import 'common/navigator/app_router.dart';
+import 'common/utils/display/app_window.dart';
 import 'common/widgets/text_scale_factor.dart';
 import 'core/auth/auth_bloc.dart';
 import 'core/di/injectable.dart';
@@ -73,6 +75,22 @@ class AppViewState extends State<AppView> {
       context.read<AuthBloc>(),
       context.read<LicenseCubit>(),
     );
+    HardwareKeyboard.instance.addHandler(_onKey);
+  }
+
+  @override
+  void dispose() {
+    HardwareKeyboard.instance.removeHandler(_onKey);
+    super.dispose();
+  }
+
+  /// F11 toggles full screen from anywhere: SongLib, BibleLib or the presenter.
+  bool _onKey(KeyEvent event) {
+    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.f11) {
+      AppWindow.toggleFullScreen();
+      return true;
+    }
+    return false;
   }
 
   @override
