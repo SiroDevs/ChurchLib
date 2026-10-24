@@ -15,7 +15,6 @@ import '../../../../common/constants/pref_constants.dart';
 import '../../../../common/utils/display/app_window.dart';
 import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/action/fab_widget.dart';
-import '../../../../common/widgets/action/full_screen_button.dart';
 import '../../../../common/widgets/app_intents.dart';
 import '../../../../common/widgets/presentor/presentation_scaffold.dart';
 import '../../../../common/widgets/presentor/slide_container.dart';
@@ -168,7 +167,6 @@ class PresentorScreenState extends State<PresentorScreen> {
                   onPressed: _toggleVerses,
                   icon: const Icon(Icons.list),
                 ),
-                const FullScreenButton(),
               ],
               body: PresentorDetails(key: detailsKey, parent: this),
               endPanel: showVerses

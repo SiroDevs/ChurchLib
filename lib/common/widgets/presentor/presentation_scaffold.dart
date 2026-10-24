@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 // Project imports:
 import '../../../core/theme/theme_data.dart';
 
-/// The one presentation screen used by SongLib and BibleLib: black
-/// background, white text, a back button, a big centred title and an optional
-/// subtitle (song book / chapter), [actions] on the right, then the [body]
-/// and an optional [endPanel] beside it.
 class PresentationScaffold extends StatelessWidget {
   const PresentationScaffold({
     super.key,
@@ -50,7 +46,7 @@ class PresentationScaffold extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Expanded(child: body),
-                        if (endPanel != null) endPanel!,
+                        ?endPanel,
                       ],
                     ),
                   ),
@@ -138,7 +134,7 @@ class _Header extends StatelessWidget {
                   tooltip: 'Back (Esc)',
                   iconSize: 30,
                   onPressed: onBack,
-                  icon: const Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.fullscreen_exit),
                 ),
               ),
             ),
