@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 // Project imports:
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
-import '../../../../core/update/update_checker.dart';
 import '../../../../core/update/update_cubit.dart';
 
 class UpdateBanner extends StatefulWidget {
@@ -62,12 +61,28 @@ class _UpdateBannerState extends State<UpdateBanner> {
                 width: double.infinity,
                 child: FilledButton.tonal(
                   onPressed: () => launchUrl(
-                    Uri.parse(kRepoReleasesUrl),
+                    Uri.parse(state.downloadUrl),
                     mode: LaunchMode.externalApplication,
                   ),
-                  child: const Text('Get the update'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.download, size: 18),
+                      const SizedBox(width: 8),
+                      Text(state.fileName.isEmpty ? 'Get the update' : 'Download'),
+                    ],
+                  ),
                 ),
               ),
+              if (state.fileName.isNotEmpty) ...[
+                const SizedBox(height: 6),
+                Text(
+                  state.fileName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
             ],
           ),
         );
