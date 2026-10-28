@@ -24,19 +24,31 @@ class UpdateCubit extends Cubit<UpdateState> {
   }
 
   Future<void> check() async {
-    final latest = await fetchLatestVersion();
-    if (latest == null || isClosed) return;
+    final release = await fetchLatestRelease();
+    if (release == null || isClosed) return;
     final current = (await PackageInfo.fromPlatform()).version;
     if (isClosed) return;
-    emit(
-      UpdateState(
-        status: isNewerVersion(latest, current)
-            ? UpdateStatus.available
-            : UpdateStatus.upToDate,
+
+    if (!isNewerVersion(release.version, current)) {
+      emit(UpdateState(
+        status: UpdateStatus.upToDate,
         current: current,
-        latest: latest,
-      ),
-    );
+        latest: release.version,
+        releaseUrl: release.pageUrl,
+      ));
+      return;
+    }
+
+    final host = HostPlatform.detect();
+    final asset = host == null ? null : pickAsset(release.assets, host);
+    emit(UpdateState(
+      status: UpdateStatus.available,
+      current: current,
+      latest: release.version,
+      downloadUrl: asset?.url ?? release.pageUrl,
+      fileName: asset?.name ?? '',
+      releaseUrl: release.pageUrl,
+    ));
   }
 
   @override
