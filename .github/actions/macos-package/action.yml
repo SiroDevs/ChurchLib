@@ -81,12 +81,38 @@ runs:
         set -euo pipefail
         KEYCHAIN="$RUNNER_TEMP/signing.keychain-db"
         KEYCHAIN_PW="$(uuidgen)"
-        echo "$CERT" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+        P12="$RUNNER_TEMP/cert.p12"
+
+        # Secrets pasted into GitHub often carry stray newlines / spaces / CRs.
+        printf '%s' "$CERT" | tr -d '[:space:]' | base64 --decode > "$P12"
+        export CERT_PW="$(printf '%s' "$CERT_PW" | tr -d '\r\n')"
+        echo "p12: $(wc -c < "$P12" | tr -d ' ') bytes, password: ${#CERT_PW} chars"
 
         security create-keychain -p "$KEYCHAIN_PW" "$KEYCHAIN"
         security set-keychain-settings -lut 21600 "$KEYCHAIN"
         security unlock-keychain -p "$KEYCHAIN_PW" "$KEYCHAIN"
-        security import "$RUNNER_TEMP/cert.p12" -P "$CERT_PW" -A -t cert -f pkcs12 -k "$KEYCHAIN"
+
+        import_p12() {
+          security import "$1" -P "$CERT_PW" -A -t cert -f pkcs12 -k "$KEYCHAIN"
+        }
+
+        if ! import_p12 "$P12"; then
+          # Typical cause: the .p12 was made with OpenSSL 3 (AES encryption), which macOS
+          # `security` cannot read, and it reports that as a wrong passphrase.
+          # Re-encode it with the legacy algorithms and try again.
+          echo "::warning::security could not read the .p12; re-encoding it with OpenSSL 3 (-legacy) and retrying"
+          OSSL="$(brew --prefix openssl@3 2>/dev/null)/bin/openssl"
+          [ -x "$OSSL" ] || { brew install openssl@3 >/dev/null; OSSL="$(brew --prefix openssl@3)/bin/openssl"; }
+
+          if ! "$OSSL" pkcs12 -in "$P12" -passin env:CERT_PW -nodes -out "$RUNNER_TEMP/cert.pem" 2>/dev/null; then
+            echo "::error::The .p12 cannot be opened with MACOS_CERTIFICATE_PASSWORD. Either the password secret is wrong, or MACOS_CERTIFICATE is not the base64 of the .p12 file (re-export it from Keychain Access and re-encode with: base64 -i cert.p12 | pbcopy)."
+            exit 1
+          fi
+          "$OSSL" pkcs12 -export -legacy -in "$RUNNER_TEMP/cert.pem" \
+            -out "$RUNNER_TEMP/cert-legacy.p12" -passout env:CERT_PW
+          import_p12 "$RUNNER_TEMP/cert-legacy.p12"
+          rm -f "$RUNNER_TEMP/cert.pem" "$RUNNER_TEMP/cert-legacy.p12"
+        fi
         security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PW" "$KEYCHAIN" >/dev/null
         # keep existing keychains in the search list
         security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
