@@ -147,7 +147,8 @@ runs:
         {
           find "$APP/Contents" -type d \( -name "*.framework" -o -name "*.xpc" -o -name "*.app" -o -name "*.bundle" -o -name "*.appex" \)
           find "$APP/Contents" -type f ! -path "$MAIN" | while IFS= read -r f; do
-            file -b "$f" | grep -q "Mach-O" && echo "$f"
+            # `if`, not `&&`: a non-Mach-O last file must not make the loop exit non-zero
+            if [[ "$(file -b "$f")" == *Mach-O* ]]; then echo "$f"; fi
           done
         } | awk '{ n=gsub("/","/"); print n " " $0 }' | sort -rn | cut -d' ' -f2- \
           | while IFS= read -r item; do
