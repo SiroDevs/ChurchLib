@@ -21,8 +21,8 @@ import '../cubit/bible_reader_cubit.dart';
 import 'widgets/dialogs/reader_options_sheet.dart';
 import 'widgets/toolbars/export.dart';
 import 'widgets/verses/reader_auto_scroll.dart';
-import 'widgets/verses/reader_scroll.dart';
 import 'widgets/verses/reader_body.dart';
+import 'widgets/verses/reader_scroll.dart';
 
 /// How far one press of the Up / Down arrow scrolls the chapter.
 const double _arrowScrollStep = 90;
