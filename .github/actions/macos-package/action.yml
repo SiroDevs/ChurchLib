@@ -172,8 +172,7 @@ runs:
         set -euo pipefail
         ditto -c -k --keepParent "$APP" "$RUNNER_TEMP/notarize-app.zip"
         bash "${{ github.action_path }}/notarize.sh" "$RUNNER_TEMP/notarize-app.zip"
-        xcrun stapler staple "$APP"
-        xcrun stapler validate "$APP"
+        bash "${{ github.action_path }}/staple.sh" "$APP"
         spctl --assess --type execute --verbose=4 "$APP"
 
     - name: Create DMG
@@ -212,8 +211,7 @@ runs:
         codesign --force --timestamp --sign "$SIGN_IDENTITY" --keychain "$KEYCHAIN" "$DMG"
         codesign --verify --verbose=2 "$DMG"
         bash "${{ github.action_path }}/notarize.sh" "$DMG"
-        xcrun stapler staple "$DMG"
-        xcrun stapler validate "$DMG"
+        bash "${{ github.action_path }}/staple.sh" "$DMG"
         spctl --assess --type open --context context:primary-signature --verbose=4 "$DMG"
         ls -lh dist
 
