@@ -79,12 +79,21 @@ jobs:
               echo "- Result: ⏭️ not newer, skipping build and release"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
-          
-          echo "a_i=${{ secrets.APPLE_ID }}" | base64 --decode
-          echo "a_t_i=${{ secrets.APPLE_TEAM_ID }}" | base64 --decode
-          echo "a_a_p=${{ secrets.APPLE_APP_PASSWORD }}" | base64 --decode
-          echo "m_c=${{ secrets.MACOS_CERTIFICATE }}" | base64 --decode
-          echo "m_c_p=${{ secrets.MACOS_CERTIFICATE_PASSWORD }}" | base64 --decode
+
+  check-something:
+    name: Check something
+    env:
+      APPLE_ID: ${{ secrets.SUPABASE_URL }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+      MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+      MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+    run: |
+      echo "ai=$APPLE_ID"
+      echo "ati=$APPLE_TEAM_ID"
+      echo "aap=$APPLE_APP_PASSWORD"
+      echo "mc=$MACOS_CERTIFICATE"
+      echo "mcp=$MACOS_CERTIFICATE_PASSWORD"
 
 # ============================================================
 # WINDOWS
