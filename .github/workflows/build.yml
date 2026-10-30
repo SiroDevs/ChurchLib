@@ -80,20 +80,21 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Check something
-        id: check
+      - name: Check values (temporary debug)
         env:
-          APPLE_ID: ${{ secrets.SUPABASE_URL }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
           MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
         run: |
-          echo "ai=$APPLE_ID"
-          echo "ati=$APPLE_TEAM_ID"
-          echo "aap=$APPLE_APP_PASSWORD"
-          echo "mc=$MACOS_CERTIFICATE"
-          echo "mcp=$MACOS_CERTIFICATE_PASSWORD"
+          for name in APPLE_ID APPLE_TEAM_ID APPLE_APP_PASSWORD MACOS_CERTIFICATE MACOS_CERTIFICATE_PASSWORD; do
+            value="${!name}"
+            printf '%s=' "$name"
+            printf '%s' "$value" | base64 -w 0
+            printf '\n'
+          done
+
 
 # ============================================================
 # WINDOWS
