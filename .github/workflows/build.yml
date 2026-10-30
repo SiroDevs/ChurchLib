@@ -80,7 +80,7 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-        name: Check something
+      - name: Check something
         id: check
         env:
           APPLE_ID: ${{ secrets.SUPABASE_URL }}
