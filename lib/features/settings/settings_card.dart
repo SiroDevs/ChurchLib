@@ -10,7 +10,7 @@ import '../../common/widgets/inputs/radio_input.dart';
 import '../../core/theme/theme_data.dart';
 import '../../core/theme/theme_fonts.dart';
 import '../../core/theme/theme_styles.dart';
-import '../../l10n/app_localizations.dart';
+import '../../l10n/gen/app_localizations.dart';
 
 class SettingCard extends StatelessWidget {
   final String title;

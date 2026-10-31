@@ -18,7 +18,7 @@ import 'core/theme/bloc/theme_bloc.dart';
 import 'core/theme/theme_data.dart';
 import 'domain/repos/auth_repo.dart';
 import 'domain/repos/pref_repo.dart';
-import 'l10n/app_localizations.dart';
+import 'l10n/gen/app_localizations.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

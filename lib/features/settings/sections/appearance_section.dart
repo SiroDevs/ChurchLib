@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../../l10n/app_localizations.dart';
+import '../../../l10n/gen/app_localizations.dart';
 import '../settings_card.dart';
 
 class AppearanceSection extends StatelessWidget {

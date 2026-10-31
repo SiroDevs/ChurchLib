@@ -19,7 +19,7 @@ import '../../../../common/widgets/state/general_progress.dart';
 import '../../../../common/widgets/state/skeleton.dart';
 import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../../../song/likes/likes_screen.dart';
 import '../../../song/songs/songs_screen.dart';
 import '../../main/shell/app_module.dart';

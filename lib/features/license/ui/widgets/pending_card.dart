@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../../../l10n/app_localizations.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 
 class PendingCard extends StatelessWidget {
   const PendingCard({super.key, required this.busy, required this.onCheck});

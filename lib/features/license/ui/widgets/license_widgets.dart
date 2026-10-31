@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../common/constants/app_constants.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../domain/entities/license/exports.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 
 /// "1 day left" / "5 days left"
 String daysLeftLabel(AppLocalizations l10n, int days) =>

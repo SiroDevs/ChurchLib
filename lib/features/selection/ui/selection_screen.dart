@@ -9,7 +9,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../common/navigator/route_names.dart';
 import '../../../common/widgets/theme_button.dart';
-import '../../../l10n/app_localizations.dart';
+import '../../../l10n/gen/app_localizations.dart';
 import '../bloc/selection_bloc.dart';
 import 'steps/bibles_step.dart';
 import 'steps/modules_step.dart';

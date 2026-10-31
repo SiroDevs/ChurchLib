@@ -14,7 +14,7 @@ import '../../core/di/injectable.dart';
 import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/pref_repo.dart';
-import '../../l10n/app_localizations.dart';
+import '../../l10n/gen/app_localizations.dart';
 
 class SettingsActions {
   SettingsActions(this.context);
