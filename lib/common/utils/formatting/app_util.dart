@@ -8,7 +8,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../../l10n/app_localizations.dart';
+import '../../../l10n/gen/app_localizations.dart';
 
 export 'song_text_utils.dart';
 

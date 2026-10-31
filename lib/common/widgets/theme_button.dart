@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../l10n/app_localizations.dart';
+import '../../l10n/gen/app_localizations.dart';
 import '../utils/theme/theme_switcher_mixin.dart';
 
 class ThemeButton extends StatefulWidget {

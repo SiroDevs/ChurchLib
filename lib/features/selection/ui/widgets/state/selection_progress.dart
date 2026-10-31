@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import '../../../../../common/utils/formatting/app_util.dart';
 import '../../../../../core/theme/theme_colors.dart';
-import '../../../../../l10n/app_localizations.dart';
+import '../../../../../l10n/gen/app_localizations.dart';
 import '../../../bloc/selection_bloc.dart';
 import 'progress_view.dart';
 

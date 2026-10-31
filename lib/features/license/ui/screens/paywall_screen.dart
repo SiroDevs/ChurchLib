@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../common/constants/app_assets.dart';
 import '../../../../core/license/license_cubit.dart';
 import '../../../../domain/entities/license/exports.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../widgets/license_widgets.dart';
 import 'purchase_panel.dart';
 

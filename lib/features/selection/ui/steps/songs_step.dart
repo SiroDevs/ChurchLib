@@ -16,7 +16,7 @@ import '../../../../common/widgets/state/skeleton.dart';
 import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/song/songbook.dart';
 import '../../../../domain/entities/basic_model.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../../bloc/selection_bloc.dart';
 import '../widgets/selection_title.dart';
 

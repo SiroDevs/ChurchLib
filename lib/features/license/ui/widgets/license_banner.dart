@@ -9,7 +9,7 @@ import '../../../../common/windows/open_windows.dart';
 import '../../../../core/license/license_cubit.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/entities/license/exports.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import 'license_widgets.dart';
 
 class LicenseBanner extends StatelessWidget {

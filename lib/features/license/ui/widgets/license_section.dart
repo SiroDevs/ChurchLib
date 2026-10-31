@@ -12,7 +12,7 @@ import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/windows/open_windows.dart';
 import '../../../../core/license/license_cubit.dart';
 import '../../../../domain/entities/license/exports.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../../../settings/settings_card.dart';
 import 'license_widgets.dart';
 

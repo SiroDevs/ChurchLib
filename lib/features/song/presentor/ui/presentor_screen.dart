@@ -23,7 +23,7 @@ import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/models.dart';
 import '../../../../domain/repos/pref_repo.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../bloc/presentor_bloc.dart';
 import '../utils/presentor_shortcuts.dart';
 import '../utils/presentor_utils.dart';
