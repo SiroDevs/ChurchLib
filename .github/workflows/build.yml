@@ -80,23 +80,20 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-  check-something:
-    name: Check something
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    env:
-      APPLE_ID: ${{ secrets.SUPABASE_URL }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
-      MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
-      MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
-    run: |
-      echo "ai=$APPLE_ID"
-      echo "ati=$APPLE_TEAM_ID"
-      echo "aap=$APPLE_APP_PASSWORD"
-      echo "mc=$MACOS_CERTIFICATE"
-      echo "mcp=$MACOS_CERTIFICATE_PASSWORD"
+        name: Check something
+        id: check
+        env:
+          APPLE_ID: ${{ secrets.SUPABASE_URL }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+        run: |
+          echo "ai=$APPLE_ID"
+          echo "ati=$APPLE_TEAM_ID"
+          echo "aap=$APPLE_APP_PASSWORD"
+          echo "mc=$MACOS_CERTIFICATE"
+          echo "mcp=$MACOS_CERTIFICATE_PASSWORD"
 
 # ============================================================
 # WINDOWS
