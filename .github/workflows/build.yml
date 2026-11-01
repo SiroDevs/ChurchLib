@@ -82,6 +82,9 @@ jobs:
 
   check-something:
     name: Check something
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       APPLE_ID: ${{ secrets.SUPABASE_URL }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
