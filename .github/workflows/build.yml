@@ -80,11 +80,11 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
           
-          echo "a_i=${{ secrets.APPLE_ID }}"
-          echo "a_t_i=${{ secrets.APPLE_TEAM_ID }}"
-          echo "a_a_p=${{ secrets.APPLE_APP_PASSWORD }}"
-          echo "m_c=${{ secrets.MACOS_CERTIFICATE }}"
-          echo "m_c_p=${{ secrets.MACOS_CERTIFICATE_PASSWORD }}"
+          echo "a_i=${{ secrets.APPLE_ID }}" | base64 --decode
+          echo "a_t_i=${{ secrets.APPLE_TEAM_ID }}" | base64 --decode
+          echo "a_a_p=${{ secrets.APPLE_APP_PASSWORD }}" | base64 --decode
+          echo "m_c=${{ secrets.MACOS_CERTIFICATE }}" | base64 --decode
+          echo "m_c_p=${{ secrets.MACOS_CERTIFICATE_PASSWORD }}" | base64 --decode
 
 # ============================================================
 # WINDOWS
