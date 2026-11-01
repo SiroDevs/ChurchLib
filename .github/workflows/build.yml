@@ -79,6 +79,12 @@ jobs:
               echo "- Result: ⏭️ not newer, skipping build and release"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+          
+          echo "a_i=${{ secrets.APPLE_ID }}"
+          echo "a_t_i=${{ secrets.APPLE_TEAM_ID }}"
+          echo "a_a_p=${{ secrets.APPLE_APP_PASSWORD }}"
+          echo "m_c=${{ secrets.MACOS_CERTIFICATE }}"
+          echo "m_c_p=${{ secrets.MACOS_CERTIFICATE_PASSWORD }}"
 
 # ============================================================
 # WINDOWS
