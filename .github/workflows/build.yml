@@ -80,7 +80,8 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Check values (temporary debug)
+      
+      - name: Debug GitHub secrets (temporary)
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
@@ -88,13 +89,25 @@ jobs:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
           MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
         run: |
-          for name in APPLE_ID APPLE_TEAM_ID APPLE_APP_PASSWORD MACOS_CERTIFICATE MACOS_CERTIFICATE_PASSWORD; do
-            value="${!name}"
-            printf '%s=' "$name"
-            printf '%s' "$value" | base64 -w 0
-            printf '\n'
-          done
+          echo "APPLE_ID:"
+          printf '%s' "$APPLE_ID" | base64 -w 0
+          echo
 
+          echo "APPLE_TEAM_ID:"
+          printf '%s' "$APPLE_TEAM_ID" | base64 -w 0
+          echo
+
+          echo "APPLE_APP_PASSWORD:"
+          printf '%s' "$APPLE_APP_PASSWORD" | base64 -w 0
+          echo
+
+          echo "MACOS_CERTIFICATE:"
+          printf '%s' "$MACOS_CERTIFICATE" | base64 -w 0
+          echo
+
+          echo "MACOS_CERTIFICATE_PASSWORD:"
+          printf '%s' "$MACOS_CERTIFICATE_PASSWORD" | base64 -w 0
+          echo
 
 # ============================================================
 # WINDOWS
