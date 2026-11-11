@@ -33,9 +33,9 @@ Future<void> main() async {
   await configureDependencies(Environments.production);
   // Reads the stored license (offline, fast). The server check runs in the background.
   await getIt<LicenseCubit>().initialize();
-  await AppWindow.showMaximized();
   runApp(const MyApp());
-  WidgetsBinding.instance.addPostFrameCallback(
-    (_) => PresentationController.instance.init(),
-  );
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    AppWindow.showMaximized();
+    PresentationController.instance.init();
+  });
 }

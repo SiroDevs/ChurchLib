@@ -86,7 +86,13 @@ class AppViewState extends State<AppView> {
   }
 
   bool _onKey(KeyEvent event) {
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.f11) {
+    if (event is! KeyDownEvent) return false;
+    if (event.logicalKey == LogicalKeyboardKey.escape &&
+        PresentationController.instance.active) {
+      PresentationController.instance.stop(byUser: true);
+      return true;
+    }
+    if (event.logicalKey == LogicalKeyboardKey.f11) {
       AppWindow.toggleFullScreen();
       return true;
     }

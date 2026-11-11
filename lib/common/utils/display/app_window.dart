@@ -12,12 +12,12 @@ class AppWindow {
 
   static final ValueNotifier<bool> fullScreen = ValueNotifier<bool>(false);
 
-  static Future<void> showMaximized() async {
+  static void showMaximized() {
     final window = _current;
     if (window == null) return;
     window.titleBarStyle = TitleBarStyle.normal;
-    window.maximize();
     window.show();
+    window.maximize();
   }
 
   static Future<void> show() async {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -5,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../core/theme/theme_data.dart';
 import '../../../l10n/gen/app_localizations.dart';
+import '../../home/main/shell/app_module.dart';
 import '../../song/presentor/utils/presentor_shortcuts.dart';
 import '../controller/presentation_controller.dart';
 import 'audience_screen.dart';
@@ -168,25 +171,46 @@ class _PresentationPanelState extends State<PresentationPanel> {
 }
 
 class PresentationLayout extends StatelessWidget {
-  const PresentationLayout({super.key, required this.child});
+  const PresentationLayout({
+    super.key,
+    required this.child,
+    required this.module,
+    this.onPresent,
+  });
 
   final Widget child;
+  final AppModule module;
+  final FutureOr<void> Function()? onPresent;
+
+  Future<void> _present() async {
+    final presentation = PresentationController.instance;
+    final kind = module == AppModule.biblelib
+        ? PresentationKind.bible
+        : PresentationKind.song;
+    if (presentation.active && presentation.session.value?.kind == kind) {
+      return;
+    }
+    await onPresent?.call();
+  }
 
   @override
-  Widget build(BuildContext context) => ListenableBuilder(
-    listenable: PresentationController.instance,
-    child: child,
-    builder: (context, content) => Row(
-      children: [
-        content!.expanded(flex: 6),
-        if (PresentationController.instance.active) ...[
-          VerticalDivider(
-            width: 1,
-            color: Theme.of(context).colorScheme.outlineVariant,
-          ),
-          const PresentationPanel().expanded(flex: 4),
+  Widget build(BuildContext context) => CallbackShortcuts(
+    bindings: {const SingleActivator(LogicalKeyboardKey.f5): _present},
+    child: ListenableBuilder(
+      listenable: PresentationController.instance,
+      child: child,
+      builder: (context, content) => Row(
+        children: [
+          content!.expanded(flex: 6),
+          if (PresentationController.instance.active) ...[
+            VerticalDivider(
+              width: 1,
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
+            const PresentationPanel().expanded(flex: 4),
+          ],
         ],
-      ],
+      ),
     ),
   );
 }

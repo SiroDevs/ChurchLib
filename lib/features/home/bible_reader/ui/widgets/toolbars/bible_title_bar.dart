@@ -6,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../../../../../common/utils/display/app_window.dart';
 import '../../../../../../common/utils/reader/reader_utils.dart';
 import '../../../../../../features/presentation/controller/presentation_sources.dart';
+import '../../../../../../features/presentation/ui/presentation_toggle.dart';
+import '../../../../main/shell/app_module.dart';
 import '../../../cubit/bible_reader_cubit.dart';
-import '../../../../../../l10n/gen/app_localizations.dart';
 import 'reader_actions.dart';
 
 class BibleTitleBar extends StatelessWidget {
@@ -27,7 +27,6 @@ class BibleTitleBar extends StatelessWidget {
               ? state.activeBible
               : '$language: ${state.activeBible}');
     final chapterLabel = state.activeChapter?.reference ?? '';
-    final l10n = AppLocalizations.of(context)!;
 
     return Row(
       children: [
@@ -56,15 +55,11 @@ class BibleTitleBar extends StatelessWidget {
           icon: const Icon(Icons.auto_stories_outlined, size: 20),
           label: const Text('Scripture Opener'),
         ),
-        IconButton(
-          tooltip: l10n.presentationPresentBible,
-          onPressed: state.verses.isEmpty ? null : () => presentBible(state),
-          icon: const Icon(Icons.present_to_all, size: 20),
-        ),
-        IconButton(
-          tooltip: 'Present full screen (F11)',
-          onPressed: AppWindow.toggleFullScreen,
-          icon: const Icon(Icons.north_east, size: 20),
+        PresentationToggle(
+          module: AppModule.biblelib,
+          onPresent: () => presentBible(state),
+          iconOnly: true,
+          enabled: state.verses.isNotEmpty,
         ),
         IconButton(
           tooltip: 'Smaller text (-)',

@@ -39,10 +39,11 @@ class SongTitleBar extends StatelessWidget {
                 style: text,
               ).padding(horizontal: 16).expanded(),
 
-            IconButton(
-              tooltip: l10n.projectSong,
-              onPressed: () => parent.presentSelected(),
-              icon: const Icon(Icons.north_east),
+            PresentationToggle(
+              module: AppModule.songlib,
+              onPresent: parent.presentSelected,
+              iconOnly: true,
+              enabled: song.songId != 0,
             ),
 
             IconButton(

@@ -50,6 +50,8 @@ class AppShell extends StatelessWidget {
       backgroundColor: scheme.surface,
       body: SafeArea(
         child: PresentationLayout(
+          module: module,
+          onPresent: onPresent,
           child: Column(
             children: [
               _TopBar(module: module, titleBar: titleBar),
@@ -191,7 +193,7 @@ class _Sidebar extends StatelessWidget {
         const UpdateBanner(),
         const LicenseBanner(),
         divider,
-        PresentationToggle(onPresent: onPresent),
+        PresentationToggle(module: module, onPresent: onPresent),
         divider,
         ShellNavItem(
           Icons.help_outline,
