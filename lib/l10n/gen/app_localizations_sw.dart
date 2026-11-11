@@ -109,6 +109,69 @@ class AppLocalizationsSw extends AppLocalizations {
   String get projectSong => 'Project this Song';
 
   @override
+  String get songLiked => ' umependwa!';
+
+  @override
+  String get songDisliked => 'Song removed from Favorites!';
+
+  @override
+  String get songLike => 'Add this Song to Favorites!';
+
+  @override
+  String get songDislike => 'Remove this Song from Favorites!';
+
+  @override
+  String get songAddedToList => ' umeongezwa kwa ';
+
+  @override
+  String get listCreated => 'orodha ya nyimbo imebuniwa!';
+
+  @override
+  String get listUpdated => 'orodha ya nyimbo imehaririwa!';
+
+  @override
+  String get deleted => 'imefutwa!';
+
+  @override
+  String get readyShare => 'Tayari kwa kushiriki';
+
+  @override
+  String get screenshotVerse => 'Screenshot verse';
+
+  @override
+  String get screenshoted => 'Tunayo screenshot yako!';
+
+  @override
+  String get appSettings => 'Settings';
+
+  @override
+  String get displayTitle => 'Display Settings';
+
+  @override
+  String get collectionTitle => 'Your Collection';
+
+  @override
+  String get presentationTitle => 'Song Presentation';
+
+  @override
+  String get appTheme => 'App Theme';
+
+  @override
+  String get appThemeDesc => 'Current Theme:';
+
+  @override
+  String get reselectSongbooks => 'Select Songbooks Afresh';
+
+  @override
+  String get reselectSongbooksDesc => 'Restructure your collection once again';
+
+  @override
+  String get songPresentation => 'Slide Scroll Direction';
+
+  @override
+  String get songPresentationDesc => 'Song slides to scroll vertically';
+
+  @override
   String get presentationStart => 'Anza kuwasilisha';
 
   @override
@@ -173,69 +236,6 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get presentationPresentBible => 'Wasilisha Biblia';
-
-  @override
-  String get songLiked => ' umependwa!';
-
-  @override
-  String get songDisliked => 'Song removed from Favorites!';
-
-  @override
-  String get songLike => 'Add this Song to Favorites!';
-
-  @override
-  String get songDislike => 'Remove this Song from Favorites!';
-
-  @override
-  String get songAddedToList => ' umeongezwa kwa ';
-
-  @override
-  String get listCreated => 'orodha ya nyimbo imebuniwa!';
-
-  @override
-  String get listUpdated => 'orodha ya nyimbo imehaririwa!';
-
-  @override
-  String get deleted => 'imefutwa!';
-
-  @override
-  String get readyShare => 'Tayari kwa kushiriki';
-
-  @override
-  String get screenshotVerse => 'Screenshot verse';
-
-  @override
-  String get screenshoted => 'Tunayo screenshot yako!';
-
-  @override
-  String get appSettings => 'Settings';
-
-  @override
-  String get displayTitle => 'Display Settings';
-
-  @override
-  String get collectionTitle => 'Your Collection';
-
-  @override
-  String get presentationTitle => 'Song Presentation';
-
-  @override
-  String get appTheme => 'App Theme';
-
-  @override
-  String get appThemeDesc => 'Current Theme:';
-
-  @override
-  String get reselectSongbooks => 'Select Songbooks Afresh';
-
-  @override
-  String get reselectSongbooksDesc => 'Restructure your collection once again';
-
-  @override
-  String get songPresentation => 'Slide Scroll Direction';
-
-  @override
-  String get songPresentationDesc => 'Song slides to scroll vertically';
 
   @override
   String get chooseTheme => 'Chagua Mwonekano';

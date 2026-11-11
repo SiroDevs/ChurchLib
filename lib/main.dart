@@ -12,10 +12,13 @@ import 'common/utils/formatting/app_util.dart';
 import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
 import 'features/presentation/controller/presentation_controller.dart';
+import 'features/presentation/controller/presentation_platform.dart';
 
 Future<void> main() async {
-  // ignore: invalid_use_of_internal_member
-  isWindowingEnabled = true;
+  if (supportsPresentationWindows) {
+    // ignore: invalid_use_of_internal_member
+    isWindowingEnabled = true;
+  }
   WidgetsFlutterBinding.ensureInitialized();
   FlavorConfig(
     flavor: Flavor.production,

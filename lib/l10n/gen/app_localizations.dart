@@ -296,6 +296,132 @@ abstract class AppLocalizations {
   /// **'Project this Song'**
   String get projectSong;
 
+  /// Success message when song is added to favorites
+  ///
+  /// In en, this message translates to:
+  /// **'Song added to Favorites!'**
+  String get songLiked;
+
+  /// Message when song is removed from favorites
+  ///
+  /// In en, this message translates to:
+  /// **'Song removed from Favorites!'**
+  String get songDisliked;
+
+  /// Tooltip or label for like action
+  ///
+  /// In en, this message translates to:
+  /// **'Add this Song to Favorites!'**
+  String get songLike;
+
+  /// Tooltip or label for unlike action
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this Song from Favorites!'**
+  String get songDislike;
+
+  /// Success message when song is added to a list
+  ///
+  /// In en, this message translates to:
+  /// **' added to '**
+  String get songAddedToList;
+
+  /// Success message when list is created
+  ///
+  /// In en, this message translates to:
+  /// **'song list created!'**
+  String get listCreated;
+
+  /// Success message when list is updated
+  ///
+  /// In en, this message translates to:
+  /// **'song list updated!'**
+  String get listUpdated;
+
+  /// Success message when item is deleted
+  ///
+  /// In en, this message translates to:
+  /// **'deleted!'**
+  String get deleted;
+
+  /// Message indicating content is ready to share
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for sharing'**
+  String get readyShare;
+
+  /// Action to take screenshot of verse
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshot verse'**
+  String get screenshotVerse;
+
+  /// Success message when screenshot is taken
+  ///
+  /// In en, this message translates to:
+  /// **'We have your screenshot!'**
+  String get screenshoted;
+
+  /// Title for app settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get appSettings;
+
+  /// Title for display settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Display Settings'**
+  String get displayTitle;
+
+  /// Title for user's collection section
+  ///
+  /// In en, this message translates to:
+  /// **'Your Collection'**
+  String get collectionTitle;
+
+  /// Title for song presentation settings
+  ///
+  /// In en, this message translates to:
+  /// **'Song Presentation'**
+  String get presentationTitle;
+
+  /// Label for app theme setting
+  ///
+  /// In en, this message translates to:
+  /// **'App Theme'**
+  String get appTheme;
+
+  /// Description showing current theme
+  ///
+  /// In en, this message translates to:
+  /// **'Current Theme:'**
+  String get appThemeDesc;
+
+  /// Action to reselect songbooks
+  ///
+  /// In en, this message translates to:
+  /// **'Select Songbooks Afresh'**
+  String get reselectSongbooks;
+
+  /// Description for reselecting songbooks
+  ///
+  /// In en, this message translates to:
+  /// **'Restructure your collection once again'**
+  String get reselectSongbooksDesc;
+
+  /// Label for song presentation direction setting
+  ///
+  /// In en, this message translates to:
+  /// **'Slide Scroll Direction'**
+  String get songPresentation;
+
+  /// Description for song presentation direction
+  ///
+  /// In en, this message translates to:
+  /// **'Song slides to scroll vertically'**
+  String get songPresentationDesc;
+
   /// Starts presentation mode
   ///
   /// In en, this message translates to:
@@ -427,132 +553,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Present Bible'**
   String get presentationPresentBible;
-
-  /// Success message when song is added to favorites
-  ///
-  /// In en, this message translates to:
-  /// **'Song added to Favorites!'**
-  String get songLiked;
-
-  /// Message when song is removed from favorites
-  ///
-  /// In en, this message translates to:
-  /// **'Song removed from Favorites!'**
-  String get songDisliked;
-
-  /// Tooltip or label for like action
-  ///
-  /// In en, this message translates to:
-  /// **'Add this Song to Favorites!'**
-  String get songLike;
-
-  /// Tooltip or label for unlike action
-  ///
-  /// In en, this message translates to:
-  /// **'Remove this Song from Favorites!'**
-  String get songDislike;
-
-  /// Success message when song is added to a list
-  ///
-  /// In en, this message translates to:
-  /// **' added to '**
-  String get songAddedToList;
-
-  /// Success message when list is created
-  ///
-  /// In en, this message translates to:
-  /// **'song list created!'**
-  String get listCreated;
-
-  /// Success message when list is updated
-  ///
-  /// In en, this message translates to:
-  /// **'song list updated!'**
-  String get listUpdated;
-
-  /// Success message when item is deleted
-  ///
-  /// In en, this message translates to:
-  /// **'deleted!'**
-  String get deleted;
-
-  /// Message indicating content is ready to share
-  ///
-  /// In en, this message translates to:
-  /// **'Ready for sharing'**
-  String get readyShare;
-
-  /// Action to take screenshot of verse
-  ///
-  /// In en, this message translates to:
-  /// **'Screenshot verse'**
-  String get screenshotVerse;
-
-  /// Success message when screenshot is taken
-  ///
-  /// In en, this message translates to:
-  /// **'We have your screenshot!'**
-  String get screenshoted;
-
-  /// Title for app settings section
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get appSettings;
-
-  /// Title for display settings section
-  ///
-  /// In en, this message translates to:
-  /// **'Display Settings'**
-  String get displayTitle;
-
-  /// Title for user's collection section
-  ///
-  /// In en, this message translates to:
-  /// **'Your Collection'**
-  String get collectionTitle;
-
-  /// Title for song presentation settings
-  ///
-  /// In en, this message translates to:
-  /// **'Song Presentation'**
-  String get presentationTitle;
-
-  /// Label for app theme setting
-  ///
-  /// In en, this message translates to:
-  /// **'App Theme'**
-  String get appTheme;
-
-  /// Description showing current theme
-  ///
-  /// In en, this message translates to:
-  /// **'Current Theme:'**
-  String get appThemeDesc;
-
-  /// Action to reselect songbooks
-  ///
-  /// In en, this message translates to:
-  /// **'Select Songbooks Afresh'**
-  String get reselectSongbooks;
-
-  /// Description for reselecting songbooks
-  ///
-  /// In en, this message translates to:
-  /// **'Restructure your collection once again'**
-  String get reselectSongbooksDesc;
-
-  /// Label for song presentation direction setting
-  ///
-  /// In en, this message translates to:
-  /// **'Slide Scroll Direction'**
-  String get songPresentation;
-
-  /// Description for song presentation direction
-  ///
-  /// In en, this message translates to:
-  /// **'Song slides to scroll vertically'**
-  String get songPresentationDesc;
 
   /// Title for theme selection dialog
   ///

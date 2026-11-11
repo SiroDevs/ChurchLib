@@ -7,6 +7,7 @@ import 'package:nativeapi_flutter/nativeapi_flutter.dart';
 import 'package:nativeapi_flutter/windowing.dart';
 
 import '../../../l10n/gen/app_localizations.dart';
+import 'presentation_platform.dart';
 import '../ui/audience_screen.dart';
 
 class _CloseDelegate with fw.RegularWindowControllerDelegate {
@@ -63,11 +64,7 @@ class PresentationController extends ChangeNotifier {
 
   bool get active => _active;
 
-  bool get _supportsDisplays =>
-      !kIsWeb &&
-      (defaultTargetPlatform == TargetPlatform.windows ||
-          defaultTargetPlatform == TargetPlatform.linux ||
-          defaultTargetPlatform == TargetPlatform.macOS);
+  bool get _supportsDisplays => supportsPresentationWindows;
 
   bool get _hasSecondDisplay => _secondaryDisplays.isNotEmpty;
 

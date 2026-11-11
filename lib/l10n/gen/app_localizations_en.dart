@@ -109,6 +109,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String get projectSong => 'Project this Song';
 
   @override
+  String get songLiked => 'Song added to Favorites!';
+
+  @override
+  String get songDisliked => 'Song removed from Favorites!';
+
+  @override
+  String get songLike => 'Add this Song to Favorites!';
+
+  @override
+  String get songDislike => 'Remove this Song from Favorites!';
+
+  @override
+  String get songAddedToList => ' added to ';
+
+  @override
+  String get listCreated => 'song list created!';
+
+  @override
+  String get listUpdated => 'song list updated!';
+
+  @override
+  String get deleted => 'deleted!';
+
+  @override
+  String get readyShare => 'Ready for sharing';
+
+  @override
+  String get screenshotVerse => 'Screenshot verse';
+
+  @override
+  String get screenshoted => 'We have your screenshot!';
+
+  @override
+  String get appSettings => 'Settings';
+
+  @override
+  String get displayTitle => 'Display Settings';
+
+  @override
+  String get collectionTitle => 'Your Collection';
+
+  @override
+  String get presentationTitle => 'Song Presentation';
+
+  @override
+  String get appTheme => 'App Theme';
+
+  @override
+  String get appThemeDesc => 'Current Theme:';
+
+  @override
+  String get reselectSongbooks => 'Select Songbooks Afresh';
+
+  @override
+  String get reselectSongbooksDesc => 'Restructure your collection once again';
+
+  @override
+  String get songPresentation => 'Slide Scroll Direction';
+
+  @override
+  String get songPresentationDesc => 'Song slides to scroll vertically';
+
+  @override
   String get presentationStart => 'Start presenting';
 
   @override
@@ -173,69 +236,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get presentationPresentBible => 'Present Bible';
-
-  @override
-  String get songLiked => 'Song added to Favorites!';
-
-  @override
-  String get songDisliked => 'Song removed from Favorites!';
-
-  @override
-  String get songLike => 'Add this Song to Favorites!';
-
-  @override
-  String get songDislike => 'Remove this Song from Favorites!';
-
-  @override
-  String get songAddedToList => ' added to ';
-
-  @override
-  String get listCreated => 'song list created!';
-
-  @override
-  String get listUpdated => 'song list updated!';
-
-  @override
-  String get deleted => 'deleted!';
-
-  @override
-  String get readyShare => 'Ready for sharing';
-
-  @override
-  String get screenshotVerse => 'Screenshot verse';
-
-  @override
-  String get screenshoted => 'We have your screenshot!';
-
-  @override
-  String get appSettings => 'Settings';
-
-  @override
-  String get displayTitle => 'Display Settings';
-
-  @override
-  String get collectionTitle => 'Your Collection';
-
-  @override
-  String get presentationTitle => 'Song Presentation';
-
-  @override
-  String get appTheme => 'App Theme';
-
-  @override
-  String get appThemeDesc => 'Current Theme:';
-
-  @override
-  String get reselectSongbooks => 'Select Songbooks Afresh';
-
-  @override
-  String get reselectSongbooksDesc => 'Restructure your collection once again';
-
-  @override
-  String get songPresentation => 'Slide Scroll Direction';
-
-  @override
-  String get songPresentationDesc => 'Song slides to scroll vertically';
 
   @override
   String get chooseTheme => 'Choose Theme';
