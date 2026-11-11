@@ -33,6 +33,12 @@ static void set_window_icon(GtkWindow* window) {
 // Implements GApplication::activate.
 static void my_application_activate(GApplication* application) {
   MyApplication* self = MY_APPLICATION(application);
+#ifdef GDK_WINDOWING_X11
+  if (GDK_IS_X11_DISPLAY(gdk_display_get_default()) &&
+      g_getenv("FLUTTER_LINUX_RENDERER") == nullptr) {
+    g_setenv("FLUTTER_LINUX_RENDERER", "software", TRUE);
+  }
+#endif
   multiview_desktop_linux_runner_install(GTK_APPLICATION(application));
 
   GtkWindow* window =
@@ -67,6 +73,7 @@ static void my_application_activate(GApplication* application) {
   }
 
   gtk_window_set_default_size(window, 1280, 720);
+  gtk_window_maximize(window);
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();
   // Avoid the Flutter Linux Impeller crash during window resizing.
