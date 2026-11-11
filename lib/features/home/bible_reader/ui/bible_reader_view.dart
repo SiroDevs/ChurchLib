@@ -18,6 +18,7 @@ import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../../main/shell/module_focus.dart';
 import '../cubit/bible_reader_cubit.dart';
+import '../../../presentation/controller/presentation_controller.dart';
 import '../../../presentation/controller/presentation_sources.dart';
 import 'widgets/dialogs/reader_options_sheet.dart';
 import 'widgets/toolbars/export.dart';
@@ -83,6 +84,16 @@ class BiblerReaderViewState extends State<BiblerReaderView>
         chapter.id,
       );
     }
+    final presentation = PresentationController.instance;
+    final isBibleModuleActive =
+        HomeModuleScope.maybeOf(context)?.current == AppModule.biblelib;
+    if (isBibleModuleActive &&
+        presentation.active &&
+        presentation.session.value?.kind == PresentationKind.bible &&
+        !state.isLoading &&
+        state.verses.isNotEmpty) {
+      presentBible(state);
+    }
   }
 
   @override
@@ -109,7 +120,11 @@ class BiblerReaderViewState extends State<BiblerReaderView>
         child: BlocConsumer<BibleReaderCubit, BibleReaderState>(
           listenWhen: (p, c) =>
               p.activeChapter?.id != c.activeChapter?.id ||
-              (!identical(p.verses, c.verses) && c.restoreVerseId != null),
+              (!identical(p.verses, c.verses) &&
+                  (c.restoreVerseId != null ||
+                      (PresentationController.instance.active &&
+                          PresentationController.instance.session.value?.kind ==
+                              PresentationKind.bible))),
           listener: _onStateChanged,
           builder: (context, state) {
             return ValueListenableBuilder<bool>(

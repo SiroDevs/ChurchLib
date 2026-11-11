@@ -19,6 +19,7 @@ Future<void> presentSong(SongExt song) async {
   final items = [for (final stanza in stanzas) stanza.replaceAll('#', '\n')];
   PresentationController.instance.present(
     PresentationSession(
+      kind: PresentationKind.song,
       title: title,
       labels: labels,
       items: items,
@@ -35,14 +36,19 @@ Future<void> presentSong(SongExt song) async {
   );
 }
 
-void presentBible(BibleReaderState state, {int at = 0}) {
+void presentBible(BibleReaderState state, {int? at}) {
   final verses = state.verses;
   if (verses.isEmpty) return;
 
+  final restoreIndex = verses.indexWhere(
+    (verse) => verse.verseId == state.restoreVerseId,
+  );
+  final startIndex = at ?? (restoreIndex < 0 ? 0 : restoreIndex);
   final reference = state.activeChapter?.reference ?? '';
   final title = '${state.activeBible}  ·  $reference';
   PresentationController.instance.present(
     PresentationSession(
+      kind: PresentationKind.bible,
       title: title,
       labels: [for (final verse in verses) '${verse.number}'],
       items: [for (final verse in verses) verse.text],
@@ -54,6 +60,6 @@ void presentBible(BibleReaderState state, {int at = 0}) {
         style: style,
       ),
     ),
-    at: at,
+    at: startIndex,
   );
 }

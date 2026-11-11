@@ -27,14 +27,18 @@ class PresentationStyle {
   final TextAlign align;
 }
 
+enum PresentationKind { song, bible }
+
 class PresentationSession {
   const PresentationSession({
+    required this.kind,
     required this.title,
     required this.labels,
     required this.items,
     required this.slide,
   });
 
+  final PresentationKind kind;
   final String title;
   final List<String> labels;
   final List<String> items;
