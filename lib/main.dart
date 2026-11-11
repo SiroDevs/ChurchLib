@@ -1,11 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:multiview_desktop/multiview_desktop.dart';
 // ignore: invalid_use_of_internal_member, implementation_imports
 import 'package:flutter/src/foundation/_features.dart' show isWindowingEnabled;
 
 // Project imports:
 import 'app.dart';
-import 'common/utils/display/app_window.dart';
 import 'common/utils/env/environments.dart';
 import 'common/utils/env/flavor_config.dart';
 import 'common/utils/formatting/app_util.dart';
@@ -13,11 +13,9 @@ import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
 import 'features/presentation/controller/presentation_controller.dart';
 import 'features/presentation/controller/presentation_platform.dart';
-import 'features/presentation/ui/audience_receiver.dart';
 
-Future<void> main(List<String> arguments) async {
-  if (runAudienceReceiver(arguments)) return;
-  if (supportsPresentationWindows) {
+Future<void> main() async {
+  if (supportsMultiViewPresentation) {
     // ignore: invalid_use_of_internal_member
     isWindowingEnabled = true;
   }
@@ -35,9 +33,17 @@ Future<void> main(List<String> arguments) async {
   await configureDependencies(Environments.production);
   // Reads the stored license (offline, fast). The server check runs in the background.
   await getIt<LicenseCubit>().initialize();
-  runApp(const MyApp());
+  if (supportsMultiViewPresentation) {
+    runMultiApp(
+      home: (_, _) => const MyApp(),
+      config: MultiAppConfig(
+        mainWindowOptions: const WindowOptions(maximize: true),
+      ),
+    );
+  } else {
+    runApp(const MyApp());
+  }
   WidgetsBinding.instance.addPostFrameCallback((_) {
-    AppWindow.showMaximized();
     PresentationController.instance.init();
   });
 }

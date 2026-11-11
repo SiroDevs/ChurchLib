@@ -1,3 +1,1 @@
-bool get supportsPresentationWindows => false;
-bool get supportsPresentationDisplays => false;
-bool get usesLinuxAudienceProcess => false;
+bool get supportsMultiViewPresentation => false;

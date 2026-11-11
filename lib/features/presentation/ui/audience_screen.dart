@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:multiview_desktop/multiview_desktop.dart';
 
 import '../../../core/theme/theme_data.dart';
 import '../controller/presentation_controller.dart';
 
-class AudienceWindow extends StatelessWidget {
+class AudienceWindow extends StatefulWidget {
   const AudienceWindow({super.key});
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: AppTheme.presentationTheme(),
-    home: const AudienceCanvas(),
-  );
+  State<AudienceWindow> createState() => _AudienceWindowState();
+}
+
+class _AudienceWindowState extends State<AudienceWindow> with WindowListener {
+  @override
+  Future<bool> onWindowClose() async {
+    final viewId = currentId;
+    if (viewId != null) {
+      PresentationController.instance.onAudienceWindowClosed(viewId);
+    }
+    return true;
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      Theme(data: AppTheme.presentationTheme(), child: const AudienceCanvas());
 }
 
 class AudienceCanvas extends StatelessWidget {

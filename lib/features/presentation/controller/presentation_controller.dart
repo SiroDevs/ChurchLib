@@ -1,27 +1,15 @@
-// ignore_for_file: invalid_use_of_internal_member, implementation_imports
+import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/_window.dart' as fw;
-import 'package:nativeapi_flutter/nativeapi_flutter.dart';
-import 'package:nativeapi_flutter/windowing.dart';
+import 'package:multiview_desktop/multiview_desktop.dart';
 
-import 'audience_stream.dart';
 import 'presentation_platform.dart';
 import 'presentation_session.dart';
+import '../ui/audience_screen.dart';
 
 export 'presentation_session.dart';
 
-class _CloseDelegate with fw.RegularWindowControllerDelegate {
-  _CloseDelegate(this.onClose);
-
-  final VoidCallback onClose;
-
-  @override
-  void onWindowCloseRequested(fw.RegularWindowController controller) =>
-      onClose();
-}
-class PresentationController extends ChangeNotifier {
+class PresentationController extends ChangeNotifier with ScreenListener {
   PresentationController._();
 
   static final instance = PresentationController._();
@@ -31,49 +19,47 @@ class PresentationController extends ChangeNotifier {
   final blackout = ValueNotifier<bool>(false);
   final scale = ValueNotifier<double>(1);
   final align = ValueNotifier<TextAlign>(TextAlign.left);
-  fw.RegularWindowController? _window;
-  AudienceStream? _audienceStream;
+  int? _audienceWindowId;
   bool _active = false;
   bool _autoStart = true;
   bool _initialized = false;
+  bool _windowOpening = false;
   String? _windowTitle;
-  int _audienceLaunchId = 0;
-  bool _audienceOpening = false;
+  int _windowRequestId = 0;
 
   bool get active => _active;
 
-  bool get needsAudienceFrameStream => usesLinuxAudienceProcess;
-
-  fw.RegularWindowController? get windowController => _window;
-
-  bool get _supportsDisplays => supportsPresentationDisplays;
+  bool get _supportsDisplays => supportsMultiViewPresentation;
 
   bool get _hasSecondDisplay => _secondaryDisplays.isNotEmpty;
 
-  Iterable<dynamic> get _secondaryDisplays => _supportsDisplays
-      ? DisplayManager.instance
-            .getAll()
-            .where((display) => !display.isPrimary)
-            .toList()
-      : const [];
+  List<Display> get _secondaryDisplays {
+    if (!_supportsDisplays) return const [];
+    try {
+      final primaryId = MultiViewDesktop.screen.primary().id;
+      return MultiViewDesktop.screen
+          .all()
+          .where((display) => display.id != primaryId)
+          .toList();
+    } catch (_) {
+      return const [];
+    }
+  }
 
   void init() {
     if (_initialized || !_supportsDisplays) return;
     _initialized = true;
-    DisplayManager.instance.addListener(_onDisplayEvent);
+    MultiViewDesktop.screen.addListener(this);
     if (_hasSecondDisplay) start();
   }
 
-  void _onDisplayEvent(DisplayEvent event) {
-    if (event is DisplayAddedEvent && _autoStart) start();
-    if (event is DisplayRemovedEvent && !_hasSecondDisplay) {
-      if (_window == null && _audienceStream == null && !_audienceOpening) {
-        notifyListeners();
-      } else {
-        _closeWindow();
-      }
+  @override
+  void onScreenEvent(String eventName) {
+    if (eventName == 'display-added' && _autoStart) start();
+    if (eventName == 'display-removed' && !_hasSecondDisplay) {
+      _closeWindow();
     }
-    if (event is DisplayChangedEvent) notifyListeners();
+    notifyListeners();
   }
 
   Size get previewSize {
@@ -85,8 +71,8 @@ class PresentationController extends ChangeNotifier {
   void setWindowTitle(String value) {
     if (_windowTitle == value) return;
     _windowTitle = value;
-    final nativeWindow = _window == null ? null : nativeWindowOf(_window!);
-    nativeWindow?.title = value;
+    final viewId = _audienceWindowId;
+    if (viewId != null) MultiViewDesktop.fromId(viewId).setTitle(value);
   }
 
   void present(PresentationSession next, {int at = 0}) {
@@ -132,60 +118,73 @@ class PresentationController extends ChangeNotifier {
 
   void _openWindow() {
     final displays = _secondaryDisplays;
-    if (_window != null || displays.isEmpty) return;
-    if (usesLinuxAudienceProcess) {
-      if (_audienceStream != null || _audienceOpening) return;
-      _openLinuxAudience(displays.first.position);
-      return;
-    }
-    if (defaultTargetPlatform == TargetPlatform.macOS) return;
-
-    final controller = fw.RegularWindowController(
-      size: const Size(960, 540),
-      title: _windowTitle,
-      delegate: _CloseDelegate(() => stop(byUser: true)),
-    );
-    _window = controller;
-    Future<void>.delayed(const Duration(milliseconds: 300), () {
-      final audienceWindow = nativeWindowOf(controller);
-      if (audienceWindow == null) return;
-      audienceWindow.position = displays.first.position;
-      audienceWindow.isFullScreen = true;
-    });
+    if (_audienceWindowId != null || _windowOpening || displays.isEmpty) return;
+    final requestId = ++_windowRequestId;
+    _windowOpening = true;
+    unawaited(_createAudienceWindow(displays.first, requestId));
   }
 
-  Future<void> _openLinuxAudience(Offset position) async {
-    final launchId = ++_audienceLaunchId;
-    _audienceOpening = true;
+  Future<void> _createAudienceWindow(Display display, int requestId) async {
     try {
-      final stream = await AudienceStream.open(position: position);
-      if (launchId != _audienceLaunchId || !_active) {
-        stream.close();
+      final viewId = await openWindow(
+        (context, viewId) {
+          _audienceWindowId = viewId;
+          final audienceWindow = MultiViewDesktop.fromId(viewId);
+          final bounds = display.physicalBounds;
+          if (bounds != null) {
+            audienceWindow.setPhysicalBounds(bounds);
+          } else if (display.visiblePosition != null) {
+            unawaited(audienceWindow.setPosition(display.visiblePosition!));
+          }
+          return const AudienceWindow();
+        },
+        options: WindowOptions(
+          alignment: Alignment.topLeft,
+          fullScreen: true,
+          size: display.size,
+          title: _windowTitle ?? 'ChurchLib',
+          titleBarStyle: TitleBarStyle.hidden,
+          windowButtonVisibility: false,
+        ),
+      );
+      if (requestId != _windowRequestId || !_active) {
+        if (_audienceWindowId == viewId) {
+          _audienceWindowId = null;
+          await MultiViewDesktop.fromId(viewId).closeWindow();
+        }
         return;
       }
-      _audienceStream = stream;
       notifyListeners();
     } catch (error) {
-      debugPrint('Could not open the Linux audience window: $error');
+      debugPrint('Could not open the audience window: $error');
     } finally {
-      if (launchId == _audienceLaunchId) _audienceOpening = false;
+      _windowOpening = false;
+      if (_active && requestId != _windowRequestId) _openWindow();
     }
   }
 
-  void sendAudienceFrame(Uint8List frame) => _audienceStream?.send(frame);
+  void onAudienceWindowClosed(int viewId) {
+    if (_audienceWindowId != viewId) return;
+    _audienceWindowId = null;
+    _windowRequestId++;
+    _active = false;
+    _autoStart = false;
+    notifyListeners();
+  }
 
   void _closeWindow() {
-    _audienceLaunchId++;
-    _audienceOpening = false;
-    _audienceStream?.close();
-    _audienceStream = null;
-    final controller = _window;
-    if (controller == null) {
-      notifyListeners();
-      return;
-    }
-    _window = null;
+    _windowRequestId++;
+    final viewId = _audienceWindowId;
+    _audienceWindowId = null;
+    if (viewId != null) unawaited(_destroyAudienceWindow(viewId));
     notifyListeners();
-    WidgetsBinding.instance.addPostFrameCallback((_) => controller.destroy());
+  }
+
+  Future<void> _destroyAudienceWindow(int viewId) async {
+    try {
+      await MultiViewDesktop.fromId(viewId).closeWindow();
+    } catch (error) {
+      debugPrint('Could not close the audience window: $error');
+    }
   }
 }
