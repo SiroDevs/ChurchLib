@@ -26,8 +26,7 @@ class SongTitleBar extends StatelessWidget {
                   )
                 : Text(l10n.likesTitle, style: text).padding(left: 6),
           ),
-        )
-            .expanded(flex: 1),
+        ).expanded(flex: 1),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -38,12 +37,10 @@ class SongTitleBar extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: text,
-              )
-                  .padding(horizontal: 16)
-                  .expanded(),
+              ).padding(horizontal: 16).expanded(),
 
             IconButton(
-              tooltip: 'Present Song',
+              tooltip: l10n.projectSong,
               onPressed: () => parent.presentSelected(),
               icon: const Icon(Icons.north_east),
             ),
@@ -54,8 +51,7 @@ class SongTitleBar extends StatelessWidget {
               icon: const Icon(Icons.copy),
             ),
           ],
-        )
-            .expanded(flex: 1),
+        ).expanded(flex: 1),
       ],
     );
   }

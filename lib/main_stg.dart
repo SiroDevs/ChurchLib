@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+// ignore: invalid_use_of_internal_member, implementation_imports
+import 'package:flutter/src/foundation/_features.dart' show isWindowingEnabled;
 
 // Project imports:
 import 'app.dart';
@@ -9,8 +11,11 @@ import 'common/utils/env/flavor_config.dart';
 import 'common/utils/formatting/app_util.dart';
 import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
+import 'features/presentation/controller/presentation_controller.dart';
 
 Future<void> main() async {
+  // ignore: invalid_use_of_internal_member
+  isWindowingEnabled = true;
   WidgetsFlutterBinding.ensureInitialized();
   FlavorConfig(
     flavor: Flavor.staging,
@@ -27,4 +32,7 @@ Future<void> main() async {
   await getIt<LicenseCubit>().initialize();
   await AppWindow.show();
   runApp(const MyApp());
+  WidgetsBinding.instance.addPostFrameCallback(
+    (_) => PresentationController.instance.init(),
+  );
 }

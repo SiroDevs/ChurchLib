@@ -217,6 +217,94 @@
     "@songPresentationDesc": {
         "description": "Description for song presentation direction"
     },
+    "presentationStart": "Start presenting",
+    "@presentationStart": {
+        "description": "Starts presentation mode"
+    },
+    "presentationStop": "Stop presenting",
+    "@presentationStop": {
+        "description": "Stops presentation mode"
+    },
+    "presentationPreview": "Presentation preview",
+    "@presentationPreview": {
+        "description": "Heading above the local presentation preview"
+    },
+    "presentationPrevious": "Previous",
+    "@presentationPrevious": {
+        "description": "Moves to the previous presentation slide"
+    },
+    "presentationNext": "Next",
+    "@presentationNext": {
+        "description": "Moves to the next presentation slide"
+    },
+    "presentationSmaller": "Smaller",
+    "@presentationSmaller": {
+        "description": "Reduces presentation text size"
+    },
+    "presentationLarger": "Bigger",
+    "@presentationLarger": {
+        "description": "Increases presentation text size"
+    },
+    "presentationAlign": "Text alignment",
+    "@presentationAlign": {
+        "description": "Cycles presentation text alignment"
+    },
+    "presentationLeft": "Left",
+    "@presentationLeft": {
+        "description": "Left text alignment"
+    },
+    "presentationCenter": "Center",
+    "@presentationCenter": {
+        "description": "Centered text alignment"
+    },
+    "presentationRight": "Right",
+    "@presentationRight": {
+        "description": "Right text alignment"
+    },
+    "presentationBlackout": "Blackout",
+    "@presentationBlackout": {
+        "description": "Turns the audience screen black"
+    },
+    "presentationShow": "Show",
+    "@presentationShow": {
+        "description": "Restores the audience screen after blackout"
+    },
+    "presentationStopAction": "Stop",
+    "@presentationStopAction": {
+        "description": "Stops the current presentation"
+    },
+    "presentationPreviousTooltip": "Previous (Up)",
+    "@presentationPreviousTooltip": {
+        "description": "Tooltip for the previous slide button"
+    },
+    "presentationNextTooltip": "Next (Down)",
+    "@presentationNextTooltip": {
+        "description": "Tooltip for the next slide button"
+    },
+    "presentationSmallerTooltip": "Smaller text (-)",
+    "@presentationSmallerTooltip": {
+        "description": "Tooltip for reducing presentation text size"
+    },
+    "presentationLargerTooltip": "Bigger text (=)",
+    "@presentationLargerTooltip": {
+        "description": "Tooltip for increasing presentation text size"
+    },
+    "presentationBlackoutTooltip": "Blackout the screen",
+    "@presentationBlackoutTooltip": {
+        "description": "Tooltip for audience screen blackout"
+    },
+    "presentationStopTooltip": "Stop presenting (Esc)",
+    "@presentationStopTooltip": {
+        "description": "Tooltip for stopping presentation mode"
+    },
+    "presentationWindowTitle": "ChurchLib · Audience",
+    "@presentationWindowTitle": {
+        "description": "Title of the audience display window"
+    },
+    "presentationPresentBible": "Present Bible",
+    "@presentationPresentBible": {
+        "description": "Action to show the current Bible chapter on the audience display"
+    },
     "chooseTheme": "Choose Theme",
     "@chooseTheme": {
         "description": "Title for theme selection dialog"

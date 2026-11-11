@@ -296,6 +296,138 @@ abstract class AppLocalizations {
   /// **'Project this Song'**
   String get projectSong;
 
+  /// Starts presentation mode
+  ///
+  /// In en, this message translates to:
+  /// **'Start presenting'**
+  String get presentationStart;
+
+  /// Stops presentation mode
+  ///
+  /// In en, this message translates to:
+  /// **'Stop presenting'**
+  String get presentationStop;
+
+  /// Heading above the local presentation preview
+  ///
+  /// In en, this message translates to:
+  /// **'Presentation preview'**
+  String get presentationPreview;
+
+  /// Moves to the previous presentation slide
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get presentationPrevious;
+
+  /// Moves to the next presentation slide
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get presentationNext;
+
+  /// Reduces presentation text size
+  ///
+  /// In en, this message translates to:
+  /// **'Smaller'**
+  String get presentationSmaller;
+
+  /// Increases presentation text size
+  ///
+  /// In en, this message translates to:
+  /// **'Bigger'**
+  String get presentationLarger;
+
+  /// Cycles presentation text alignment
+  ///
+  /// In en, this message translates to:
+  /// **'Text alignment'**
+  String get presentationAlign;
+
+  /// Left text alignment
+  ///
+  /// In en, this message translates to:
+  /// **'Left'**
+  String get presentationLeft;
+
+  /// Centered text alignment
+  ///
+  /// In en, this message translates to:
+  /// **'Center'**
+  String get presentationCenter;
+
+  /// Right text alignment
+  ///
+  /// In en, this message translates to:
+  /// **'Right'**
+  String get presentationRight;
+
+  /// Turns the audience screen black
+  ///
+  /// In en, this message translates to:
+  /// **'Blackout'**
+  String get presentationBlackout;
+
+  /// Restores the audience screen after blackout
+  ///
+  /// In en, this message translates to:
+  /// **'Show'**
+  String get presentationShow;
+
+  /// Stops the current presentation
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get presentationStopAction;
+
+  /// Tooltip for the previous slide button
+  ///
+  /// In en, this message translates to:
+  /// **'Previous (Up)'**
+  String get presentationPreviousTooltip;
+
+  /// Tooltip for the next slide button
+  ///
+  /// In en, this message translates to:
+  /// **'Next (Down)'**
+  String get presentationNextTooltip;
+
+  /// Tooltip for reducing presentation text size
+  ///
+  /// In en, this message translates to:
+  /// **'Smaller text (-)'**
+  String get presentationSmallerTooltip;
+
+  /// Tooltip for increasing presentation text size
+  ///
+  /// In en, this message translates to:
+  /// **'Bigger text (=)'**
+  String get presentationLargerTooltip;
+
+  /// Tooltip for audience screen blackout
+  ///
+  /// In en, this message translates to:
+  /// **'Blackout the screen'**
+  String get presentationBlackoutTooltip;
+
+  /// Tooltip for stopping presentation mode
+  ///
+  /// In en, this message translates to:
+  /// **'Stop presenting (Esc)'**
+  String get presentationStopTooltip;
+
+  /// Title of the audience display window
+  ///
+  /// In en, this message translates to:
+  /// **'ChurchLib · Audience'**
+  String get presentationWindowTitle;
+
+  /// Action to show the current Bible chapter on the audience display
+  ///
+  /// In en, this message translates to:
+  /// **'Present Bible'**
+  String get presentationPresentBible;
+
   /// Success message when song is added to favorites
   ///
   /// In en, this message translates to:

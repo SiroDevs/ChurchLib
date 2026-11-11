@@ -18,6 +18,7 @@ import 'core/theme/bloc/theme_bloc.dart';
 import 'core/theme/theme_data.dart';
 import 'domain/repos/auth_repo.dart';
 import 'domain/repos/pref_repo.dart';
+import 'features/presentation/controller/presentation_controller.dart';
 import 'l10n/gen/app_localizations.dart';
 
 class MyApp extends StatefulWidget {
@@ -112,8 +113,9 @@ class AppViewState extends State<AppView> {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            builder: (context, child) =>
-                TextScaleFactor(child: child ?? const SizedBox.shrink()),
+            builder: (context, child) => PresentationHost(
+              child: TextScaleFactor(child: child ?? const SizedBox.shrink()),
+            ),
           );
         },
       ),

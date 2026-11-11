@@ -109,6 +109,72 @@ class AppLocalizationsEn extends AppLocalizations {
   String get projectSong => 'Project this Song';
 
   @override
+  String get presentationStart => 'Start presenting';
+
+  @override
+  String get presentationStop => 'Stop presenting';
+
+  @override
+  String get presentationPreview => 'Presentation preview';
+
+  @override
+  String get presentationPrevious => 'Previous';
+
+  @override
+  String get presentationNext => 'Next';
+
+  @override
+  String get presentationSmaller => 'Smaller';
+
+  @override
+  String get presentationLarger => 'Bigger';
+
+  @override
+  String get presentationAlign => 'Text alignment';
+
+  @override
+  String get presentationLeft => 'Left';
+
+  @override
+  String get presentationCenter => 'Center';
+
+  @override
+  String get presentationRight => 'Right';
+
+  @override
+  String get presentationBlackout => 'Blackout';
+
+  @override
+  String get presentationShow => 'Show';
+
+  @override
+  String get presentationStopAction => 'Stop';
+
+  @override
+  String get presentationPreviousTooltip => 'Previous (Up)';
+
+  @override
+  String get presentationNextTooltip => 'Next (Down)';
+
+  @override
+  String get presentationSmallerTooltip => 'Smaller text (-)';
+
+  @override
+  String get presentationLargerTooltip => 'Bigger text (=)';
+
+  @override
+  String get presentationBlackoutTooltip => 'Blackout the screen';
+
+  @override
+  String get presentationStopTooltip => 'Stop presenting (Esc)';
+
+  @override
+  String get presentationWindowTitle => 'ChurchLib · Audience';
+
+  @override
+  String get presentationPresentBible => 'Present Bible';
+
+  @override
   String get songLiked => 'Song added to Favorites!';
 
   @override

@@ -109,6 +109,72 @@ class AppLocalizationsSw extends AppLocalizations {
   String get projectSong => 'Project this Song';
 
   @override
+  String get presentationStart => 'Anza kuwasilisha';
+
+  @override
+  String get presentationStop => 'Simamisha uwasilishaji';
+
+  @override
+  String get presentationPreview => 'Muonekano wa uwasilishaji';
+
+  @override
+  String get presentationPrevious => 'Iliyotangulia';
+
+  @override
+  String get presentationNext => 'Inayofuata';
+
+  @override
+  String get presentationSmaller => 'Punguza maandishi';
+
+  @override
+  String get presentationLarger => 'Ongeza maandishi';
+
+  @override
+  String get presentationAlign => 'Mpangilio wa maandishi';
+
+  @override
+  String get presentationLeft => 'Kushoto';
+
+  @override
+  String get presentationCenter => 'Katikati';
+
+  @override
+  String get presentationRight => 'Kulia';
+
+  @override
+  String get presentationBlackout => 'Zima skrini';
+
+  @override
+  String get presentationShow => 'Onyesha';
+
+  @override
+  String get presentationStopAction => 'Simamisha';
+
+  @override
+  String get presentationPreviousTooltip => 'Iliyotangulia (Juu)';
+
+  @override
+  String get presentationNextTooltip => 'Inayofuata (Chini)';
+
+  @override
+  String get presentationSmallerTooltip => 'Punguza maandishi (-)';
+
+  @override
+  String get presentationLargerTooltip => 'Ongeza maandishi (=)';
+
+  @override
+  String get presentationBlackoutTooltip => 'Zima skrini ya hadhira';
+
+  @override
+  String get presentationStopTooltip => 'Simamisha uwasilishaji (Esc)';
+
+  @override
+  String get presentationWindowTitle => 'ChurchLib · Hadhira';
+
+  @override
+  String get presentationPresentBible => 'Wasilisha Biblia';
+
+  @override
   String get songLiked => ' umependwa!';
 
   @override
