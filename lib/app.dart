@@ -19,6 +19,7 @@ import 'core/theme/theme_data.dart';
 import 'domain/repos/auth_repo.dart';
 import 'domain/repos/pref_repo.dart';
 import 'features/presentation/controller/presentation_controller.dart';
+import 'features/presentation/ui/presentation_host.dart';
 import 'l10n/gen/app_localizations.dart';
 
 class MyApp extends StatefulWidget {

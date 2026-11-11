@@ -13,8 +13,10 @@ import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
 import 'features/presentation/controller/presentation_controller.dart';
 import 'features/presentation/controller/presentation_platform.dart';
+import 'features/presentation/ui/audience_receiver.dart';
 
-Future<void> main() async {
+Future<void> main(List<String> arguments) async {
+  if (runAudienceReceiver(arguments)) return;
   if (supportsPresentationWindows) {
     // ignore: invalid_use_of_internal_member
     isWindowingEnabled = true;

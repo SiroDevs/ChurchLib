@@ -16,7 +16,7 @@ import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/repos/pref_repo.dart';
 import '../../../../l10n/gen/app_localizations.dart';
 import '../../../license/ui/widgets/license_banner.dart';
-import '../../../presentation/ui/presentation_panel.dart';
+import '../../../presentation/ui/presentation_layout.dart';
 import '../../../presentation/ui/presentation_toggle.dart';
 import 'app_module.dart';
 import 'how_it_works_sheet.dart';

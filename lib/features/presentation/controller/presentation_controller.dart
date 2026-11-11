@@ -6,9 +6,11 @@ import 'package:flutter/src/widgets/_window.dart' as fw;
 import 'package:nativeapi_flutter/nativeapi_flutter.dart';
 import 'package:nativeapi_flutter/windowing.dart';
 
-import '../../../l10n/gen/app_localizations.dart';
+import 'audience_stream.dart';
 import 'presentation_platform.dart';
-import '../ui/audience_screen.dart';
+import 'presentation_session.dart';
+
+export 'presentation_session.dart';
 
 class _CloseDelegate with fw.RegularWindowControllerDelegate {
   _CloseDelegate(this.onClose);
@@ -19,37 +21,6 @@ class _CloseDelegate with fw.RegularWindowControllerDelegate {
   void onWindowCloseRequested(fw.RegularWindowController controller) =>
       onClose();
 }
-
-class PresentationStyle {
-  const PresentationStyle(this.scale, this.align);
-
-  final double scale;
-  final TextAlign align;
-}
-
-enum PresentationKind { song, bible }
-
-class PresentationSession {
-  const PresentationSession({
-    required this.kind,
-    required this.title,
-    required this.labels,
-    required this.items,
-    required this.slide,
-  });
-
-  final PresentationKind kind;
-  final String title;
-  final List<String> labels;
-  final List<String> items;
-  final Widget Function(
-    int slideIndex,
-    double screenHeight,
-    PresentationStyle style,
-  )
-  slide;
-}
-
 class PresentationController extends ChangeNotifier {
   PresentationController._();
 
@@ -61,14 +32,21 @@ class PresentationController extends ChangeNotifier {
   final scale = ValueNotifier<double>(1);
   final align = ValueNotifier<TextAlign>(TextAlign.left);
   fw.RegularWindowController? _window;
+  AudienceStream? _audienceStream;
   bool _active = false;
   bool _autoStart = true;
   bool _initialized = false;
   String? _windowTitle;
+  int _audienceLaunchId = 0;
+  bool _audienceOpening = false;
 
   bool get active => _active;
 
-  bool get _supportsDisplays => supportsPresentationWindows;
+  bool get needsAudienceFrameStream => usesLinuxAudienceProcess;
+
+  fw.RegularWindowController? get windowController => _window;
+
+  bool get _supportsDisplays => supportsPresentationDisplays;
 
   bool get _hasSecondDisplay => _secondaryDisplays.isNotEmpty;
 
@@ -89,7 +67,7 @@ class PresentationController extends ChangeNotifier {
   void _onDisplayEvent(DisplayEvent event) {
     if (event is DisplayAddedEvent && _autoStart) start();
     if (event is DisplayRemovedEvent && !_hasSecondDisplay) {
-      if (_window == null) {
+      if (_window == null && _audienceStream == null && !_audienceOpening) {
         notifyListeners();
       } else {
         _closeWindow();
@@ -155,6 +133,11 @@ class PresentationController extends ChangeNotifier {
   void _openWindow() {
     final displays = _secondaryDisplays;
     if (_window != null || displays.isEmpty) return;
+    if (usesLinuxAudienceProcess) {
+      if (_audienceStream != null || _audienceOpening) return;
+      _openLinuxAudience(displays.first.position);
+      return;
+    }
     if (defaultTargetPlatform == TargetPlatform.macOS) return;
 
     final controller = fw.RegularWindowController(
@@ -171,41 +154,38 @@ class PresentationController extends ChangeNotifier {
     });
   }
 
+  Future<void> _openLinuxAudience(Offset position) async {
+    final launchId = ++_audienceLaunchId;
+    _audienceOpening = true;
+    try {
+      final stream = await AudienceStream.open(position: position);
+      if (launchId != _audienceLaunchId || !_active) {
+        stream.close();
+        return;
+      }
+      _audienceStream = stream;
+      notifyListeners();
+    } catch (error) {
+      debugPrint('Could not open the Linux audience window: $error');
+    } finally {
+      if (launchId == _audienceLaunchId) _audienceOpening = false;
+    }
+  }
+
+  void sendAudienceFrame(Uint8List frame) => _audienceStream?.send(frame);
+
   void _closeWindow() {
+    _audienceLaunchId++;
+    _audienceOpening = false;
+    _audienceStream?.close();
+    _audienceStream = null;
     final controller = _window;
-    if (controller == null) return;
+    if (controller == null) {
+      notifyListeners();
+      return;
+    }
     _window = null;
     notifyListeners();
     WidgetsBinding.instance.addPostFrameCallback((_) => controller.destroy());
-  }
-}
-
-class PresentationHost extends StatelessWidget {
-  const PresentationHost({super.key, required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    final presentation = PresentationController.instance;
-    presentation.setWindowTitle(
-      AppLocalizations.of(context)!.presentationWindowTitle,
-    );
-    return ListenableBuilder(
-      listenable: presentation,
-      child: child,
-      builder: (context, child) {
-        final window = presentation._window;
-        return ViewAnchor(
-          view: window == null
-              ? null
-              : fw.RegularWindow(
-                  controller: window,
-                  child: const AudienceWindow(),
-                ),
-          child: child!,
-        );
-      },
-    );
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -7,9 +5,9 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../core/theme/theme_data.dart';
 import '../../../l10n/gen/app_localizations.dart';
-import '../../home/main/shell/app_module.dart';
 import '../../song/presentor/utils/presentor_shortcuts.dart';
 import '../controller/presentation_controller.dart';
+import 'audience_frame_capture.dart';
 import 'audience_screen.dart';
 import 'presentation_toolbar.dart';
 import 'session_grid.dart';
@@ -24,6 +22,19 @@ class PresentationPanel extends StatefulWidget {
 class _PresentationPanelState extends State<PresentationPanel> {
   final _focusNode = FocusNode();
   final _presentation = PresentationController.instance;
+  late final _frameCapture =
+      AudienceFrameCapture(_presentation.sendAudienceFrame);
+  late final _frameChanges = Listenable.merge([
+    _presentation,
+    _presentation.session,
+    _presentation.activeSlideIndex,
+    _presentation.blackout,
+    _presentation.scale,
+    _presentation.align,
+  ]);
+  bool _captureScheduled = false;
+  bool _captureRunning = false;
+  bool _captureDirty = false;
 
   late final _shortcuts = _buildShortcuts();
 
@@ -42,12 +53,16 @@ class _PresentationPanelState extends State<PresentationPanel> {
   void initState() {
     super.initState();
     _presentation.session.addListener(_refocus);
+    _frameChanges.addListener(_queuePreviewFrame);
     _refocus();
+    _queuePreviewFrame();
   }
 
   @override
   void dispose() {
     _presentation.session.removeListener(_refocus);
+    _frameChanges.removeListener(_queuePreviewFrame);
+    _frameCapture.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -55,6 +70,30 @@ class _PresentationPanelState extends State<PresentationPanel> {
   void _refocus() => WidgetsBinding.instance.addPostFrameCallback((_) {
     if (mounted) _focusNode.requestFocus();
   });
+
+  void _queuePreviewFrame() {
+    if (!_presentation.needsAudienceFrameStream) return;
+    _captureDirty = true;
+    if (_captureScheduled || _captureRunning) return;
+    _captureScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _captureScheduled = false;
+      if (mounted) _capturePreview();
+    });
+  }
+
+  Future<void> _capturePreview() async {
+    _captureRunning = true;
+    do {
+      _captureDirty = false;
+      await _sendPreviewFrame();
+    } while (_captureDirty && mounted);
+    _captureRunning = false;
+  }
+
+  Future<void> _sendPreviewFrame() async {
+    await _frameCapture.capture();
+  }
 
   void _jumpToLabel(String label, {bool last = false}) {
     final labels = _presentation.session.value?.labels ?? const <String>[];
@@ -132,7 +171,10 @@ class _PresentationPanelState extends State<PresentationPanel> {
                           child: SizedBox(
                             width: size.width,
                             height: size.height,
-                            child: const AudienceCanvas(),
+                            child: RepaintBoundary(
+                              key: _frameCapture.boundaryKey,
+                              child: const AudienceCanvas(),
+                            ),
                           ),
                         ),
                       ),
@@ -168,49 +210,4 @@ class _PresentationPanelState extends State<PresentationPanel> {
       ),
     );
   }
-}
-
-class PresentationLayout extends StatelessWidget {
-  const PresentationLayout({
-    super.key,
-    required this.child,
-    required this.module,
-    this.onPresent,
-  });
-
-  final Widget child;
-  final AppModule module;
-  final FutureOr<void> Function()? onPresent;
-
-  Future<void> _present() async {
-    final presentation = PresentationController.instance;
-    final kind = module == AppModule.biblelib
-        ? PresentationKind.bible
-        : PresentationKind.song;
-    if (presentation.active && presentation.session.value?.kind == kind) {
-      return;
-    }
-    await onPresent?.call();
-  }
-
-  @override
-  Widget build(BuildContext context) => CallbackShortcuts(
-    bindings: {const SingleActivator(LogicalKeyboardKey.f5): _present},
-    child: ListenableBuilder(
-      listenable: PresentationController.instance,
-      child: child,
-      builder: (context, content) => Row(
-        children: [
-          content!.expanded(flex: 6),
-          if (PresentationController.instance.active) ...[
-            VerticalDivider(
-              width: 1,
-              color: Theme.of(context).colorScheme.outlineVariant,
-            ),
-            const PresentationPanel().expanded(flex: 4),
-          ],
-        ],
-      ),
-    ),
-  );
 }

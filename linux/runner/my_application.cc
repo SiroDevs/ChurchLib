@@ -1,5 +1,7 @@
 #include "my_application.h"
 
+#include <string.h>
+
 #include <flutter_linux/flutter_linux.h>
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
@@ -16,7 +18,37 @@ G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
 
 // Called when first Flutter frame received.
 static void first_frame_cb(MyApplication* self, FlView* view) {
-  gtk_widget_show(gtk_widget_get_toplevel(GTK_WIDGET(view)));
+  GtkWidget* toplevel = gtk_widget_get_toplevel(GTK_WIDGET(view));
+  gtk_widget_show(toplevel);
+  if (GPOINTER_TO_INT(
+          g_object_get_data(G_OBJECT(toplevel), "audience-window"))) {
+    const gint x =
+        GPOINTER_TO_INT(g_object_get_data(G_OBJECT(toplevel), "audience-x"));
+    const gint y =
+        GPOINTER_TO_INT(g_object_get_data(G_OBJECT(toplevel), "audience-y"));
+    gtk_window_move(GTK_WINDOW(toplevel), x, y);
+    gtk_window_fullscreen(GTK_WINDOW(toplevel));
+  }
+}
+
+static gboolean has_dart_argument(MyApplication* self, const gchar* argument) {
+  for (gchar** current = self->dart_entrypoint_arguments;
+       current != nullptr && *current != nullptr; ++current) {
+    if (g_strcmp0(*current, argument) == 0) return TRUE;
+  }
+  return FALSE;
+}
+
+static gint dart_argument_value(MyApplication* self, const gchar* prefix) {
+  const gsize prefix_length = strlen(prefix);
+  for (gchar** current = self->dart_entrypoint_arguments;
+       current != nullptr && *current != nullptr; ++current) {
+    if (g_str_has_prefix(*current, prefix)) {
+      return static_cast<gint>(
+          g_ascii_strtoll(*current + prefix_length, nullptr, 10));
+    }
+  }
+  return 0;
 }
 
 static void set_window_icon(GtkWindow* window) {
@@ -38,7 +70,20 @@ static void my_application_activate(GApplication* application) {
   MyApplication* self = MY_APPLICATION(application);
   GtkWindow* window =
       GTK_WINDOW(gtk_application_window_new(GTK_APPLICATION(application)));
-  set_window_icon(window);
+  const gboolean audience_window =
+      has_dart_argument(self, "--churchlib-audience");
+  if (!audience_window) set_window_icon(window);
+
+  if (audience_window) {
+    const gint x = dart_argument_value(self, "--churchlib-audience-x=");
+    const gint y = dart_argument_value(self, "--churchlib-audience-y=");
+    gtk_window_set_title(window, "ChurchLib");
+    gtk_window_set_decorated(window, FALSE);
+    gtk_window_move(window, x, y);
+    g_object_set_data(G_OBJECT(window), "audience-window", GINT_TO_POINTER(1));
+    g_object_set_data(G_OBJECT(window), "audience-x", GINT_TO_POINTER(x));
+    g_object_set_data(G_OBJECT(window), "audience-y", GINT_TO_POINTER(y));
+  }
 
   // Use a header bar when running in GNOME as this is the common style used
   // by applications and is the setup most users will be using (e.g. Ubuntu
@@ -47,7 +92,7 @@ static void my_application_activate(GApplication* application) {
   // in case the window manager does more exotic layout, e.g. tiling.
   // If running on Wayland assume the header bar will work (may need changing
   // if future cases occur).
-  gboolean use_header_bar = TRUE;
+  gboolean use_header_bar = !audience_window;
 #ifdef GDK_WINDOWING_X11
   GdkScreen* screen = gtk_window_get_screen(window);
   if (GDK_IS_X11_SCREEN(screen)) {
@@ -57,7 +102,9 @@ static void my_application_activate(GApplication* application) {
     }
   }
 #endif
-  if (use_header_bar) {
+  if (audience_window) {
+    // The presentation window has no title bar.
+  } else if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
     gtk_header_bar_set_title(header_bar, "ChurchLib");

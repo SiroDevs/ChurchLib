@@ -10,3 +10,8 @@ bool get supportsPresentationWindows {
   return environment['WAYLAND_DISPLAY']?.isNotEmpty == true ||
       environment['XDG_SESSION_TYPE'] == 'wayland';
 }
+
+bool get supportsPresentationDisplays => Platform.isWindows || Platform.isLinux;
+
+bool get usesLinuxAudienceProcess =>
+    Platform.isLinux && !supportsPresentationWindows;
