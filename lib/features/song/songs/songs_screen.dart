@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
@@ -17,7 +16,6 @@ import '../../../data/models/song/songext.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../home/main/shell/app_module.dart';
 import '../../home/main/shell/module_focus.dart';
-import '../../home/song_search/bloc/song_search_bloc.dart';
 import '../../home/song_search/ui/song_search_screen.dart';
 
 part 'widgets/song_viewer.dart';
@@ -33,15 +31,7 @@ class SongsScreen extends StatefulWidget {
 }
 
 class _SongsScreenState extends State<SongsScreen> {
-  late SongSearchBloc bloc;
-  late SongSearchScreenState parent;
-
-  @override
-  void initState() {
-    super.initState();
-    parent = widget.parent;
-    bloc = context.read<SongSearchBloc>();
-  }
+  SongSearchScreenState get parent => widget.parent;
 
   Future<void> onSongSelect(SongExt song, bool shouldOpen) async {
     parent.selectSong(song);

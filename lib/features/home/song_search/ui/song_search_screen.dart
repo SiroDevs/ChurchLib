@@ -44,13 +44,10 @@ class SongSearchScreen extends StatefulWidget {
 }
 
 class SongSearchScreenState extends State<SongSearchScreen> {
-  bool dataReady = false;
-
+  late SongSearchBloc _bloc;
   bool _presenting = false;
-  int selectedBook = 0;
-  List<SongBook> books = [];
+  String searchQuery = '';
   late SongExt selectedSong;
-  List<SongExt> songs = [], filtered = [];
 
   PageType currentPage = PageType.search;
 
@@ -74,14 +71,6 @@ class SongSearchScreenState extends State<SongSearchScreen> {
 
   void selectSong(SongExt song) => setState(() => selectedSong = song);
 
-  void onSearch(String query) {
-    setState(() {
-      filtered = query.isEmpty
-          ? songs
-          : filterSongsByQuery(query.toLowerCase(), songs);
-    });
-  }
-
   Future<void> presentSelected() async {
     if (selectedSong.songId == 0) return;
     if (!PresentationController.instance.hasExtendedDisplay) {
@@ -95,21 +84,19 @@ class SongSearchScreenState extends State<SongSearchScreen> {
   Future<void> openFullScreenPresenter() async {
     final song = selectedSong;
     if (song.songId == 0 || books.isEmpty) return;
-    // final bloc = context.read<SongSearchBloc>();
     final book = books.firstWhere(
       (b) => b.bookId == song.book,
       orElse: () => books[0],
     );
 
     _presenting = true;
-    bool? result = await context.pushNamed<bool>(
-      RouteNames.presentor,
-      extra: (song: song, book: book, songs: songs),
-    );
-
-    _presenting = false;
-    if (result == true) {
-      // bloc.add(FilterData(book));
+    try {
+      await context.pushNamed<bool>(
+        RouteNames.presentor,
+        extra: (song: song, book: book, songs: songs),
+      );
+    } finally {
+      _presenting = false;
     }
   }
 
@@ -124,32 +111,22 @@ class SongSearchScreenState extends State<SongSearchScreen> {
       )..add(const FetchData()),
       child: BlocConsumer<SongSearchBloc, SongSearchState>(
         listener: (context, state) {
-          if (state is DataSyncedState) {
-            _onBooksLoaded(state.books, state.songs);
-          } else if (state is DataFetchedState) {
-            _onBooksLoaded(state.books, state.songs);
-          } else if (state is FilteredState) {
-            filtered = state.songs;
-            selectedBook = books.indexWhere(
-              (book) => book.bookId == state.book.bookId,
+          _bloc = context.read<SongSearchBloc>();
+          if (state.status == SongSearchStatus.loaded) {
+            _onSearchStateLoaded(state);
+          } else if (state.status == SongSearchStatus.failure) {
+            CustomSnackbar.show(
+              context,
+              feedbackMessage(state.feedback ?? '', l10n),
             );
-            if (selectedBook < 0) selectedBook = 0;
-            selectedSong = state.songs.isEmpty
-                ? _emptySong()
-                : state.songs.first;
-            dataReady = true;
-          } else if (state is LoadedState) {
-            dataReady = true;
-          } else if (state is FailureState) {
-            CustomSnackbar.show(context, feedbackMessage(state.feedback, l10n));
-          } else if (state is ResettedState) {
+          } else if (state.status == SongSearchStatus.reset) {
             CustomSnackbar.show(context, l10n.redirectingYou);
             context.goNamed(RouteNames.selection);
           }
         },
         builder: (context, state) {
-          if (dataReady && books.isEmpty) {
-            return _emptyLibrary(l10n);
+          if (state.status == SongSearchStatus.loaded && state.books.isEmpty) {
+            return _emptyLibrary(context, l10n);
           }
           final onSearchPage = currentPage == PageType.search;
           final homeView = AppShell(
@@ -176,14 +153,14 @@ class SongSearchScreenState extends State<SongSearchScreen> {
                   index: pages.indexOf(currentPage),
                   children: <Widget>[
                     SongsScreen(parent: this),
-                    LikesScreen(books: books),
+                    const LikesScreen(),
                   ],
                 ).expanded(),
               ],
             ),
           );
-          return switch (state) {
-            FailureState() => Scaffold(
+          if (state.status == SongSearchStatus.failure) {
+            return Scaffold(
               body: EmptyState(
                 title: l10n.problemDisplaySongs,
                 showRetry: true,
@@ -191,12 +168,18 @@ class SongSearchScreenState extends State<SongSearchScreen> {
                 onRetry: () =>
                     context.read<SongSearchBloc>().add(const ResetData()),
               ),
-            ),
-            FetchingState() ||
-            InitialState() => const Scaffold(body: SongSearchLoading()),
-            _ when !dataReady => const Scaffold(body: SongSearchLoading()),
-            _ => homeView,
-          };
+            );
+          }
+          if (state.status == SongSearchStatus.initial ||
+              state.status == SongSearchStatus.loading ||
+              (state.status == SongSearchStatus.filtering &&
+                  state.selectedBook == null) ||
+              (state.status == SongSearchStatus.loaded &&
+                  state.books.isNotEmpty &&
+                  state.selectedBook == null)) {
+            return const Scaffold(body: SongSearchLoading());
+          }
+          return homeView;
         },
       ),
     );
