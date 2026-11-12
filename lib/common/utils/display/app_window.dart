@@ -2,35 +2,38 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 
-// Package imports:
-import 'package:nativeapi_flutter/nativeapi_flutter.dart';
+import 'package:multiview_desktop/multiview_desktop.dart';
 
 class AppWindow {
   AppWindow._();
 
-  static Window? get _current => WindowManager.instance.getCurrent();
+  static MultiViewDesktop? get _current {
+    try {
+      return MultiViewDesktop.main;
+    } catch (_) {
+      return null;
+    }
+  }
 
   static final ValueNotifier<bool> fullScreen = ValueNotifier<bool>(false);
 
-  static Future<void> showMaximized() async {
+  static void showMaximized() {
     final window = _current;
     if (window == null) return;
-    window.titleBarStyle = TitleBarStyle.normal;
-    window.maximize();
     window.show();
+    window.maximize();
   }
 
   static Future<void> show() async {
     final window = _current;
     if (window == null) return;
-    window.titleBarStyle = TitleBarStyle.normal;
     window.show();
   }
 
   static Future<void> setFullScreen(bool value) async {
     final window = _current;
     if (window == null) return;
-    window.isFullScreen = value;
+    window.setFullScreen(value);
     _publish(value);
   }
 
@@ -49,6 +52,8 @@ class AppWindow {
   static Future<void> toggleFullScreen() async {
     final window = _current;
     if (window == null) return;
-    await setFullScreen(!window.isFullScreen);
+    final value = !window.isFullScreen();
+    window.setFullScreen(value);
+    _publish(value);
   }
 }

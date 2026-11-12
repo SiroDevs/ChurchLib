@@ -9,6 +9,8 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../../../../common/widgets/state/skeleton.dart';
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../../presentation/controller/presentation_controller.dart';
+import '../../../../../presentation/controller/presentation_sources.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import '../dialogs/export.dart';
 import 'verse_row.dart';
@@ -43,25 +45,23 @@ class ReaderBody extends StatelessWidget {
   Widget build(BuildContext context) {
     if (state.error != null && state.verses.isEmpty) {
       return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.menu_book_rounded,
-              size: 56,
-              color: ThemeColors.mediumGrey,
-            ),
-            const SizedBox(height: 16),
-            Text(state.error!, textAlign: TextAlign.center),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: () => context.read<BibleReaderCubit>().initialize(),
-              style: FilledButton.styleFrom(
-                backgroundColor: ThemeColors.primary,
-              ),
-              child: const Text('Retry'),
-            ),
-          ],
-        ).padding(all: 32).center();
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.menu_book_rounded,
+            size: 56,
+            color: ThemeColors.mediumGrey,
+          ),
+          const SizedBox(height: 16),
+          Text(state.error!, textAlign: TextAlign.center),
+          const SizedBox(height: 16),
+          FilledButton(
+            onPressed: () => context.read<BibleReaderCubit>().initialize(),
+            style: FilledButton.styleFrom(backgroundColor: ThemeColors.primary),
+            child: const Text('Retry'),
+          ),
+        ],
+      ).padding(all: 32).center();
     }
     if (state.isLoading && state.verses.isEmpty) {
       return const ReaderLoading();
@@ -98,51 +98,59 @@ class ReaderBody extends StatelessWidget {
                     color: ThemeColors.primary,
                   ),
                 ).padding(bottom: 12, left: 8),
-              for (final v in state.verses)
+              for (final verse in state.verses)
                 VerseRow(
-                  key: keyFor(v.verseId),
-                  number: v.number,
-                  text: v.text,
+                  key: keyFor(verse.verseId),
+                  number: verse.number,
+                  text: verse.text,
                   fontSize: state.fontSize.toDouble(),
-                  numberColor: presenting ? Colors.white70 : ThemeColors.primary,
+                  numberColor: presenting
+                      ? Colors.white70
+                      : ThemeColors.primary,
                   highlightQuery: state.highlightQuery,
                   parallelTexts: parallelActive
                       ? {
-                          for (final e in state.parallelVerses.entries)
-                            e.key:
-                                e.value
-                                    .where((p) => p.number == v.number)
-                                    .map((p) => p.text)
+                          for (final entry in state.parallelVerses.entries)
+                            entry.key:
+                                entry.value
+                                    .where(
+                                      (parallelVerse) =>
+                                          parallelVerse.number == verse.number,
+                                    )
+                                    .map((parallelVerse) => parallelVerse.text)
                                     .firstOrNull ??
                                 '',
                         }
                       : const {},
                   parallelLanguages: parallelActive
                       ? {
-                          for (final abbr in state.parallelVerses.keys)
-                            abbr: state.languageOf(abbr),
+                          for (final abbreviation in state.parallelVerses.keys)
+                            abbreviation: state.languageOf(abbreviation),
                         }
                       : const {},
-                  isBookmarked: state.bookmarks.containsKey(v.verseId),
-                  bookmarkColorHex: state.bookmarks[v.verseId],
-                  hasNote: state.notedVerseIds.contains(v.verseId),
+                  isBookmarked: state.bookmarks.containsKey(verse.verseId),
+                  bookmarkColorHex: state.bookmarks[verse.verseId],
+                  hasNote: state.notedVerseIds.contains(verse.verseId),
                   onToggleBookmark: () =>
-                      cubit.quickToggleBookmark(v.verseId),
+                      cubit.quickToggleBookmark(verse.verseId),
                   onOpenNote: () => _openNote(
                     context,
-                    cubit.notesRequestForVerse(v.verseId),
+                    cubit.notesRequestForVerse(verse.verseId),
                   ),
-                  isSelected: state.selectedVerseIds.contains(v.verseId),
+                  isSelected: state.selectedVerseIds.contains(verse.verseId),
                   isSelectionMode: state.isSelectionMode,
                   onToggleSelected: () =>
-                      cubit.toggleVerseSelected(v.verseId),
+                      cubit.toggleVerseSelected(verse.verseId),
+                  onPresent: () {
+                    if (!PresentationController.instance.active) return;
+                    presentBible(state, at: state.verses.indexOf(verse));
+                  },
                 ),
               const SizedBox(height: 48),
             ],
-          )
-              .width(double.infinity),
-          ),
+          ).width(double.infinity),
         ),
-      );
+      ),
+    );
   }
 }

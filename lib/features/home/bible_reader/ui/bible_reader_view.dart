@@ -18,6 +18,8 @@ import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../../main/shell/module_focus.dart';
 import '../cubit/bible_reader_cubit.dart';
+import '../../../presentation/controller/presentation_controller.dart';
+import '../../../presentation/controller/presentation_sources.dart';
 import 'widgets/dialogs/reader_options_sheet.dart';
 import 'widgets/toolbars/export.dart';
 import 'widgets/verses/reader_auto_scroll.dart';
@@ -82,6 +84,16 @@ class BiblerReaderViewState extends State<BiblerReaderView>
         chapter.id,
       );
     }
+    final presentation = PresentationController.instance;
+    final isBibleModuleActive =
+        HomeModuleScope.maybeOf(context)?.current == AppModule.biblelib;
+    if (isBibleModuleActive &&
+        presentation.active &&
+        presentation.session.value?.kind == PresentationKind.bible &&
+        !state.isLoading &&
+        state.verses.isNotEmpty) {
+      presentBible(state);
+    }
   }
 
   @override
@@ -99,7 +111,8 @@ class BiblerReaderViewState extends State<BiblerReaderView>
             scrollBy(_arrowScrollStep),
         const SingleActivator(LogicalKeyboardKey.arrowUp): () =>
             scrollBy(-_arrowScrollStep),
-        for (final key in smallerFontKeys) key: () => _changeFontSize(cubit, -2),
+        for (final key in smallerFontKeys)
+          key: () => _changeFontSize(cubit, -2),
         for (final key in biggerFontKeys) key: () => _changeFontSize(cubit, 2),
       },
       child: ModuleFocus(
@@ -107,7 +120,11 @@ class BiblerReaderViewState extends State<BiblerReaderView>
         child: BlocConsumer<BibleReaderCubit, BibleReaderState>(
           listenWhen: (p, c) =>
               p.activeChapter?.id != c.activeChapter?.id ||
-              (!identical(p.verses, c.verses) && c.restoreVerseId != null),
+              (!identical(p.verses, c.verses) &&
+                  (c.restoreVerseId != null ||
+                      (PresentationController.instance.active &&
+                          PresentationController.instance.session.value?.kind ==
+                              PresentationKind.bible))),
           listener: _onStateChanged,
           builder: (context, state) {
             return ValueListenableBuilder<bool>(
@@ -139,7 +156,8 @@ class BiblerReaderViewState extends State<BiblerReaderView>
           Listener(
             onPointerDown: (_) => stopAutoScroll(),
             child: ColoredBox(
-              color: presenting || Theme.of(context).brightness == Brightness.dark
+              color:
+                  presenting || Theme.of(context).brightness == Brightness.dark
                   ? Colors.black
                   : Colors.white,
               child: ReaderBody(
@@ -191,6 +209,7 @@ class BiblerReaderViewState extends State<BiblerReaderView>
     }
     return AppShell(
       module: AppModule.biblelib,
+      onPresent: () => presentBible(state),
       sidebarItems: bibleSidebarItems(context),
       titleBar: state.isSelectionMode
           ? SelectionBar(state: state)

@@ -10,11 +10,11 @@ import 'verse_spans.dart';
 
 Color? parseHexColor(String? hex) {
   if (hex == null) return null;
-  var h = hex.trim().replaceFirst('#', '');
-  if (h.length == 6) h = 'FF$h';
-  if (h.length != 8) return null;
-  final v = int.tryParse(h, radix: 16);
-  return v == null ? null : Color(v);
+  var hexValue = hex.trim().replaceFirst('#', '');
+  if (hexValue.length == 6) hexValue = 'FF$hexValue';
+  if (hexValue.length != 8) return null;
+  final colorValue = int.tryParse(hexValue, radix: 16);
+  return colorValue == null ? null : Color(colorValue);
 }
 
 class VerseRow extends StatefulWidget {
@@ -22,20 +22,17 @@ class VerseRow extends StatefulWidget {
   final String text;
   final double fontSize;
   final String? highlightQuery;
-
   final Map<String, String> parallelTexts;
-
   final Map<String, String> parallelLanguages;
   final bool isBookmarked;
   final String? bookmarkColorHex;
   final bool hasNote;
   final VoidCallback onToggleBookmark;
   final VoidCallback onOpenNote;
-
   final bool isSelected;
   final bool isSelectionMode;
   final VoidCallback onToggleSelected;
-
+  final VoidCallback? onPresent;
   final Color numberColor;
 
   const VerseRow({
@@ -54,6 +51,7 @@ class VerseRow extends StatefulWidget {
     this.isSelected = false,
     this.isSelectionMode = false,
     required this.onToggleSelected,
+    this.onPresent,
     this.numberColor = ThemeColors.primary,
   });
 
@@ -91,7 +89,9 @@ class _VerseRowState extends State<VerseRow> {
       onExit: (_) => setState(() => _hovering = false),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: widget.isSelectionMode ? widget.onToggleSelected : null,
+        onTap: widget.isSelectionMode
+            ? widget.onToggleSelected
+            : widget.onPresent,
         onLongPress: widget.onToggleSelected,
         onSecondaryTap: widget.onToggleSelected,
         child: Container(
@@ -151,7 +151,8 @@ class _VerseRowState extends State<VerseRow> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: '[${_parallelLabel(e.key).toUpperCase()}]  ',
+                              text:
+                                  '[${_parallelLabel(e.key).toUpperCase()}]  ',
                               style: TextStyle(
                                 fontSize: widget.fontSize * 0.75,
                                 fontWeight: FontWeight.w700,

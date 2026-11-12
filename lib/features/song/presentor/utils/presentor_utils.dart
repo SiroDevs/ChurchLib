@@ -59,7 +59,7 @@ Future<Map<String, dynamic>> loadSong(SongExt song) async {
       );
     }
 
-    return {'tabs': tabs, 'stanzas': stanzas};
+    return {'tabs': tabs, 'stanzas': stanzas, 'labels': labels};
   } catch (e) {
     return {'tabs': [], 'stanzas': []};
   }

@@ -16,16 +16,18 @@ import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/search/search_songs_utils.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
-import '../../../../common/widgets/state/skeleton.dart';
 import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
 import '../../../../l10n/gen/app_localizations.dart';
 import '../../../song/likes/likes_screen.dart';
 import '../../../song/songs/songs_screen.dart';
+import '../../../presentation/controller/presentation_sources.dart';
+import '../../../presentation/ui/presentation_toggle.dart';
 import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../../main/shell/shell_nav_item.dart';
 import '../bloc/song_search_bloc.dart';
+import 'widgets/song_search_loading.dart';
 
 part 'widgets/search_widget.dart';
 part 'widgets/song_title_bar.dart';
@@ -34,10 +36,10 @@ class SongSearchScreen extends StatefulWidget {
   const SongSearchScreen({super.key});
 
   @override
-  State<SongSearchScreen> createState() => HomeScreenState();
+  State<SongSearchScreen> createState() => SongSearchScreenState();
 }
 
-class HomeScreenState extends State<SongSearchScreen> {
+class SongSearchScreenState extends State<SongSearchScreen> {
   late SongSearchBloc _bloc;
   Timer? _syncTimer;
 
@@ -72,7 +74,7 @@ class HomeScreenState extends State<SongSearchScreen> {
       AppWindow.setFullScreen(false);
       return;
     }
-    presentSelected();
+    openFullScreenPresenter();
   }
 
   @override
@@ -95,6 +97,12 @@ class HomeScreenState extends State<SongSearchScreen> {
   }
 
   Future<void> presentSelected() async {
+    final song = selectedSong;
+    if (song.songId == 0) return;
+    await presentSong(song);
+  }
+
+  Future<void> openFullScreenPresenter() async {
     final song = selectedSong;
     if (song.songId == 0 || books.isEmpty) return;
     // final bloc = context.read<SongSearchBloc>();
@@ -157,6 +165,7 @@ class HomeScreenState extends State<SongSearchScreen> {
           final onSearchPage = currentPage == PageType.search;
           final homeView = AppShell(
             module: AppModule.songlib,
+            onPresent: presentSelected,
             sidebarItems: [
               ShellNavItem(
                 Icons.search,
@@ -195,8 +204,8 @@ class HomeScreenState extends State<SongSearchScreen> {
               ),
             ),
             FetchingState() ||
-            InitialState() => const Scaffold(body: HomeLoading()),
-            _ when !dataReady => const Scaffold(body: HomeLoading()),
+            InitialState() => const Scaffold(body: SongSearchLoading()),
+            _ when !dataReady => const Scaffold(body: SongSearchLoading()),
             _ => homeView,
           };
         },

@@ -3,7 +3,7 @@ part of '../song_search_screen.dart';
 class SongTitleBar extends StatelessWidget {
   const SongTitleBar({super.key, required this.parent});
 
-  final HomeScreenState parent;
+  final SongSearchScreenState parent;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,7 @@ class SongTitleBar extends StatelessWidget {
                   )
                 : Text(l10n.likesTitle, style: text).padding(left: 6),
           ),
-        )
-            .expanded(flex: 1),
+        ).expanded(flex: 1),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -38,14 +37,13 @@ class SongTitleBar extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: text,
-              )
-                  .padding(horizontal: 16)
-                  .expanded(),
+              ).padding(horizontal: 16).expanded(),
 
-            IconButton(
-              tooltip: 'Present Song',
-              onPressed: () => parent.presentSelected(),
-              icon: const Icon(Icons.north_east),
+            PresentationToggle(
+              module: AppModule.songlib,
+              onPresent: parent.presentSelected,
+              iconOnly: true,
+              enabled: song.songId != 0,
             ),
 
             IconButton(
@@ -54,8 +52,7 @@ class SongTitleBar extends StatelessWidget {
               icon: const Icon(Icons.copy),
             ),
           ],
-        )
-            .expanded(flex: 1),
+        ).expanded(flex: 1),
       ],
     );
   }

@@ -18,6 +18,8 @@ import 'core/theme/bloc/theme_bloc.dart';
 import 'core/theme/theme_data.dart';
 import 'domain/repos/auth_repo.dart';
 import 'domain/repos/pref_repo.dart';
+import 'features/presentation/controller/presentation_controller.dart';
+import 'features/presentation/ui/presentation_host.dart';
 import 'l10n/gen/app_localizations.dart';
 
 class MyApp extends StatefulWidget {
@@ -85,7 +87,13 @@ class AppViewState extends State<AppView> {
   }
 
   bool _onKey(KeyEvent event) {
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.f11) {
+    if (event is! KeyDownEvent) return false;
+    if (event.logicalKey == LogicalKeyboardKey.escape &&
+        PresentationController.instance.active) {
+      PresentationController.instance.stop();
+      return true;
+    }
+    if (event.logicalKey == LogicalKeyboardKey.f11) {
       AppWindow.toggleFullScreen();
       return true;
     }
@@ -112,8 +120,9 @@ class AppViewState extends State<AppView> {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            builder: (context, child) =>
-                TextScaleFactor(child: child ?? const SizedBox.shrink()),
+            builder: (context, child) => PresentationHost(
+              child: TextScaleFactor(child: child ?? const SizedBox.shrink()),
+            ),
           );
         },
       ),
