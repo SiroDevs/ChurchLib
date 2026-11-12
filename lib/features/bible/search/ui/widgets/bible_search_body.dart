@@ -65,7 +65,7 @@ class BibleSearchResults extends StatelessWidget {
     if (state.bibles.isEmpty) {
       return Text(l10n.noDownloadedBiblesToSearch).center();
     }
-    if (state.query.length < 3) return _recentSearches();
+    if (state.query.length < 3) return _recentSearches(context);
     if (state.isSearching && state.results.isEmpty) {
       return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
@@ -81,7 +81,7 @@ class BibleSearchResults extends StatelessWidget {
         ).padding(left: 16, top: 4, right: 16, bottom: 4),
         ListView.separated(
           itemCount: state.results.length,
-          separatorBuilder: (_, __) => const Divider(height: 1),
+          separatorBuilder: (_, _) => const Divider(height: 1),
           itemBuilder: (context, i) {
             final verse = state.results[i];
             return SearchResultItem(
@@ -96,16 +96,17 @@ class BibleSearchResults extends StatelessWidget {
     );
   }
 
-  Widget _recentSearches() {
+  Widget _recentSearches(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (state.history.isEmpty) {
-      return Text(AppLocalizations.of(context)!.typeAtLeast3Letters).center();
+      return Text(l10n.typeAtLeast3Letters).center();
     }
     return ListView(
       children: [
         Row(
           children: [
             Text(
-              AppLocalizations.of(context)!.recentSearches,
+              l10n.recentSearches,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: ThemeColors.primary,
@@ -113,7 +114,7 @@ class BibleSearchResults extends StatelessWidget {
             ).expanded(),
             TextButton(
               onPressed: onClearHistory,
-              child: Text(AppLocalizations.of(context)!.clearAction),
+              child: Text(l10n.clearAction),
             ),
           ],
         ).padding(left: 16, top: 12, right: 8, bottom: 0),

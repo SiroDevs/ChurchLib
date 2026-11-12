@@ -101,7 +101,7 @@ class _ScriptureListDetailView extends StatelessWidget {
                 ),
             ],
           ),
-          body: _body(state).constrained(maxWidth: 720).center(),
+          body: _body(context, state).constrained(maxWidth: 720).center(),
           floatingActionButton: ready
               ? FloatingActionButton.extended(
                   onPressed: () => _play(context, state),
@@ -115,7 +115,7 @@ class _ScriptureListDetailView extends StatelessWidget {
     );
   }
 
-  Widget _body(ScriptureListDetailState state) {
+  Widget _body(BuildContext context, ScriptureListDetailState state) {
     if (state.status == ScriptureListDetailStatus.loading) {
       return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
@@ -124,7 +124,7 @@ class _ScriptureListDetailView extends StatelessWidget {
     }
     return ListView.separated(
       itemCount: state.items.length,
-      separatorBuilder: (_, __) => const Divider(height: 1),
+      separatorBuilder: (_, _) => const Divider(height: 1),
       itemBuilder: (context, i) {
         final item = state.items[i];
         return ListTile(

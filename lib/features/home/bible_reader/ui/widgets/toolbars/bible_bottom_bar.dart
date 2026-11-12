@@ -69,7 +69,7 @@ class BibleBottomBar extends StatelessWidget {
                   const SizedBox(width: 4),
                   _BarButton(
                     icon: Icons.menu_book_outlined,
-                    label: l10n.chapterNumberLabel(chapter.number),
+                    label: l10n.chapterNumberLabel(int.parse(chapter.number)),
                     tooltip: l10n.pickChapter,
                     onTap: state.chapters.isEmpty ? null : onPickChapter,
                     highlighted: true,

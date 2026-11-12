@@ -54,5 +54,10 @@ abstract class SongsDao {
   Future<void> deleteAllSongs();
 
   @transaction
-  Future<void> replaceSongsForBooks(List<int> bookIds, List<Song> songs);
+  Future<void> replaceSongsForBooks(List<int> bookIds, List<Song> songs) async {
+    for (final bookId in bookIds) {
+      await deleteSongsByBook(bookId);
+    }
+    await insertAll(songs);
+  }
 }

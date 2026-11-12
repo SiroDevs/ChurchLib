@@ -1,12 +1,14 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Package imports:
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../common/utils/logging/app_logger.dart';
+import '../../../common/utils/formatting/song_text_utils.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../common/widgets/list_items/search_book_item.dart';
 import '../../../common/widgets/list_items/search_song_item.dart';
@@ -16,6 +18,7 @@ import '../../../data/models/song/songext.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../home/main/shell/app_module.dart';
 import '../../home/main/shell/module_focus.dart';
+import '../../home/song_search/bloc/song_search_bloc.dart';
 import '../../home/song_search/ui/song_search_screen.dart';
 
 part 'widgets/song_viewer.dart';

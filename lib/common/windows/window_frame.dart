@@ -22,7 +22,7 @@ Future<T?> showAppWindow<T>(
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     barrierColor: Colors.black54,
     transitionDuration: Duration.zero,
-    pageBuilder: (_, __, ___) => Dialog(
+    pageBuilder: (_, _, _) => Dialog(
       backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       shadowColor: Colors.transparent,
@@ -41,7 +41,6 @@ class _WindowFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final radius = BorderRadius.circular(_kWindowRadius);
@@ -103,6 +102,7 @@ class WindowAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
     return Material(
       color: scheme.secondaryContainer,
@@ -133,7 +133,7 @@ class WindowAppBar extends StatelessWidget implements PreferredSizeWidget {
               const SizedBox(width: 4),
             ],
           ).constrained(height: barHeight),
-          if (bottom != null) bottom!,
+          ?bottom,
           Divider(height: 1, color: scheme.outlineVariant),
         ],
       ),

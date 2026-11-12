@@ -85,7 +85,7 @@ mixin BiblesStepBuilders on State<BiblesStep> {
               max: state.maxSelections,
             ),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               l10n.firstPickPrimaryBible,
               style: TextStyle(fontSize: 13, color: ThemeColors.grey),
             ),
