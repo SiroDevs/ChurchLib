@@ -3,7 +3,7 @@ part of '../song_search_screen.dart';
 class SongTitleBar extends StatelessWidget {
   const SongTitleBar({super.key, required this.parent});
 
-  final HomeScreenState parent;
+  final SongSearchScreenState parent;
 
   @override
   Widget build(BuildContext context) {

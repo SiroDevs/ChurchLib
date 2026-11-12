@@ -27,7 +27,7 @@ import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../../main/shell/shell_nav_item.dart';
 import '../bloc/song_search_bloc.dart';
-import 'song_search_loading.dart';
+import 'widgets/song_search_loading.dart';
 
 part 'widgets/search_widget.dart';
 part 'widgets/song_title_bar.dart';
@@ -36,10 +36,10 @@ class SongSearchScreen extends StatefulWidget {
   const SongSearchScreen({super.key});
 
   @override
-  State<SongSearchScreen> createState() => HomeScreenState();
+  State<SongSearchScreen> createState() => SongSearchScreenState();
 }
 
-class HomeScreenState extends State<SongSearchScreen> {
+class SongSearchScreenState extends State<SongSearchScreen> {
   late SongSearchBloc _bloc;
   Timer? _syncTimer;
 

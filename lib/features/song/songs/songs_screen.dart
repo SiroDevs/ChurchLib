@@ -23,7 +23,7 @@ part 'widgets/song_viewer.dart';
 part 'widgets/list_widgets.dart';
 
 class SongsScreen extends StatefulWidget {
-  final HomeScreenState parent;
+  final SongSearchScreenState parent;
 
   const SongsScreen({super.key, required this.parent});
 
@@ -33,7 +33,7 @@ class SongsScreen extends StatefulWidget {
 
 class _SongsScreenState extends State<SongsScreen> {
   late SongSearchBloc bloc;
-  late HomeScreenState parent;
+  late SongSearchScreenState parent;
 
   @override
   void initState() {
