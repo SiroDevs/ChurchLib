@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 // Package imports:
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 // Project imports:
 import '../../../common/constants/api_constants.dart';
@@ -19,13 +19,16 @@ class SongApiException implements Exception {
 }
 
 class SongSelectionRepo {
-  final _selectionClient = SelectionClient();
+  SongSelectionRepo({http.Client? client})
+    : _selectionClient = SelectionClient(client: client);
 
-  Future<Response> getBooks() async => await _selectionClient.getBooks();
+  final SelectionClient _selectionClient;
 
-  Future<Response> getSongs() async => await _selectionClient.getSongs();
+  Future<http.Response> getBooks() async => await _selectionClient.getBooks();
 
-  Future<Response> getSongsByBooks(
+  Future<http.Response> getSongs() async => await _selectionClient.getSongs();
+
+  Future<http.Response> getSongsByBooks(
     String bookIds, {
     int page = 1,
     int limit = ApiConstants.songsPageLimit,

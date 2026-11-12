@@ -1,6 +1,7 @@
 // Dart imports:
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 // Package imports:
 import 'package:http/http.dart' as http;
@@ -9,24 +10,33 @@ import 'package:http/http.dart' as http;
 import '../formatting/app_util.dart';
 
 const _requestTimeout = Duration(seconds: 60);
+final http.Client _defaultClient = http.Client();
 
-http.Response _timeoutResponse() {
-  logger('Timeout occurred. Please try again later.');
-  return http.Response('Timeout occurred', 504);
+enum HttpRequestFailureKind { timeout, transport }
+
+class HttpRequestFailure implements Exception {
+  const HttpRequestFailure(this.kind, this.cause);
+
+  final HttpRequestFailureKind kind;
+  final Object cause;
+
+  @override
+  String toString() => 'HTTP request failed: $kind';
 }
 
 Future<http.Response> _dispatch(
+  http.Client client,
   String method,
   Uri uri,
   Map<String, String> headers,
   String? body,
 ) {
   return switch (method) {
-    'GET' => http.get(uri, headers: headers),
-    'POST' => http.post(uri, headers: headers, body: body),
-    'PUT' => http.put(uri, headers: headers, body: body),
-    'PATCH' => http.patch(uri, headers: headers, body: body),
-    'DELETE' => http.delete(uri, headers: headers),
+    'GET' => client.get(uri, headers: headers),
+    'POST' => client.post(uri, headers: headers, body: body),
+    'PUT' => client.put(uri, headers: headers, body: body),
+    'PATCH' => client.patch(uri, headers: headers, body: body),
+    'DELETE' => client.delete(uri, headers: headers),
     _ => throw ArgumentError.value(method, 'method', 'Unsupported HTTP method'),
   };
 }
@@ -36,24 +46,33 @@ Future<http.Response> sendHttpRequest(
   String url,
   Map<String, String> headers, {
   dynamic body,
+  http.Client? client,
 }) async {
+  final uri = Uri.parse(url);
+  final encodedBody = body == null ? null : json.encode(body);
+  logger('HTTP request [$method] ${uri.origin}');
+
   try {
-    final uri = Uri.parse(url);
-    final encodedBody = body == null ? null : json.encode(body);
-    final bodyLog = encodedBody == null ? '' : ' \nJsonData: $encodedBody';
-    logger(
-      'Api Request [$method]: $url \nHeaders: ${json.encode(headers)}$bodyLog',
-    );
-
-    final response = await _dispatch(method, uri, headers, encodedBody)
-        .timeout(_requestTimeout, onTimeout: _timeoutResponse);
-
-    logger('Api Response: [${response.statusCode}] ${response.body}');
+    final response = await _dispatch(
+      client ?? _defaultClient,
+      method,
+      uri,
+      headers,
+      encodedBody,
+    ).timeout(_requestTimeout);
+    logger('HTTP response [${response.statusCode}] ${uri.origin}');
     return response;
-  } on TimeoutException {
-    return _timeoutResponse();
-  } catch (e) {
-    logger('An error occurred during the HTTP request: $e');
-    return http.Response('Internal server error', 500);
+  } on TimeoutException catch (error) {
+    logger('HTTP request timed out: ${uri.origin}');
+    throw HttpRequestFailure(HttpRequestFailureKind.timeout, error);
+  } on SocketException catch (error) {
+    logger('HTTP transport failed: ${uri.origin}');
+    throw HttpRequestFailure(HttpRequestFailureKind.transport, error);
+  } on HandshakeException catch (error) {
+    logger('HTTP transport failed: ${uri.origin}');
+    throw HttpRequestFailure(HttpRequestFailureKind.transport, error);
+  } on http.ClientException catch (error) {
+    logger('HTTP transport failed: ${uri.origin}');
+    throw HttpRequestFailure(HttpRequestFailureKind.transport, error);
   }
 }
