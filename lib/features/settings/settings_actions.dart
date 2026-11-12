@@ -64,10 +64,12 @@ class SettingsActions {
   }
 
   Future<void> resetBibleLib() async {
+    final l10n = AppLocalizations.of(context)!;
     final ok = await showConfirmDialog(
       context,
-      title: 'Start over with BibleLib?',
-      message: "This deletes every downloaded Bible, bookmark and note. This can't be undone.",
+      title: l10n.startOverBiblelibQuestion,
+      message: l10n.startOverBiblelibMessage,
+      confirmLabel: l10n.continueAction,
     );
     if (!ok || !context.mounted) return;
     try {
@@ -95,11 +97,12 @@ class SettingsActions {
   }
 
   Future<void> resetChurchLib() async {
+    final l10n = AppLocalizations.of(context)!;
     final ok = await showConfirmDialog(
       context,
-      title: 'Reset ChurchLib?',
-      message: 'This erases everything — songbooks, Bibles, bookmarks, notes and '
-          "settings — and takes you back to the setup screen. This can't be undone.",
+      title: l10n.resetChurchlibQuestion,
+      message: l10n.resetChurchlibMessage,
+      confirmLabel: l10n.continueAction,
     );
     if (!ok || !context.mounted) return;
     try {

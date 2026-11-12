@@ -1303,6 +1303,711 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Developer build: license checks are off.'**
   String get licenseDeveloperBuild;
+
+  /// Hint for searching songs
+  String get songSearchHint;
+
+  /// Clear action label
+  String get clearAction;
+
+  /// Song copy confirmation
+  String get songCopiedClipboard;
+
+  /// Empty state for liked songs
+  String get noLikedSongs;
+
+  /// Song presentation verses panel setting
+  String get versesPanel;
+
+  /// Title for module settings
+  String get modulesTitle;
+
+  /// Add SongLib setting title
+  String get addSonglib;
+
+  /// SongLib setup description
+  String get songlibSetupSubtitle;
+
+  /// Add BibleLib setting title
+  String get addBiblelib;
+
+  /// BibleLib setup description
+  String get biblelibSetupSubtitle;
+
+  /// Reset data setting title
+  String get resetData;
+
+  /// Reset BibleLib action
+  String get startOverBiblelib;
+
+  /// Reset ChurchLib action
+  String get resetChurchlib;
+
+  /// Theme dialog title
+  String get setThemeDialogTitle;
+
+  /// Settings window title
+  String get settingsWindowTitle;
+
+  /// Move item up tooltip
+  String get moveUp;
+
+  /// Move item down tooltip
+  String get moveDown;
+
+  /// Multi-Bible reader setting
+  String get multiBibleReader;
+
+  /// Message shown when no primary Bible is set
+  String get noPrimaryBible;
+
+  /// Confirm removing a Bible
+  String removeBibleQuestion(String bibleName);
+
+  /// Title for choosing the primary Bible
+  String get choosePrimaryBible;
+
+  /// Close action label
+  String get closeAction;
+
+  /// Bible management help title
+  String get managingBibles;
+
+  /// Bible management help prompt
+  String get bibleManagementQuestion;
+
+  /// Decline action label
+  String get noThanks;
+
+  /// Show help action label
+  String get showMe;
+
+  /// Restart action label
+  String get restartAction;
+
+  /// Continue action label
+  String get continueAction;
+
+  /// Delete action label
+  String get deleteAction;
+
+  /// Bible management help tooltip
+  String get howBibleManagementWorks;
+
+  /// Bible management screen title
+  String get manageBibles;
+
+  /// Change selected Bible editions action
+  String get changeSelection;
+
+  /// Confirm deleting a scripture list
+  String get deleteScriptureListQuestion;
+
+  /// Scripture lists screen title
+  String get scriptureListsTitle;
+
+  /// Rename list dialog title
+  String get renameList;
+
+  /// Save action label
+  String get saveAction;
+
+  /// Play action label
+  String get playAction;
+
+  /// Confirm deleting selected items
+  String get deleteSelectedQuestion;
+
+  /// Bookmarks and notes screen title
+  String get bookmarksNotesTitle;
+
+  /// Delete selected items tooltip
+  String get deleteSelectedTooltip;
+
+  /// Clear all action label
+  String get clearAll;
+
+  /// Confirm clearing reading history
+  String get clearReadingHistoryQuestion;
+
+  /// Confirm clearing search history
+  String get clearSearchHistoryQuestion;
+
+  /// Bible history screen title
+  String get historyTitle;
+
+  /// Bible search hint
+  String get searchScripturesHint;
+
+  /// Empty search state without downloaded Bibles
+  String get noDownloadedBiblesToSearch;
+
+  /// Empty Bible search results
+  String noSearchResultsForQuery(String query);
+
+  /// Minimum Bible search query hint
+  String get typeAtLeast3Letters;
+
+  /// Bible selection search hint
+  String get searchBiblesHint;
+
+  /// Bible selection step title
+  String get chooseBiblesTitle;
+
+  /// No Bible search matches
+  String get noBiblesMatch;
+
+  /// ChurchLib setup screen title
+  String get setupChurchLibTitle;
+
+  /// Refresh action label
+  String get refreshAction;
+
+  /// Back action label
+  String get backAction;
+
+  /// Finish action label
+  String get finishAction;
+
+  /// Songbook selection step title
+  String get chooseSongbooksTitle;
+
+  /// Setup progress title
+  String get gettingEverythingReady;
+
+  /// Song download failure title
+  String get unableDownloadSongs;
+
+  /// Retry action label
+  String get retryAction;
+
+  /// SongLib module description
+  String get songlibDescription;
+
+  /// BibleLib module description
+  String get biblelibDescription;
+
+  /// Previous action label
+  String get previousAction;
+
+  /// Previous chapter tooltip
+  String get previousChapterTooltip;
+
+  /// Chapter picker button label
+  String chapterNumberLabel(int chapterNumber);
+
+  /// Chapter picker tooltip
+  String get pickChapter;
+
+  /// Next action label
+  String get nextAction;
+
+  /// Next chapter tooltip
+  String get nextChapterTooltip;
+
+  /// Quick reader options title
+  String get quickOptions;
+
+  /// Decrease reader text size action
+  String get smallerText;
+
+  /// Increase reader text size action
+  String get largerText;
+
+  /// Decrease auto-scroll speed tooltip
+  String get slower;
+
+  /// Increase auto-scroll speed tooltip
+  String get faster;
+
+  /// Switch primary Bible tooltip
+  String get switchPrimaryBible;
+
+  /// Bible book picker tooltip
+  String get pickBibleBook;
+
+  /// Scripture opener action
+  String get scriptureOpener;
+
+  /// Close scripture queue tooltip
+  String get closeScriptureQueue;
+
+  /// Previous scripture tooltip
+  String get previousScripture;
+
+  /// Next scripture tooltip
+  String get nextScripture;
+
+  /// Highlight color dialog title
+  String get chooseHighlightColor;
+
+  /// Bookmark verses dialog title
+  String get bookmarkVerses;
+
+  /// Bookmark without adding notes
+  String get bookmarkOnly;
+
+  /// Bookmark and add notes action
+  String get bookmarkWithNotes;
+
+  /// Save note tooltip
+  String get saveNote;
+
+  /// Note editor hint
+  String get writeVerseThoughts;
+
+  /// Empty Bible book picker state
+  String get noBooksFound;
+
+  /// Bible book picker search hint
+  String get searchBooksHint;
+
+  /// Reader font size label
+  String fontSizeLabel(int size);
+
+  /// Copy confirmation
+  String get copyTextToClipboard;
+
+  /// Cancel verse selection tooltip
+  String get cancelVerseSelection;
+
+  /// Bookmark or highlight tooltip
+  String get bookmarkHighlight;
+
+  /// Copy action label
+  String get copyAction;
+
+  /// Back navigation button label
+  String get backButton;
+
+  /// Available application update banner
+  String versionUpdateBanner(String latest, String current);
+
+  /// Reader message when no Bibles are downloaded
+  String get noBiblesDownloaded;
+
+  /// Reader message while Bible data downloads
+  String get bibleDataUnavailable;
+
+  /// Reader message when a book has no chapters
+  String noChaptersFound(String bookName);
+
+  /// Reader message when chapter verses are missing
+  String get versesNotCached;
+
+  /// Generic Bible reader load error
+  String get readerLoadFailed;
+
+  /// Scripture opener empty state
+  String get noBooksForBible;
+
+  /// Scripture list loading error
+  String get scriptureListsFailed;
+
+  /// Missing scripture list error
+  String get scriptureListNotFound;
+
+  /// Song search failure message
+  String get songSearchFailed;
+
+  /// Verses panel setting description
+  String get showVersesPanel;
+
+  /// Confirm resetting BibleLib
+  String get startOverBiblelibQuestion;
+
+  /// Confirm resetting BibleLib message
+  String get startOverBiblelibMessage;
+
+  /// Confirm resetting ChurchLib
+  String get resetChurchlibQuestion;
+
+  /// Confirm resetting ChurchLib message
+  String get resetChurchlibMessage;
+
+  /// BibleLib reset setting description
+  String get resetBibleSubtitle;
+
+  /// ChurchLib reset setting description
+  String get resetChurchSubtitle;
+
+  /// Settings appearance section title
+  String get appearanceTitle;
+
+  /// General settings section title
+  String get generalTitle;
+
+  /// Presentation settings navigation title
+  String get presentationNavTitle;
+
+  /// Bible settings navigation title
+  String get biblesNavTitle;
+
+  /// Update banner title
+  String get updateAvailable;
+
+  /// Song number label
+  String songNumberLabel(int songNumber);
+
+  /// Back action tooltip
+  String get backEscapeTooltip;
+
+  /// Stop action label
+  String get stopAction;
+
+  /// Done action label
+  String get doneAction;
+
+  /// Reorder action label
+  String get reorderAction;
+
+  /// Remove a Bible from secondary translations
+  String get removeFromSecondary;
+
+  /// Count label for secondary Bibles
+  String secondaryBibleCount(int count);
+
+  /// One secondary Bible label
+  String get oneSecondaryBible;
+
+  /// Hint for removing a secondary Bible
+  String get hoverRemoveBible;
+
+  /// Download failure status label
+  String get downloadFailedStatus;
+
+  /// Download progress status label
+  String get fetchingVersesStatus;
+
+  /// Stopped download status label
+  String get downloadStoppedStatus;
+
+  /// Primary Bible label
+  String biblePrimaryLabel(String language);
+
+  /// Bible language label
+  String bibleLanguageLabel(String language);
+
+  /// Instructions for managing downloaded Bible translations
+  String get bibleManagementInfo;
+
+  /// Confirmation message for deleting a Bible
+  String get deleteBibleMessage;
+
+  /// Primary Bible section label
+  String get primaryBible;
+
+  /// Primary Bible change hint
+  String get clickToChange;
+
+  /// Secondary Bible section label
+  String get secondaryBiblesTitle;
+
+  /// Other Bible section label
+  String get otherBiblesTitle;
+
+  /// Set a Bible as a secondary translation
+  String get setAsSecondary;
+
+  /// Rename action label
+  String get renameAction;
+
+  /// Reader theme setting label
+  String get themeLabel;
+
+  /// System theme option
+  String get themeSystem;
+
+  /// Decrease reader text size tooltip
+  String get smallerTextTooltip;
+
+  /// Increase reader text size tooltip
+  String get largerTextTooltip;
+
+  /// Clear search history action
+  String get clearSearchHistory;
+
+  /// Empty Bible search history state
+  String get noSearchHistory;
+
+  /// Empty Bible reading history state
+  String get noReadingHistory;
+
+  /// Hint for adding a secondary Bible
+  String get hoverSetSecondary;
+
+  /// Bible management prompt description
+  String get bibleManagementPrompt;
+
+  /// Multi-Bible reader setting description
+  String get multiBibleDescription;
+
+  /// Embedded Bible management title
+  String get manageYourBibles;
+
+  /// Reading history tab title
+  String get historyReading;
+
+  /// Search history tab title
+  String get historySearches;
+
+  /// Empty search history state
+  String get noSearchesYet;
+
+  /// Clear reading history confirmation
+  String get clearReadingHistoryMessage;
+
+  /// Clear search history confirmation
+  String get clearSearchHistoryMessage;
+
+  /// Recent Bible searches heading
+  String get recentSearches;
+
+  /// Number of Bible search results
+  String searchResultCount(int count);
+
+  /// Delete scripture list confirmation
+  String get deleteListMessage;
+
+  /// Empty scripture list state
+  String get noScriptureLists;
+
+  /// Scripture count in a saved list
+  String scriptureCount(int count);
+
+  /// Fallback scripture list title
+  String get scriptureListTitle;
+
+  /// Rename list tooltip
+  String get renameTooltip;
+
+  /// Confirm clearing all bookmarks
+  String get clearAllBookmarksQuestion;
+
+  /// Confirm clearing all notes
+  String get clearAllNotesQuestion;
+
+  /// Delete selected bookmarks or notes confirmation
+  String deleteSelectedCountMessage(int count);
+
+  /// Clear all bookmarks confirmation
+  String get clearBookmarksMessage;
+
+  /// Clear all notes confirmation
+  String get clearNotesMessage;
+
+  /// Bookmarks tab label
+  String get bookmarksTab;
+
+  /// Notes tab label
+  String get notesTab;
+
+  /// Reading tab label
+  String get readingTab;
+
+  /// Empty scripture list state
+  String get noSavedScriptureLists;
+
+  /// First setup screen heading
+  String get welcomeToChurchLib;
+
+  /// First setup screen description
+  String get chooseModulesPrompt;
+
+  /// Selection count label
+  String biblesSelectedCount(int count, int max, String noun);
+
+  /// Songbook selection noun
+  String get songbooksNoun;
+
+  /// Bible selection noun
+  String get biblesNoun;
+
+  /// Bible selection hint
+  String get firstPickPrimaryBible;
+
+  /// Songbook selection maximum message
+  String songbookSelectionLimit(int count);
+
+  /// Continue navigation button label
+  String get continueUpper;
+
+  /// Finish navigation button label
+  String get finishUpper;
+
+  /// Setup progress detail
+  String get almostThere;
+
+  /// Download progress message
+  String percentDownloaded(int percent);
+
+  /// Song save progress title
+  String get savingYourSongs;
+
+  /// Song download progress title
+  String get fetchingYourSongs;
+
+  /// Song download progress message
+  String get momentOnly;
+
+  /// Primary Bible download progress title
+  String get downloadingPrimaryBible;
+
+  /// Bible progress label
+  String get bibleWord;
+
+  /// Secondary Bible download progress message
+  String get otherBiblesBackground;
+
+  /// Start auto-scroll button label
+  String get autoScrollAction;
+
+  /// Stop auto-scroll button label
+  String get stopScrollAction;
+
+  /// Start auto-scroll tooltip
+  String get startAutoScroll;
+
+  /// Stop auto-scroll tooltip
+  String get stopAutoScroll;
+
+  /// Old Testament tab label
+  String get oldTestament;
+
+  /// New Testament tab label
+  String get newTestament;
+
+  /// Multi-Bible reader enabled description
+  String get showOtherBibles;
+
+  /// Multi-Bible reader disabled description
+  String get downloadBibleToUse;
+
+  /// Add note action label
+  String get addNoteAction;
+
+  /// Add note selection hint
+  String get selectSingleVerseNote;
+
+  /// Selected item count
+  String selectedCount(int count);
+
+  /// Setup modules description
+  String get firstSetupMessage;
+
+  /// Bookmark options dialog prompt
+  String get bookmarkOptionsPrompt;
+
+  /// How it works sheet title
+  String howModuleWorks(String moduleName);
+
+  /// Switch application module tooltip
+  String switchToModule(String moduleName);
+
+  /// SongLib guide section title
+  String get songHowFindTitle;
+
+  /// SongLib guide for finding songs
+  String get songHowFindBody;
+
+  /// SongLib guide section title
+  String get songHowReadTitle;
+
+  /// SongLib guide for reading songs
+  String get songHowReadBody;
+
+  /// SongLib guide section title
+  String get songHowPresentTitle;
+
+  /// SongLib guide for presenting songs
+  String get songHowPresentBody;
+
+  /// SongLib guide section title
+  String get songHowKeysTitle;
+
+  /// SongLib presenter keyboard shortcuts
+  String get songHowKeysBody;
+
+  /// SongLib guide section title
+  String get songHowQuickTitle;
+
+  /// SongLib guide for quick actions
+  String get songHowQuickBody;
+
+  /// SongLib guide section title
+  String get songHowLikesTitle;
+
+  /// SongLib guide for liked songs
+  String get songHowLikesBody;
+
+  /// SongLib guide section title
+  String get songHowBooksTitle;
+
+  /// SongLib guide for songbook storage and updates
+  String get songHowBooksBody;
+
+  /// BibleLib guide section title
+  String get bibleHowReadingTitle;
+
+  /// BibleLib guide for reading
+  String get bibleHowReadingBody;
+
+  /// BibleLib guide section title
+  String get bibleHowTextTitle;
+
+  /// BibleLib guide for text size and auto scroll
+  String get bibleHowTextBody;
+
+  /// BibleLib guide section title
+  String get bibleHowParallelTitle;
+
+  /// BibleLib guide for parallel translations
+  String get bibleHowParallelBody;
+
+  /// BibleLib guide section title
+  String get bibleHowSelectTitle;
+
+  /// BibleLib guide for selecting verses
+  String get bibleHowSelectBody;
+
+  /// BibleLib guide section title
+  String get bibleHowSearchTitle;
+
+  /// BibleLib guide for Bible search
+  String get bibleHowSearchBody;
+
+  /// BibleLib guide section title
+  String get bibleHowHistoryTitle;
+
+  /// BibleLib guide for history
+  String get bibleHowHistoryBody;
+
+  /// BibleLib guide section title
+  String get bibleHowBookmarksTitle;
+
+  /// BibleLib guide for bookmarks and notes
+  String get bibleHowBookmarksBody;
+
+  /// BibleLib guide section title
+  String get bibleHowOpenerTitle;
+
+  /// BibleLib guide for Scripture Opener
+  String get bibleHowOpenerBody;
+
+  /// BibleLib guide section title
+  String get bibleHowListsTitle;
+
+  /// BibleLib guide for saved scripture lists
+  String get bibleHowListsBody;
+
+  /// BibleLib guide section title
+  String get bibleHowManageTitle;
+
+  /// BibleLib guide for Bible management
+  String get bibleHowManageBody;
+
+  /// Justified presentation text alignment label
+  String get alignmentJustified;
 }
 
 class _AppLocalizationsDelegate

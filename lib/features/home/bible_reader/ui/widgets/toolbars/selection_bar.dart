@@ -8,6 +8,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import '../dialogs/export.dart';
 
@@ -47,12 +48,13 @@ class SelectionBar extends StatelessWidget {
 
   Future<void> _copy(BuildContext context) async {
     final text = context.read<BibleReaderCubit>().buildSelectionShareText();
+    final l10n = AppLocalizations.of(context)!;
     if (text == null) return;
     await Clipboard.setData(ClipboardData(text: text));
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Copied to clipboard'),
+        SnackBar(
+          content: Text(l10n.copyTextToClipboard),
           duration: Duration(seconds: 2),
         ),
       );
@@ -62,6 +64,7 @@ class SelectionBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<BibleReaderCubit>();
+    final l10n = AppLocalizations.of(context)!;
     final count = state.selectedVerseIds.length;
     return Material(
       color: ThemeColors.primary.withValues(alpha: 0.14),
@@ -69,33 +72,34 @@ class SelectionBar extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            tooltip: 'Cancel selection (Esc)',
+            tooltip: l10n.cancelVerseSelection,
             onPressed: cubit.clearSelection,
             icon: const Icon(Icons.close),
           ),
           Text(
-            '$count selected',
+            l10n.selectedCount(count),
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const Spacer(),
           IconButton(
-            tooltip: 'Bookmark / highlight',
+            tooltip: l10n.bookmarkHighlight,
             onPressed: () => _bookmark(context),
             icon: const Icon(Icons.bookmark_rounded),
           ),
           IconButton(
-            tooltip: count == 1 ? 'Add note' : 'Select a single verse to add a note',
+            tooltip: count == 1
+                ? l10n.addNoteAction
+                : l10n.selectSingleVerseNote,
             onPressed: count == 1 ? () => _notes(context) : null,
             icon: const Icon(Icons.edit_note),
           ),
           IconButton(
-            tooltip: 'Copy',
+            tooltip: l10n.copyAction,
             onPressed: () => _copy(context),
             icon: const Icon(Icons.content_copy),
           ),
         ],
-      )
-          .padding(horizontal: 12, vertical: 6),
+      ).padding(horizontal: 12, vertical: 6),
     );
   }
 }

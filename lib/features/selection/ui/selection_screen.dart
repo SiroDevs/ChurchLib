@@ -64,12 +64,12 @@ class _SelectionView extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Set up ChurchLib'),
+            title: Text(AppLocalizations.of(context)!.setupChurchLibTitle),
             actions: [
               if (current == SelectionStepType.songs)
                 TextButton.icon(
                   icon: const Icon(Icons.refresh),
-                  label: const Text('Refresh'),
+                  label: Text(AppLocalizations.of(context)!.refreshAction),
                   onPressed: () => bloc.add(const BooksRequested()),
                 ),
               const ThemeButton(showLabel: true),
@@ -112,7 +112,7 @@ class _SelectionView extends StatelessWidget {
     final bloc = context.read<SelectionBloc>();
     return switch (state.current) {
       SelectionStepType.modules => StepNavigationBar(
-        label: 'CONTINUE',
+        label: AppLocalizations.of(context)!.continueUpper,
         onBack: onBack,
         onPressed: state.songlib || state.biblelib
             ? () => bloc.add(
@@ -128,7 +128,7 @@ class _SelectionView extends StatelessWidget {
             : null,
       ),
       SelectionStepType.bibles => StepNavigationBar(
-        label: 'FINISH',
+        label: AppLocalizations.of(context)!.finishUpper,
         onBack: onBack,
         onPressed:
             state.bibleStatus == BibleStatus.loaded && state.canProceedBibles

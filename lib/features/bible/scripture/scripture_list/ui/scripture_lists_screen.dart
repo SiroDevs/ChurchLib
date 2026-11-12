@@ -11,6 +11,7 @@ import '../../../../../common/utils/display/dialog_utils.dart';
 import '../../../../../common/windows/open_windows.dart';
 import '../../../../../common/windows/window_frame.dart';
 import '../../../../../core/theme/theme_colors.dart';
+import '../../../../../l10n/gen/app_localizations.dart';
 import '../cubit/scripture_lists_cubit.dart';
 
 class ScriptureListsScreen extends StatelessWidget {
@@ -29,11 +30,12 @@ class _ScriptureListsView extends StatelessWidget {
   const _ScriptureListsView();
 
   Future<void> _delete(BuildContext context, int listId) async {
+    final l10n = AppLocalizations.of(context)!;
     final ok = await showConfirmDialog(
       context,
-      title: 'Delete this list?',
-      message: "This can't be undone.",
-      confirmLabel: 'Delete',
+      title: l10n.deleteScriptureListQuestion,
+      message: l10n.deleteListMessage,
+      confirmLabel: l10n.deleteAction,
       destructive: true,
     );
     if (ok && context.mounted) {
@@ -49,35 +51,35 @@ class _ScriptureListsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: const WindowAppBar(
+      appBar: WindowAppBar(
         icon: Icons.list_alt,
-        title: 'Scripture Lists',
+        title: l10n.scriptureListsTitle,
       ),
       body: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 720),
         child: BlocBuilder<ScriptureListsCubit, ScriptureListsState>(
           builder: (context, state) => _body(context, state),
         ),
-      )
-          .center(),
+      ).center(),
     );
   }
 
   Widget _body(BuildContext context, ScriptureListsState state) {
+    final l10n = AppLocalizations.of(context)!;
     if (state.status == ScriptureListsStatus.loading) {
       return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.status == ScriptureListsStatus.error) {
-      return Text(state.error!).center();
+      return Text(AppLocalizations.of(context)!.scriptureListsFailed).center();
     }
     if (state.lists.isEmpty) {
       return Text(
-        'No saved scripture lists yet.\nBuild one in Scripture Opener.',
+        l10n.noScriptureLists,
         textAlign: TextAlign.center,
         style: TextStyle(color: ThemeColors.mediumGrey),
-      )
-          .center();
+      ).center();
     }
     final fmt = DateFormat('MMM d, yyyy');
     return ListView.separated(
@@ -89,12 +91,12 @@ class _ScriptureListsView extends StatelessWidget {
           leading: const Icon(Icons.playlist_play, color: ThemeColors.primary),
           title: Text(l.name),
           subtitle: Text(
-            '${l.itemCount} scripture(s) · ${fmt.format(DateTime.fromMillisecondsSinceEpoch(l.createdAt))}',
+            '${l10n.scriptureCount(l.itemCount)} · ${fmt.format(DateTime.fromMillisecondsSinceEpoch(l.createdAt))}',
             style: const TextStyle(fontSize: 12),
           ),
           onTap: () => _open(context, l),
           trailing: IconButton(
-            tooltip: 'Delete',
+            tooltip: l10n.deleteAction,
             icon: const Icon(Icons.delete_outline),
             onPressed: () => _delete(context, l.id),
           ),

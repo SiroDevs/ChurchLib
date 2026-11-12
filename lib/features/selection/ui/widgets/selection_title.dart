@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../../core/theme/theme_colors.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 
 class SelectionTitle extends StatelessWidget {
   final String title;
@@ -35,7 +36,8 @@ class SelectionTitle extends StatelessWidget {
             style: TextStyle(fontSize: 24, color: onSurface),
           ),
           TextSpan(
-            text: '$count out of $max $noun selected',
+            text: AppLocalizations.of(context)!
+                .biblesSelectedCount(count, max, noun),
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w600,

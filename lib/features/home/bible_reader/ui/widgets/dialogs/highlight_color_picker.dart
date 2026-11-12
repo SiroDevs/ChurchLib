@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 // Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../verses/verse_row.dart';
 
 Future<String?> showHighlightColorPicker(BuildContext context) {
+  final l10n = AppLocalizations.of(context)!;
   return showDialog<String>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Choose a highlight color'),
+      title: Text(l10n.chooseHighlightColor),
       content: Wrap(
         spacing: 12,
         runSpacing: 12,
@@ -37,7 +39,7 @@ Future<String?> showHighlightColorPicker(BuildContext context) {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
       ],
     ),

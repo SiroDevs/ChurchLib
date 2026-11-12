@@ -76,7 +76,8 @@ class _SongsStepState extends State<SongsStep> {
             state.selectedBookIds.length >= maxSongbookSelections) {
           CustomSnackbar.show(
             context,
-            'You can select up to $maxSongbookSelections songbooks',
+            AppLocalizations.of(context)!
+                .songbookSelectionLimit(maxSongbookSelections),
           );
           return;
         }
@@ -98,12 +99,11 @@ class _SongsStepState extends State<SongsStep> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectionTitle(
-          title: 'Choose your Songbooks',
-          noun: 'songbooks',
+          title: AppLocalizations.of(context)!.chooseSongbooksTitle,
+          noun: AppLocalizations.of(context)!.songbooksNoun,
           count: state.selectedBookIds.length,
           max: maxSongbookSelections,
-        )
-            .padding(left: 24, top: 16, right: 24, bottom: 8),
+        ).padding(left: 24, top: 16, right: 24, bottom: 8),
         grid.expanded(),
       ],
     );

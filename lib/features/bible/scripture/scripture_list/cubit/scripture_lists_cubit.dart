@@ -23,15 +23,16 @@ class ScriptureListsCubit extends Cubit<ScriptureListsState> {
         final count = await _repo.getItemCount(l.id!);
         summaries.add(ScriptureListSummary(l.id!, l.name, l.createdAt, count));
       }
-      emit(state.copyWith(
-        status: ScriptureListsStatus.loaded,
-        lists: summaries,
-      ));
+      emit(
+        state.copyWith(status: ScriptureListsStatus.loaded, lists: summaries),
+      );
     } catch (_) {
-      emit(state.copyWith(
-        status: ScriptureListsStatus.error,
-        error: 'Failed to load scripture lists.',
-      ));
+      emit(
+        state.copyWith(
+          status: ScriptureListsStatus.error,
+          error: 'scriptureListsFailed',
+        ),
+      );
     }
   }
 

@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../l10n/gen/app_localizations.dart';
+
+// Project imports:
 import 'app_module.dart';
 import 'how_it_works_content.dart';
 
@@ -27,7 +30,8 @@ class _HowItWorksSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
-    final entries = howItWorksFor(module);
+    final l10n = AppLocalizations.of(context)!;
+    final entries = howItWorksFor(module, l10n);
     return DraggableScrollableSheet(
       expand: false,
       initialChildSize: .8,
@@ -40,18 +44,16 @@ class _HowItWorksSheet extends StatelessWidget {
               Image.asset(module.icon, width: 28, height: 28),
               const SizedBox(width: 12),
               Text(
-                'How ${module.label} works',
+                l10n.howModuleWorks(module.label),
                 style: text.titleLarge,
-              )
-                  .expanded(),
+              ).expanded(),
               IconButton(
-                tooltip: 'Close',
+                tooltip: l10n.closeAction,
                 icon: const Icon(Icons.close),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ],
-          )
-              .padding(left: 20, top: 16, right: 8, bottom: 4),
+          ).padding(left: 20, top: 16, right: 8, bottom: 4),
           const Divider(height: 1),
           ListView(
             controller: controller,
@@ -71,8 +73,7 @@ class _HowItWorksSheet extends StatelessWidget {
                   children: [Text(entries[i].body, style: text.bodyLarge)],
                 ),
             ],
-          )
-              .expanded(),
+          ).expanded(),
         ],
       ),
     );

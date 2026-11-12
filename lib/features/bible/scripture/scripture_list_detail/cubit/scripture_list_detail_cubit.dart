@@ -13,7 +13,7 @@ class ScriptureListDetailCubit extends Cubit<ScriptureListDetailState> {
   final int listId;
 
   ScriptureListDetailCubit(this.listId)
-      : super(const ScriptureListDetailState()) {
+    : super(const ScriptureListDetailState()) {
     load();
   }
 
@@ -22,17 +22,21 @@ class ScriptureListDetailCubit extends Cubit<ScriptureListDetailState> {
     final list = await _repo.getList(listId);
     final items = await _repo.getItems(listId);
     if (list == null || items.isEmpty) {
-      emit(state.copyWith(
-        status: ScriptureListDetailStatus.error,
-        error: 'This scripture list could not be found.',
-      ));
+      emit(
+        state.copyWith(
+          status: ScriptureListDetailStatus.error,
+          error: 'scriptureListNotFound',
+        ),
+      );
       return;
     }
-    emit(state.copyWith(
-      status: ScriptureListDetailStatus.loaded,
-      name: list.name,
-      items: items,
-    ));
+    emit(
+      state.copyWith(
+        status: ScriptureListDetailStatus.loaded,
+        name: list.name,
+        items: items,
+      ),
+    );
   }
 
   Future<void> rename(String name) async {

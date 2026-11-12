@@ -8,6 +8,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../../../../common/utils/theme/shape_utils.dart';
 import '../../../../../../data/models/bible/bible_version.dart';
 import '../../../../../../domain/repos/bible/bible_selection_repo.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../bloc/bibles_cubit.dart';
 import '../../../utils/bible_action.dart';
 import '../rows/bible_pill.dart';
@@ -30,6 +31,7 @@ class OtherBiblesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final canAdd =
         state.multiBibleEnabled &&
         state.secondaryBibles.length < bibleMaxSecondaryBibles;
@@ -44,12 +46,12 @@ class OtherBiblesCard extends StatelessWidget {
             if (canAdd)
               BibleAction(
                 Icons.add_circle_outline,
-                'Set as secondary',
+                l10n.setAsSecondary,
                 () => cubit.toggleSecondaryBible(bible.abbreviation),
               ),
             BibleAction(
               Icons.delete_outline,
-              'Delete',
+              l10n.deleteAction,
               () => onDelete(bible),
               destructive: true,
             ),
@@ -65,11 +67,8 @@ class OtherBiblesCard extends StatelessWidget {
           children: [
             SectionHeaderRow(
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-              left: SectionHeaderRow.label(context, 'Other Bibles'),
-              right: SectionHeaderRow.label(
-                context,
-                'Hover a Bible to set it as Secondary',
-              ),
+              left: SectionHeaderRow.label(context, l10n.otherBiblesTitle),
+              right: SectionHeaderRow.label(context, l10n.hoverSetSecondary),
             ),
             ...rows,
           ],

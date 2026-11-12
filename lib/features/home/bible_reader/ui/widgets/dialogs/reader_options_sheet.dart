@@ -10,6 +10,7 @@ import '../../../../../../common/utils/reader/reader_utils.dart';
 import '../../../../../../core/di/injectable.dart';
 import '../../../../../../core/theme/bloc/theme_bloc.dart';
 import '../../../../../../domain/repos/pref_repo.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 
 Future<void> showReaderOptionsSheet(BuildContext context) {
@@ -48,6 +49,7 @@ class _OptionsContentState extends State<_OptionsContent> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final text = Theme.of(context).textTheme;
     final label = text.labelLarge?.copyWith(
       color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -63,34 +65,34 @@ class _OptionsContentState extends State<_OptionsContent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Quick Options', style: text.titleLarge),
+                Text(l10n.quickOptions, style: text.titleLarge),
                 const SizedBox(height: 18),
-                Text('Theme', style: label),
+                Text(l10n.themeLabel, style: label),
                 const SizedBox(height: 8),
                 SegmentedButton<ThemeMode>(
                   showSelectedIcon: false,
-                  segments: const [
+                  segments: [
                     ButtonSegment(
                       value: ThemeMode.system,
                       icon: Icon(Icons.brightness_auto, size: 18),
-                      label: Text('System'),
+                      label: Text(l10n.themeSystem),
                     ),
                     ButtonSegment(
                       value: ThemeMode.light,
                       icon: Icon(Icons.light_mode, size: 18),
-                      label: Text('Light'),
+                      label: Text(l10n.themeLight),
                     ),
                     ButtonSegment(
                       value: ThemeMode.dark,
                       icon: Icon(Icons.dark_mode, size: 18),
-                      label: Text('Dark'),
+                      label: Text(l10n.themeDark),
                     ),
                   ],
                   selected: {_mode},
                   onSelectionChanged: (s) => _setTheme(s.first),
                 ),
                 const SizedBox(height: 22),
-                Text('Font size: ${state.fontSize}', style: label),
+                Text(l10n.fontSizeLabel(state.fontSize), style: label),
                 Row(
                   children: [
                     const Text('Aa', style: TextStyle(fontSize: 14)),
@@ -103,18 +105,15 @@ class _OptionsContentState extends State<_OptionsContent> {
                       divisions: (readerMaxFontSize - readerMinFontSize) ~/ 2,
                       label: '${state.fontSize}',
                       onChanged: (v) => cubit.setFontSize(v.round()),
-                    )
-                        .expanded(),
+                    ).expanded(),
                     const Text('Aa', style: TextStyle(fontSize: 26)),
                   ],
                 ),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Multi-Bible reader'),
+                  title: Text(l10n.multiBibleReader),
                   subtitle: Text(
-                    bibles > 1
-                        ? 'Show your other Bibles under each verse'
-                        : 'Download another Bible to use this',
+                    bibles > 1 ? l10n.showOtherBibles : l10n.downloadBibleToUse,
                   ),
                   value: state.multiBibleReaderEnabled,
                   onChanged: bibles > 1

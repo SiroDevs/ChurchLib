@@ -10,6 +10,7 @@ import '../../../../../../core/di/injectable.dart';
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../data/models/bible/scripture_item.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../../../bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 
@@ -65,6 +66,7 @@ class _ScriptureQueueBarState extends State<ScriptureQueueBar> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final items = widget.queueState.items;
     final index = widget.queueState.activeIndex;
     final hasPrev = index > 0;
@@ -76,12 +78,12 @@ class _ScriptureQueueBarState extends State<ScriptureQueueBar> {
       child: Row(
         children: [
           IconButton(
-            tooltip: 'Close Scripture Queue',
+            tooltip: l10n.closeScriptureQueue,
             onPressed: () => getIt<ScriptureQueueCubit>().dismiss(),
             icon: const Icon(Icons.close),
           ),
           IconButton(
-            tooltip: 'Previous Scripture',
+            tooltip: l10n.previousScripture,
             onPressed: hasPrev ? () => _open(context, items[index - 1]) : null,
             icon: const Icon(Icons.chevron_left),
           ),
@@ -110,7 +112,7 @@ class _ScriptureQueueBarState extends State<ScriptureQueueBar> {
             ),
           ).expanded(),
           IconButton(
-            tooltip: 'Next Scripture',
+            tooltip: l10n.nextScripture,
             onPressed: hasNext ? () => _open(context, items[index + 1]) : null,
             icon: const Icon(Icons.chevron_right),
           ),

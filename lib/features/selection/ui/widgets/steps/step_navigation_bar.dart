@@ -6,6 +6,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../core/theme/theme_colors.dart';
+import '../../../../../l10n/gen/app_localizations.dart';
 
 class StepNavigationBar extends StatelessWidget {
   final String label;
@@ -27,37 +28,38 @@ class StepNavigationBar extends StatelessWidget {
       elevation: 8,
       child: SafeArea(
         top: false,
-        child: Row(
-          children: [
-            if (onBack != null)
-              OutlinedButton.icon(
-                onPressed: onBack,
-                icon: const Icon(Icons.arrow_back),
-                label: const Text('BACK'),
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 24,
-                  ),
-                ),
-              ),
-            const Spacer(),
-            FilledButton(
-              onPressed: onPressed,
-              style: FilledButton.styleFrom(
-                backgroundColor: ThemeColors.primary,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 40,
-                ),
-              ),
-              child: Text(label),
-            ),
-          ],
-        )
-            .padding(horizontal: 24, vertical: 12)
-            .constrained(maxWidth: 1100)
-            .center(heightFactor: 1),
+        child:
+            Row(
+                  children: [
+                    if (onBack != null)
+                      OutlinedButton.icon(
+                        onPressed: onBack,
+                        icon: const Icon(Icons.arrow_back),
+                        label: Text(AppLocalizations.of(context)!.backButton),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 24,
+                          ),
+                        ),
+                      ),
+                    const Spacer(),
+                    FilledButton(
+                      onPressed: onPressed,
+                      style: FilledButton.styleFrom(
+                        backgroundColor: ThemeColors.primary,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 40,
+                        ),
+                      ),
+                      child: Text(label),
+                    ),
+                  ],
+                )
+                .padding(horizontal: 24, vertical: 12)
+                .constrained(maxWidth: 1100)
+                .center(heightFactor: 1),
       ),
     );
   }

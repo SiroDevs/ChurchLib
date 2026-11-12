@@ -7,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../../../common/utils/theme/shape_utils.dart';
 import '../../../../../../data/models/bible/bible_version.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../bloc/bibles_cubit.dart';
 import '../../../utils/bible_action.dart';
 import '../rows/bible_pill.dart';
@@ -32,38 +33,41 @@ class _SecondaryBiblesCardState extends State<SecondaryBiblesCard> {
   bool _reordering = false;
 
   Widget _reorderControls(String abbr, int index, int count) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            tooltip: 'Move up',
-            visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.arrow_upward, size: 18),
-            onPressed: index > 0
-                ? () => widget.cubit.moveSecondaryBible(abbr, -1)
-                : null,
-          ),
-          IconButton(
-            tooltip: 'Move down',
-            visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.arrow_downward, size: 18),
-            onPressed: index < count - 1
-                ? () => widget.cubit.moveSecondaryBible(abbr, 1)
-                : null,
-          ),
-        ],
-      );
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      IconButton(
+        tooltip: AppLocalizations.of(context)!.moveUp,
+        visualDensity: VisualDensity.compact,
+        icon: const Icon(Icons.arrow_upward, size: 18),
+        onPressed: index > 0
+            ? () => widget.cubit.moveSecondaryBible(abbr, -1)
+            : null,
+      ),
+      IconButton(
+        tooltip: AppLocalizations.of(context)!.moveDown,
+        visualDensity: VisualDensity.compact,
+        icon: const Icon(Icons.arrow_downward, size: 18),
+        onPressed: index < count - 1
+            ? () => widget.cubit.moveSecondaryBible(abbr, 1)
+            : null,
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
     final state = widget.state;
     final secondary = state.secondaryBibles;
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final showControls = _reordering && secondary.length > 1;
 
     final rows = <Widget>[];
     for (var i = 0; i < secondary.length; i++) {
       final abbr = secondary[i];
-      final bible = state.bibles.where((b) => b.abbreviation == abbr).firstOrNull;
+      final bible = state.bibles
+          .where((b) => b.abbreviation == abbr)
+          .firstOrNull;
       if (bible == null) continue;
       rows.add(
         Row(
@@ -75,12 +79,12 @@ class _SecondaryBiblesCardState extends State<SecondaryBiblesCard> {
               actions: [
                 BibleAction(
                   Icons.remove_circle_outline,
-                  'Remove from secondary',
+                  l10n.removeFromSecondary,
                   () => widget.cubit.toggleSecondaryBible(abbr),
                 ),
                 BibleAction(
                   Icons.delete_outline,
-                  'Delete',
+                  l10n.deleteAction,
                   () => widget.onDelete(bible),
                   destructive: true,
                 ),
@@ -95,26 +99,29 @@ class _SecondaryBiblesCardState extends State<SecondaryBiblesCard> {
     }
 
     return Column(
-      children: [
-        SectionHeaderRow(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-          left: SectionHeaderRow.label(
-            context,
-            secondary.length == 1
-                ? '1 secondary bible'
-                : '${secondary.length} secondary bibles',
-          ),
-          right: secondary.length > 1
-              ? TextButton.icon(
-                  onPressed: () => setState(() => _reordering = !_reordering),
-                  icon: const Icon(Icons.swap_vert, size: 18),
-                  label: Text(_reordering ? 'Done' : 'Reorder'),
-                )
-              : SectionHeaderRow.label(context, 'Hover a Bible to remove it'),
-        ),
-        ...rows,
-      ],
-    )
+          children: [
+            SectionHeaderRow(
+              padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+              left: SectionHeaderRow.label(
+                context,
+                secondary.length == 1
+                    ? l10n.oneSecondaryBible
+                    : l10n.secondaryBibleCount(secondary.length),
+              ),
+              right: secondary.length > 1
+                  ? TextButton.icon(
+                      onPressed: () =>
+                          setState(() => _reordering = !_reordering),
+                      icon: const Icon(Icons.swap_vert, size: 18),
+                      label: Text(
+                        _reordering ? l10n.doneAction : l10n.reorderAction,
+                      ),
+                    )
+                  : SectionHeaderRow.label(context, l10n.hoverRemoveBible),
+            ),
+            ...rows,
+          ],
+        )
         .padding(top: 4, bottom: 5)
         .card(
           margin: EdgeInsets.zero,

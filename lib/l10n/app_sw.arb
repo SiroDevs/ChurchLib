@@ -288,10 +288,6 @@
   "@justAMinute": {
     "description": "Kichwa cha kidirisha kinachovutia umakini"
   },
-  "supportSonglib": "Unga mkono ChurchLib",
-  "@supportSonglib": {
-    "description": "Kichwa cha ombi la usaidizi/mchango"
-  },
   "notificationDialog": "Hebu tukukumbushe",
   "@notificationDialog": {
     "description": "Kichwa cha kidirisha cha ukumbusho"
@@ -448,243 +444,1454 @@
   "@darkMode": {
     "description": "Lebo ya hali ya giza"
   },
-
-    "licenseTitle": "Leseni",
-    "@licenseTitle": {
-        "description": "Title of the license section"
-    },
-    "licenseTrialActive": "Jaribio la bure",
-    "@licenseTrialActive": {
-        "description": "Label shown while the free trial is running"
-    },
-    "licenseDayLeft": "Siku 1 imebaki",
-    "@licenseDayLeft": {
-        "description": "Shown when one trial day remains"
-    },
-    "licenseDaysLeft": "Siku {days} zimebaki",
-    "@licenseDaysLeft": {
-        "description": "Shown when several trial days remain",
-        "placeholders": {
-            "days": {
-                "type": "String",
-                "example": "5"
-            }
-        }
-    },
-    "licenseBuy": "Nunua leseni",
-    "@licenseBuy": {
-        "description": "Button that opens the purchase window"
-    },
-    "licenseUnlock": "Fungua ChurchLib",
-    "@licenseUnlock": {
-        "description": "Title of the purchase window"
-    },
-    "licenseTrialEndedTitle": "Jaribio lako la bure limeisha",
-    "@licenseTrialEndedTitle": {
-        "description": "Heading when the trial is over"
-    },
-    "licenseTrialEndedBody": "Fungua ChurchLib mara moja na uitumie daima kwenye kompyuta hii.",
-    "@licenseTrialEndedBody": {
-        "description": "Explains what buying a license gives"
-    },
-    "licenseRevokedTitle": "Leseni hii haifanyi kazi tena",
-    "@licenseRevokedTitle": {
-        "description": "Heading when the license was withdrawn"
-    },
-    "licenseRevokedBody": "Tafadhali wasiliana nasi tukusaidie.",
-    "@licenseRevokedBody": {
-        "description": "Asks the person to contact support"
-    },
-    "licenseConnectTitle": "Unganisha kwenye intaneti",
-    "@licenseConnectTitle": {
-        "description": "Heading when the first online check could not happen"
-    },
-    "licenseConnectBody": "ChurchLib inahitaji kuingia mtandaoni mara moja ili kuanza jaribio lako la bure. Baada ya hapo inafanya kazi bila intaneti.",
-    "@licenseConnectBody": {
-        "description": "Explains why internet is needed once"
-    },
-    "licenseClockTitle": "Angalia tarehe na saa ya kompyuta yako",
-    "@licenseClockTitle": {
-        "description": "Heading when the clock looks wrong"
-    },
-    "licenseClockBody": "Saa inaonekana kuwa si sahihi. Irekebishe kisha ujaribu tena.",
-    "@licenseClockBody": {
-        "description": "Asks the person to fix the clock"
-    },
-    "licenseNotConfigured": "Seva ya leseni haijawekwa kwenye toleo hili la ChurchLib.",
-    "@licenseNotConfigured": {
-        "description": "Shown by builds that have no license server configured"
-    },
-    "licenseChecking": "Inakagua leseni yako…",
-    "@licenseChecking": {
-        "description": "Shown while the license is being checked"
-    },
-    "licenseRetry": "Jaribu tena",
-    "@licenseRetry": {
-        "description": "Retry button"
-    },
-    "licensePriceLine": "{local} au {usd}, mara moja, kwa kompyuta hii",
-    "@licensePriceLine": {
-        "description": "Price line with both currencies",
-        "placeholders": {
-            "local": {
-                "type": "String",
-                "example": "KES 5,000"
-            },
-            "usd": {
-                "type": "String",
-                "example": "$40"
-            }
-        }
-    },
-    "licenseHowToPay": "Jinsi ya kulipa",
-    "@licenseHowToPay": {
-        "description": "Heading above the payment instructions"
-    },
-    "licenseSendTo": "Tuma {amount} kwa",
-    "@licenseSendTo": {
-        "description": "Instruction before the payment number or email",
-        "placeholders": {
-            "amount": {
-                "type": "String",
-                "example": "KES 5,000"
-            }
-        }
-    },
-    "licenseAfterPaying": "Kisha weka msimbo wa muamala hapa chini. Tutaidhinisha na ChurchLib itafunguka.",
-    "@licenseAfterPaying": {
-        "description": "Explains what happens after paying"
-    },
-    "licenseNameLabel": "Jina lililotumika kulipa",
-    "@licenseNameLabel": {
-        "description": "Form field label"
-    },
-    "licensePhoneLabel": "Namba ya simu",
-    "@licensePhoneLabel": {
-        "description": "Form field label"
-    },
-    "licenseCodeMpesa": "Msimbo wa uthibitisho wa M-Pesa",
-    "@licenseCodeMpesa": {
-        "description": "Form field label"
-    },
-    "licenseCodePaypal": "Kitambulisho cha muamala wa PayPal",
-    "@licenseCodePaypal": {
-        "description": "Form field label"
-    },
-    "licenseSubmitPayment": "Tuma malipo",
-    "@licenseSubmitPayment": {
-        "description": "Button that sends the payment details"
-    },
-    "licenseCodeInvalid": "Weka herufi na namba 8 hadi 20 kutoka kwenye ujumbe au risiti yako",
-    "@licenseCodeInvalid": {
-        "description": "Validation message for the transaction code"
-    },
-    "licenseNameInvalid": "Weka jina lililotumika kulipa",
-    "@licenseNameInvalid": {
-        "description": "Validation message for the name"
-    },
-    "licensePhoneInvalid": "Weka namba ya simu",
-    "@licensePhoneInvalid": {
-        "description": "Validation message for the phone number"
-    },
-    "licensePaymentPendingTitle": "Malipo yamepokelewa",
-    "@licensePaymentPendingTitle": {
-        "description": "Heading while a payment waits for approval"
-    },
-    "licensePaymentPendingBody": "Tunayakagua. Kwa kawaida huchukua saa chache. ChurchLib itafunguka yenyewe likiidhinishwa.",
-    "@licensePaymentPendingBody": {
-        "description": "Explains the wait for approval"
-    },
-    "licenseCheckAgain": "Angalia tena",
-    "@licenseCheckAgain": {
-        "description": "Button that checks the payment status"
-    },
-    "licenseHaveKey": "Una ufunguo wa leseni?",
-    "@licenseHaveKey": {
-        "description": "Link that reveals the license key box"
-    },
-    "licenseKeyLabel": "Ufunguo wa leseni",
-    "@licenseKeyLabel": {
-        "description": "Label for the license key"
-    },
-    "licenseRedeem": "Tumia ufunguo",
-    "@licenseRedeem": {
-        "description": "Button that applies a license key"
-    },
-    "licenseActivated": "Leseni imewashwa. Asante!",
-    "@licenseActivated": {
-        "description": "Success message after unlocking"
-    },
-    "licenseComputerId": "Kompyuta hii",
-    "@licenseComputerId": {
-        "description": "Label for the short computer id"
-    },
-    "licenseCopy": "Nakili",
-    "@licenseCopy": {
-        "description": "Copy button tooltip"
-    },
-    "licenseCopied": "Imenakiliwa",
-    "@licenseCopied": {
-        "description": "Shown after copying"
-    },
-    "licenseSupport": "Unahitaji msaada?",
-    "@licenseSupport": {
-        "description": "Label before the support links"
-    },
-    "licenseStatusLicensed": "Imepewa leseni",
-    "@licenseStatusLicensed": {
-        "description": "Status of a paid license"
-    },
-    "licenseSince": "Tangu {date}",
-    "@licenseSince": {
-        "description": "Date the license was issued",
-        "placeholders": {
-            "date": {
-                "type": "String",
-                "example": "13 Oct 2026"
-            }
-        }
-    },
-    "licenseLastChecked": "Ilikaguliwa mwisho {when}",
-    "@licenseLastChecked": {
-        "description": "When the server was last asked",
-        "placeholders": {
-            "when": {
-                "type": "String",
-                "example": "5 minutes ago"
-            }
-        }
-    },
-    "licenseNeverChecked": "Haijakaguliwa bado",
-    "@licenseNeverChecked": {
-        "description": "Shown before the first check"
-    },
-    "licenseCheckNow": "Kagua sasa",
-    "@licenseCheckNow": {
-        "description": "Button that asks the server now"
-    },
-    "licenseMoveTitle": "Hamisha kwenye kompyuta nyingine",
-    "@licenseMoveTitle": {
-        "description": "Title of the release-license action"
-    },
-    "licenseMoveDesc": "Achilia leseni hii hapa ili uitumie kwenye kompyuta mpya.",
-    "@licenseMoveDesc": {
-        "description": "Explains the release-license action"
-    },
-    "licenseMoveConfirm": "Kompyuta hii itarudi kwenye jaribio la bure. Kisha weka ufunguo wako wa leseni kwenye kompyuta mpya.",
-    "@licenseMoveConfirm": {
-        "description": "Confirmation text before releasing a license"
-    },
-    "licenseRelease": "Achilia",
-    "@licenseRelease": {
-        "description": "Confirm button of the release dialog"
-    },
-    "licenseTrialEndedBanner": "Jaribio la bure limeisha. ChurchLib itaomba leseni utakapoifungua tena.",
-    "@licenseTrialEndedBanner": {
-        "description": "Sidebar banner after the trial ended"
-    },
-    "licenseDeveloperBuild": "Toleo la msanidi: ukaguzi wa leseni umezimwa.",
-    "@licenseDeveloperBuild": {
-        "description": "Shown in debug builds without a license server"
+  "licenseTitle": "Leseni",
+  "@licenseTitle": {
+    "description": "Title of the license section"
+  },
+  "licenseTrialActive": "Jaribio la bure",
+  "@licenseTrialActive": {
+    "description": "Label shown while the free trial is running"
+  },
+  "licenseDayLeft": "Siku 1 imebaki",
+  "@licenseDayLeft": {
+    "description": "Shown when one trial day remains"
+  },
+  "licenseDaysLeft": "Siku {days} zimebaki",
+  "@licenseDaysLeft": {
+    "description": "Shown when several trial days remain",
+    "placeholders": {
+      "days": {
+        "type": "String",
+        "example": "5"
+      }
     }
+  },
+  "licenseBuy": "Nunua leseni",
+  "@licenseBuy": {
+    "description": "Button that opens the purchase window"
+  },
+  "licenseUnlock": "Fungua ChurchLib",
+  "@licenseUnlock": {
+    "description": "Title of the purchase window"
+  },
+  "licenseTrialEndedTitle": "Jaribio lako la bure limeisha",
+  "@licenseTrialEndedTitle": {
+    "description": "Heading when the trial is over"
+  },
+  "licenseTrialEndedBody": "Fungua ChurchLib mara moja na uitumie daima kwenye kompyuta hii.",
+  "@licenseTrialEndedBody": {
+    "description": "Explains what buying a license gives"
+  },
+  "licenseRevokedTitle": "Leseni hii haifanyi kazi tena",
+  "@licenseRevokedTitle": {
+    "description": "Heading when the license was withdrawn"
+  },
+  "licenseRevokedBody": "Tafadhali wasiliana nasi tukusaidie.",
+  "@licenseRevokedBody": {
+    "description": "Asks the person to contact support"
+  },
+  "licenseConnectTitle": "Unganisha kwenye intaneti",
+  "@licenseConnectTitle": {
+    "description": "Heading when the first online check could not happen"
+  },
+  "licenseConnectBody": "ChurchLib inahitaji kuingia mtandaoni mara moja ili kuanza jaribio lako la bure. Baada ya hapo inafanya kazi bila intaneti.",
+  "@licenseConnectBody": {
+    "description": "Explains why internet is needed once"
+  },
+  "licenseClockTitle": "Angalia tarehe na saa ya kompyuta yako",
+  "@licenseClockTitle": {
+    "description": "Heading when the clock looks wrong"
+  },
+  "licenseClockBody": "Saa inaonekana kuwa si sahihi. Irekebishe kisha ujaribu tena.",
+  "@licenseClockBody": {
+    "description": "Asks the person to fix the clock"
+  },
+  "licenseNotConfigured": "Seva ya leseni haijawekwa kwenye toleo hili la ChurchLib.",
+  "@licenseNotConfigured": {
+    "description": "Shown by builds that have no license server configured"
+  },
+  "licenseChecking": "Inakagua leseni yako…",
+  "@licenseChecking": {
+    "description": "Shown while the license is being checked"
+  },
+  "licenseRetry": "Jaribu tena",
+  "@licenseRetry": {
+    "description": "Retry button"
+  },
+  "licensePriceLine": "{local} au {usd}, mara moja, kwa kompyuta hii",
+  "@licensePriceLine": {
+    "description": "Price line with both currencies",
+    "placeholders": {
+      "local": {
+        "type": "String",
+        "example": "KES 5,000"
+      },
+      "usd": {
+        "type": "String",
+        "example": "$40"
+      }
+    }
+  },
+  "licenseHowToPay": "Jinsi ya kulipa",
+  "@licenseHowToPay": {
+    "description": "Heading above the payment instructions"
+  },
+  "licenseSendTo": "Tuma {amount} kwa",
+  "@licenseSendTo": {
+    "description": "Instruction before the payment number or email",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "KES 5,000"
+      }
+    }
+  },
+  "licenseAfterPaying": "Kisha weka msimbo wa muamala hapa chini. Tutaidhinisha na ChurchLib itafunguka.",
+  "@licenseAfterPaying": {
+    "description": "Explains what happens after paying"
+  },
+  "licenseNameLabel": "Jina lililotumika kulipa",
+  "@licenseNameLabel": {
+    "description": "Form field label"
+  },
+  "licensePhoneLabel": "Namba ya simu",
+  "@licensePhoneLabel": {
+    "description": "Form field label"
+  },
+  "licenseCodeMpesa": "Msimbo wa uthibitisho wa M-Pesa",
+  "@licenseCodeMpesa": {
+    "description": "Form field label"
+  },
+  "licenseCodePaypal": "Kitambulisho cha muamala wa PayPal",
+  "@licenseCodePaypal": {
+    "description": "Form field label"
+  },
+  "licenseSubmitPayment": "Tuma malipo",
+  "@licenseSubmitPayment": {
+    "description": "Button that sends the payment details"
+  },
+  "licenseCodeInvalid": "Weka herufi na namba 8 hadi 20 kutoka kwenye ujumbe au risiti yako",
+  "@licenseCodeInvalid": {
+    "description": "Validation message for the transaction code"
+  },
+  "licenseNameInvalid": "Weka jina lililotumika kulipa",
+  "@licenseNameInvalid": {
+    "description": "Validation message for the name"
+  },
+  "licensePhoneInvalid": "Weka namba ya simu",
+  "@licensePhoneInvalid": {
+    "description": "Validation message for the phone number"
+  },
+  "licensePaymentPendingTitle": "Malipo yamepokelewa",
+  "@licensePaymentPendingTitle": {
+    "description": "Heading while a payment waits for approval"
+  },
+  "licensePaymentPendingBody": "Tunayakagua. Kwa kawaida huchukua saa chache. ChurchLib itafunguka yenyewe likiidhinishwa.",
+  "@licensePaymentPendingBody": {
+    "description": "Explains the wait for approval"
+  },
+  "licenseCheckAgain": "Angalia tena",
+  "@licenseCheckAgain": {
+    "description": "Button that checks the payment status"
+  },
+  "licenseHaveKey": "Una ufunguo wa leseni?",
+  "@licenseHaveKey": {
+    "description": "Link that reveals the license key box"
+  },
+  "licenseKeyLabel": "Ufunguo wa leseni",
+  "@licenseKeyLabel": {
+    "description": "Label for the license key"
+  },
+  "licenseRedeem": "Tumia ufunguo",
+  "@licenseRedeem": {
+    "description": "Button that applies a license key"
+  },
+  "licenseActivated": "Leseni imewashwa. Asante!",
+  "@licenseActivated": {
+    "description": "Success message after unlocking"
+  },
+  "licenseComputerId": "Kompyuta hii",
+  "@licenseComputerId": {
+    "description": "Label for the short computer id"
+  },
+  "licenseCopy": "Nakili",
+  "@licenseCopy": {
+    "description": "Copy button tooltip"
+  },
+  "licenseCopied": "Imenakiliwa",
+  "@licenseCopied": {
+    "description": "Shown after copying"
+  },
+  "licenseSupport": "Unahitaji msaada?",
+  "@licenseSupport": {
+    "description": "Label before the support links"
+  },
+  "licenseStatusLicensed": "Imepewa leseni",
+  "@licenseStatusLicensed": {
+    "description": "Status of a paid license"
+  },
+  "licenseSince": "Tangu {date}",
+  "@licenseSince": {
+    "description": "Date the license was issued",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "13 Oct 2026"
+      }
+    }
+  },
+  "licenseLastChecked": "Ilikaguliwa mwisho {when}",
+  "@licenseLastChecked": {
+    "description": "When the server was last asked",
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "5 minutes ago"
+      }
+    }
+  },
+  "licenseNeverChecked": "Haijakaguliwa bado",
+  "@licenseNeverChecked": {
+    "description": "Shown before the first check"
+  },
+  "licenseCheckNow": "Kagua sasa",
+  "@licenseCheckNow": {
+    "description": "Button that asks the server now"
+  },
+  "licenseMoveTitle": "Hamisha kwenye kompyuta nyingine",
+  "@licenseMoveTitle": {
+    "description": "Title of the release-license action"
+  },
+  "licenseMoveDesc": "Achilia leseni hii hapa ili uitumie kwenye kompyuta mpya.",
+  "@licenseMoveDesc": {
+    "description": "Explains the release-license action"
+  },
+  "licenseMoveConfirm": "Kompyuta hii itarudi kwenye jaribio la bure. Kisha weka ufunguo wako wa leseni kwenye kompyuta mpya.",
+  "@licenseMoveConfirm": {
+    "description": "Confirmation text before releasing a license"
+  },
+  "licenseRelease": "Achilia",
+  "@licenseRelease": {
+    "description": "Confirm button of the release dialog"
+  },
+  "licenseTrialEndedBanner": "Jaribio la bure limeisha. ChurchLib itaomba leseni utakapoifungua tena.",
+  "@licenseTrialEndedBanner": {
+    "description": "Sidebar banner after the trial ended"
+  },
+  "licenseDeveloperBuild": "Toleo la msanidi: ukaguzi wa leseni umezimwa.",
+  "@licenseDeveloperBuild": {
+    "description": "Shown in debug builds without a license server"
+  },
+  "songSearchHint": "Tafuta wimbo kwa jina au maneno",
+  "@songSearchHint": {
+    "description": "Hint for searching songs"
+  },
+  "clearAction": "Futa",
+  "@clearAction": {
+    "description": "Clear action label"
+  },
+  "songCopiedClipboard": "Wimbo umenakiliwa kwenye ubao wa kunakili",
+  "@songCopiedClipboard": {
+    "description": "Song copy confirmation"
+  },
+  "noLikedSongs": "Bado hujapenda wimbo wowote.",
+  "@noLikedSongs": {
+    "description": "Empty state for liked songs"
+  },
+  "versesPanel": "Kidirisha cha mistari",
+  "@versesPanel": {
+    "description": "Song presentation verses panel setting"
+  },
+  "modulesTitle": "Moduli",
+  "@modulesTitle": {
+    "description": "Title for module settings"
+  },
+  "addSonglib": "Ongeza SongLib",
+  "@addSonglib": {
+    "description": "Add SongLib setting title"
+  },
+  "songlibSetupSubtitle": "Sanidi kitabu cha nyimbo cha kanisa lako",
+  "@songlibSetupSubtitle": {
+    "description": "SongLib setup description"
+  },
+  "addBiblelib": "Ongeza BibleLib",
+  "@addBiblelib": {
+    "description": "Add BibleLib setting title"
+  },
+  "biblelibSetupSubtitle": "Sanidi tafsiri ya Biblia",
+  "@biblelibSetupSubtitle": {
+    "description": "BibleLib setup description"
+  },
+  "resetData": "Futa data",
+  "@resetData": {
+    "description": "Reset data setting title"
+  },
+  "startOverBiblelib": "Anza upya na BibleLib",
+  "@startOverBiblelib": {
+    "description": "Reset BibleLib action"
+  },
+  "resetChurchlib": "Futa ChurchLib",
+  "@resetChurchlib": {
+    "description": "Reset ChurchLib action"
+  },
+  "setThemeDialogTitle": "Weka mandhari",
+  "@setThemeDialogTitle": {
+    "description": "Theme dialog title"
+  },
+  "settingsWindowTitle": "Mipangilio ya ChurchLib",
+  "@settingsWindowTitle": {
+    "description": "Settings window title"
+  },
+  "moveUp": "Sogeza juu",
+  "@moveUp": {
+    "description": "Move item up tooltip"
+  },
+  "moveDown": "Sogeza chini",
+  "@moveDown": {
+    "description": "Move item down tooltip"
+  },
+  "multiBibleReader": "Kisomaji cha Biblia nyingi",
+  "@multiBibleReader": {
+    "description": "Multi-Bible reader setting"
+  },
+  "noPrimaryBible": "Bado hujaweka Biblia kuu.",
+  "@noPrimaryBible": {
+    "description": "Message shown when no primary Bible is set"
+  },
+  "removeBibleQuestion": "Uondoe {bibleName}?",
+  "@removeBibleQuestion": {
+    "description": "Confirm removing a Bible",
+    "placeholders": {
+      "bibleName": {
+        "type": "String"
+      }
+    }
+  },
+  "choosePrimaryBible": "Chagua Biblia kuu",
+  "@choosePrimaryBible": {
+    "description": "Title for choosing the primary Bible"
+  },
+  "closeAction": "Funga",
+  "@closeAction": {
+    "description": "Close action label"
+  },
+  "managingBibles": "Kusimamia Biblia zako",
+  "@managingBibles": {
+    "description": "Bible management help title"
+  },
+  "bibleManagementQuestion": "Je, ungependa kujua jinsi ya kusimamia Biblia zako?",
+  "@bibleManagementQuestion": {
+    "description": "Bible management help prompt"
+  },
+  "noThanks": "Hapana asante",
+  "@noThanks": {
+    "description": "Decline action label"
+  },
+  "showMe": "Nionyeshe",
+  "@showMe": {
+    "description": "Show help action label"
+  },
+  "restartAction": "Anza upya",
+  "@restartAction": {
+    "description": "Restart action label"
+  },
+  "continueAction": "Endelea",
+  "@continueAction": {
+    "description": "Continue action label"
+  },
+  "deleteAction": "Futa",
+  "@deleteAction": {
+    "description": "Delete action label"
+  },
+  "howBibleManagementWorks": "Jinsi usimamizi wa Biblia unavyofanya kazi",
+  "@howBibleManagementWorks": {
+    "description": "Bible management help tooltip"
+  },
+  "manageBibles": "Simamia Biblia",
+  "@manageBibles": {
+    "description": "Bible management screen title"
+  },
+  "changeSelection": "Badilisha chaguo",
+  "@changeSelection": {
+    "description": "Change selected Bible editions action"
+  },
+  "deleteScriptureListQuestion": "Ufute orodha hii?",
+  "@deleteScriptureListQuestion": {
+    "description": "Confirm deleting a scripture list"
+  },
+  "scriptureListsTitle": "Orodha za maandiko",
+  "@scriptureListsTitle": {
+    "description": "Scripture lists screen title"
+  },
+  "renameList": "Badilisha jina la orodha",
+  "@renameList": {
+    "description": "Rename list dialog title"
+  },
+  "saveAction": "Hifadhi",
+  "@saveAction": {
+    "description": "Save action label"
+  },
+  "playAction": "Cheza",
+  "@playAction": {
+    "description": "Play action label"
+  },
+  "deleteSelectedQuestion": "Ufute vilivyochaguliwa?",
+  "@deleteSelectedQuestion": {
+    "description": "Confirm deleting selected items"
+  },
+  "bookmarksNotesTitle": "Alamisho na madokezo",
+  "@bookmarksNotesTitle": {
+    "description": "Bookmarks and notes screen title"
+  },
+  "deleteSelectedTooltip": "Futa vilivyochaguliwa",
+  "@deleteSelectedTooltip": {
+    "description": "Delete selected items tooltip"
+  },
+  "clearAll": "Futa vyote",
+  "@clearAll": {
+    "description": "Clear all action label"
+  },
+  "clearReadingHistoryQuestion": "Ufute historia ya usomaji?",
+  "@clearReadingHistoryQuestion": {
+    "description": "Confirm clearing reading history"
+  },
+  "clearSearchHistoryQuestion": "Ufute historia ya utafutaji?",
+  "@clearSearchHistoryQuestion": {
+    "description": "Confirm clearing search history"
+  },
+  "historyTitle": "Historia",
+  "@historyTitle": {
+    "description": "Bible history screen title"
+  },
+  "searchScripturesHint": "Tafuta maandiko ...",
+  "@searchScripturesHint": {
+    "description": "Bible search hint"
+  },
+  "noDownloadedBiblesToSearch": "Bado hakuna Biblia zilizopakuliwa za kutafuta.",
+  "@noDownloadedBiblesToSearch": {
+    "description": "Empty search state without downloaded Bibles"
+  },
+  "noSearchResultsForQuery": "Hakuna matokeo ya {query}",
+  "@noSearchResultsForQuery": {
+    "description": "Empty Bible search results",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "typeAtLeast3Letters": "Andika angalau herufi 3 kutafuta.",
+  "@typeAtLeast3Letters": {
+    "description": "Minimum Bible search query hint"
+  },
+  "searchBiblesHint": "Tafuta jina, kifupi au lugha",
+  "@searchBiblesHint": {
+    "description": "Bible selection search hint"
+  },
+  "chooseBiblesTitle": "Chagua Biblia zako",
+  "@chooseBiblesTitle": {
+    "description": "Bible selection step title"
+  },
+  "noBiblesMatch": "Hakuna Biblia zinazolingana na utafutaji wako",
+  "@noBiblesMatch": {
+    "description": "No Bible search matches"
+  },
+  "setupChurchLibTitle": "Sanidi ChurchLib",
+  "@setupChurchLibTitle": {
+    "description": "ChurchLib setup screen title"
+  },
+  "refreshAction": "Onyesha upya",
+  "@refreshAction": {
+    "description": "Refresh action label"
+  },
+  "backAction": "Rudi",
+  "@backAction": {
+    "description": "Back action label"
+  },
+  "finishAction": "Maliza",
+  "@finishAction": {
+    "description": "Finish action label"
+  },
+  "chooseSongbooksTitle": "Chagua vitabu vyako vya nyimbo",
+  "@chooseSongbooksTitle": {
+    "description": "Songbook selection step title"
+  },
+  "gettingEverythingReady": "Tunaandaa kila kitu…",
+  "@gettingEverythingReady": {
+    "description": "Setup progress title"
+  },
+  "unableDownloadSongs": "Imeshindwa kupakua nyimbo",
+  "@unableDownloadSongs": {
+    "description": "Song download failure title"
+  },
+  "retryAction": "Jaribu tena",
+  "@retryAction": {
+    "description": "Retry action label"
+  },
+  "songlibDescription": "Kitabu cha nyimbo na tenzi za kanisa, bila intaneti",
+  "@songlibDescription": {
+    "description": "SongLib module description"
+  },
+  "biblelibDescription": "Kisomaji cha Biblia chenye tafsiri nyingi",
+  "@biblelibDescription": {
+    "description": "BibleLib module description"
+  },
+  "previousAction": "Iliyotangulia",
+  "@previousAction": {
+    "description": "Previous action label"
+  },
+  "previousChapterTooltip": "Sura iliyotangulia (Alt + ←)",
+  "@previousChapterTooltip": {
+    "description": "Previous chapter tooltip"
+  },
+  "chapterNumberLabel": "Sura ya {chapterNumber}",
+  "@chapterNumberLabel": {
+    "description": "Chapter picker button label",
+    "placeholders": {
+      "chapterNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "pickChapter": "Chagua sura",
+  "@pickChapter": {
+    "description": "Chapter picker tooltip"
+  },
+  "nextAction": "Inayofuata",
+  "@nextAction": {
+    "description": "Next action label"
+  },
+  "nextChapterTooltip": "Sura inayofuata (Alt + →)",
+  "@nextChapterTooltip": {
+    "description": "Next chapter tooltip"
+  },
+  "quickOptions": "Chaguo za haraka",
+  "@quickOptions": {
+    "description": "Quick reader options title"
+  },
+  "smallerText": "Maandishi madogo",
+  "@smallerText": {
+    "description": "Decrease reader text size action"
+  },
+  "largerText": "Maandishi makubwa",
+  "@largerText": {
+    "description": "Increase reader text size action"
+  },
+  "slower": "Polepole zaidi",
+  "@slower": {
+    "description": "Decrease auto-scroll speed tooltip"
+  },
+  "faster": "Haraka zaidi",
+  "@faster": {
+    "description": "Increase auto-scroll speed tooltip"
+  },
+  "switchPrimaryBible": "Badilisha Biblia yako kuu",
+  "@switchPrimaryBible": {
+    "description": "Switch primary Bible tooltip"
+  },
+  "pickBibleBook": "Chagua kitabu cha Biblia",
+  "@pickBibleBook": {
+    "description": "Bible book picker tooltip"
+  },
+  "scriptureOpener": "Kifungua maandiko",
+  "@scriptureOpener": {
+    "description": "Scripture opener action"
+  },
+  "closeScriptureQueue": "Funga foleni ya maandiko",
+  "@closeScriptureQueue": {
+    "description": "Close scripture queue tooltip"
+  },
+  "previousScripture": "Andiko lililotangulia",
+  "@previousScripture": {
+    "description": "Previous scripture tooltip"
+  },
+  "nextScripture": "Andiko linalofuata",
+  "@nextScripture": {
+    "description": "Next scripture tooltip"
+  },
+  "chooseHighlightColor": "Chagua rangi ya kuangazia",
+  "@chooseHighlightColor": {
+    "description": "Highlight color dialog title"
+  },
+  "bookmarkVerses": "Weka alamisho kwenye mistari",
+  "@bookmarkVerses": {
+    "description": "Bookmark verses dialog title"
+  },
+  "bookmarkOnly": "Weka alamisho pekee",
+  "@bookmarkOnly": {
+    "description": "Bookmark without adding notes"
+  },
+  "bookmarkWithNotes": "Weka alamisho na madokezo",
+  "@bookmarkWithNotes": {
+    "description": "Bookmark and add notes action"
+  },
+  "saveNote": "Hifadhi dokezo",
+  "@saveNote": {
+    "description": "Save note tooltip"
+  },
+  "writeVerseThoughts": "Andika mawazo yako kuhusu mstari huu...",
+  "@writeVerseThoughts": {
+    "description": "Note editor hint"
+  },
+  "noBooksFound": "Hakuna vitabu vilivyopatikana",
+  "@noBooksFound": {
+    "description": "Empty Bible book picker state"
+  },
+  "searchBooksHint": "Tafuta vitabu...",
+  "@searchBooksHint": {
+    "description": "Bible book picker search hint"
+  },
+  "fontSizeLabel": "Ukubwa wa herufi: {size}",
+  "@fontSizeLabel": {
+    "description": "Reader font size label",
+    "placeholders": {
+      "size": {
+        "type": "int"
+      }
+    }
+  },
+  "copyTextToClipboard": "Imenakiliwa kwenye ubao wa kunakili",
+  "@copyTextToClipboard": {
+    "description": "Copy confirmation"
+  },
+  "cancelVerseSelection": "Ghairi uteuzi (Esc)",
+  "@cancelVerseSelection": {
+    "description": "Cancel verse selection tooltip"
+  },
+  "bookmarkHighlight": "Weka alamisho / angazia",
+  "@bookmarkHighlight": {
+    "description": "Bookmark or highlight tooltip"
+  },
+  "copyAction": "Nakili",
+  "@copyAction": {
+    "description": "Copy action label"
+  },
+  "backButton": "RUDI",
+  "@backButton": {
+    "description": "Back navigation button label"
+  },
+  "versionUpdateBanner": "Toleo {latest} limetoka (unatumia {current}).",
+  "@versionUpdateBanner": {
+    "description": "Available application update banner",
+    "placeholders": {
+      "latest": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "noBiblesDownloaded": "Bado hakuna Biblia iliyopakuliwa.",
+  "@noBiblesDownloaded": {
+    "description": "Reader message when no Bibles are downloaded"
+  },
+  "bibleDataUnavailable": "Data ya Biblia haipatikani. Subiri upakuaji ukamilike.",
+  "@bibleDataUnavailable": {
+    "description": "Reader message while Bible data downloads"
+  },
+  "noChaptersFound": "Hakuna sura zilizopatikana kwa {bookName}",
+  "@noChaptersFound": {
+    "description": "Reader message when a book has no chapters",
+    "placeholders": {
+      "bookName": {
+        "type": "String"
+      }
+    }
+  },
+  "versesNotCached": "Mistari haijahifadhiwa. Hakikisha upakuaji umekamilika.",
+  "@versesNotCached": {
+    "description": "Reader message when chapter verses are missing"
+  },
+  "readerLoadFailed": "Imeshindwa kupakia maudhui haya ya Biblia. Tafadhali jaribu tena.",
+  "@readerLoadFailed": {
+    "description": "Generic Bible reader load error"
+  },
+  "noBooksForBible": "Hakuna vitabu vilivyopatikana kwa Biblia hii.",
+  "@noBooksForBible": {
+    "description": "Scripture opener empty state"
+  },
+  "scriptureListsFailed": "Imeshindwa kupakia orodha za maandiko.",
+  "@scriptureListsFailed": {
+    "description": "Scripture list loading error"
+  },
+  "scriptureListNotFound": "Orodha hii ya maandiko haikupatikana.",
+  "@scriptureListNotFound": {
+    "description": "Missing scripture list error"
+  },
+  "songSearchFailed": "Imeshindwa kuonyesha nyimbo",
+  "@songSearchFailed": {
+    "description": "Song search failure message"
+  },
+  "showVersesPanel": "Onyesha kila mstari wa wimbo kando ya slaidi wakati wa kuwasilisha",
+  "@showVersesPanel": {
+    "description": "Verses panel setting description"
+  },
+  "startOverBiblelibQuestion": "Uanze upya na BibleLib?",
+  "@startOverBiblelibQuestion": {
+    "description": "Confirm resetting BibleLib"
+  },
+  "startOverBiblelibMessage": "Hii itafuta Biblia zote zilizopakuliwa, alamisho na madokezo. Huwezi kutendua kitendo hiki.",
+  "@startOverBiblelibMessage": {
+    "description": "Confirm resetting BibleLib message"
+  },
+  "resetChurchlibQuestion": "Ufute ChurchLib?",
+  "@resetChurchlibQuestion": {
+    "description": "Confirm resetting ChurchLib"
+  },
+  "resetChurchlibMessage": "Hii itafuta kila kitu — vitabu vya nyimbo, Biblia, alamisho, madokezo na mipangilio — na kukurudisha kwenye usanidi. Huwezi kutendua kitendo hiki.",
+  "@resetChurchlibMessage": {
+    "description": "Confirm resetting ChurchLib message"
+  },
+  "resetBibleSubtitle": "Futa Biblia zote zilizopakuliwa na uchague tafsiri tena",
+  "@resetBibleSubtitle": {
+    "description": "BibleLib reset setting description"
+  },
+  "resetChurchSubtitle": "Futa kila kitu — vitabu vya nyimbo, Biblia na alamisho — kisha anza upya",
+  "@resetChurchSubtitle": {
+    "description": "ChurchLib reset setting description"
+  },
+  "appearanceTitle": "Mwonekano",
+  "@appearanceTitle": {
+    "description": "Settings appearance section title"
+  },
+  "generalTitle": "Jumla",
+  "@generalTitle": {
+    "description": "General settings section title"
+  },
+  "presentationNavTitle": "Uwasilishaji",
+  "@presentationNavTitle": {
+    "description": "Presentation settings navigation title"
+  },
+  "biblesNavTitle": "Biblia",
+  "@biblesNavTitle": {
+    "description": "Bible settings navigation title"
+  },
+  "updateAvailable": "Sasisho linapatikana",
+  "@updateAvailable": {
+    "description": "Update banner title"
+  },
+  "songNumberLabel": "Wimbo #{songNumber}",
+  "@songNumberLabel": {
+    "description": "Song number label",
+    "placeholders": {
+      "songNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "backEscapeTooltip": "Rudi (Esc)",
+  "@backEscapeTooltip": {
+    "description": "Back action tooltip"
+  },
+  "stopAction": "Simamisha",
+  "@stopAction": {
+    "description": "Stop action label"
+  },
+  "doneAction": "Imekamilika",
+  "@doneAction": {
+    "description": "Done action label"
+  },
+  "reorderAction": "Panga upya",
+  "@reorderAction": {
+    "description": "Reorder action label"
+  },
+  "removeFromSecondary": "Ondoa kwenye Biblia za ziada",
+  "@removeFromSecondary": {
+    "description": "Remove a Bible from secondary translations"
+  },
+  "secondaryBibleCount": "Biblia {count} za ziada",
+  "@secondaryBibleCount": {
+    "description": "Count label for secondary Bibles",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "oneSecondaryBible": "Biblia 1 ya ziada",
+  "@oneSecondaryBible": {
+    "description": "One secondary Bible label"
+  },
+  "hoverRemoveBible": "Elekeza kishale kwenye Biblia ili kuiondoa",
+  "@hoverRemoveBible": {
+    "description": "Hint for removing a secondary Bible"
+  },
+  "downloadFailedStatus": " · Upakuaji umeshindwa",
+  "@downloadFailedStatus": {
+    "description": "Download failure status label"
+  },
+  "fetchingVersesStatus": " · Inapakua mistari",
+  "@fetchingVersesStatus": {
+    "description": "Download progress status label"
+  },
+  "downloadStoppedStatus": " · Upakuaji umesimama",
+  "@downloadStoppedStatus": {
+    "description": "Stopped download status label"
+  },
+  "biblePrimaryLabel": "BIBLIA YA {language} • KUU",
+  "@biblePrimaryLabel": {
+    "description": "Primary Bible label",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "bibleLanguageLabel": "BIBLIA YA {language}",
+  "@bibleLanguageLabel": {
+    "description": "Bible language label",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "bibleManagementInfo": "Unaweza kuongeza Biblia kwenye Kisomaji cha Biblia nyingi kwa kuelekeza kishale juu yake katika \"Biblia nyingine\" na kuchagua \"Weka kama ya ziada\". Elekeza kishale tena na uchague \"Ondoa kwenye Biblia za ziada\" ili kuiondoa.\n\nIli kufuta Biblia kwenye kifaa chako, elekeza kishale juu yake, chagua \"Futa\" na uthibitishe.\n\nIli kuongeza au kuondoa tafsiri kwenye maktaba yako, chagua \"Badilisha chaguo\" hapa chini.",
+  "@bibleManagementInfo": {
+    "description": "Instructions for managing downloaded Bible translations"
+  },
+  "deleteBibleMessage": "Hii itafuta maudhui yote yaliyopakuliwa ya Biblia hii kwenye kifaa chako. Huwezi kutendua kitendo hiki.",
+  "@deleteBibleMessage": {
+    "description": "Confirmation message for deleting a Bible"
+  },
+  "primaryBible": "Biblia kuu",
+  "@primaryBible": {
+    "description": "Primary Bible section label"
+  },
+  "clickToChange": "Bofya ili kubadilisha",
+  "@clickToChange": {
+    "description": "Primary Bible change hint"
+  },
+  "secondaryBiblesTitle": "Biblia za ziada",
+  "@secondaryBiblesTitle": {
+    "description": "Secondary Bible section label"
+  },
+  "otherBiblesTitle": "Biblia nyingine",
+  "@otherBiblesTitle": {
+    "description": "Other Bible section label"
+  },
+  "setAsSecondary": "Weka kama ya ziada",
+  "@setAsSecondary": {
+    "description": "Set a Bible as a secondary translation"
+  },
+  "renameAction": "Badilisha jina",
+  "@renameAction": {
+    "description": "Rename action label"
+  },
+  "themeLabel": "Mandhari",
+  "@themeLabel": {
+    "description": "Reader theme setting label"
+  },
+  "themeSystem": "Mfumo",
+  "@themeSystem": {
+    "description": "System theme option"
+  },
+  "smallerTextTooltip": "Maandishi madogo (-)",
+  "@smallerTextTooltip": {
+    "description": "Decrease reader text size tooltip"
+  },
+  "largerTextTooltip": "Maandishi makubwa (=)",
+  "@largerTextTooltip": {
+    "description": "Increase reader text size tooltip"
+  },
+  "clearSearchHistory": "Futa historia ya utafutaji",
+  "@clearSearchHistory": {
+    "description": "Clear search history action"
+  },
+  "noSearchHistory": "Bado hakuna historia ya utafutaji.",
+  "@noSearchHistory": {
+    "description": "Empty Bible search history state"
+  },
+  "noReadingHistory": "Bado hakuna historia ya usomaji.",
+  "@noReadingHistory": {
+    "description": "Empty Bible reading history state"
+  },
+  "hoverSetSecondary": "Elekeza kishale kwenye Biblia ili kuiweka kama ya ziada",
+  "@hoverSetSecondary": {
+    "description": "Hint for adding a secondary Bible"
+  },
+  "bibleManagementPrompt": "Jifunze jinsi ya kuongeza au kuondoa Biblia kwenye Kisomaji cha Biblia nyingi na jinsi ya kuongeza tafsiri kwenye maktaba yako.",
+  "@bibleManagementPrompt": {
+    "description": "Bible management prompt description"
+  },
+  "multiBibleDescription": "Soma tafsiri sambamba na maandishi yako makuu",
+  "@multiBibleDescription": {
+    "description": "Multi-Bible reader setting description"
+  },
+  "manageYourBibles": "Simamia Biblia zako",
+  "@manageYourBibles": {
+    "description": "Embedded Bible management title"
+  },
+  "historyReading": "Usomaji",
+  "@historyReading": {
+    "description": "Reading history tab title"
+  },
+  "historySearches": "Utafutaji",
+  "@historySearches": {
+    "description": "Search history tab title"
+  },
+  "noSearchesYet": "Bado hakuna utafutaji.",
+  "@noSearchesYet": {
+    "description": "Empty search history state"
+  },
+  "clearReadingHistoryMessage": "Hii itafuta kabisa historia yako ya usomaji. Huwezi kutendua kitendo hiki.",
+  "@clearReadingHistoryMessage": {
+    "description": "Clear reading history confirmation"
+  },
+  "clearSearchHistoryMessage": "Hii itafuta kabisa historia yako ya utafutaji. Huwezi kutendua kitendo hiki.",
+  "@clearSearchHistoryMessage": {
+    "description": "Clear search history confirmation"
+  },
+  "recentSearches": "Utafutaji wa hivi karibuni",
+  "@recentSearches": {
+    "description": "Recent Bible searches heading"
+  },
+  "searchResultCount": "Matokeo {count}",
+  "@searchResultCount": {
+    "description": "Number of Bible search results",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "deleteListMessage": "Huwezi kutendua kitendo hiki.",
+  "@deleteListMessage": {
+    "description": "Delete scripture list confirmation"
+  },
+  "noScriptureLists": "Bado hakuna orodha za maandiko zilizohifadhiwa.\nTengeneza moja kwenye Kifungua maandiko.",
+  "@noScriptureLists": {
+    "description": "Empty scripture list state"
+  },
+  "scriptureCount": "Maandiko {count}",
+  "@scriptureCount": {
+    "description": "Scripture count in a saved list",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scriptureListTitle": "Orodha ya maandiko",
+  "@scriptureListTitle": {
+    "description": "Fallback scripture list title"
+  },
+  "renameTooltip": "Badilisha jina",
+  "@renameTooltip": {
+    "description": "Rename list tooltip"
+  },
+  "clearAllBookmarksQuestion": "Ufute alamisho zote?",
+  "@clearAllBookmarksQuestion": {
+    "description": "Confirm clearing all bookmarks"
+  },
+  "clearAllNotesQuestion": "Ufute madokezo yote?",
+  "@clearAllNotesQuestion": {
+    "description": "Confirm clearing all notes"
+  },
+  "deleteSelectedCountMessage": "Hii itafuta kabisa vipengee {count} vilivyochaguliwa. Huwezi kutendua kitendo hiki.",
+  "@deleteSelectedCountMessage": {
+    "description": "Delete selected bookmarks or notes confirmation",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clearBookmarksMessage": "Hii itafuta kabisa alamisho zako zote katika Biblia zote. Huwezi kutendua kitendo hiki.",
+  "@clearBookmarksMessage": {
+    "description": "Clear all bookmarks confirmation"
+  },
+  "clearNotesMessage": "Hii itafuta kabisa madokezo yako yote katika Biblia zote. Huwezi kutendua kitendo hiki.",
+  "@clearNotesMessage": {
+    "description": "Clear all notes confirmation"
+  },
+  "bookmarksTab": "Alamisho",
+  "@bookmarksTab": {
+    "description": "Bookmarks tab label"
+  },
+  "notesTab": "Madokezo",
+  "@notesTab": {
+    "description": "Notes tab label"
+  },
+  "readingTab": "Usomaji",
+  "@readingTab": {
+    "description": "Reading tab label"
+  },
+  "noSavedScriptureLists": "Bado hakuna orodha za maandiko zilizohifadhiwa.\nTengeneza moja kwenye Kifungua maandiko.",
+  "@noSavedScriptureLists": {
+    "description": "Empty scripture list state"
+  },
+  "welcomeToChurchLib": "Karibu ChurchLib",
+  "@welcomeToChurchLib": {
+    "description": "First setup screen heading"
+  },
+  "chooseModulesPrompt": "Chagua unachotaka kusanidi. Unaweza kuongeza kingine baadaye kwenye Mipangilio.",
+  "@chooseModulesPrompt": {
+    "description": "First setup screen description"
+  },
+  "biblesSelectedCount": "{count} kati ya {max} {noun} zimechaguliwa",
+  "@biblesSelectedCount": {
+    "description": "Selection count label",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      },
+      "noun": {
+        "type": "String"
+      }
+    }
+  },
+  "songbooksNoun": "vitabu vya nyimbo",
+  "@songbooksNoun": {
+    "description": "Songbook selection noun"
+  },
+  "biblesNoun": "Biblia",
+  "@biblesNoun": {
+    "description": "Bible selection noun"
+  },
+  "firstPickPrimaryBible": "Chaguo lako la kwanza litakuwa Biblia kuu",
+  "@firstPickPrimaryBible": {
+    "description": "Bible selection hint"
+  },
+  "songbookSelectionLimit": "Unaweza kuchagua hadi vitabu {count} vya nyimbo",
+  "@songbookSelectionLimit": {
+    "description": "Songbook selection maximum message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "continueUpper": "ENDELEA",
+  "@continueUpper": {
+    "description": "Continue navigation button label"
+  },
+  "finishUpper": "MALIZA",
+  "@finishUpper": {
+    "description": "Finish navigation button label"
+  },
+  "almostThere": "Karibu tumalize",
+  "@almostThere": {
+    "description": "Setup progress detail"
+  },
+  "percentDownloaded": "{percent}% imepakuliwa",
+  "@percentDownloaded": {
+    "description": "Download progress message",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "savingYourSongs": "Hifadhi nyimbo zako",
+  "@savingYourSongs": {
+    "description": "Song save progress title"
+  },
+  "fetchingYourSongs": "Inapakua nyimbo zako…",
+  "@fetchingYourSongs": {
+    "description": "Song download progress title"
+  },
+  "momentOnly": "Hii itachukua muda mfupi tu",
+  "@momentOnly": {
+    "description": "Song download progress message"
+  },
+  "downloadingPrimaryBible": "Inapakua Biblia yako kuu",
+  "@downloadingPrimaryBible": {
+    "description": "Primary Bible download progress title"
+  },
+  "bibleWord": "Biblia",
+  "@bibleWord": {
+    "description": "Bible progress label"
+  },
+  "otherBiblesBackground": "Biblia zako nyingine zitapakuliwa chinichini.",
+  "@otherBiblesBackground": {
+    "description": "Secondary Bible download progress message"
+  },
+  "autoScrollAction": "Kusogeza kiotomatiki",
+  "@autoScrollAction": {
+    "description": "Start auto-scroll button label"
+  },
+  "stopScrollAction": "Simamisha kusogeza",
+  "@stopScrollAction": {
+    "description": "Stop auto-scroll button label"
+  },
+  "startAutoScroll": "Anza kusogeza kiotomatiki",
+  "@startAutoScroll": {
+    "description": "Start auto-scroll tooltip"
+  },
+  "stopAutoScroll": "Simamisha kusogeza kiotomatiki",
+  "@stopAutoScroll": {
+    "description": "Stop auto-scroll tooltip"
+  },
+  "oldTestament": "Agano la Kale",
+  "@oldTestament": {
+    "description": "Old Testament tab label"
+  },
+  "newTestament": "Agano Jipya",
+  "@newTestament": {
+    "description": "New Testament tab label"
+  },
+  "showOtherBibles": "Onyesha Biblia zako nyingine chini ya kila mstari",
+  "@showOtherBibles": {
+    "description": "Multi-Bible reader enabled description"
+  },
+  "downloadBibleToUse": "Pakua Biblia nyingine ili kutumia chaguo hili",
+  "@downloadBibleToUse": {
+    "description": "Multi-Bible reader disabled description"
+  },
+  "addNoteAction": "Ongeza dokezo",
+  "@addNoteAction": {
+    "description": "Add note action label"
+  },
+  "selectSingleVerseNote": "Chagua mstari mmoja ili kuongeza dokezo",
+  "@selectSingleVerseNote": {
+    "description": "Add note selection hint"
+  },
+  "selectedCount": "{count} zimechaguliwa",
+  "@selectedCount": {
+    "description": "Selected item count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSetupMessage": "Chagua unachotaka kusanidi. Unaweza kuongeza moduli nyingine baadaye kwenye Mipangilio.",
+  "@firstSetupMessage": {
+    "description": "Setup modules description"
+  },
+  "bookmarkOptionsPrompt": "Ungependa kuweka alamisho kwenye mistari hii pekee au kuongeza dokezo pia?",
+  "@bookmarkOptionsPrompt": {
+    "description": "Bookmark options dialog prompt"
+  },
+  "howModuleWorks": "Jinsi {moduleName} inavyofanya kazi",
+  "@howModuleWorks": {
+    "description": "How it works sheet title",
+    "placeholders": {
+      "moduleName": {
+        "type": "String"
+      }
+    }
+  },
+  "switchToModule": "Badilisha kwenda {moduleName}",
+  "@switchToModule": {
+    "description": "Switch application module tooltip",
+    "placeholders": {
+      "moduleName": {
+        "type": "String"
+      }
+    }
+  },
+  "songHowFindTitle": "Kutafuta wimbo",
+  "@songHowFindTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowFindBody": "Andika kwenye kisanduku cha utafutaji kilicho juu ili kupata wimbo kwa nambari, jina au maneno yake. Bonyeza S popote ili kwenda kwenye kisanduku. Vichujio vilivyo juu ya orodha hupunguza nyimbo hadi kitabu kimoja cha nyimbo.",
+  "@songHowFindBody": {
+    "description": "SongLib guide for finding songs"
+  },
+  "songHowReadTitle": "Kusoma wimbo",
+  "@songHowReadTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowReadBody": "Chagua wimbo kwenye orodha ili mistari yake ionekane upande wa kulia. Jina la wimbo na kitabu chake vitaonekana juu ya dirisha.",
+  "@songHowReadBody": {
+    "description": "SongLib guide for reading songs"
+  },
+  "songHowPresentTitle": "Kuwasilisha",
+  "@songHowPresentTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowPresentBody": "Bofya wimbo mara mbili, bonyeza Enter au uchague Wasilisha wimbo kwenye Chaguo za haraka ili kuufungua kwenye kioneshi. Pitia mistari slaidi moja baada ya nyingine; badilisha mwelekeo wa slaidi kwenye Mipangilio. Maneno hupangwa yatoshe skrini. Kitufe cha orodha kwenye kichwa cha kioneshi huonyesha mistari yote kwenye paneli ya pembeni na kuangazia mstari wa sasa. Paneli huanza ikiwa wazi; bonyeza kitufe tena kuificha.",
+  "@songHowPresentBody": {
+    "description": "SongLib guide for presenting songs"
+  },
+  "songHowKeysTitle": "Vifunguo vya kioneshi",
+  "@songHowKeysTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowKeysBody": "Mshale wa kulia au chini: slaidi inayofuata.\nMshale wa kushoto au juu: slaidi iliyotangulia.\n1 hadi 7: nenda kwenye mstari huo.\nC: nenda kwenye kiitikio.\nL: nenda kwenye slaidi ya mwisho.\n- : punguza maandishi.\n= : ongeza maandishi kadiri mstari mrefu zaidi unavyotoshea.\nEsc: funga kioneshi.",
+  "@songHowKeysBody": {
+    "description": "SongLib presenter keyboard shortcuts"
+  },
+  "songHowQuickTitle": "Chaguo za haraka",
+  "@songHowQuickTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowQuickBody": "Kitufe cha Chaguo za haraka kilicho chini kulia huonyesha unachoweza kufanya na wimbo uliochaguliwa: kunakili maneno yake, kuupenda au kuuwasilisha.",
+  "@songHowQuickBody": {
+    "description": "SongLib guide for quick actions"
+  },
+  "songHowLikesTitle": "Vinavyopendwa",
+  "@songHowLikesTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowLikesBody": "Nyimbo unazopenda hukusanywa kwenye Vinavyopendwa kwenye paneli ya pembeni ili uweze kuzifungua haraka.",
+  "@songHowLikesBody": {
+    "description": "SongLib guide for liked songs"
+  },
+  "songHowBooksTitle": "Vitabu vya nyimbo na masasisho",
+  "@songHowBooksTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowBooksBody": "Vitabu vyako vya nyimbo huhifadhiwa kwenye kifaa hiki na kusasishwa chinichini ukiwa mtandaoni. Ili kuchagua vitabu tofauti, fungua Mipangilio kisha uchague Vitabu vya nyimbo.",
+  "@songHowBooksBody": {
+    "description": "SongLib guide for songbook storage and updates"
+  },
+  "bibleHowReadingTitle": "Kusoma",
+  "@bibleHowReadingTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowReadingBody": "Tumia kitufe cha Biblia kilicho juu kubadilisha tafsiri na kitufe cha sura kwenda sura nyingine. Vilivyo chini vya Iliyotangulia na Inayofuata husogeza sura moja moja, au bonyeza Alt pamoja na mshale wa kushoto au kulia. Mishale ya juu na chini husogeza sura. Vifunguo hivi hufanya kazi tu BibleLib ikiwa wazi.",
+  "@bibleHowReadingBody": {
+    "description": "BibleLib guide for reading"
+  },
+  "bibleHowTextTitle": "Ukubwa wa maandishi na kusogeza kiotomatiki",
+  "@bibleHowTextTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowTextBody": "Aa- na Aa+ kwenye kichwa hubadilisha ukubwa wa maandishi. Unaweza pia kubonyeza - kwenye kibodi kuyapunguza na = kuyaongeza. Kusogeza kiotomatiki chini kushoto husogeza sura; tumia alama za kuongeza na kupunguza kuweka kasi, na gusa maandishi kusimamisha.",
+  "@bibleHowTextBody": {
+    "description": "BibleLib guide for text size and auto scroll"
+  },
+  "bibleHowParallelTitle": "Biblia sambamba",
+  "@bibleHowParallelTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowParallelBody": "Pakua Biblia zaidi ya moja na uwashe Kisomaji cha Biblia nyingi kwenye Chaguo za haraka ili kuonyesha tafsiri nyingine chini ya kila mstari.",
+  "@bibleHowParallelBody": {
+    "description": "BibleLib guide for parallel translations"
+  },
+  "bibleHowSelectTitle": "Kuchagua mistari",
+  "@bibleHowSelectTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowSelectBody": "Bofya mistari ili kuichagua. Kisha upau wa juu hukuwezesha kuiwekea alamisho au kuiangazia, kuongeza dokezo kwenye mstari mmoja au kuinakili. Bonyeza Esc kughairi uteuzi.",
+  "@bibleHowSelectBody": {
+    "description": "BibleLib guide for selecting verses"
+  },
+  "bibleHowSearchTitle": "Utafutaji",
+  "@bibleHowSearchTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowSearchBody": "Utafutaji hupitia kila mstari wa Biblia unayochagua na kukupeleka moja kwa moja kwenye matokeo. Utafutaji uliopita huhifadhiwa kwa matumizi yajayo.",
+  "@bibleHowSearchBody": {
+    "description": "BibleLib guide for Bible search"
+  },
+  "bibleHowHistoryTitle": "Historia",
+  "@bibleHowHistoryTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowHistoryBody": "Historia huorodhesha sura ulizosoma na utafutaji uliofanya ili uendelee ulipoishia.",
+  "@bibleHowHistoryBody": {
+    "description": "BibleLib guide for history"
+  },
+  "bibleHowBookmarksTitle": "Alamisho na madokezo",
+  "@bibleHowBookmarksTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowBookmarksBody": "Kila kitu unachowekea alamisho au kuandikia dokezo hukusanywa kwenye Alamisho na madokezo katika paneli ya pembeni, kwenye Biblia zako zote.",
+  "@bibleHowBookmarksBody": {
+    "description": "BibleLib guide for bookmarks and notes"
+  },
+  "bibleHowOpenerTitle": "Kifungua maandiko",
+  "@bibleHowOpenerTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowOpenerBody": "Kifungua maandiko kwenye kichwa hufungua kifungu kwa kuandika kitabu, sura na mstari wake. Ongeza vifungu kadhaa kwenye foleni ili kuvifungua kimoja baada ya kingine.",
+  "@bibleHowOpenerBody": {
+    "description": "BibleLib guide for Scripture Opener"
+  },
+  "bibleHowListsTitle": "Orodha za maandiko",
+  "@bibleHowListsTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowListsBody": "Maandiko kwenye paneli ya pembeni huhifadhi orodha za vifungu unavyotumia tena, kama muhtasari wa mahubiri. Bonyeza Cheza kwenye orodha kupitia mistari yake kwa kutumia upau wa foleni ulio chini.",
+  "@bibleHowListsBody": {
+    "description": "BibleLib guide for saved scripture lists"
+  },
+  "bibleHowManageTitle": "Kusimamia Biblia",
+  "@bibleHowManageTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowManageBody": "Ongeza, ondoa au chagua tafsiri yako kuu kwenye Mipangilio na Biblia, au kupitia Chagua Biblia kwenye kichwa.",
+  "@bibleHowManageBody": {
+    "description": "BibleLib guide for Bible management"
+  },
+  "appName": "ChurchLib",
+  "@appName": {
+    "description": "Application name"
+  },
+  "appSettings": "Mipangilio",
+  "@appSettings": {
+    "description": "Settings title"
+  },
+  "appTheme": "Mandhari ya programu",
+  "@appTheme": {
+    "description": "Application theme label"
+  },
+  "appThemeDesc": "Mandhari ya sasa:",
+  "@appThemeDesc": {
+    "description": "Current theme description"
+  },
+  "availableBooks": "Hivi ndivyo vitabu vinavyopatikana. Chagua unavyotaka ili kuendelea.",
+  "@availableBooks": {
+    "description": "Available songbooks description"
+  },
+  "collectionTitle": "Mkusanyiko wako",
+  "@collectionTitle": {
+    "description": "Collection screen title"
+  },
+  "displayTitle": "Mipangilio ya skrini",
+  "@displayTitle": {
+    "description": "Display settings section title"
+  },
+  "donationRequestReminder": "\n\nTafadhali endelea kuunga mkono kazi yetu kwa kutoa mchango mara kwa mara.\nTembelea Kituo cha Usaidizi ili kuchangia.",
+  "@donationRequestReminder": {
+    "description": "Donation reminder message"
+  },
+  "feedback": "Maoni",
+  "@feedback": {
+    "description": "Feedback label"
+  },
+  "hintsCurrentUpdate": "Katika sasisho hili",
+  "@hintsCurrentUpdate": {
+    "description": "Latest update heading"
+  },
+  "hintsCurrentUpdateText": "1. Tafuta bila kuwa na wasiwasi kuhusu koma au alama za mshangao.\n2. Tafuta maneno yasiyofuatana kwa kuyaweka koma katikati.\n\t\tKwa mfano, 'Yesu, dhambi' inaweza kutafuta wimbo 'Yesu alilipa yote'.",
+  "@hintsCurrentUpdateText": {
+    "description": "Latest update search hints"
+  },
+  "labelError0": "Hitilafu isiyojulikana imetokea.",
+  "@labelError0": {
+    "description": "Unknown error title"
+  },
+  "labelError1000": "Imeshindikana kutuma ombi lako.",
+  "@labelError1000": {
+    "description": "Request submission error"
+  },
+  "labelError404": "Imeshindikana kuunganisha kwenye seva yetu kwa sasa.",
+  "@labelError404": {
+    "description": "Server connection error"
+  },
+  "labelError500": "Huwezi kuunganisha kwenye seva yetu kwa sasa.",
+  "@labelError500": {
+    "description": "Server connection error"
+  },
+  "labelError504": "Ombi lako kwa seva limepitwa na muda.",
+  "@labelError504": {
+    "description": "Request timeout error"
+  },
+  "labelError999": "Seva yetu imerudisha jibu lisilo sahihi.",
+  "@labelError999": {
+    "description": "Invalid server response error"
+  },
+  "labelFeedback0": "Hitilafu isiyojulikana imetokea.",
+  "@labelFeedback0": {
+    "description": "Unknown error feedback"
+  },
+  "labelFeedback1000": "Imeshindikana kutuma ombi lako.",
+  "@labelFeedback1000": {
+    "description": "Request submission feedback"
+  },
+  "labelFeedback404": "Hatuwezi kuunganisha kwenye seva yetu kwa sasa kutokana na tatizo la kiufundi. Jaribu tena. Tatizo likiendelea, wasiliana nasi kupitia: thesonglibapp@gmail.com",
+  "@labelFeedback404": {
+    "description": "Server connection feedback"
+  },
+  "labelFeedback500": "Hatuwezi kuunganisha kwenye seva yetu kwa sasa kutokana na tatizo la kiufundi kwenye muunganisho wako. Jaribu mtandao thabiti. Tatizo likiendelea, wasiliana nasi kupitia: thesonglibapp@gmail.com",
+  "@labelFeedback500": {
+    "description": "Connection feedback"
+  },
+  "labelFeedback504": "Ombi lako kwa seva limepitwa na muda.",
+  "@labelFeedback504": {
+    "description": "Request timeout feedback"
+  },
+  "labelFeedback999": "Seva yetu imerudisha jibu lisilo sahihi.",
+  "@labelFeedback999": {
+    "description": "Invalid server response feedback"
+  },
+  "labelPermissionText": "Programu hii inahitaji ruhusa hizi ili kufanya kazi ipasavyo.",
+  "@labelPermissionText": {
+    "description": "Permission request description"
+  },
+  "labelPermissionTitle": "Ruhusa inahitajika",
+  "@labelPermissionTitle": {
+    "description": "Permission request title"
+  },
+  "misc": "mengineyo",
+  "@misc": {
+    "description": "Miscellaneous category label"
+  },
+  "noSongSelected": "Hakuna wimbo uliochaguliwa",
+  "@noSongSelected": {
+    "description": "No song selected message"
+  },
+  "nothingHere": "Samahani, hakuna cha kuonyesha kwa sasa.",
+  "@nothingHere": {
+    "description": "Empty content message"
+  },
+  "openSettings": "Fungua Mipangilio",
+  "@openSettings": {
+    "description": "Open settings action"
+  },
+  "presentationTitle": "Uwasilishaji wa wimbo",
+  "@presentationTitle": {
+    "description": "Song presentation title"
+  },
+  "problemDisplaySongs": "Kuna tatizo la kuonyesha nyimbo kwenye kitabu ulichochagua.\n\nUnaweza kurekebisha tatizo hili kwa kuchagua nyimbo tena.",
+  "@problemDisplaySongs": {
+    "description": "Song display error message"
+  },
+  "projectSong": "Wasilisha wimbo huu",
+  "@projectSong": {
+    "description": "Present song action"
+  },
+  "redirectingYou": "Tunakuelekeza uchague nyimbo tena",
+  "@redirectingYou": {
+    "description": "Redirect message"
+  },
+  "reselectSongbooks": "Chagua vitabu vya nyimbo upya",
+  "@reselectSongbooks": {
+    "description": "Reselect songbooks action"
+  },
+  "reselectSongbooksDesc": "Panga upya mkusanyiko wako",
+  "@reselectSongbooksDesc": {
+    "description": "Reselect songbooks description"
+  },
+  "selectSongsAfresh": "Chagua nyimbo upya",
+  "@selectSongsAfresh": {
+    "description": "Reselect songs action"
+  },
+  "songDislike": "Ondoa wimbo huu kwenye Vipendwa!",
+  "@songDislike": {
+    "description": "Remove liked song action"
+  },
+  "songDisliked": "Wimbo umeondolewa kwenye Vipendwa!",
+  "@songDisliked": {
+    "description": "Song unliked confirmation"
+  },
+  "songLike": "Ongeza wimbo huu kwenye Vipendwa!",
+  "@songLike": {
+    "description": "Like song action"
+  },
+  "songPresentation": "Mwelekeo wa slaidi",
+  "@songPresentation": {
+    "description": "Song presentation direction setting"
+  },
+  "songPresentationDesc": "Slaidi za wimbo zisogee wima",
+  "@songPresentationDesc": {
+    "description": "Song presentation direction description"
+  },
+  "supportSongLib": "Saidia ChurchLib",
+  "@supportSongLib": {
+    "description": "ChurchLib support action"
+  },
+  "alignmentJustified": "Nyoosha pande zote",
+  "@alignmentJustified": {
+    "description": "Justified presentation text alignment label"
+  }
 }

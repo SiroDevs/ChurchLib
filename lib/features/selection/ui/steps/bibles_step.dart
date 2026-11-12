@@ -10,6 +10,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../common/widgets/state/error_view.dart';
 import '../../../../core/theme/theme_colors.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../../bloc/selection_bloc.dart';
 import '../../utils/bible_grouping.dart';
 import '../widgets/bible_tile.dart';
@@ -25,7 +26,8 @@ class BiblesStep extends StatefulWidget {
   State<BiblesStep> createState() => _BiblesStepState();
 }
 
-class _BiblesStepState extends State<BiblesStep> with BiblesStepBuilders, BiblesStepList {
+class _BiblesStepState extends State<BiblesStep>
+    with BiblesStepBuilders, BiblesStepList {
   String _query = '';
   GroupingMode _grouping = GroupingMode.regions;
   final Map<String, bool> _expanded = {};
@@ -45,18 +47,18 @@ class _BiblesStepState extends State<BiblesStep> with BiblesStepBuilders, Bibles
   Widget build(BuildContext context) {
     return BlocBuilder<SelectionBloc, SelectionState>(
       builder: (context, state) => switch (state.bibleStatus) {
-        BibleStatus.loading => CircularProgressIndicator(color: ThemeColors.primary).center(),
+        BibleStatus.loading => CircularProgressIndicator(
+          color: ThemeColors.primary,
+        ).center(),
         BibleStatus.error => ErrorView(
-            message: state.bibleMessage,
-            onRetry: () => context
-                .read<SelectionBloc>()
-                .add(const BiblesRequested()),
-          ),
+          message: state.bibleMessage,
+          onRetry: () =>
+              context.read<SelectionBloc>().add(const BiblesRequested()),
+        ),
         BibleStatus.loaded => _buildPicker(context, state),
         BibleStatus.saving ||
         BibleStatus.saved ||
-        BibleStatus.saveFailed =>
-          const SizedBox.shrink(),
+        BibleStatus.saveFailed => const SizedBox.shrink(),
       },
     );
   }

@@ -6,6 +6,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../data/models/bible/bible_version.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../utils/bible_action.dart';
 
 class BiblePill extends StatefulWidget {
@@ -100,7 +101,7 @@ class _BiblePillState extends State<BiblePill>
       return TextButton(
         onPressed: widget.onStop,
         style: _compactStyle(onDark),
-        child: const Text('Stop'),
+        child: Text(AppLocalizations.of(context)!.stopAction),
       ).padding(right: 8);
     }
     final delete = _deleteAction;
@@ -116,19 +117,19 @@ class _BiblePillState extends State<BiblePill>
           TextButton(
             onPressed: widget.onRestart,
             style: _compactStyle(onDark),
-            child: const Text('Restart'),
+            child: Text(AppLocalizations.of(context)!.restartAction),
           ),
         if (widget.onContinue != null)
           TextButton(
             onPressed: widget.onContinue,
             style: _compactStyle(onDark),
-            child: const Text('Continue'),
+            child: Text(AppLocalizations.of(context)!.continueAction),
           ),
         if (delete != null)
           TextButton(
             onPressed: delete.onTap,
             style: _compactStyle(Colors.red.shade300),
-            child: const Text('Delete'),
+            child: Text(AppLocalizations.of(context)!.deleteAction),
           ),
       ],
     ).padding(right: 8);
@@ -236,19 +237,20 @@ class _BiblePillState extends State<BiblePill>
         .decorated(color: badgeOrange, borderRadius: BorderRadius.circular(16));
   }
 
-  Widget _status() {
+  Widget _status(BuildContext context) {
     final soft = onDark.withValues(alpha: 0.85);
+    final l10n = AppLocalizations.of(context)!;
     final label = bible.downloadFailed
-        ? ' · Download failed'
+        ? l10n.downloadFailedStatus
         : _downloading
-        ? ' · Fetching verses'
+        ? l10n.fetchingVersesStatus
         : _stopped
-        ? ' · Download stopped'
+        ? l10n.downloadStoppedStatus
         : null;
     return Row(
       children: [
         Text(
-          '${bible.languageName.toUpperCase()} BIBLE',
+          l10n.bibleLanguageLabel(bible.languageName.toUpperCase()),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 12, color: soft),
@@ -315,7 +317,7 @@ class _BiblePillState extends State<BiblePill>
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 14, color: onDark),
                     ),
-                    _status(),
+                    _status(context),
                   ],
                 ).expanded(),
                 _downloadButtons() ?? const SizedBox(width: 12),

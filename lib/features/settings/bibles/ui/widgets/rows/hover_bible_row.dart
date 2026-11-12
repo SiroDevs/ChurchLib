@@ -6,6 +6,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../data/models/bible/bible_version.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../utils/bible_action.dart';
 import 'bible_pill.dart';
 
@@ -34,12 +35,18 @@ class HoverBibleRow extends StatefulWidget {
 class _HoverBibleRowState extends State<HoverBibleRow> {
   bool _hovering = false;
 
-  Widget _downloadButtons(bool failed) => Column(
+  Widget _downloadButtons(BuildContext context, bool failed) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       if (failed)
-        TextButton(onPressed: widget.onRestart, child: const Text('Restart')),
-      TextButton(onPressed: widget.onContinue, child: const Text('Continue')),
+        TextButton(
+          onPressed: widget.onRestart,
+          child: Text(AppLocalizations.of(context)!.restartAction),
+        ),
+      TextButton(
+        onPressed: widget.onContinue,
+        child: Text(AppLocalizations.of(context)!.continueAction),
+      ),
     ],
   ).padding(left: 8);
 
@@ -92,7 +99,7 @@ class _HoverBibleRowState extends State<HoverBibleRow> {
                 onRestart: () {},
                 onContinue: () {},
               ).expanded(),
-              if (needsAction) _downloadButtons(bible.downloadFailed),
+              if (needsAction) _downloadButtons(context, bible.downloadFailed),
             ],
           ),
           if (widget.actions.isNotEmpty)

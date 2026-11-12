@@ -12,6 +12,7 @@ import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_fonts.dart';
 import '../../../../core/theme/theme_styles.dart';
 import '../../../../data/models/bible/bible_version.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../bloc/bibles_cubit.dart';
 import 'widgets/cards/multi_bible_toggle_card.dart';
 import 'widgets/cards/other_bibles_card.dart';
@@ -77,6 +78,7 @@ class _BiblesViewState extends State<_BiblesView> {
   }
 
   Widget _content(BiblesState state) {
+    final l10n = AppLocalizations.of(context)!;
     final cubit = context.read<BiblesCubit>();
     final primary = state.bibles
         .where((b) => b.abbreviation == state.primaryAbbr)
@@ -94,20 +96,20 @@ class _BiblesViewState extends State<_BiblesView> {
           Row(
             children: [
               Text(
-                "Manage Your Bibles",
+                l10n.manageYourBibles,
                 style: TextStyles.headingStyle3,
               ).padding(left: Sizes.sm, top: Sizes.sm),
               const Spacer(),
               IconButton(
-                tooltip: 'How Bible management works',
+                tooltip: l10n.howBibleManagementWorks,
                 icon: const Icon(Icons.info_outline),
                 onPressed: () => showBiblesInfo(context),
               ),
             ],
           ),
         SectionHeaderRow(
-          left: SectionHeaderRow.label(context, 'Primary Bible'),
-          right: SectionHeaderRow.label(context, 'Click to Change'),
+          left: SectionHeaderRow.label(context, l10n.primaryBible),
+          right: SectionHeaderRow.label(context, l10n.clickToChange),
         ),
         PrimaryBibleCard(primary: primary, onTap: () => _pickPrimary(state)),
         const SizedBox(height: 12),
@@ -134,15 +136,16 @@ class _BiblesViewState extends State<_BiblesView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: widget.embedded
           ? null
           : WindowAppBar(
               icon: Icons.library_books_outlined,
-              title: 'Manage Bibles',
+              title: l10n.manageBibles,
               actions: [
                 IconButton(
-                  tooltip: 'How Bible management works',
+                  tooltip: l10n.howBibleManagementWorks,
                   icon: const Icon(Icons.info_outline),
                   onPressed: () => showBiblesInfo(context),
                 ),
@@ -151,7 +154,7 @@ class _BiblesViewState extends State<_BiblesView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _changeSelection,
         icon: const Icon(Icons.swap_horiz),
-        label: const Text('Change Selection'),
+        label: Text(l10n.changeSelection),
       ),
       body: BlocBuilder<BiblesCubit, BiblesState>(
         builder: (context, state) => state.isLoading

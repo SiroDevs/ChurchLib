@@ -75,12 +75,7 @@ mixin ReaderVersesMixin on Cubit<BibleReaderState> {
     final verses = await _bibleRepo.getLocalVerses(abbr, chapter.id);
     if (!_isCurrentLoadRequest(requestId)) return;
     if (verses == null) {
-      emit(
-        state.copyWith(
-          isLoading: false,
-          error: 'Verses not cached. Please ensure download is complete.',
-        ),
-      );
+      emit(state.copyWith(isLoading: false, error: 'versesNotCached'));
       return;
     }
 

@@ -10,6 +10,7 @@ import '../../../common/widgets/state/general_progress.dart';
 import '../../../common/windows/open_windows.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
+import '../../../l10n/gen/app_localizations.dart';
 import '../../home/song_search/bloc/song_search_bloc.dart';
 
 class LikesScreen extends StatelessWidget {
@@ -19,6 +20,7 @@ class LikesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SongSearchBloc, SongSearchState>(
       builder: (context, state) {
+        final l10n = AppLocalizations.of(context)!;
         if (state.status == SongSearchStatus.loaded && state.likes.isNotEmpty) {
           return ListView.builder(
             itemCount: state.likes.length,
@@ -46,7 +48,7 @@ class LikesScreen extends StatelessWidget {
             },
           );
         } else {
-          return EmptyState(title: 'You have not liked a song yet.');
+          return EmptyState(title: l10n.noLikedSongs);
         }
       },
     );

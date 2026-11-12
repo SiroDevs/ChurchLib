@@ -12,9 +12,10 @@ class SongViewer extends StatelessWidget {
       itemCount: verses.length,
       itemBuilder: (context, index) {
         return Text(
-          verses[index].replaceAll('#', '\n'),
-          style: const TextStyle(fontSize: 16),
-        ).padding(all: 10)
+              verses[index].replaceAll('#', '\n'),
+              style: const TextStyle(fontSize: 16),
+            )
+            .padding(all: 10)
             .card(
               elevation: 5,
               margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -36,9 +37,10 @@ Future<void> copySongToClipboard(BuildContext context, SongExt song) async {
       '${songItemTitle(song.songNo, song.title)}\n\n${verses.join('\n\n')}';
   await Clipboard.setData(ClipboardData(text: text));
   if (!context.mounted) return;
+  final l10n = AppLocalizations.of(context)!;
   ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      content: Text('Song copied to clipboard'),
+    SnackBar(
+      content: Text(l10n.songCopiedClipboard),
       duration: Duration(seconds: 2),
     ),
   );

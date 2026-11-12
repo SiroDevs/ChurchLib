@@ -7,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../../../core/di/injectable.dart';
 import '../../../../../../core/theme/theme_colors.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../../../../data/models/bible/bible_note.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
 import '../../../../../../domain/repos/bible/bible_annotation_repo.dart';
@@ -87,13 +88,15 @@ class _NoteEditorDialogState extends State<_NoteEditorDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final r = widget.request;
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: _loading
-            ? CircularProgressIndicator(color: ThemeColors.primary).center()
-                .height(160)
+            ? CircularProgressIndicator(color: ThemeColors.primary)
+                  .center()
+                  .height(160)
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,15 +109,14 @@ class _NoteEditorDialogState extends State<_NoteEditorDialog> {
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
-                      )
-                          .expanded(),
+                      ).expanded(),
                       IconButton(
-                        tooltip: 'Save note',
+                        tooltip: l10n.saveNote,
                         onPressed: _saved ? null : _save,
                         icon: const Icon(Icons.check),
                       ),
                       IconButton(
-                        tooltip: 'Close',
+                        tooltip: l10n.closeAction,
                         onPressed: _close,
                         icon: const Icon(Icons.close),
                       ),
@@ -132,8 +134,8 @@ class _NoteEditorDialogState extends State<_NoteEditorDialog> {
                       )
                       .width(double.infinity),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Your notes',
+                  Text(
+                    l10n.notesTab,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: ThemeColors.primary,
@@ -148,16 +150,14 @@ class _NoteEditorDialogState extends State<_NoteEditorDialog> {
                     onChanged: (_) {
                       if (_saved) setState(() => _saved = false);
                     },
-                    decoration: const InputDecoration(
-                      hintText: 'Write your thoughts on this verse...',
+                    decoration: InputDecoration(
+                      hintText: l10n.writeVerseThoughts,
                       border: OutlineInputBorder(),
                     ),
-                  )
-                      .flexible(),
+                  ).flexible(),
                 ],
               ),
-      )
-          .constrained(maxWidth: 560, maxHeight: 620),
+      ).constrained(maxWidth: 560, maxHeight: 620),
     );
   }
 }

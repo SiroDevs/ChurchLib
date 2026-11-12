@@ -57,23 +57,23 @@ class SettingsThemeItemState extends State<SettingsThemeItem>
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = AppLocalizations.of(context)!;
         return AlertDialog(
-          title: const Text('Set the Theme'),
+          title: Text(l10n.setThemeDialogTitle),
           content: SizedBox(
             height: 135,
             child: RadioInput(
-              initValue: appTheme,
-              options: const ['System Theme', 'Light Theme', 'Dark Theme'],
+              initValue: _localizedTheme(appTheme, l10n),
+              options: [l10n.themeDefault, l10n.themeLight, l10n.themeDark],
               vertical: true,
               onChanged: (String? newValue) {
                 setState(() {
-                  switch (newValue) {
-                    case 'Light Theme':
-                      onThemeChanged(ThemeMode.light);
-                    case 'Dark Theme':
-                      onThemeChanged(ThemeMode.dark);
-                    default:
-                      onThemeChanged(ThemeMode.system);
+                  if (newValue == l10n.themeLight) {
+                    onThemeChanged(ThemeMode.light);
+                  } else if (newValue == l10n.themeDark) {
+                    onThemeChanged(ThemeMode.dark);
+                  } else {
+                    onThemeChanged(ThemeMode.system);
                   }
                   appTheme = AppTheme.currentTheme();
                   Navigator.of(context).pop();
@@ -85,4 +85,11 @@ class SettingsThemeItemState extends State<SettingsThemeItem>
       },
     );
   }
+
+  String _localizedTheme(String theme, AppLocalizations l10n) =>
+      switch (theme) {
+        'Light' => l10n.themeLight,
+        'Dark' => l10n.themeDark,
+        _ => l10n.themeDefault,
+      };
 }

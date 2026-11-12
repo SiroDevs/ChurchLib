@@ -6,17 +6,23 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../../data/models/bible/bible_version.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 
 class PrimaryBibleCard extends StatelessWidget {
-  const PrimaryBibleCard({super.key, required this.primary, required this.onTap});
+  const PrimaryBibleCard({
+    super.key,
+    required this.primary,
+    required this.onTap,
+  });
 
   final BibleVersion? primary;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final bible = primary;
-    if (bible == null) return const Text('No primary Bible set yet.');
+    if (bible == null) return Text(l10n.noPrimaryBible);
 
     final scheme = Theme.of(context).colorScheme;
     final abbr = bible.abbreviation.toUpperCase();
@@ -25,12 +31,12 @@ class PrimaryBibleCard extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            abbr.length > 3 ? abbr.substring(0, 3) : abbr,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: scheme.onSurfaceVariant,
-            ),
-          )
+                abbr.length > 3 ? abbr.substring(0, 3) : abbr,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: scheme.onSurfaceVariant,
+                ),
+              )
               .alignment(Alignment.center)
               .decorated(
                 color: scheme.surfaceContainerHighest,
@@ -51,25 +57,22 @@ class PrimaryBibleCard extends StatelessWidget {
                 ),
               ),
               Text(
-                '${bible.languageName.toUpperCase()} BIBLE • PRIMARY',
+                l10n.biblePrimaryLabel(bible.languageName.toUpperCase()),
                 style: TextStyle(fontSize: 11, color: scheme.primary),
               ),
             ],
-          )
-              .expanded(),
+          ).expanded(),
         ],
-      )
-          .padding(all: 12),
-    )
-        .card(
-          margin: EdgeInsets.zero,
-          elevation: 0,
-          color: scheme.primaryContainer,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: BorderSide(color: scheme.primary),
-          ),
-          clipBehavior: Clip.antiAlias,
-        );
+      ).padding(all: 12),
+    ).card(
+      margin: EdgeInsets.zero,
+      elevation: 0,
+      color: scheme.primaryContainer,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: scheme.primary),
+      ),
+      clipBehavior: Clip.antiAlias,
+    );
   }
 }

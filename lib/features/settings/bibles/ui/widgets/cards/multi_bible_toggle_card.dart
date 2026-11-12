@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
+import '../../../../../../l10n/gen/app_localizations.dart';
+
 class MultiBibleToggleCard extends StatelessWidget {
   const MultiBibleToggleCard({
     super.key,
@@ -16,24 +19,22 @@ class MultiBibleToggleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final soft = Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6);
     return Row(
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Multi-Bible Reader', style: TextStyle(fontSize: 16)),
+            Text(l10n.multiBibleReader, style: const TextStyle(fontSize: 16)),
             Text(
-              'Read parallel translations alongside your primary text',
+              l10n.multiBibleDescription,
               style: TextStyle(fontSize: 11, color: soft),
             ),
           ],
-        )
-            .expanded(),
+        ).expanded(),
         Switch(value: enabled, onChanged: onChanged),
       ],
-    )
-        .padding(horizontal: 16, vertical: 12)
-        .card(margin: EdgeInsets.zero);
+    ).padding(horizontal: 16, vertical: 12).card(margin: EdgeInsets.zero);
   }
 }

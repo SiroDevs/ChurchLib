@@ -6,6 +6,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../core/theme/theme_colors.dart';
+import '../../../l10n/gen/app_localizations.dart';
 
 class ErrorView extends StatelessWidget {
   final String message;
@@ -14,6 +15,7 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -24,10 +26,9 @@ class ErrorView extends StatelessWidget {
         FilledButton(
           onPressed: onRetry,
           style: FilledButton.styleFrom(backgroundColor: ThemeColors.primary),
-          child: const Text('Retry'),
+          child: Text(l10n.retryAction),
         ),
       ],
-    )
-        .padding(all: 32);
+    ).padding(all: 32);
   }
 }

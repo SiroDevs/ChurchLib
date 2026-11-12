@@ -29,30 +29,36 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
 
   Future<void> initialize(String bibleAbbr, String bibleName) async {
     if (state.bibleAbbr == bibleAbbr && state.rows.isNotEmpty) return;
-    emit(state.copyWith(
-      isLoading: true,
-      error: null,
-      bibleAbbr: bibleAbbr,
-      bibleName: bibleName,
-    ));
+    emit(
+      state.copyWith(
+        isLoading: true,
+        error: null,
+        bibleAbbr: bibleAbbr,
+        bibleName: bibleName,
+      ),
+    );
     final books = await _bibleRepo.getLocalBooks(bibleAbbr);
     if (books.isEmpty) {
-      emit(state.copyWith(isLoading: false, error: 'No books found for this Bible.'));
+      emit(state.copyWith(isLoading: false, error: 'noBooksForBible'));
       return;
     }
-    emit(state.copyWith(
-      isLoading: false,
-      rows: [ScriptureSearchRowState(books: books)],
-    ));
+    emit(
+      state.copyWith(
+        isLoading: false,
+        rows: [ScriptureSearchRowState(books: books)],
+      ),
+    );
   }
 
   void _updateRow(
     String rowKey,
     ScriptureSearchRowState Function(ScriptureSearchRowState) transform,
   ) {
-    emit(state.copyWith(
-      rows: [for (final r in state.rows) r.key == rowKey ? transform(r) : r],
-    ));
+    emit(
+      state.copyWith(
+        rows: [for (final r in state.rows) r.key == rowKey ? transform(r) : r],
+      ),
+    );
   }
 
   void toggleField(String rowKey, ExpandedField field) {
@@ -75,39 +81,55 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
       _updateRow(rowKey, (row) => row.copyWith(expanded: ExpandedField.none));
 
   Future<void> selectBook(String rowKey, BibleBook book) async {
-    _updateRow(rowKey, (row) => row.copyWith(
-          selectedBook: book,
-          selectedChapter: null,
-          chapters: const [],
-          selectedVerseNumber: null,
-          verses: const [],
-          isLoadingChapters: true,
-          expanded: ExpandedField.chapter,
-        ));
-    final chapters = await _bibleRepo.getLocalChapters(state.bibleAbbr, book.id);
-    _updateRow(rowKey, (row) => row.copyWith(
-          chapters: chapters,
-          isLoadingChapters: false,
-        ));
+    _updateRow(
+      rowKey,
+      (row) => row.copyWith(
+        selectedBook: book,
+        selectedChapter: null,
+        chapters: const [],
+        selectedVerseNumber: null,
+        verses: const [],
+        isLoadingChapters: true,
+        expanded: ExpandedField.chapter,
+      ),
+    );
+    final chapters = await _bibleRepo.getLocalChapters(
+      state.bibleAbbr,
+      book.id,
+    );
+    _updateRow(
+      rowKey,
+      (row) => row.copyWith(chapters: chapters, isLoadingChapters: false),
+    );
   }
 
   Future<void> selectChapter(String rowKey, BibleChapter chapter) async {
-    _updateRow(rowKey, (row) => row.copyWith(
-          selectedChapter: chapter,
-          selectedVerseNumber: null,
-          verses: const [],
-          isLoadingVerses: true,
-          expanded: ExpandedField.verse,
-        ));
-    final verses = await _bibleRepo.getLocalVerses(state.bibleAbbr, chapter.id) ?? [];
-    _updateRow(rowKey, (row) => row.copyWith(verses: verses, isLoadingVerses: false));
+    _updateRow(
+      rowKey,
+      (row) => row.copyWith(
+        selectedChapter: chapter,
+        selectedVerseNumber: null,
+        verses: const [],
+        isLoadingVerses: true,
+        expanded: ExpandedField.verse,
+      ),
+    );
+    final verses =
+        await _bibleRepo.getLocalVerses(state.bibleAbbr, chapter.id) ?? [];
+    _updateRow(
+      rowKey,
+      (row) => row.copyWith(verses: verses, isLoadingVerses: false),
+    );
   }
 
   void selectVerse(String rowKey, int number) {
-    _updateRow(rowKey, (row) => row.copyWith(
-          selectedVerseNumber: number,
-          expanded: ExpandedField.none,
-        ));
+    _updateRow(
+      rowKey,
+      (row) => row.copyWith(
+        selectedVerseNumber: number,
+        expanded: ExpandedField.none,
+      ),
+    );
   }
 
   ReaderTarget? openScripture(String rowKey) {
@@ -122,15 +144,17 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
   void addToQueue(String rowKey) {
     final row = state.rows.where((r) => r.key == rowKey).firstOrNull;
     if (row == null || !row.isComplete) return;
-    emit(state.copyWith(
-      rows: [
-        for (final r in state.rows)
-          r.key == rowKey
-              ? r.copyWith(locked: true, expanded: ExpandedField.none)
-              : r,
-        ScriptureSearchRowState(books: row.books),
-      ],
-    ));
+    emit(
+      state.copyWith(
+        rows: [
+          for (final r in state.rows)
+            r.key == rowKey
+                ? r.copyWith(locked: true, expanded: ExpandedField.none)
+                : r,
+          ScriptureSearchRowState(books: row.books),
+        ],
+      ),
+    );
   }
 
   Future<bool> addToQueueAndClose(String rowKey) async {
@@ -155,9 +179,12 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
     );
   }
 
-  Future<List<ScriptureItem>> _persistQueue({required String includingRowKey}) async {
-    final completedRows =
-        state.rows.where((r) => r.locked || r.key == includingRowKey).toList();
+  Future<List<ScriptureItem>> _persistQueue({
+    required String includingRowKey,
+  }) async {
+    final completedRows = state.rows
+        .where((r) => r.locked || r.key == includingRowKey)
+        .toList();
     final items = <ScriptureItem>[
       for (var i = 0; i < completedRows.length; i++)
         if (completedRows[i].toItem(state.bibleAbbr, state.bibleName, i)
@@ -169,11 +196,7 @@ class ScriptureOpenerCubit extends Cubit<ScriptureOpenerState> {
     final listId = await _scriptureRepo.saveList(items);
     final saved = await _scriptureRepo.getItems(listId);
     final list = await _scriptureRepo.getList(listId);
-    _queue.open(
-      listId,
-      list?.name ?? saved.first.reference,
-      saved,
-    );
+    _queue.open(listId, list?.name ?? saved.first.reference, saved);
     return saved;
   }
 }

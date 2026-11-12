@@ -106,7 +106,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareVerse => 'Share verse';
 
   @override
-  String get projectSong => 'Project this Song';
+  String get projectSong => 'Present this Song';
 
   @override
   String get songLiked => 'Song added to Favorites!';
@@ -291,7 +291,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get problemDisplaySongs =>
-      'Oops there is a problem displaying songs under the book you selected.\n\nYou can fix the issue by selecting them afresh';
+      'Oops, there is a problem displaying songs under the book you selected.\n\nYou can fix the issue by selecting them afresh';
 
   @override
   String get donationRequest => 'Donation Request';
@@ -381,7 +381,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Here are the available books, please select as many as you like to proceed';
 
   @override
-  String get nothingHere => 'Sorry nothing to show here at the moment.';
+  String get nothingHere => 'Sorry, nothing to show here at the moment.';
 
   @override
   String get redirectingYou => 'Redirecting you to select songs afresh';
@@ -436,7 +436,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get darkMode => 'Dark';
 
   @override
-  String get labelError0 => 'An unknown error occured.';
+  String get labelError0 => 'An unknown error occurred.';
 
   @override
   String get labelError404 =>
@@ -456,15 +456,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get labelError1000 => 'We\'re unable to submit your request.';
 
   @override
-  String get labelFeedback0 => 'An unknown error occured.';
+  String get labelFeedback0 => 'An unknown error occurred.';
 
   @override
   String get labelFeedback404 =>
-      'We can\'t connect you to our server at the moment due to a technical issue on our end. Please try connecting again, if the issue persists contact us on: thesonglibapp@gmail.com';
+      'We can\'t connect to our server at the moment due to a technical issue on our end. Please try connecting again, if the issue persists contact us on: thesonglibapp@gmail.com';
 
   @override
   String get labelFeedback500 =>
-      'We can\'t connect you to our server at the moment due to a technical issue on your end. Please try switching to a reliable internet service and trying again. If the issue persists contact us on: thesonglibapp@gmail.com';
+      'We can\'t connect to our server at the moment due to a technical issue on your end. Please try switching to a reliable internet service and trying again. If the issue persists contact us on: thesonglibapp@gmail.com';
 
   @override
   String get labelFeedback504 => 'Your request to our server has timed out.';
@@ -480,7 +480,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get labelPermissionText =>
-      'This app requires this permissions to function properly.';
+      'This app requires these permissions to function properly.';
 
   @override
   String get misc => 'misc';
@@ -660,3 +660,752 @@ class AppLocalizationsEn extends AppLocalizations {
   String get licenseDeveloperBuild =>
       'Developer build: license checks are off.';
 }
+
+@override
+String get songSearchHint => 'Search a song by title or words';
+
+@override
+String get clearAction => 'Clear';
+
+@override
+String get songCopiedClipboard => 'Song copied to clipboard';
+
+@override
+String get noLikedSongs => 'You have not liked a song yet.';
+
+@override
+String get versesPanel => 'Verses panel';
+
+@override
+String get modulesTitle => 'Modules';
+
+@override
+String get addSonglib => 'Add SongLib';
+
+@override
+String get songlibSetupSubtitle => 'Set up your church songbook';
+
+@override
+String get addBiblelib => 'Add BibleLib';
+
+@override
+String get biblelibSetupSubtitle => 'Set up a Bible translation';
+
+@override
+String get resetData => 'Reset data';
+
+@override
+String get startOverBiblelib => 'Start over with BibleLib';
+
+@override
+String get resetChurchlib => 'Reset ChurchLib';
+
+@override
+String get setThemeDialogTitle => 'Set the Theme';
+
+@override
+String get settingsWindowTitle => 'ChurchLib Settings';
+
+@override
+String get moveUp => 'Move up';
+
+@override
+String get moveDown => 'Move down';
+
+@override
+String get multiBibleReader => 'Multi-Bible reader';
+
+@override
+String get noPrimaryBible => 'No primary Bible set yet.';
+
+@override
+String removeBibleQuestion(String bibleName) => 'Remove ${bibleName}?';
+
+@override
+String get choosePrimaryBible => 'Choose primary Bible';
+
+@override
+String get closeAction => 'Close';
+
+@override
+String get managingBibles => 'Managing your Bibles';
+
+@override
+String get bibleManagementQuestion =>
+    'Would you like to know how to manage your Bibles?';
+
+@override
+String get noThanks => 'No thanks';
+
+@override
+String get showMe => 'Show me';
+
+@override
+String get restartAction => 'Restart';
+
+@override
+String get continueAction => 'Continue';
+
+@override
+String get deleteAction => 'Delete';
+
+@override
+String get howBibleManagementWorks => 'How Bible management works';
+
+@override
+String get manageBibles => 'Manage Bibles';
+
+@override
+String get changeSelection => 'Change Selection';
+
+@override
+String get deleteScriptureListQuestion => 'Delete this list?';
+
+@override
+String get scriptureListsTitle => 'Scripture Lists';
+
+@override
+String get renameList => 'Rename list';
+
+@override
+String get saveAction => 'Save';
+
+@override
+String get playAction => 'Play';
+
+@override
+String get deleteSelectedQuestion => 'Delete selected?';
+
+@override
+String get bookmarksNotesTitle => 'Bookmarks & Notes';
+
+@override
+String get deleteSelectedTooltip => 'Delete selected';
+
+@override
+String get clearAll => 'Clear all';
+
+@override
+String get clearReadingHistoryQuestion => 'Clear reading history?';
+
+@override
+String get clearSearchHistoryQuestion => 'Clear search history?';
+
+@override
+String get historyTitle => 'History';
+
+@override
+String get searchScripturesHint => 'Search scriptures ...';
+
+@override
+String get noDownloadedBiblesToSearch => 'No downloaded Bibles to search yet.';
+
+@override
+String noSearchResultsForQuery(String query) => 'No results for ${query}';
+
+@override
+String get typeAtLeast3Letters => 'Type at least 3 letters to search.';
+
+@override
+String get searchBiblesHint => 'Search name, abbreviation or language';
+
+@override
+String get chooseBiblesTitle => 'Choose your Bibles';
+
+@override
+String get noBiblesMatch => 'No Bibles match your search';
+
+@override
+String get setupChurchLibTitle => 'Set up ChurchLib';
+
+@override
+String get refreshAction => 'Refresh';
+
+@override
+String get backAction => 'Back';
+
+@override
+String get finishAction => 'Finish';
+
+@override
+String get chooseSongbooksTitle => 'Choose your Songbooks';
+
+@override
+String get gettingEverythingReady => 'Getting everything ready…';
+
+@override
+String get unableDownloadSongs => 'Unable to download songs';
+
+@override
+String get retryAction => 'Retry';
+
+@override
+String get songlibDescription => 'Church songbook & hymns, offline';
+
+@override
+String get biblelibDescription => 'Multi-translation Bible reader';
+
+@override
+String get previousAction => 'Previous';
+
+@override
+String get previousChapterTooltip => 'Previous chapter (Alt + ←)';
+
+@override
+String chapterNumberLabel(int chapterNumber) => 'Chapter ${chapterNumber}';
+
+@override
+String get pickChapter => 'Pick chapter';
+
+@override
+String get nextAction => 'Next';
+
+@override
+String get nextChapterTooltip => 'Next chapter (Alt + →)';
+
+@override
+String get quickOptions => 'Quick Options';
+
+@override
+String get smallerText => 'Smaller text';
+
+@override
+String get largerText => 'Larger text';
+
+@override
+String get slower => 'Slower';
+
+@override
+String get faster => 'Faster';
+
+@override
+String get switchPrimaryBible => 'Switch Your Primary Bible';
+
+@override
+String get pickBibleBook => 'Pick a Bible Book';
+
+@override
+String get scriptureOpener => 'Scripture Opener';
+
+@override
+String get closeScriptureQueue => 'Close Scripture Queue';
+
+@override
+String get previousScripture => 'Previous Scripture';
+
+@override
+String get nextScripture => 'Next Scripture';
+
+@override
+String get chooseHighlightColor => 'Choose a highlight color';
+
+@override
+String get bookmarkVerses => 'Bookmark verses';
+
+@override
+String get bookmarkOnly => 'Bookmark only';
+
+@override
+String get bookmarkWithNotes => 'Bookmark with notes';
+
+@override
+String get saveNote => 'Save note';
+
+@override
+String get writeVerseThoughts => 'Write your thoughts on this verse...';
+
+@override
+String get noBooksFound => 'No books found';
+
+@override
+String get searchBooksHint => 'Search books...';
+
+@override
+String fontSizeLabel(int size) => 'Font size: ${size}';
+
+@override
+String get copyTextToClipboard => 'Copied to clipboard';
+
+@override
+String get cancelVerseSelection => 'Cancel selection (Esc)';
+
+@override
+String get bookmarkHighlight => 'Bookmark / highlight';
+
+@override
+String get copyAction => 'Copy';
+
+@override
+String get backButton => 'BACK';
+
+@override
+String versionUpdateBanner(String latest, String current) =>
+    'Version ${latest} is out (you have ${current}).';
+
+@override
+String get noBiblesDownloaded => 'No Bibles downloaded yet.';
+
+@override
+String get bibleDataUnavailable =>
+    'Bible data is not available. Wait for the download to complete.';
+
+@override
+String noChaptersFound(String bookName) => 'No chapters found for ${bookName}';
+
+@override
+String get versesNotCached =>
+    'Verses are not cached. Make sure the download is complete.';
+
+@override
+String get readerLoadFailed =>
+    'Unable to load this Bible content. Please try again.';
+
+@override
+String get noBooksForBible => 'No books found for this Bible.';
+
+@override
+String get scriptureListsFailed => 'Failed to load scripture lists.';
+
+@override
+String get scriptureListNotFound => 'This scripture list could not be found.';
+
+@override
+String get songSearchFailed => 'Unable to display songs';
+
+@override
+String get showVersesPanel =>
+    'Show every verse of the song beside the slides while presenting';
+
+@override
+String get startOverBiblelibQuestion => 'Start over with BibleLib?';
+
+@override
+String get startOverBiblelibMessage =>
+    'This deletes every downloaded Bible, bookmark and note. This can\'t be undone.';
+
+@override
+String get resetChurchlibQuestion => 'Reset ChurchLib?';
+
+@override
+String get resetChurchlibMessage =>
+    'This erases everything — songbooks, Bibles, bookmarks, notes and settings — and takes you back to setup. This can\'t be undone.';
+
+@override
+String get resetBibleSubtitle =>
+    'Delete all downloaded Bibles and choose translations again';
+
+@override
+String get resetChurchSubtitle =>
+    'Erase everything — songbooks, Bibles, bookmarks — and start over';
+
+@override
+String get appearanceTitle => 'Appearance';
+
+@override
+String get generalTitle => 'General';
+
+@override
+String get presentationNavTitle => 'Presentation';
+
+@override
+String get biblesNavTitle => 'Bibles';
+
+@override
+String get updateAvailable => 'Update available';
+
+@override
+String songNumberLabel(int songNumber) => 'Song #${songNumber}';
+
+@override
+String get backEscapeTooltip => 'Back (Esc)';
+
+@override
+String get stopAction => 'Stop';
+
+@override
+String get doneAction => 'Done';
+
+@override
+String get reorderAction => 'Reorder';
+
+@override
+String get removeFromSecondary => 'Remove from secondary';
+
+@override
+String secondaryBibleCount(int count) => '${count} secondary Bibles';
+
+@override
+String get oneSecondaryBible => '1 secondary Bible';
+
+@override
+String get hoverRemoveBible => 'Hover a Bible to remove it';
+
+@override
+String get downloadFailedStatus => ' · Download failed';
+
+@override
+String get fetchingVersesStatus => ' · Fetching verses';
+
+@override
+String get downloadStoppedStatus => ' · Download stopped';
+
+@override
+String biblePrimaryLabel(String language) => '${language} BIBLE • PRIMARY';
+
+@override
+String bibleLanguageLabel(String language) => '${language} BIBLE';
+
+@override
+String get bibleManagementInfo =>
+    'You can add a Bible to the Multi-Bible Reader by hovering over it in "Other Bibles" and choosing "Set as secondary". Hover over it again and choose "Remove from secondary" to take it out.\n\nTo delete a Bible from your device, hover over it, choose "Delete" and confirm.\n\nTo add or remove translations from your library, choose "Change Selection" below.';
+
+@override
+String get deleteBibleMessage =>
+    'This deletes all downloaded content for this Bible from your device. This can\'t be undone.';
+
+@override
+String get primaryBible => 'Primary Bible';
+
+@override
+String get clickToChange => 'Click to change';
+
+@override
+String get secondaryBiblesTitle => 'Secondary Bibles';
+
+@override
+String get otherBiblesTitle => 'Other Bibles';
+
+@override
+String get setAsSecondary => 'Set as secondary';
+
+@override
+String get renameAction => 'Rename';
+
+@override
+String get themeLabel => 'Theme';
+
+@override
+String get themeSystem => 'System';
+
+@override
+String get smallerTextTooltip => 'Smaller text (-)';
+
+@override
+String get largerTextTooltip => 'Larger text (=)';
+
+@override
+String get clearSearchHistory => 'Clear search history';
+
+@override
+String get noSearchHistory => 'No search history yet.';
+
+@override
+String get noReadingHistory => 'No reading history yet.';
+
+@override
+String get hoverSetSecondary => 'Hover a Bible to set it as secondary';
+
+@override
+String get bibleManagementPrompt =>
+    'Learn how to add or remove Bibles from the Multi-Bible Reader, and how to add translations to your library.';
+
+@override
+String get multiBibleDescription =>
+    'Read parallel translations alongside your primary text';
+
+@override
+String get manageYourBibles => 'Manage Your Bibles';
+
+@override
+String get historyReading => 'Reading';
+
+@override
+String get historySearches => 'Searches';
+
+@override
+String get noSearchesYet => 'No searches yet.';
+
+@override
+String get clearReadingHistoryMessage =>
+    'This will permanently delete your reading history. This can\'t be undone.';
+
+@override
+String get clearSearchHistoryMessage =>
+    'This will permanently delete your search history. This can\'t be undone.';
+
+@override
+String get recentSearches => 'Recent searches';
+
+@override
+String searchResultCount(int count) => '${count} results';
+
+@override
+String get deleteListMessage => 'This can\'t be undone.';
+
+@override
+String get noScriptureLists =>
+    'No saved scripture lists yet.\nBuild one in Scripture Opener.';
+
+@override
+String scriptureCount(int count) => '${count} scriptures';
+
+@override
+String get scriptureListTitle => 'Scripture list';
+
+@override
+String get renameTooltip => 'Rename';
+
+@override
+String get clearAllBookmarksQuestion => 'Clear all bookmarks?';
+
+@override
+String get clearAllNotesQuestion => 'Clear all notes?';
+
+@override
+String deleteSelectedCountMessage(int count) =>
+    'This will permanently delete ${count} selected items. This can\'t be undone.';
+
+@override
+String get clearBookmarksMessage =>
+    'This will permanently delete all your bookmarks across every Bible. This can\'t be undone.';
+
+@override
+String get clearNotesMessage =>
+    'This will permanently delete all your notes across every Bible. This can\'t be undone.';
+
+@override
+String get bookmarksTab => 'Bookmarks';
+
+@override
+String get notesTab => 'Notes';
+
+@override
+String get readingTab => 'Reading';
+
+@override
+String get noSavedScriptureLists =>
+    'No saved scripture lists yet.\nBuild one in Scripture Opener.';
+
+@override
+String get welcomeToChurchLib => 'Welcome to ChurchLib';
+
+@override
+String get chooseModulesPrompt =>
+    'Choose what you\'d like set up. You can always add the other one later from Settings.';
+
+@override
+String biblesSelectedCount(int count, int max, String noun) =>
+    '${count} of ${max} ${noun} selected';
+
+@override
+String get songbooksNoun => 'songbooks';
+
+@override
+String get biblesNoun => 'Bibles';
+
+@override
+String get firstPickPrimaryBible => 'Your first pick is the primary Bible';
+
+@override
+String songbookSelectionLimit(int count) =>
+    'You can select up to ${count} songbooks';
+
+@override
+String get continueUpper => 'CONTINUE';
+
+@override
+String get finishUpper => 'FINISH';
+
+@override
+String get almostThere => 'Almost there';
+
+@override
+String percentDownloaded(int percent) => '${percent}% downloaded';
+
+@override
+String get savingYourSongs => 'Saving your songs';
+
+@override
+String get fetchingYourSongs => 'Fetching your songs…';
+
+@override
+String get momentOnly => 'This only takes a moment';
+
+@override
+String get downloadingPrimaryBible => 'Downloading your primary Bible';
+
+@override
+String get bibleWord => 'Bible';
+
+@override
+String get otherBiblesBackground =>
+    'Your other Bibles will download in the background.';
+
+@override
+String get autoScrollAction => 'Auto scroll';
+
+@override
+String get stopScrollAction => 'Stop scroll';
+
+@override
+String get startAutoScroll => 'Start auto scroll';
+
+@override
+String get stopAutoScroll => 'Stop auto scroll';
+
+@override
+String get oldTestament => 'Old Testament';
+
+@override
+String get newTestament => 'New Testament';
+
+@override
+String get showOtherBibles => 'Show your other Bibles under each verse';
+
+@override
+String get downloadBibleToUse => 'Download another Bible to use this';
+
+@override
+String get addNoteAction => 'Add note';
+
+@override
+String get selectSingleVerseNote => 'Select a single verse to add a note';
+
+@override
+String selectedCount(int count) => '${count} selected';
+
+@override
+String get firstSetupMessage =>
+    'Choose what you would like to set up. You can add the other module later from Settings.';
+
+@override
+String get bookmarkOptionsPrompt =>
+    'Would you like to bookmark these verses only, or add a note as well?';
+
+@override
+String howModuleWorks(String moduleName) => 'How ${moduleName} works';
+
+@override
+String switchToModule(String moduleName) => 'Switch to ${moduleName}';
+
+@override
+String get songHowFindTitle => 'Finding a song';
+
+@override
+String get songHowFindBody =>
+    'Type in the search box at the top to find a song by its number, title or any words from its lyrics. Press S anywhere to jump to the box. The chips above the list narrow the songs down to one songbook.';
+
+@override
+String get songHowReadTitle => 'Reading a song';
+
+@override
+String get songHowReadBody =>
+    'Pick a song in the list and its verses appear on the right, with the song title and songbook shown at the top of the window.';
+
+@override
+String get songHowPresentTitle => 'Presenting';
+
+@override
+String get songHowPresentBody =>
+    'Double-click a song, press Enter, or choose Present song from Quick Options to open it in the presenter. Step through the verses one slide at a time; change slide direction in Settings. Words are sized to fit the screen. The list button in the presenter title bar shows every verse in a sidebar, with the current verse highlighted. The sidebar starts open; press the button again to hide it.';
+
+@override
+String get songHowKeysTitle => 'Presenter keys';
+
+@override
+String get songHowKeysBody =>
+    'Right or Down arrow: next slide.\nLeft or Up arrow: previous slide.\n1 to 7: jump to that verse.\nC: jump to the chorus.\nL: jump to the last slide.\n- : make the text smaller.\n= : make the text bigger, as far as the longest verse still fits.\nEsc: close the presenter.';
+
+@override
+String get songHowQuickTitle => 'Quick Options';
+
+@override
+String get songHowQuickBody =>
+    'The Quick Options button at the bottom right collects what you can do with the selected song: copy its words, like it or present it.';
+
+@override
+String get songHowLikesTitle => 'Likes';
+
+@override
+String get songHowLikesBody =>
+    'Songs you like are gathered under Likes in the sidebar so you can open your favourites quickly.';
+
+@override
+String get songHowBooksTitle => 'Songbooks and updates';
+
+@override
+String get songHowBooksBody =>
+    'Your songbooks are stored on this device and refreshed in the background when you are online. To choose different songbooks, open Settings and use Songbooks.';
+
+@override
+String get bibleHowReadingTitle => 'Reading';
+
+@override
+String get bibleHowReadingBody =>
+    'Use the Bible button at the top to switch translation and the chapter button to jump to another chapter. Previous and Next at the bottom move chapter by chapter, or press Alt with the left or right arrow. The Up and Down arrow keys scroll the chapter. These keys only work while BibleLib is the open app.';
+
+@override
+String get bibleHowTextTitle => 'Text size and auto scroll';
+
+@override
+String get bibleHowTextBody =>
+    'Aa- and Aa+ in the title bar change the text size, or press - on your keyboard to make it smaller and = to make it bigger. Auto scroll at the bottom left scrolls the chapter for you; use the plus and minus beside it to set the speed, and touch the text to stop.';
+
+@override
+String get bibleHowParallelTitle => 'Parallel Bibles';
+
+@override
+String get bibleHowParallelBody =>
+    'Download more than one Bible and turn on the Multi-Bible reader in Quick Options to show your other translations under each verse.';
+
+@override
+String get bibleHowSelectTitle => 'Selecting verses';
+
+@override
+String get bibleHowSelectBody =>
+    'Click verses to select them. The bar at the top then lets you bookmark or highlight them, add a note to a single verse, or copy them. Press Esc to cancel the selection.';
+
+@override
+String get bibleHowSearchTitle => 'Search';
+
+@override
+String get bibleHowSearchBody =>
+    'Search looks through every verse of the Bible you choose and takes you straight to the result. Earlier searches are kept for next time.';
+
+@override
+String get bibleHowHistoryTitle => 'History';
+
+@override
+String get bibleHowHistoryBody =>
+    'History lists the chapters you read and the searches you made, so you can pick up where you stopped.';
+
+@override
+String get bibleHowBookmarksTitle => 'Bookmarks and Notes';
+
+@override
+String get bibleHowBookmarksBody =>
+    'Everything you bookmark or write a note on is collected under Bookmarks and Notes in the sidebar, across all your Bibles.';
+
+@override
+String get bibleHowOpenerTitle => 'Scripture Opener';
+
+@override
+String get bibleHowOpenerBody =>
+    'Scripture Opener in the title bar opens a passage by typing its book, chapter and verse. Add several passages to a queue and open them one after another.';
+
+@override
+String get bibleHowListsTitle => 'Scripture lists';
+
+@override
+String get bibleHowListsBody =>
+    'Scriptures in the sidebar keeps lists of passages you reuse, such as a sermon outline. Press Play on a list to step through its verses with the queue bar at the bottom.';
+
+@override
+String get bibleHowManageTitle => 'Managing Bibles';
+
+@override
+String get bibleHowManageBody =>
+    'Add, remove or choose your main translation from Settings and Bibles, or from Choose Bible in the title bar.';
+
+@override
+String get alignmentJustified => 'Justified';

@@ -8,6 +8,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../common/constants/app_assets.dart';
 import '../../../../core/theme/theme_colors.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../../bloc/selection_bloc.dart';
 
 class ModulesStep extends StatelessWidget {
@@ -15,6 +16,7 @@ class ModulesStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final bloc = context.read<SelectionBloc>();
     return BlocBuilder<SelectionBloc, SelectionState>(
       buildWhen: (p, c) => p.songlib != c.songlib || p.biblelib != c.biblelib,
@@ -25,8 +27,8 @@ class ModulesStep extends StatelessWidget {
           children: [
             Image.asset(AppAssets.iconApp, height: 96, width: 96),
             const SizedBox(height: 24),
-            const Text(
-              'Welcome to ChurchLib',
+            Text(
+              l10n.welcomeToChurchLib,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 28,
@@ -35,16 +37,15 @@ class ModulesStep extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
-              "Choose what you'd like set up. You can always add "
-              'the other one later from Settings.',
+            Text(
+              l10n.firstSetupMessage,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 15, color: ThemeColors.grey),
             ),
             const SizedBox(height: 32),
             _ModuleTile(
               title: 'SongLib',
-              subtitle: 'Church songbook & hymns, offline',
+              subtitle: l10n.songlibDescription,
               icon: AppAssets.iconSonglib,
               selected: state.songlib,
               onChanged: (v) => bloc.add(ModulesToggled(songlib: v)),
@@ -52,16 +53,14 @@ class ModulesStep extends StatelessWidget {
             const SizedBox(height: 16),
             _ModuleTile(
               title: 'BibleLib',
-              subtitle: 'Multi-translation Bible reader',
+              subtitle: l10n.biblelibDescription,
               icon: AppAssets.iconBiblelib,
               selected: state.biblelib,
               onChanged: (v) => bloc.add(ModulesToggled(biblelib: v)),
             ),
           ],
-        )
-            .constrained(maxWidth: 480),
-      )
-          .center(),
+        ).constrained(maxWidth: 480),
+      ).center(),
     );
   }
 }
@@ -115,14 +114,10 @@ class _ModuleTile extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: ThemeColors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 13, color: ThemeColors.grey),
                 ),
               ],
-            )
-                .expanded(),
+            ).expanded(),
             Checkbox(
               value: selected,
               activeColor: ThemeColors.primary,

@@ -147,7 +147,7 @@ class AppSwitcher extends StatelessWidget {
                 )
           else
             Tooltip(
-              message: 'Switch to ${m.label}',
+              message: AppLocalizations.of(context)!.switchToModule(m.label),
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () => scope!.onSwitch(m),

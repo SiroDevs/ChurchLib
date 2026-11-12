@@ -6,6 +6,7 @@ import '../../common/constants/pref_constants.dart';
 import '../../common/windows/window_frame.dart';
 import '../../core/di/injectable.dart';
 import '../../domain/repos/pref_repo.dart';
+import '../../l10n/gen/app_localizations.dart';
 import '../home/main/shell/app_module.dart';
 import '../home/main/shell/shell_nav_item.dart';
 import 'settings_sections.dart';
@@ -20,28 +21,38 @@ class SettingsWindow extends StatefulWidget {
 }
 
 class _SettingsWindowState extends State<SettingsWindow> {
-  late final List<SettingsNode> _tree;
-  late final List<SettingsNode> _leaves;
-  late final Set<String> _expanded;
+  late List<SettingsNode> _tree;
+  late List<SettingsNode> _leaves;
+  late Set<String> _expanded;
   late String _selectedId;
+  bool _initialized = false;
 
   @override
   void initState() {
     super.initState();
+    _selectedId = 'appearance';
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     final prefs = getIt<PrefRepo>();
+    final l10n = AppLocalizations.of(context)!;
     _tree = settingsTree(
       songlibEnabled: prefs.getPrefBool(PrefConstants.songlibModuleEnabledKey),
       biblelibEnabled: prefs.getPrefBool(
         PrefConstants.biblelibModuleEnabledKey,
       ),
+      l10n: l10n,
     );
     _leaves = settingsLeaves(_tree).toList();
-    _expanded = {
-      for (final node in _tree)
-        if (node.isGroup) node.id,
-    };
-
-    _selectedId = 'appearance';
+    if (!_initialized) {
+      _expanded = {
+        for (final node in _tree)
+          if (node.isGroup) node.id,
+      };
+    }
+    _initialized = true;
   }
 
   SettingsNode get _selected => _leaves.firstWhere(
@@ -96,7 +107,10 @@ class _SettingsWindowState extends State<SettingsWindow> {
     final scheme = Theme.of(context).colorScheme;
     final selected = _selected;
     return Scaffold(
-      appBar: const WindowAppBar(icon: Icons.settings, title: 'ChurchLib Settings'),
+      appBar: WindowAppBar(
+        icon: Icons.settings,
+        title: AppLocalizations.of(context)!.settingsWindowTitle,
+      ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

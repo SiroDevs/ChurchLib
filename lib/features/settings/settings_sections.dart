@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../home/main/shell/app_module.dart';
+import '../../l10n/gen/app_localizations.dart';
 import '../license/ui/widgets/license_section.dart';
 import 'sections/appearance_section.dart';
 import 'sections/biblelib_sections.dart';
@@ -35,16 +36,17 @@ class SettingsNode {
 List<SettingsNode> settingsTree({
   required bool songlibEnabled,
   required bool biblelibEnabled,
+  required AppLocalizations l10n,
 }) => [
   SettingsNode.leaf(
     'appearance',
-    'Appearance',
+    l10n.appearanceTitle,
     Icons.color_lens_outlined,
     (_) => const AppearanceSection(),
   ),
   SettingsNode.leaf(
     'license',
-    'License',
+    l10n.licenseTitle,
     Icons.verified_outlined,
     (_) => const LicenseSection(),
   ),
@@ -56,7 +58,7 @@ List<SettingsNode> settingsTree({
       [
         SettingsNode.leaf(
           'songlib/presentation',
-          'Presentation',
+          l10n.presentationNavTitle,
           Icons.slideshow,
           (_) => const PresentationSection(),
         ),
@@ -70,7 +72,7 @@ List<SettingsNode> settingsTree({
       [
         SettingsNode.leaf(
           'biblelib/bibles',
-          'Bibles',
+          l10n.biblesNavTitle,
           Icons.menu_book_outlined,
           (_) => const BiblesSection(),
           scrolls: false,
@@ -79,7 +81,7 @@ List<SettingsNode> settingsTree({
     ),
   SettingsNode.leaf(
     'general',
-    'General',
+    l10n.generalTitle,
     Icons.church_outlined,
     (_) => const GeneralSection(),
   ),

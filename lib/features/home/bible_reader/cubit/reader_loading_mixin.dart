@@ -28,9 +28,7 @@ mixin ReaderLoadingMixin on Cubit<BibleReaderState> {
       final bibles = await _bibleRepo.getBibles();
       if (!_isCurrentLoadRequest(requestId)) return;
       if (bibles.isEmpty) {
-        emit(
-          state.copyWith(isLoading: false, error: 'No Bibles downloaded yet.'),
-        );
+        emit(state.copyWith(isLoading: false, error: 'noBiblesDownloaded'));
         return;
       }
 
@@ -66,7 +64,7 @@ mixin ReaderLoadingMixin on Cubit<BibleReaderState> {
     } catch (e) {
       if (!_isCurrentLoadRequest(requestId)) return;
       logger('Reader initialize error: $e');
-      emit(state.copyWith(isLoading: false, error: e.toString()));
+      emit(state.copyWith(isLoading: false, error: 'readerLoadFailed'));
     }
   }
 
@@ -81,12 +79,7 @@ mixin ReaderLoadingMixin on Cubit<BibleReaderState> {
     final books = await _bibleRepo.getLocalBooks(abbr);
     if (!_isCurrentLoadRequest(requestId)) return;
     if (books.isEmpty) {
-      emit(
-        state.copyWith(
-          isLoading: false,
-          error: 'Bible data not available. Please wait for the download to complete.',
-        ),
-      );
+      emit(state.copyWith(isLoading: false, error: 'bibleDataUnavailable'));
       return;
     }
 
@@ -120,10 +113,7 @@ mixin ReaderLoadingMixin on Cubit<BibleReaderState> {
     if (!_isCurrentLoadRequest(requestId)) return;
     if (chapters.isEmpty) {
       emit(
-        state.copyWith(
-          isLoading: false,
-          error: 'No chapters found for ${book.name}',
-        ),
+        state.copyWith(isLoading: false, error: 'noChaptersFound:${book.name}'),
       );
       return;
     }

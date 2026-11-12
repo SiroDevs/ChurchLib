@@ -9,6 +9,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../../../../common/utils/reader/reader_utils.dart';
 import '../../../../../../features/presentation/controller/presentation_sources.dart';
 import '../../../../../../features/presentation/ui/presentation_toggle.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../../main/shell/app_module.dart';
 import '../../../cubit/bible_reader_cubit.dart';
 import 'reader_actions.dart';
@@ -19,6 +20,7 @@ class BibleTitleBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final cubit = context.read<BibleReaderCubit>();
     final language = state.activeBibleLanguageLabel;
     final bibleLabel = state.activeBible.isEmpty
@@ -32,7 +34,7 @@ class BibleTitleBar extends StatelessWidget {
       children: [
         _PickerButton(
           label: bibleLabel,
-          tooltip: 'Switch Your Primary Bible',
+          tooltip: l10n.switchPrimaryBible,
           onTap: state.savedBibles.isEmpty
               ? null
               : () => pickBibleAction(context, state),
@@ -40,7 +42,7 @@ class BibleTitleBar extends StatelessWidget {
         const SizedBox(width: 8),
         _PickerButton(
           label: chapterLabel,
-          tooltip: 'Pick a Bible Boook',
+          tooltip: l10n.pickBibleBook,
           icon: Icons.menu_book_outlined,
           bold: true,
           onTap: state.chapters.isEmpty
@@ -53,7 +55,7 @@ class BibleTitleBar extends StatelessWidget {
               ? null
               : () => openScriptureAction(context, state),
           icon: const Icon(Icons.auto_stories_outlined, size: 20),
-          label: const Text('Scripture Opener'),
+          label: Text(l10n.scriptureOpener),
         ),
         PresentationToggle(
           module: AppModule.biblelib,
@@ -62,14 +64,14 @@ class BibleTitleBar extends StatelessWidget {
           enabled: state.verses.isNotEmpty,
         ),
         IconButton(
-          tooltip: 'Smaller text (-)',
+          tooltip: l10n.smallerTextTooltip,
           onPressed: state.fontSize <= readerMinFontSize
               ? null
               : () => cubit.setFontSize(state.fontSize - 2),
           icon: const AaIcon(plus: false),
         ),
         IconButton(
-          tooltip: 'Larger text (=)',
+          tooltip: l10n.largerTextTooltip,
           onPressed: state.fontSize >= readerMaxFontSize
               ? null
               : () => cubit.setFontSize(state.fontSize + 2),
