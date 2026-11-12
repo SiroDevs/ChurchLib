@@ -59,7 +59,7 @@ class _SongListSkeleton extends StatelessWidget {
         child: ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.only(left: 5, right: 10),
-          itemCount: 12,
+          itemCount: 25,
           separatorBuilder: (_, _) =>
               const SizedBox(height: SongSkeletonSizes.songListSeparatorHeight),
           itemBuilder: (_, index) => _SongRowSkeleton(
@@ -143,6 +143,9 @@ class _SongViewSkeleton extends StatelessWidget {
     [1.0, .77, .62],
     [1.0, .89, .94, .74, .83, .64, .58],
     [1.0, .82, .97, .79, .9, .67, .48],
+    [1.0, .82, .94, .74, .9, .63, .52],
+    [1.0, .91, .8, .96, .68, .53],
+    [1.0, .77, .62],
   ];
 
   @override

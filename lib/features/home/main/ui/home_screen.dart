@@ -46,8 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
         index: _enabled.indexOf(_current),
         children: [
           for (final m in _enabled)
-            // Only the module on screen may hold keyboard focus, so the other
-            // one's shortcuts (and text fields) stay quiet.
             ExcludeFocus(
               excluding: m != _current,
               child: switch (m) {
