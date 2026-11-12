@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 // Project imports:
-import '../formatting/app_util.dart';
+import '../logging/app_logger.dart';
 
 const _requestTimeout = Duration(seconds: 60);
 final http.Client _defaultClient = http.Client();

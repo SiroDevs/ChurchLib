@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../utils/logging/app_logger.dart';
 import '../../../core/theme/theme_data.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/models.dart';
-import '../../utils/formatting/app_util.dart';
 import '../../windows/open_windows.dart';
 import '../list_items/search_book_item.dart';
 import '../list_items/search_song_item.dart';
@@ -34,10 +34,7 @@ class SongsSearch extends SearchDelegate<List> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
-        onPressed: () => query = '',
-        icon: const Icon(Icons.clear),
-      ),
+      IconButton(onPressed: () => query = '', icon: const Icon(Icons.clear)),
     ];
   }
 
@@ -120,9 +117,7 @@ class SongsSearch extends SearchDelegate<List> {
               );
             },
           ),
-        )
-            .padding(right: Sizes.xs)
-            .expanded(),
+        ).padding(right: Sizes.xs).expanded(),
       ],
     );
   }

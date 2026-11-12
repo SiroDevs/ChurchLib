@@ -10,9 +10,10 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
+import '../../common/utils/logging/app_logger.dart';
 import '../../common/constants/app_constants.dart';
-import '../../common/utils/formatting/app_util.dart';
 import '../../data/sources/local/app_database.dart';
+import '../../data/sources/local/migrations/database_migrations.dart';
 import '../../data/sources/remote/bible/bible_api_service.dart';
 import '../../domain/repos/bible/bible_annotation_repo.dart';
 import '../../domain/repos/bible/bible_repo.dart';
@@ -51,6 +52,7 @@ abstract class RegisterModule {
   @preResolve
   Future<AppDatabase> provideAppDatabase() async => await $FroomAppDatabase
       .databaseBuilder(await AppConstants.databaseFile)
+      .addMigrations(appDatabaseMigrations)
       .build();
 
   @lazySingleton

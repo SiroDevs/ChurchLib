@@ -1,6 +1,6 @@
 // Project imports:
+import '../../../common/utils/logging/app_logger.dart';
 import '../../../common/constants/pref_constants.dart';
-import '../../../common/utils/formatting/app_util.dart';
 import '../../../data/models/bible/bible_version.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';
 import '../pref_repo.dart';

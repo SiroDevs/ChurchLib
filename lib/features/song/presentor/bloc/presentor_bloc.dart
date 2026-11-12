@@ -9,7 +9,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/utils/logging/app_logger.dart';
 import '../../../../common/utils/formatting/date_util.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/shared/entry_source.dart';

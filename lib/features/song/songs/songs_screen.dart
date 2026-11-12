@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../../common/utils/formatting/app_util.dart';
+import '../../../common/utils/logging/app_logger.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../common/widgets/list_items/search_book_item.dart';
 import '../../../common/widgets/list_items/search_song_item.dart';

@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../utils/formatting/song_text_utils.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../domain/entities/basic_model.dart';
-import '../../utils/formatting/app_util.dart';
 
 var locale = 'en';
 
@@ -32,11 +32,8 @@ class BookItem extends StatelessWidget {
             : (Platform.isIOS
                   ? Icons.radio_button_unchecked
                   : Icons.check_box_outline_blank),
-        color: item.isSelected
-            ? Colors.white
-            : ThemeColors.bgColorWB(context),
-      )
-          .padding(all: Sizes.xs),
+        color: item.isSelected ? Colors.white : ThemeColors.bgColorWB(context),
+      ).padding(all: Sizes.xs),
       title: Text(
         refineTitle(item.data.title!),
         style: TextStyle(
@@ -56,14 +53,12 @@ class BookItem extends StatelessWidget {
               : ThemeColors.bgColorWB(context),
         ),
       ),
-    )
-        .center()
-        .card(
-          color: item.isSelected
-              ? ThemeColors.primary
-              : Theme.of(context).colorScheme.onInverseSurface,
-          elevation: 5,
-        );
+    ).center().card(
+      color: item.isSelected
+          ? ThemeColors.primary
+          : Theme.of(context).colorScheme.onInverseSurface,
+      elevation: 5,
+    );
   }
 }
 

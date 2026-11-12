@@ -2,7 +2,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/utils/reader/bible_settings_signal.dart';
 import '../../../../common/utils/reader/reader_utils.dart';
 import '../../../../core/di/injectable.dart';

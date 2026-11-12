@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../common/utils/formatting/app_util.dart';
+import '../../common/utils/logging/app_logger.dart';
 import '../../common/utils/network/network_utils.dart';
 import '../../domain/entities/license/exports.dart';
 import 'license_api.dart';
@@ -21,8 +21,8 @@ import 'license_service.dart';
 /// app starts.
 class LicenseCubit extends Cubit<LicenseState> {
   LicenseCubit(this._service, {Stream<bool>? connectivity})
-      : _connectivityStream = connectivity ?? NetworkUtil.onConnectivityChanged,
-        super(const LicenseState());
+    : _connectivityStream = connectivity ?? NetworkUtil.onConnectivityChanged,
+      super(const LicenseState());
 
   final LicenseService _service;
   final Stream<bool> _connectivityStream;
@@ -69,12 +69,14 @@ class LicenseCubit extends Cubit<LicenseState> {
     required String payerName,
     required String payerPhone,
   }) {
-    return _run(() => _service.submitPayment(
-          method: method,
-          reference: reference,
-          payerName: payerName,
-          payerPhone: payerPhone,
-        ));
+    return _run(
+      () => _service.submitPayment(
+        method: method,
+        reference: reference,
+        payerName: payerName,
+        payerPhone: payerPhone,
+      ),
+    );
   }
 
   Future<LicenseOutcome> redeem(String licenseKey) {
@@ -88,7 +90,8 @@ class LicenseCubit extends Cubit<LicenseState> {
 
   Future<void> _refreshIfStale() async {
     final last = state.lastCheckedAt;
-    final stale = last == null ||
+    final stale =
+        last == null ||
         DateTime.now().difference(last) > LicenseConfig.minRefreshGap;
     if (stale || !state.allowsUse) await refresh();
   }

@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/utils/logging/app_logger.dart';
 import '../../../../common/utils/network/network_utils.dart';
 import '../../../../data/models/models.dart';
 import '../../../../domain/repos/database_repo.dart';
