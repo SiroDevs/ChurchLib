@@ -5,6 +5,10 @@ mixin ReaderVersesMixin on Cubit<BibleReaderState> {
   BibleTrackingRepo get _tracking;
   BibleAnnotationRepo get _annotations;
   PrefRepo get _prefs;
+  int _startLoadRequest();
+  bool _isCurrentLoadRequest(int requestId);
+  int get _parallelRequestId;
+  set _parallelRequestId(int value);
   bool get _isFirstLoad;
   set _isFirstLoad(bool value);
   Future<void> initialize({
@@ -40,35 +44,55 @@ mixin ReaderVersesMixin on Cubit<BibleReaderState> {
     final abbr = state.activeBibleAbbr;
     if (chapter == null || abbr.isEmpty) return;
 
+    final requestId = _parallelRequestId + 1;
+    _parallelRequestId = requestId;
     final enabled = readerMultiBibleEnabled(_prefs);
     final parallel = await _loadParallel(abbr, chapter.id);
-    if (isClosed || state.activeChapter?.id != chapter.id) return;
+    if (isClosed ||
+        requestId != _parallelRequestId ||
+        state.activeChapter?.id != chapter.id ||
+        state.activeBibleAbbr != abbr) {
+      return;
+    }
 
-    emit(state.copyWith(
-      parallelVerses: parallel,
-      multiBibleReaderEnabled: enabled,
-    ));
+    emit(
+      state.copyWith(
+        parallelVerses: parallel,
+        multiBibleReaderEnabled: enabled,
+      ),
+    );
   }
 
   Future<void> _loadVerses(
     String abbr,
     BibleChapter chapter, {
+    required int requestId,
     ScrollTarget? scrollTarget,
     bool forceScrollToFirstVerse = false,
   }) async {
+    if (!_isCurrentLoadRequest(requestId)) return;
     emit(state.copyWith(isLoading: true, error: null));
     final verses = await _bibleRepo.getLocalVerses(abbr, chapter.id);
+    if (!_isCurrentLoadRequest(requestId)) return;
     if (verses == null) {
-      emit(state.copyWith(
-        isLoading: false,
-        error: 'Verses not cached. Please ensure download is complete.',
-      ));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          error: 'Verses not cached. Please ensure download is complete.',
+        ),
+      );
       return;
     }
 
     final parallel = await _loadParallel(abbr, chapter.id);
-    final bookmarks = await _annotations.getBookmarksForChapter(abbr, chapter.id);
+    if (!_isCurrentLoadRequest(requestId)) return;
+    final bookmarks = await _annotations.getBookmarksForChapter(
+      abbr,
+      chapter.id,
+    );
+    if (!_isCurrentLoadRequest(requestId)) return;
     final noted = await _annotations.getNotedVerseIds(abbr, chapter.id);
+    if (!_isCurrentLoadRequest(requestId)) return;
     final target = resolveReaderScrollTarget(
       explicit: scrollTarget,
       forceFirst: forceScrollToFirstVerse,
@@ -77,30 +101,45 @@ mixin ReaderVersesMixin on Cubit<BibleReaderState> {
       verses: verses,
     );
     _isFirstLoad = false;
+    final activeBook = state.activeBook;
+    final activeBible = state.activeBible;
 
-    emit(state.copyWith(
-      isLoading: false,
-      verses: verses,
-      parallelVerses: parallel,
-      activeChapter: chapter,
-      activeBibleAbbr: abbr,
-      bookmarks: bookmarks,
-      notedVerseIds: noted,
-      selectedVerseIds: const {},
-      pendingHighlightColor: null,
-      multiBibleReaderEnabled: readerMultiBibleEnabled(_prefs),
-      restoreVerseId: target?.verseId,
-      highlightQuery: target?.highlightQuery,
-    ));
+    emit(
+      state.copyWith(
+        isLoading: false,
+        verses: verses,
+        parallelVerses: parallel,
+        activeChapter: chapter,
+        activeBibleAbbr: abbr,
+        bookmarks: bookmarks,
+        notedVerseIds: noted,
+        selectedVerseIds: const {},
+        pendingHighlightColor: null,
+        multiBibleReaderEnabled: readerMultiBibleEnabled(_prefs),
+        restoreVerseId: target?.verseId,
+        highlightQuery: target?.highlightQuery,
+      ),
+    );
 
-    await _recordVersesLoaded(abbr, chapter, verses);
+    await _recordVersesLoaded(
+      abbr,
+      activeBible,
+      activeBook,
+      chapter,
+      verses,
+      requestId,
+    );
   }
 
   Future<void> _recordVersesLoaded(
     String abbr,
+    String bibleName,
+    BibleBook? book,
     BibleChapter chapter,
     List<VerseDisplay> verses,
+    int requestId,
   ) async {
+    if (!_isCurrentLoadRequest(requestId)) return;
     saveReaderPosition(
       _prefs,
       bibleAbbr: abbr,
@@ -108,12 +147,11 @@ mixin ReaderVersesMixin on Cubit<BibleReaderState> {
       chapterId: chapter.id,
     );
 
-    final book = state.activeBook;
     if (book == null) return;
     await recordReaderPosition(
       _tracking,
       bibleAbbr: abbr,
-      bibleName: state.activeBible,
+      bibleName: bibleName,
       book: book,
       chapter: chapter,
       verseNumber: verses.isEmpty ? 1 : verses.first.number,
