@@ -1,5 +1,6 @@
 // Project imports:
 import 'app_module.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 
 class HowItWorksEntry {
   const HowItWorksEntry(this.title, this.body);
@@ -8,120 +9,30 @@ class HowItWorksEntry {
   final String body;
 }
 
-List<HowItWorksEntry> howItWorksFor(AppModule module) => switch (module) {
-      AppModule.songlib => _songlib,
-      AppModule.biblelib => _biblelib,
+List<HowItWorksEntry> howItWorksFor(AppModule module, AppLocalizations l10n) =>
+    switch (module) {
+      AppModule.songlib => [
+        HowItWorksEntry(l10n.songHowFindTitle, l10n.songHowFindBody),
+        HowItWorksEntry(l10n.songHowReadTitle, l10n.songHowReadBody),
+        HowItWorksEntry(l10n.songHowPresentTitle, l10n.songHowPresentBody),
+        HowItWorksEntry(l10n.songHowKeysTitle, l10n.songHowKeysBody),
+        HowItWorksEntry(l10n.songHowQuickTitle, l10n.songHowQuickBody),
+        HowItWorksEntry(l10n.songHowLikesTitle, l10n.songHowLikesBody),
+        HowItWorksEntry(l10n.songHowBooksTitle, l10n.songHowBooksBody),
+      ],
+      AppModule.biblelib => [
+        HowItWorksEntry(l10n.bibleHowReadingTitle, l10n.bibleHowReadingBody),
+        HowItWorksEntry(l10n.bibleHowTextTitle, l10n.bibleHowTextBody),
+        HowItWorksEntry(l10n.bibleHowParallelTitle, l10n.bibleHowParallelBody),
+        HowItWorksEntry(l10n.bibleHowSelectTitle, l10n.bibleHowSelectBody),
+        HowItWorksEntry(l10n.bibleHowSearchTitle, l10n.bibleHowSearchBody),
+        HowItWorksEntry(l10n.bibleHowHistoryTitle, l10n.bibleHowHistoryBody),
+        HowItWorksEntry(
+          l10n.bibleHowBookmarksTitle,
+          l10n.bibleHowBookmarksBody,
+        ),
+        HowItWorksEntry(l10n.bibleHowOpenerTitle, l10n.bibleHowOpenerBody),
+        HowItWorksEntry(l10n.bibleHowListsTitle, l10n.bibleHowListsBody),
+        HowItWorksEntry(l10n.bibleHowManageTitle, l10n.bibleHowManageBody),
+      ],
     };
-
-const _songlib = [
-  HowItWorksEntry(
-    'Finding a song',
-    'Type in the search box at the top to find a song by its number, title '
-        'or any words from its lyrics. Press S anywhere to jump to the box. '
-        'The chips above the list narrow the songs down to one songbook.',
-  ),
-  HowItWorksEntry(
-    'Reading a song',
-    'Pick a song in the list and its verses appear on the right, with the '
-        'song title and songbook shown at the top of the window.',
-  ),
-  HowItWorksEntry(
-    'Presenting',
-    'Double-click a song, press Enter, or choose Present song from Quick '
-        'Options to open it in the presenter. Step through the verses one '
-        'slide at a time; the slide direction can be changed in Settings. '
-        'The words are sized to fit your screen, so a long verse shrinks to '
-        'stay on the slide instead of running off it. The list button in the '
-        'presenter title bar shows every verse in a small sidebar on the '
-        'right, with the verse on the current slide highlighted. The sidebar '
-        'is open by default; press the button again to hide it.',
-  ),
-  HowItWorksEntry(
-    'Presenter keys',
-    'Right or Down arrow: next slide.\n'
-        'Left or Up arrow: previous slide.\n'
-        '1 to 7: jump to that verse.\n'
-        'C: jump to the chorus.\n'
-        'L: jump to the last slide.\n'
-        '- : make the text smaller.\n'
-        '= : make the text bigger, as far as the longest verse still fits.\n'
-        'Esc: close the presenter.',
-  ),
-  HowItWorksEntry(
-    'Quick Options',
-    'The Quick Options button at the bottom right collects what you can do '
-        'with the selected song: copy its words, like it or present it.',
-  ),
-  HowItWorksEntry(
-    'Likes',
-    'Songs you like are gathered under Likes in the sidebar so you can open '
-        'your favourites quickly.',
-  ),
-  HowItWorksEntry(
-    'Songbooks and updates',
-    'Your songbooks are stored on this device and refreshed in the '
-        'background when you are online. To choose different songbooks, open '
-        'Settings and use Songbooks.',
-  ),
-];
-
-const _biblelib = [
-  HowItWorksEntry(
-    'Reading',
-    'Use the Bible button at the top to switch translation and the chapter '
-        'button to jump to another chapter. Previous and Next at the bottom '
-        'move chapter by chapter, or press Alt with the left or right arrow. '
-        'The Up and Down arrow keys scroll the chapter. These keys only work '
-        'while BibleLib is the open app.',
-  ),
-  HowItWorksEntry(
-    'Text size and auto scroll',
-    'Aa- and Aa+ in the title bar change the text size, or press - on your '
-        'keyboard to make it smaller and = to make it bigger. Auto scroll at '
-        'the bottom left scrolls the chapter for you; use the plus and minus '
-        'beside it to set the speed, and touch the text to stop.',
-  ),
-  HowItWorksEntry(
-    'Parallel Bibles',
-    'Download more than one Bible and turn on the Multi-Bible reader in '
-        'Quick Options to show your other translations under each verse.',
-  ),
-  HowItWorksEntry(
-    'Selecting verses',
-    'Click verses to select them. The bar at the top then lets you bookmark '
-        'or highlight them, add a note to a single verse, or copy them. '
-        'Press Esc to cancel the selection.',
-  ),
-  HowItWorksEntry(
-    'Search',
-    'Search looks through every verse of the Bible you choose and takes you '
-        'straight to the result. Earlier searches are kept for next time.',
-  ),
-  HowItWorksEntry(
-    'History',
-    'History lists the chapters you read and the searches you made, so you '
-        'can pick up where you stopped.',
-  ),
-  HowItWorksEntry(
-    'Bookmarks and Notes',
-    'Everything you bookmark or write a note on is collected under '
-        'Bookmarks and Notes in the sidebar, across all your Bibles.',
-  ),
-  HowItWorksEntry(
-    'Scripture Opener',
-    'Scripture Opener in the title bar opens a passage by typing its book, '
-        'chapter and verse. Add several passages to a queue and open them '
-        'one after another.',
-  ),
-  HowItWorksEntry(
-    'Scripture lists',
-    'Scriptures in the sidebar keeps lists of passages you reuse, such as a '
-        'sermon outline. Press Play on a list to step through its verses '
-        'with the queue bar at the bottom.',
-  ),
-  HowItWorksEntry(
-    'Managing Bibles',
-    'Add, remove or choose your main translation from Settings and Bibles, '
-        'or from Choose Bible in the title bar.',
-  ),
-];

@@ -13,6 +13,7 @@ import '../../../../core/license/license_cubit.dart';
 import '../../../../domain/entities/license/exports.dart';
 import '../../../../l10n/gen/app_localizations.dart';
 import '../widgets/license_widgets.dart';
+import '../widgets/license_status_widgets.dart';
 import 'purchase_panel.dart';
 
 /// Full-screen page shown instead of the app when ChurchLib may not be used:
@@ -79,7 +80,11 @@ class _PaywallScreenState extends State<PaywallScreen> {
     );
   }
 
-  Widget _body(BuildContext context, LicenseState state, AppLocalizations l10n) {
+  Widget _body(
+    BuildContext context,
+    LicenseState state,
+    AppLocalizations l10n,
+  ) {
     final cubit = context.read<LicenseCubit>();
     final retry = FilledButton.icon(
       onPressed: state.busy ? null : () => unawaited(cubit.refresh()),
@@ -92,7 +97,7 @@ class _PaywallScreenState extends State<PaywallScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _Heading(
+            LicenseHeading(
               title: l10n.licenseTrialEndedTitle,
               body: l10n.licenseTrialEndedBody,
             ),
@@ -102,15 +107,18 @@ class _PaywallScreenState extends State<PaywallScreen> {
         );
 
       case LicenseStatus.revoked:
-        return _Message(
+        return LicenseMessage(
           icon: Icons.block,
           title: l10n.licenseRevokedTitle,
           body: l10n.licenseRevokedBody,
-          actions: [retry, SupportLinks(pricing: state.pricing)],
+          actions: [
+            retry,
+            SupportLinks(pricing: state.pricing),
+          ],
         );
 
       case LicenseStatus.clockError:
-        return _Message(
+        return LicenseMessage(
           icon: Icons.schedule,
           title: l10n.licenseClockTitle,
           body: l10n.licenseClockBody,
@@ -118,7 +126,7 @@ class _PaywallScreenState extends State<PaywallScreen> {
         );
 
       case LicenseStatus.notConfigured:
-        return _Message(
+        return LicenseMessage(
           icon: Icons.settings_suggest_outlined,
           title: l10n.licenseTitle,
           body: l10n.licenseNotConfigured,
@@ -126,12 +134,15 @@ class _PaywallScreenState extends State<PaywallScreen> {
         );
 
       case LicenseStatus.unactivated:
-        if (state.busy) return _Busy(label: l10n.licenseChecking);
-        return _Message(
+        if (state.busy) return LicenseBusy(label: l10n.licenseChecking);
+        return LicenseMessage(
           icon: Icons.wifi_off_rounded,
           title: l10n.licenseConnectTitle,
           body: state.lastError ?? l10n.licenseConnectBody,
-          actions: [retry, SupportLinks(pricing: state.pricing)],
+          actions: [
+            retry,
+            SupportLinks(pricing: state.pricing),
+          ],
         );
 
       case LicenseStatus.checking:
@@ -139,84 +150,7 @@ class _PaywallScreenState extends State<PaywallScreen> {
       case LicenseStatus.licensed:
       case LicenseStatus.developer:
         // Valid (or about to be): the router is moving us on.
-        return _Busy(label: l10n.licenseChecking);
+        return LicenseBusy(label: l10n.licenseChecking);
     }
-  }
-}
-
-class _Heading extends StatelessWidget {
-  const _Heading({required this.title, required this.body});
-
-  final String title;
-  final String body;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: theme.textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.w700),
-        ),
-        const SizedBox(height: 6),
-        Text(body, style: theme.textTheme.bodyLarge),
-      ],
-    );
-  }
-}
-
-class _Message extends StatelessWidget {
-  const _Message({
-    required this.icon,
-    required this.title,
-    required this.body,
-    required this.actions,
-  });
-
-  final IconData icon;
-  final String title;
-  final String body;
-  final List<Widget> actions;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Column(
-      children: [
-        Icon(icon, size: 40, color: theme.colorScheme.primary),
-        const SizedBox(height: 12),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: theme.textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.w700),
-        ),
-        const SizedBox(height: 8),
-        Text(body, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
-        const SizedBox(height: 20),
-        for (final action in actions) ...[action, const SizedBox(height: 8)],
-      ],
-    );
-  }
-}
-
-class _Busy extends StatelessWidget {
-  const _Busy({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 12),
-        const CircularProgressIndicator(),
-        const SizedBox(height: 16),
-        Text(label, style: Theme.of(context).textTheme.bodyLarge),
-      ],
-    );
   }
 }

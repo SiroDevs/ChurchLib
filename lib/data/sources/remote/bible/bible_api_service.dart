@@ -6,8 +6,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 // Project imports:
+import '../../../../common/utils/logging/app_logger.dart';
 import '../../../../common/constants/api_constants.dart';
-import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../domain/repos/bible/retry_policy.dart';
 import 'bible_dtos.dart';
 
@@ -16,10 +16,12 @@ class BibleApiService {
     final endpoint = '${ApiConstants.bibleApi}/$path';
     logger('BibleLib Api Request [GET]: $endpoint');
 
-    final response = await http.get(Uri.parse(endpoint)).timeout(
-      const Duration(seconds: 60),
-      onTimeout: () => http.Response('Timeout occurred', 504),
-    );
+    final response = await http
+        .get(Uri.parse(endpoint))
+        .timeout(
+          const Duration(seconds: 60),
+          onTimeout: () => http.Response('Timeout occurred', 504),
+        );
 
     if (response.statusCode < 200 || response.statusCode >= 300) {
       final retryAfterHeader = response.headers['retry-after'];

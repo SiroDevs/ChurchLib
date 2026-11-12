@@ -25,26 +25,26 @@ class GeneralSection extends StatelessWidget {
       children: [
         if (!songlib || !biblelib)
           SettingCard(
-            title: 'Modules',
+            title: l10n.modulesTitle,
             widgets: [
               if (!songlib)
                 ListTile(
                   leading: const Icon(Icons.library_music_outlined),
-                  title: const Text('Add SongLib'),
-                  subtitle: const Text('Set up your church songbook'),
+                  title: Text(l10n.addSonglib),
+                  subtitle: Text(l10n.songlibSetupSubtitle),
                   onTap: actions.addSongLib,
                 ),
               if (!biblelib)
                 ListTile(
                   leading: const Icon(Icons.menu_book_outlined),
-                  title: const Text('Add BibleLib'),
-                  subtitle: const Text('Set up a Bible translation'),
+                  title: Text(l10n.addBiblelib),
+                  subtitle: Text(l10n.biblelibSetupSubtitle),
                   onTap: actions.addBibleLib,
                 ),
             ],
           ),
         SettingCard(
-          title: 'Reset data',
+          title: l10n.resetData,
           widgets: [
             if (songlib)
               ListTile(
@@ -56,18 +56,14 @@ class GeneralSection extends StatelessWidget {
             if (biblelib)
               ListTile(
                 leading: const Icon(Icons.restart_alt),
-                title: const Text('Start over with BibleLib'),
-                subtitle: const Text(
-                  'Delete all downloaded Bibles and choose translations again',
-                ),
+                title: Text(l10n.startOverBiblelib),
+                subtitle: Text(l10n.resetBibleSubtitle),
                 onTap: actions.resetBibleLib,
               ),
             ListTile(
               leading: const Icon(Icons.delete_forever_outlined),
-              title: const Text('Reset ChurchLib'),
-              subtitle: const Text(
-                'Erase everything — songbooks, Bibles, bookmarks — and start over',
-              ),
+              title: Text(l10n.resetChurchlib),
+              subtitle: Text(l10n.resetChurchSubtitle),
               onTap: actions.resetChurchLib,
             ),
           ],

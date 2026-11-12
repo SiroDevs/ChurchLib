@@ -20,7 +20,7 @@ mixin SongSelectionHandlers on Bloc<SelectionEvent, SelectionState> {
     Emitter<SelectionState> emit,
   ) async {
     emit(state.copyWith(booksStatus: LoadStatus.loading));
-    if (!await NetworkUtil.hasInternetConnection()) {
+    if (!await NetworkUtil.hasNetworkConnectionNow()) {
       emit(state.copyWith(booksStatus: LoadStatus.noInternet));
       return;
     }
@@ -95,7 +95,7 @@ mixin SongSelectionHandlers on Bloc<SelectionEvent, SelectionState> {
 
   Future<bool> _saveSongs(Emitter<SelectionState> emit) async {
     emit(state.copyWith(songsPhase: SongsPhase.fetching, songsProgress: 0));
-    if (!await NetworkUtil.hasInternetConnection()) {
+    if (!await NetworkUtil.hasNetworkConnectionNow()) {
       emit(state.copyWith(songsPhase: SongsPhase.noInternet));
       return false;
     }
@@ -132,45 +132,36 @@ mixin SongSelectionHandlers on Bloc<SelectionEvent, SelectionState> {
       return false;
     }
 
-    if (songs.isNotEmpty) {
-      for (final id in _savedBookIds()) {
-        await _dbRepo.removeSongsByBook(id);
-      }
-
-      var index = 0;
-      for (final song in songs) {
-        try {
-          final progress = ((index / songs.length) * 100).toInt();
-          emit(
-            state.copyWith(
-              songsPhase: SongsPhase.saving,
-              songsProgress: progress,
-              songsFeedback: _songsFeedback(progress),
-            ),
-          );
-          await _dbRepo.saveSong(song);
-          index++;
-        } catch (e) {
-          logger('Unable to save song ${song.songId}: $e');
-        }
-      }
-      _prefRepo.setPrefBool(PrefConstants.dataIsLoadedKey, true);
-      _prefRepo.setPrefBool(PrefConstants.wakeLockCheckKey, true);
+    emit(
+      state.copyWith(
+        songsPhase: SongsPhase.saving,
+        songsProgress: 95,
+        songsFeedback: _songsFeedback(95),
+      ),
+    );
+    try {
+      await _dbRepo.replaceSongsForBooks(_savedBookIds().toList(), songs);
+    } catch (e) {
+      logger('Unable to save songs: $e');
+      emit(state.copyWith(songsPhase: SongsPhase.failed, songsError: '100'));
+      return false;
     }
 
+    _prefRepo.setPrefBool(PrefConstants.dataIsLoadedKey, true);
+    _prefRepo.setPrefBool(PrefConstants.wakeLockCheckKey, true);
     emit(state.copyWith(songsPhase: SongsPhase.done));
     return true;
   }
 
   String _songsFeedback(int progress) => switch (progress) {
-        1 => 'On your\nmarks ...',
-        5 => 'Set. \nReady ...',
-        10 => 'Loading\nsongs ...',
-        20 => 'Patience\npays ...',
-        40 => 'Loading\nsongs ...',
-        75 => 'Thanks for\nyour patience!',
-        85 => 'Finishing up',
-        95 => "We're almost done",
-        _ => state.songsFeedback,
-      };
+    1 => 'On your\nmarks ...',
+    5 => 'Set. \nReady ...',
+    10 => 'Loading\nsongs ...',
+    20 => 'Patience\npays ...',
+    40 => 'Loading\nsongs ...',
+    75 => 'Thanks for\nyour patience!',
+    85 => 'Finishing up',
+    95 => "We're almost done",
+    _ => state.songsFeedback,
+  };
 }

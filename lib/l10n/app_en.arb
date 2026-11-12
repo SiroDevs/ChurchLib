@@ -4,7 +4,6 @@
     "@feedback": {
         "description": "Label for feedback section or button"
     },
-
     "appName": "ChurchLib",
     "@appName": {
         "description": "The name of the application"
@@ -361,6 +360,14 @@
     "@noSongSelected": {
         "description": "Error message when no song is selected"
     },
+    "noSongbooksAvailable": "No songbooks are available. Select songbooks to set up SongLib.",
+    "@noSongbooksAvailable": {
+        "description": "Shown when the local song library has no songbooks"
+    },
+    "noSongsInSongbook": "No songs are available in this songbook.",
+    "@noSongsInSongbook": {
+        "description": "Shown when the selected songbook has no songs"
+    },
     "selectSongsAfresh": "Select Songs Afresh",
     "@selectSongsAfresh": {
         "description": "Action to select songs again"
@@ -545,7 +552,6 @@
     "@darkMode": {
         "description": "Label for dark mode"
     },
-
     "labelError0": "An unknown error occured.",
     "@labelError0": {
         "description": "Generic unknown error message"
@@ -570,7 +576,6 @@
     "@labelError1000": {
         "description": "Error message for request submission failure"
     },
-
     "labelFeedback0": "An unknown error occured.",
     "@labelFeedback0": {
         "description": "Generic unknown error for feedback"
@@ -595,7 +600,6 @@
     "@labelFeedback1000": {
         "description": "Request submission failure for feedback"
     },
-
     "labelPermissionTitle": "Permission Required",
     "@labelPermissionTitle": {
         "description": "Title for permission request dialog"
@@ -604,12 +608,10 @@
     "@labelPermissionText": {
         "description": "Explanation text for why permissions are needed"
     },
-
     "misc": "misc",
     "@misc": {
         "description": "Miscellaneous category label"
     },
-
     "licenseTitle": "License",
     "@licenseTitle": {
         "description": "Title of the license section"
@@ -847,5 +849,1049 @@
     "licenseDeveloperBuild": "Developer build: license checks are off.",
     "@licenseDeveloperBuild": {
         "description": "Shown in debug builds without a license server"
+    },
+    "songSearchHint": "Search a song by title or words",
+    "@songSearchHint": {
+        "description": "Hint for searching songs"
+    },
+    "clearAction": "Clear",
+    "@clearAction": {
+        "description": "Clear action label"
+    },
+    "songCopiedClipboard": "Song copied to clipboard",
+    "@songCopiedClipboard": {
+        "description": "Song copy confirmation"
+    },
+    "noLikedSongs": "You have not liked a song yet.",
+    "@noLikedSongs": {
+        "description": "Empty state for liked songs"
+    },
+    "versesPanel": "Verses panel",
+    "@versesPanel": {
+        "description": "Song presentation verses panel setting"
+    },
+    "modulesTitle": "Modules",
+    "@modulesTitle": {
+        "description": "Title for module settings"
+    },
+    "addSonglib": "Add SongLib",
+    "@addSonglib": {
+        "description": "Add SongLib setting title"
+    },
+    "songlibSetupSubtitle": "Set up your church songbook",
+    "@songlibSetupSubtitle": {
+        "description": "SongLib setup description"
+    },
+    "addBiblelib": "Add BibleLib",
+    "@addBiblelib": {
+        "description": "Add BibleLib setting title"
+    },
+    "biblelibSetupSubtitle": "Set up a Bible translation",
+    "@biblelibSetupSubtitle": {
+        "description": "BibleLib setup description"
+    },
+    "resetData": "Reset data",
+    "@resetData": {
+        "description": "Reset data setting title"
+    },
+    "startOverBiblelib": "Start over with BibleLib",
+    "@startOverBiblelib": {
+        "description": "Reset BibleLib action"
+    },
+    "resetChurchlib": "Reset ChurchLib",
+    "@resetChurchlib": {
+        "description": "Reset ChurchLib action"
+    },
+    "setThemeDialogTitle": "Set the Theme",
+    "@setThemeDialogTitle": {
+        "description": "Theme dialog title"
+    },
+    "settingsWindowTitle": "ChurchLib Settings",
+    "@settingsWindowTitle": {
+        "description": "Settings window title"
+    },
+    "moveUp": "Move up",
+    "@moveUp": {
+        "description": "Move item up tooltip"
+    },
+    "moveDown": "Move down",
+    "@moveDown": {
+        "description": "Move item down tooltip"
+    },
+    "multiBibleReader": "Multi-Bible reader",
+    "@multiBibleReader": {
+        "description": "Multi-Bible reader setting"
+    },
+    "noPrimaryBible": "No primary Bible set yet.",
+    "@noPrimaryBible": {
+        "description": "Message shown when no primary Bible is set"
+    },
+    "removeBibleQuestion": "Remove {bibleName}?",
+    "@removeBibleQuestion": {
+        "description": "Confirm removing a Bible",
+        "placeholders": {
+            "bibleName": {
+                "type": "String"
+            }
+        }
+    },
+    "choosePrimaryBible": "Choose primary Bible",
+    "@choosePrimaryBible": {
+        "description": "Title for choosing the primary Bible"
+    },
+    "closeAction": "Close",
+    "@closeAction": {
+        "description": "Close action label"
+    },
+    "managingBibles": "Managing your Bibles",
+    "@managingBibles": {
+        "description": "Bible management help title"
+    },
+    "bibleManagementQuestion": "Would you like to know how to manage your Bibles?",
+    "@bibleManagementQuestion": {
+        "description": "Bible management help prompt"
+    },
+    "noThanks": "No thanks",
+    "@noThanks": {
+        "description": "Decline action label"
+    },
+    "showMe": "Show me",
+    "@showMe": {
+        "description": "Show help action label"
+    },
+    "restartAction": "Restart",
+    "@restartAction": {
+        "description": "Restart action label"
+    },
+    "continueAction": "Continue",
+    "@continueAction": {
+        "description": "Continue action label"
+    },
+    "deleteAction": "Delete",
+    "@deleteAction": {
+        "description": "Delete action label"
+    },
+    "howBibleManagementWorks": "How Bible management works",
+    "@howBibleManagementWorks": {
+        "description": "Bible management help tooltip"
+    },
+    "manageBibles": "Manage Bibles",
+    "@manageBibles": {
+        "description": "Bible management screen title"
+    },
+    "changeSelection": "Change Selection",
+    "@changeSelection": {
+        "description": "Change selected Bible editions action"
+    },
+    "deleteScriptureListQuestion": "Delete this list?",
+    "@deleteScriptureListQuestion": {
+        "description": "Confirm deleting a scripture list"
+    },
+    "scriptureListsTitle": "Scripture Lists",
+    "@scriptureListsTitle": {
+        "description": "Scripture lists screen title"
+    },
+    "renameList": "Rename list",
+    "@renameList": {
+        "description": "Rename list dialog title"
+    },
+    "saveAction": "Save",
+    "@saveAction": {
+        "description": "Save action label"
+    },
+    "playAction": "Play",
+    "@playAction": {
+        "description": "Play action label"
+    },
+    "deleteSelectedQuestion": "Delete selected?",
+    "@deleteSelectedQuestion": {
+        "description": "Confirm deleting selected items"
+    },
+    "bookmarksNotesTitle": "Bookmarks & Notes",
+    "@bookmarksNotesTitle": {
+        "description": "Bookmarks and notes screen title"
+    },
+    "deleteSelectedTooltip": "Delete selected",
+    "@deleteSelectedTooltip": {
+        "description": "Delete selected items tooltip"
+    },
+    "clearAll": "Clear all",
+    "@clearAll": {
+        "description": "Clear all action label"
+    },
+    "clearReadingHistoryQuestion": "Clear reading history?",
+    "@clearReadingHistoryQuestion": {
+        "description": "Confirm clearing reading history"
+    },
+    "clearSearchHistoryQuestion": "Clear search history?",
+    "@clearSearchHistoryQuestion": {
+        "description": "Confirm clearing search history"
+    },
+    "historyTitle": "History",
+    "@historyTitle": {
+        "description": "Bible history screen title"
+    },
+    "searchScripturesHint": "Search scriptures ...",
+    "@searchScripturesHint": {
+        "description": "Bible search hint"
+    },
+    "noDownloadedBiblesToSearch": "No downloaded Bibles to search yet.",
+    "@noDownloadedBiblesToSearch": {
+        "description": "Empty search state without downloaded Bibles"
+    },
+    "noSearchResultsForQuery": "No results for {query}",
+    "@noSearchResultsForQuery": {
+        "description": "Empty Bible search results",
+        "placeholders": {
+            "query": {
+                "type": "String"
+            }
+        }
+    },
+    "typeAtLeast3Letters": "Type at least 3 letters to search.",
+    "@typeAtLeast3Letters": {
+        "description": "Minimum Bible search query hint"
+    },
+    "searchBiblesHint": "Search name, abbreviation or language",
+    "@searchBiblesHint": {
+        "description": "Bible selection search hint"
+    },
+    "chooseBiblesTitle": "Choose your Bibles",
+    "@chooseBiblesTitle": {
+        "description": "Bible selection step title"
+    },
+    "noBiblesMatch": "No Bibles match your search",
+    "@noBiblesMatch": {
+        "description": "No Bible search matches"
+    },
+    "setupChurchLibTitle": "Set up ChurchLib",
+    "@setupChurchLibTitle": {
+        "description": "ChurchLib setup screen title"
+    },
+    "refreshAction": "Refresh",
+    "@refreshAction": {
+        "description": "Refresh action label"
+    },
+    "backAction": "Back",
+    "@backAction": {
+        "description": "Back action label"
+    },
+    "finishAction": "Finish",
+    "@finishAction": {
+        "description": "Finish action label"
+    },
+    "chooseSongbooksTitle": "Choose your Songbooks",
+    "@chooseSongbooksTitle": {
+        "description": "Songbook selection step title"
+    },
+    "gettingEverythingReady": "Getting everything ready…",
+    "@gettingEverythingReady": {
+        "description": "Setup progress title"
+    },
+    "unableDownloadSongs": "Unable to download songs",
+    "@unableDownloadSongs": {
+        "description": "Song download failure title"
+    },
+    "retryAction": "Retry",
+    "@retryAction": {
+        "description": "Retry action label"
+    },
+    "songlibDescription": "Church songbook & hymns, offline",
+    "@songlibDescription": {
+        "description": "SongLib module description"
+    },
+    "biblelibDescription": "Multi-translation Bible reader",
+    "@biblelibDescription": {
+        "description": "BibleLib module description"
+    },
+    "previousAction": "Previous",
+    "@previousAction": {
+        "description": "Previous action label"
+    },
+    "previousChapterTooltip": "Previous chapter (Alt + ←)",
+    "@previousChapterTooltip": {
+        "description": "Previous chapter tooltip"
+    },
+    "chapterNumberLabel": "Chapter {chapterNumber}",
+    "@chapterNumberLabel": {
+        "description": "Chapter picker button label",
+        "placeholders": {
+            "chapterNumber": {
+                "type": "int"
+            }
+        }
+    },
+    "pickChapter": "Pick chapter",
+    "@pickChapter": {
+        "description": "Chapter picker tooltip"
+    },
+    "nextAction": "Next",
+    "@nextAction": {
+        "description": "Next action label"
+    },
+    "nextChapterTooltip": "Next chapter (Alt + →)",
+    "@nextChapterTooltip": {
+        "description": "Next chapter tooltip"
+    },
+    "quickOptions": "Quick Options",
+    "@quickOptions": {
+        "description": "Quick reader options title"
+    },
+    "smallerText": "Smaller text",
+    "@smallerText": {
+        "description": "Decrease reader text size action"
+    },
+    "largerText": "Larger text",
+    "@largerText": {
+        "description": "Increase reader text size action"
+    },
+    "slower": "Slower",
+    "@slower": {
+        "description": "Decrease auto-scroll speed tooltip"
+    },
+    "faster": "Faster",
+    "@faster": {
+        "description": "Increase auto-scroll speed tooltip"
+    },
+    "switchPrimaryBible": "Switch Your Primary Bible",
+    "@switchPrimaryBible": {
+        "description": "Switch primary Bible tooltip"
+    },
+    "pickBibleBook": "Pick a Bible Book",
+    "@pickBibleBook": {
+        "description": "Bible book picker tooltip"
+    },
+    "scriptureOpener": "Scripture Opener",
+    "@scriptureOpener": {
+        "description": "Scripture opener action"
+    },
+    "closeScriptureQueue": "Close Scripture Queue",
+    "@closeScriptureQueue": {
+        "description": "Close scripture queue tooltip"
+    },
+    "previousScripture": "Previous Scripture",
+    "@previousScripture": {
+        "description": "Previous scripture tooltip"
+    },
+    "nextScripture": "Next Scripture",
+    "@nextScripture": {
+        "description": "Next scripture tooltip"
+    },
+    "chooseHighlightColor": "Choose a highlight color",
+    "@chooseHighlightColor": {
+        "description": "Highlight color dialog title"
+    },
+    "bookmarkVerses": "Bookmark verses",
+    "@bookmarkVerses": {
+        "description": "Bookmark verses dialog title"
+    },
+    "bookmarkOnly": "Bookmark only",
+    "@bookmarkOnly": {
+        "description": "Bookmark without adding notes"
+    },
+    "bookmarkWithNotes": "Bookmark with notes",
+    "@bookmarkWithNotes": {
+        "description": "Bookmark and add notes action"
+    },
+    "saveNote": "Save note",
+    "@saveNote": {
+        "description": "Save note tooltip"
+    },
+    "writeVerseThoughts": "Write your thoughts on this verse...",
+    "@writeVerseThoughts": {
+        "description": "Note editor hint"
+    },
+    "noBooksFound": "No books found",
+    "@noBooksFound": {
+        "description": "Empty Bible book picker state"
+    },
+    "searchBooksHint": "Search books...",
+    "@searchBooksHint": {
+        "description": "Bible book picker search hint"
+    },
+    "fontSizeLabel": "Font size: {size}",
+    "@fontSizeLabel": {
+        "description": "Reader font size label",
+        "placeholders": {
+            "size": {
+                "type": "int"
+            }
+        }
+    },
+    "copyTextToClipboard": "Copied to clipboard",
+    "@copyTextToClipboard": {
+        "description": "Copy confirmation"
+    },
+    "cancelVerseSelection": "Cancel selection (Esc)",
+    "@cancelVerseSelection": {
+        "description": "Cancel verse selection tooltip"
+    },
+    "bookmarkHighlight": "Bookmark / highlight",
+    "@bookmarkHighlight": {
+        "description": "Bookmark or highlight tooltip"
+    },
+    "copyAction": "Copy",
+    "@copyAction": {
+        "description": "Copy action label"
+    },
+    "backButton": "BACK",
+    "@backButton": {
+        "description": "Back navigation button label"
+    },
+    "versionUpdateBanner": "Version {latest} is out (you have {current}).",
+    "@versionUpdateBanner": {
+        "description": "Available application update banner",
+        "placeholders": {
+            "latest": {
+                "type": "String"
+            },
+            "current": {
+                "type": "String"
+            }
+        }
+    },
+    "noBiblesDownloaded": "No Bibles downloaded yet.",
+    "@noBiblesDownloaded": {
+        "description": "Reader message when no Bibles are downloaded"
+    },
+    "bibleDataUnavailable": "Bible data is not available. Wait for the download to complete.",
+    "@bibleDataUnavailable": {
+        "description": "Reader message while Bible data downloads"
+    },
+    "noChaptersFound": "No chapters found for {bookName}",
+    "@noChaptersFound": {
+        "description": "Reader message when a book has no chapters",
+        "placeholders": {
+            "bookName": {
+                "type": "String"
+            }
+        }
+    },
+    "versesNotCached": "Verses are not cached. Make sure the download is complete.",
+    "@versesNotCached": {
+        "description": "Reader message when chapter verses are missing"
+    },
+    "readerLoadFailed": "Unable to load this Bible content. Please try again.",
+    "@readerLoadFailed": {
+        "description": "Generic Bible reader load error"
+    },
+    "noBooksForBible": "No books found for this Bible.",
+    "@noBooksForBible": {
+        "description": "Scripture opener empty state"
+    },
+    "scriptureListsFailed": "Failed to load scripture lists.",
+    "@scriptureListsFailed": {
+        "description": "Scripture list loading error"
+    },
+    "scriptureListNotFound": "This scripture list could not be found.",
+    "@scriptureListNotFound": {
+        "description": "Missing scripture list error"
+    },
+    "songSearchFailed": "Unable to display songs",
+    "@songSearchFailed": {
+        "description": "Song search failure message"
+    },
+    "showVersesPanel": "Show every verse of the song beside the slides while presenting",
+    "@showVersesPanel": {
+        "description": "Verses panel setting description"
+    },
+    "startOverBiblelibQuestion": "Start over with BibleLib?",
+    "@startOverBiblelibQuestion": {
+        "description": "Confirm resetting BibleLib"
+    },
+    "startOverBiblelibMessage": "This deletes every downloaded Bible, bookmark and note. This can't be undone.",
+    "@startOverBiblelibMessage": {
+        "description": "Confirm resetting BibleLib message"
+    },
+    "resetChurchlibQuestion": "Reset ChurchLib?",
+    "@resetChurchlibQuestion": {
+        "description": "Confirm resetting ChurchLib"
+    },
+    "resetChurchlibMessage": "This erases everything — songbooks, Bibles, bookmarks, notes and settings — and takes you back to setup. This can't be undone.",
+    "@resetChurchlibMessage": {
+        "description": "Confirm resetting ChurchLib message"
+    },
+    "resetBibleSubtitle": "Delete all downloaded Bibles and choose translations again",
+    "@resetBibleSubtitle": {
+        "description": "BibleLib reset setting description"
+    },
+    "resetChurchSubtitle": "Erase everything — songbooks, Bibles, bookmarks — and start over",
+    "@resetChurchSubtitle": {
+        "description": "ChurchLib reset setting description"
+    },
+    "appearanceTitle": "Appearance",
+    "@appearanceTitle": {
+        "description": "Settings appearance section title"
+    },
+    "generalTitle": "General",
+    "@generalTitle": {
+        "description": "General settings section title"
+    },
+    "presentationNavTitle": "Presentation",
+    "@presentationNavTitle": {
+        "description": "Presentation settings navigation title"
+    },
+    "biblesNavTitle": "Bibles",
+    "@biblesNavTitle": {
+        "description": "Bible settings navigation title"
+    },
+    "updateAvailable": "Update available",
+    "@updateAvailable": {
+        "description": "Update banner title"
+    },
+    "songNumberLabel": "Song #{songNumber}",
+    "@songNumberLabel": {
+        "description": "Song number label",
+        "placeholders": {
+            "songNumber": {
+                "type": "int"
+            }
+        }
+    },
+    "backEscapeTooltip": "Back (Esc)",
+    "@backEscapeTooltip": {
+        "description": "Back action tooltip"
+    },
+    "stopAction": "Stop",
+    "@stopAction": {
+        "description": "Stop action label"
+    },
+    "doneAction": "Done",
+    "@doneAction": {
+        "description": "Done action label"
+    },
+    "reorderAction": "Reorder",
+    "@reorderAction": {
+        "description": "Reorder action label"
+    },
+    "removeFromSecondary": "Remove from secondary",
+    "@removeFromSecondary": {
+        "description": "Remove a Bible from secondary translations"
+    },
+    "secondaryBibleCount": "{count} secondary Bibles",
+    "@secondaryBibleCount": {
+        "description": "Count label for secondary Bibles",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "oneSecondaryBible": "1 secondary Bible",
+    "@oneSecondaryBible": {
+        "description": "One secondary Bible label"
+    },
+    "hoverRemoveBible": "Hover a Bible to remove it",
+    "@hoverRemoveBible": {
+        "description": "Hint for removing a secondary Bible"
+    },
+    "downloadFailedStatus": " · Download failed",
+    "@downloadFailedStatus": {
+        "description": "Download failure status label"
+    },
+    "fetchingVersesStatus": " · Fetching verses",
+    "@fetchingVersesStatus": {
+        "description": "Download progress status label"
+    },
+    "downloadStoppedStatus": " · Download stopped",
+    "@downloadStoppedStatus": {
+        "description": "Stopped download status label"
+    },
+    "biblePrimaryLabel": "{language} BIBLE • PRIMARY",
+    "@biblePrimaryLabel": {
+        "description": "Primary Bible label",
+        "placeholders": {
+            "language": {
+                "type": "String"
+            }
+        }
+    },
+    "bibleLanguageLabel": "{language} BIBLE",
+    "@bibleLanguageLabel": {
+        "description": "Bible language label",
+        "placeholders": {
+            "language": {
+                "type": "String"
+            }
+        }
+    },
+    "bibleManagementInfo": "You can add a Bible to the Multi-Bible Reader by hovering over it in \"Other Bibles\" and choosing \"Set as secondary\". Hover over it again and choose \"Remove from secondary\" to take it out.\n\nTo delete a Bible from your device, hover over it, choose \"Delete\" and confirm.\n\nTo add or remove translations from your library, choose \"Change Selection\" below.",
+    "@bibleManagementInfo": {
+        "description": "Instructions for managing downloaded Bible translations"
+    },
+    "deleteBibleMessage": "This deletes all downloaded content for this Bible from your device. This can't be undone.",
+    "@deleteBibleMessage": {
+        "description": "Confirmation message for deleting a Bible"
+    },
+    "primaryBible": "Primary Bible",
+    "@primaryBible": {
+        "description": "Primary Bible section label"
+    },
+    "clickToChange": "Click to change",
+    "@clickToChange": {
+        "description": "Primary Bible change hint"
+    },
+    "secondaryBiblesTitle": "Secondary Bibles",
+    "@secondaryBiblesTitle": {
+        "description": "Secondary Bible section label"
+    },
+    "otherBiblesTitle": "Other Bibles",
+    "@otherBiblesTitle": {
+        "description": "Other Bible section label"
+    },
+    "setAsSecondary": "Set as secondary",
+    "@setAsSecondary": {
+        "description": "Set a Bible as a secondary translation"
+    },
+    "renameAction": "Rename",
+    "@renameAction": {
+        "description": "Rename action label"
+    },
+    "themeLabel": "Theme",
+    "@themeLabel": {
+        "description": "Reader theme setting label"
+    },
+    "themeSystem": "System",
+    "@themeSystem": {
+        "description": "System theme option"
+    },
+    "smallerTextTooltip": "Smaller text (-)",
+    "@smallerTextTooltip": {
+        "description": "Decrease reader text size tooltip"
+    },
+    "largerTextTooltip": "Larger text (=)",
+    "@largerTextTooltip": {
+        "description": "Increase reader text size tooltip"
+    },
+    "clearSearchHistory": "Clear search history",
+    "@clearSearchHistory": {
+        "description": "Clear search history action"
+    },
+    "noSearchHistory": "No search history yet.",
+    "@noSearchHistory": {
+        "description": "Empty Bible search history state"
+    },
+    "noReadingHistory": "No reading history yet.",
+    "@noReadingHistory": {
+        "description": "Empty Bible reading history state"
+    },
+    "hoverSetSecondary": "Hover a Bible to set it as secondary",
+    "@hoverSetSecondary": {
+        "description": "Hint for adding a secondary Bible"
+    },
+    "bibleManagementPrompt": "Learn how to add or remove Bibles from the Multi-Bible Reader, and how to add translations to your library.",
+    "@bibleManagementPrompt": {
+        "description": "Bible management prompt description"
+    },
+    "multiBibleDescription": "Read parallel translations alongside your primary text",
+    "@multiBibleDescription": {
+        "description": "Multi-Bible reader setting description"
+    },
+    "manageYourBibles": "Manage Your Bibles",
+    "@manageYourBibles": {
+        "description": "Embedded Bible management title"
+    },
+    "historyReading": "Reading",
+    "@historyReading": {
+        "description": "Reading history tab title"
+    },
+    "historySearches": "Searches",
+    "@historySearches": {
+        "description": "Search history tab title"
+    },
+    "noSearchesYet": "No searches yet.",
+    "@noSearchesYet": {
+        "description": "Empty search history state"
+    },
+    "clearReadingHistoryMessage": "This will permanently delete your reading history. This can't be undone.",
+    "@clearReadingHistoryMessage": {
+        "description": "Clear reading history confirmation"
+    },
+    "clearSearchHistoryMessage": "This will permanently delete your search history. This can't be undone.",
+    "@clearSearchHistoryMessage": {
+        "description": "Clear search history confirmation"
+    },
+    "recentSearches": "Recent searches",
+    "@recentSearches": {
+        "description": "Recent Bible searches heading"
+    },
+    "searchResultCount": "{count} results",
+    "@searchResultCount": {
+        "description": "Number of Bible search results",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "deleteListMessage": "This can't be undone.",
+    "@deleteListMessage": {
+        "description": "Delete scripture list confirmation"
+    },
+    "noScriptureLists": "No saved scripture lists yet.\nBuild one in Scripture Opener.",
+    "@noScriptureLists": {
+        "description": "Empty scripture list state"
+    },
+    "scriptureCount": "{count} scriptures",
+    "@scriptureCount": {
+        "description": "Scripture count in a saved list",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "scriptureListTitle": "Scripture list",
+    "@scriptureListTitle": {
+        "description": "Fallback scripture list title"
+    },
+    "renameTooltip": "Rename",
+    "@renameTooltip": {
+        "description": "Rename list tooltip"
+    },
+    "clearAllBookmarksQuestion": "Clear all bookmarks?",
+    "@clearAllBookmarksQuestion": {
+        "description": "Confirm clearing all bookmarks"
+    },
+    "clearAllNotesQuestion": "Clear all notes?",
+    "@clearAllNotesQuestion": {
+        "description": "Confirm clearing all notes"
+    },
+    "deleteSelectedCountMessage": "This will permanently delete {count} selected items. This can't be undone.",
+    "@deleteSelectedCountMessage": {
+        "description": "Delete selected bookmarks or notes confirmation",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "clearBookmarksMessage": "This will permanently delete all your bookmarks across every Bible. This can't be undone.",
+    "@clearBookmarksMessage": {
+        "description": "Clear all bookmarks confirmation"
+    },
+    "clearNotesMessage": "This will permanently delete all your notes across every Bible. This can't be undone.",
+    "@clearNotesMessage": {
+        "description": "Clear all notes confirmation"
+    },
+    "bookmarksTab": "Bookmarks",
+    "@bookmarksTab": {
+        "description": "Bookmarks tab label"
+    },
+    "notesTab": "Notes",
+    "@notesTab": {
+        "description": "Notes tab label"
+    },
+    "readingTab": "Reading",
+    "@readingTab": {
+        "description": "Reading tab label"
+    },
+    "noSavedScriptureLists": "No saved scripture lists yet.\nBuild one in Scripture Opener.",
+    "@noSavedScriptureLists": {
+        "description": "Empty scripture list state"
+    },
+    "welcomeToChurchLib": "Welcome to ChurchLib",
+    "@welcomeToChurchLib": {
+        "description": "First setup screen heading"
+    },
+    "chooseModulesPrompt": "Choose what you'd like set up. You can always add the other one later from Settings.",
+    "@chooseModulesPrompt": {
+        "description": "First setup screen description"
+    },
+    "biblesSelectedCount": "{count} of {max} {noun} selected",
+    "@biblesSelectedCount": {
+        "description": "Selection count label",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "max": {
+                "type": "int"
+            },
+            "noun": {
+                "type": "String"
+            }
+        }
+    },
+    "songbooksNoun": "songbooks",
+    "@songbooksNoun": {
+        "description": "Songbook selection noun"
+    },
+    "biblesNoun": "Bibles",
+    "@biblesNoun": {
+        "description": "Bible selection noun"
+    },
+    "firstPickPrimaryBible": "Your first pick is the primary Bible",
+    "@firstPickPrimaryBible": {
+        "description": "Bible selection hint"
+    },
+    "songbookSelectionLimit": "You can select up to {count} songbooks",
+    "@songbookSelectionLimit": {
+        "description": "Songbook selection maximum message",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "continueUpper": "CONTINUE",
+    "@continueUpper": {
+        "description": "Continue navigation button label"
+    },
+    "finishUpper": "FINISH",
+    "@finishUpper": {
+        "description": "Finish navigation button label"
+    },
+    "almostThere": "Almost there",
+    "@almostThere": {
+        "description": "Setup progress detail"
+    },
+    "percentDownloaded": "{percent}% downloaded",
+    "@percentDownloaded": {
+        "description": "Download progress message",
+        "placeholders": {
+            "percent": {
+                "type": "int"
+            }
+        }
+    },
+    "savingYourSongs": "Saving your songs",
+    "@savingYourSongs": {
+        "description": "Song save progress title"
+    },
+    "fetchingYourSongs": "Fetching your songs…",
+    "@fetchingYourSongs": {
+        "description": "Song download progress title"
+    },
+    "momentOnly": "This only takes a moment",
+    "@momentOnly": {
+        "description": "Song download progress message"
+    },
+    "downloadingPrimaryBible": "Downloading your primary Bible",
+    "@downloadingPrimaryBible": {
+        "description": "Primary Bible download progress title"
+    },
+    "bibleWord": "Bible",
+    "@bibleWord": {
+        "description": "Bible progress label"
+    },
+    "otherBiblesBackground": "Your other Bibles will download in the background.",
+    "@otherBiblesBackground": {
+        "description": "Secondary Bible download progress message"
+    },
+    "autoScrollAction": "Auto scroll",
+    "@autoScrollAction": {
+        "description": "Start auto-scroll button label"
+    },
+    "stopScrollAction": "Stop scroll",
+    "@stopScrollAction": {
+        "description": "Stop auto-scroll button label"
+    },
+    "startAutoScroll": "Start auto scroll",
+    "@startAutoScroll": {
+        "description": "Start auto-scroll tooltip"
+    },
+    "stopAutoScroll": "Stop auto scroll",
+    "@stopAutoScroll": {
+        "description": "Stop auto-scroll tooltip"
+    },
+    "oldTestament": "Old Testament",
+    "@oldTestament": {
+        "description": "Old Testament tab label"
+    },
+    "newTestament": "New Testament",
+    "@newTestament": {
+        "description": "New Testament tab label"
+    },
+    "showOtherBibles": "Show your other Bibles under each verse",
+    "@showOtherBibles": {
+        "description": "Multi-Bible reader enabled description"
+    },
+    "downloadBibleToUse": "Download another Bible to use this",
+    "@downloadBibleToUse": {
+        "description": "Multi-Bible reader disabled description"
+    },
+    "addNoteAction": "Add note",
+    "@addNoteAction": {
+        "description": "Add note action label"
+    },
+    "selectSingleVerseNote": "Select a single verse to add a note",
+    "@selectSingleVerseNote": {
+        "description": "Add note selection hint"
+    },
+    "selectedCount": "{count} selected",
+    "@selectedCount": {
+        "description": "Selected item count",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "firstSetupMessage": "Choose what you would like to set up. You can add the other module later from Settings.",
+    "@firstSetupMessage": {
+        "description": "Setup modules description"
+    },
+    "bookmarkOptionsPrompt": "Would you like to bookmark these verses only, or add a note as well?",
+    "@bookmarkOptionsPrompt": {
+        "description": "Bookmark options dialog prompt"
+    },
+    "howModuleWorks": "How {moduleName} works",
+    "@howModuleWorks": {
+        "description": "How it works sheet title",
+        "placeholders": {
+            "moduleName": {
+                "type": "String"
+            }
+        }
+    },
+    "switchToModule": "Switch to {moduleName}",
+    "@switchToModule": {
+        "description": "Switch application module tooltip",
+        "placeholders": {
+            "moduleName": {
+                "type": "String"
+            }
+        }
+    },
+    "songHowFindTitle": "Finding a song",
+    "@songHowFindTitle": {
+        "description": "SongLib guide section title"
+    },
+    "songHowFindBody": "Type in the search box at the top to find a song by its number, title or any words from its lyrics. Press S anywhere to jump to the box. The chips above the list narrow the songs down to one songbook.",
+    "@songHowFindBody": {
+        "description": "SongLib guide for finding songs"
+    },
+    "songHowReadTitle": "Reading a song",
+    "@songHowReadTitle": {
+        "description": "SongLib guide section title"
+    },
+    "songHowReadBody": "Pick a song in the list and its verses appear on the right, with the song title and songbook shown at the top of the window.",
+    "@songHowReadBody": {
+        "description": "SongLib guide for reading songs"
+    },
+    "songHowPresentTitle": "Presenting",
+    "@songHowPresentTitle": {
+        "description": "SongLib guide section title"
+    },
+    "songHowPresentBody": "Double-click a song, press Enter, or choose Present song from Quick Options to open it in the presenter. Step through the verses one slide at a time; change slide direction in Settings. Words are sized to fit the screen. The list button in the presenter title bar shows every verse in a sidebar, with the current verse highlighted. The sidebar starts open; press the button again to hide it.",
+    "@songHowPresentBody": {
+        "description": "SongLib guide for presenting songs"
+    },
+    "songHowKeysTitle": "Presenter keys",
+    "@songHowKeysTitle": {
+        "description": "SongLib guide section title"
+    },
+    "songHowKeysBody": "Right or Down arrow: next slide.\nLeft or Up arrow: previous slide.\n1 to 7: jump to that verse.\nC: jump to the chorus.\nL: jump to the last slide.\n- : make the text smaller.\n= : make the text bigger, as far as the longest verse still fits.\nEsc: close the presenter.",
+    "@songHowKeysBody": {
+        "description": "SongLib presenter keyboard shortcuts"
+    },
+    "songHowQuickTitle": "Quick Options",
+    "@songHowQuickTitle": {
+        "description": "SongLib guide section title"
+    },
+    "songHowQuickBody": "The Quick Options button at the bottom right collects what you can do with the selected song: copy its words, like it or present it.",
+    "@songHowQuickBody": {
+        "description": "SongLib guide for quick actions"
+    },
+    "songHowLikesTitle": "Likes",
+    "@songHowLikesTitle": {
+        "description": "SongLib guide section title"
+    },
+    "songHowLikesBody": "Songs you like are gathered under Likes in the sidebar so you can open your favourites quickly.",
+    "@songHowLikesBody": {
+        "description": "SongLib guide for liked songs"
+    },
+    "songHowBooksTitle": "Songbooks and updates",
+    "@songHowBooksTitle": {
+        "description": "SongLib guide section title"
+    },
+    "songHowBooksBody": "Your songbooks are stored on this device and refreshed in the background when you are online. To choose different songbooks, open Settings and use Songbooks.",
+    "@songHowBooksBody": {
+        "description": "SongLib guide for songbook storage and updates"
+    },
+    "bibleHowReadingTitle": "Reading",
+    "@bibleHowReadingTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowReadingBody": "Use the Bible button at the top to switch translation and the chapter button to jump to another chapter. Previous and Next at the bottom move chapter by chapter, or press Alt with the left or right arrow. The Up and Down arrow keys scroll the chapter. These keys only work while BibleLib is the open app.",
+    "@bibleHowReadingBody": {
+        "description": "BibleLib guide for reading"
+    },
+    "bibleHowTextTitle": "Text size and auto scroll",
+    "@bibleHowTextTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowTextBody": "Aa- and Aa+ in the title bar change the text size, or press - on your keyboard to make it smaller and = to make it bigger. Auto scroll at the bottom left scrolls the chapter for you; use the plus and minus beside it to set the speed, and touch the text to stop.",
+    "@bibleHowTextBody": {
+        "description": "BibleLib guide for text size and auto scroll"
+    },
+    "bibleHowParallelTitle": "Parallel Bibles",
+    "@bibleHowParallelTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowParallelBody": "Download more than one Bible and turn on the Multi-Bible reader in Quick Options to show your other translations under each verse.",
+    "@bibleHowParallelBody": {
+        "description": "BibleLib guide for parallel translations"
+    },
+    "bibleHowSelectTitle": "Selecting verses",
+    "@bibleHowSelectTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowSelectBody": "Click verses to select them. The bar at the top then lets you bookmark or highlight them, add a note to a single verse, or copy them. Press Esc to cancel the selection.",
+    "@bibleHowSelectBody": {
+        "description": "BibleLib guide for selecting verses"
+    },
+    "bibleHowSearchTitle": "Search",
+    "@bibleHowSearchTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowSearchBody": "Search looks through every verse of the Bible you choose and takes you straight to the result. Earlier searches are kept for next time.",
+    "@bibleHowSearchBody": {
+        "description": "BibleLib guide for Bible search"
+    },
+    "bibleHowHistoryTitle": "History",
+    "@bibleHowHistoryTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowHistoryBody": "History lists the chapters you read and the searches you made, so you can pick up where you stopped.",
+    "@bibleHowHistoryBody": {
+        "description": "BibleLib guide for history"
+    },
+    "bibleHowBookmarksTitle": "Bookmarks and Notes",
+    "@bibleHowBookmarksTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowBookmarksBody": "Everything you bookmark or write a note on is collected under Bookmarks and Notes in the sidebar, across all your Bibles.",
+    "@bibleHowBookmarksBody": {
+        "description": "BibleLib guide for bookmarks and notes"
+    },
+    "bibleHowOpenerTitle": "Scripture Opener",
+    "@bibleHowOpenerTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowOpenerBody": "Scripture Opener in the title bar opens a passage by typing its book, chapter and verse. Add several passages to a queue and open them one after another.",
+    "@bibleHowOpenerBody": {
+        "description": "BibleLib guide for Scripture Opener"
+    },
+    "bibleHowListsTitle": "Scripture lists",
+    "@bibleHowListsTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowListsBody": "Scriptures in the sidebar keeps lists of passages you reuse, such as a sermon outline. Press Play on a list to step through its verses with the queue bar at the bottom.",
+    "@bibleHowListsBody": {
+        "description": "BibleLib guide for saved scripture lists"
+    },
+    "bibleHowManageTitle": "Managing Bibles",
+    "@bibleHowManageTitle": {
+        "description": "BibleLib guide section title"
+    },
+    "bibleHowManageBody": "Add, remove or choose your main translation from Settings and Bibles, or from Choose Bible in the title bar.",
+    "@bibleHowManageBody": {
+        "description": "BibleLib guide for Bible management"
+    },
+    "alignmentJustified": "Justified",
+    "@alignmentJustified": {
+        "description": "Justified presentation text alignment label"
     }
 }

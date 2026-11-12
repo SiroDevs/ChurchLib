@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import '../../../../common/utils/logging/app_logger.dart';
 import '../../../../common/constants/pref_constants.dart';
-import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../data/models/bible/bible_version.dart';
 import '../../../../data/models/shared/search_entry.dart';
@@ -37,8 +37,9 @@ class BibleSearchCubit extends Cubit<BibleSearchState> {
   }
 
   Future<void> _loadBibles() async {
-    final downloaded =
-        (await _bibleRepo.getBibles()).where((b) => b.isDownloaded).toList();
+    final downloaded = (await _bibleRepo.getBibles())
+        .where((b) => b.isDownloaded)
+        .toList();
     final primary = _prefs.getPrefString(PrefConstants.biblePrimaryKey);
     final abbr = downloaded.any((b) => b.abbreviation == primary)
         ? primary

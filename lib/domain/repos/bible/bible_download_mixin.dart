@@ -66,6 +66,12 @@ mixin BibleDownloadMixin {
       for (final c in chapterEntities) {
         (chaptersByBook[c.bookId] ??= []).add(c);
       }
+      final expectedChapterIds = chapterEntities
+          .map((chapter) => chapter.id)
+          .toSet();
+      if (expectedChapterIds.isEmpty) {
+        throw StateError('No chapters were returned for $abbr.');
+      }
       bibleDownloads.throwIfCancelled(abbr);
       final bookIds = booksResp
           .map((b) => b.id)
@@ -84,24 +90,22 @@ mixin BibleDownloadMixin {
         bookIds.map((bookId) {
           return semaphore.withPermit(() async {
             if (bibleDownloads.isCancelled(abbr)) return;
-            try {
-              final chaptersForBook = chaptersByBook[bookId] ?? const [];
-              final pendingChapters = chaptersForBook
-                  .where((c) => !alreadyCachedChapterIds.contains(c.id))
-                  .toList();
-              if (pendingChapters.isNotEmpty) {
-                final verseEntities = await _fetchVersesForBook(
-                  abbr,
-                  path,
-                  bookId,
-                  pendingChapters,
-                );
-                if (verseEntities.isNotEmpty) {
-                  await _appDB.bibleVersesDao.insertAll(verseEntities);
-                }
+            final chaptersForBook = chaptersByBook[bookId] ?? const [];
+            final pendingChapters = chaptersForBook
+                .where(
+                  (chapter) => !alreadyCachedChapterIds.contains(chapter.id),
+                )
+                .toList();
+            if (pendingChapters.isNotEmpty) {
+              final verseEntities = await _fetchVersesForBook(
+                abbr,
+                path,
+                bookId,
+                pendingChapters,
+              );
+              if (verseEntities.isNotEmpty) {
+                await _appDB.bibleVersesDao.insertAll(verseEntities);
               }
-            } catch (e) {
-              logger('⚠️ SongBook $bookId failed for $abbr, continuing: $e');
             }
 
             completedBooks++;
@@ -115,6 +119,10 @@ mixin BibleDownloadMixin {
       );
 
       bibleDownloads.throwIfCancelled(abbr);
+      final cachedChapterIds = (await _appDB.bibleVersesDao.getCachedChapterIds(
+        abbr,
+      )).toSet();
+      validateCachedChapterCoverage(expectedChapterIds, cachedChapterIds);
       logger('✅ Verses saved in ${bookIds.length} book batches for $abbr');
 
       await _appDB.bibleVersionsDao.markDownloaded(abbr);
@@ -142,26 +150,25 @@ mixin BibleDownloadMixin {
     final verseEntities = <BibleVerseCache>[];
     for (final chapter in chapters) {
       if (bibleDownloads.isCancelled(abbr)) break;
-      try {
-        final content = await retrying(
-          () => _service.getVersesForChapter(path, bookId, chapter.number),
-        );
-        final verses = _extractVerses(content);
-        verseEntities.add(
-          BibleVerseCache(
-            chapterId: chapter.id,
-            bibleAbbr: abbr,
-            bookId: bookId,
-            verseCount: content.verseCount,
-            contentJson: jsonEncode(verses.map((v) => v.toJson()).toList()),
-            cachedAt: DateTime.now().millisecondsSinceEpoch,
-          ),
-        );
-      } catch (e) {
-        logger(
-          '⚠️ Skipping unparseable chapter $bookId/${chapter.number} for $abbr: $e',
+      final content = await retrying(
+        () => _service.getVersesForChapter(path, bookId, chapter.number),
+      );
+      final verses = _extractVerses(content);
+      if (verses.isEmpty) {
+        throw FormatException(
+          'No verses could be parsed for $bookId/${chapter.number}.',
         );
       }
+      verseEntities.add(
+        BibleVerseCache(
+          chapterId: chapter.id,
+          bibleAbbr: abbr,
+          bookId: bookId,
+          verseCount: content.verseCount,
+          contentJson: jsonEncode(verses.map((v) => v.toJson()).toList()),
+          cachedAt: DateTime.now().millisecondsSinceEpoch,
+        ),
+      );
     }
     return verseEntities;
   }
@@ -179,11 +186,13 @@ mixin BibleDownloadMixin {
           final verseId = item.attrs?['verseId'] ?? '';
           final text = item.text!.trim();
           if (verseId.isNotEmpty && text.isNotEmpty && currentVerseNumber > 0) {
-            final existingIndex =
-                verses.lastIndexWhere((v) => v.verseId == verseId);
+            final existingIndex = verses.lastIndexWhere(
+              (v) => v.verseId == verseId,
+            );
             if (existingIndex != -1) {
-              verses[existingIndex] = verses[existingIndex]
-                  .copyWith(text: '${verses[existingIndex].text} $text');
+              verses[existingIndex] = verses[existingIndex].copyWith(
+                text: '${verses[existingIndex].text} $text',
+              );
             } else {
               verses.add(
                 VerseDisplay(

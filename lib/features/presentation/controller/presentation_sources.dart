@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import '../../../common/utils/display/app_window.dart';
 import '../../../common/utils/display/font_utils.dart';
 import '../../../common/utils/formatting/song_text_utils.dart';
 import '../../../data/models/song/songext.dart';
@@ -39,6 +40,12 @@ Future<void> presentSong(SongExt song) async {
 void presentBible(BibleReaderState state, {int? at}) {
   final verses = state.verses;
   if (verses.isEmpty) return;
+
+  if (!PresentationController.instance.hasExtendedDisplay) {
+    PresentationController.instance.stop();
+    AppWindow.setFullScreen(true);
+    return;
+  }
 
   final restoreIndex = verses.indexWhere(
     (verse) => verse.verseId == state.restoreVerseId,

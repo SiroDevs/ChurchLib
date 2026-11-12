@@ -6,10 +6,10 @@ import 'package:styled_widget/styled_widget.dart';
 import 'package:textstyle_extensions/textstyle_extensions.dart';
 
 // Project imports:
+import '../../utils/formatting/song_text_utils.dart';
 import '../../../core/theme/theme_colors.dart';
 import '../../../core/theme/theme_fonts.dart';
 import '../../../data/models/song/songext.dart';
-import '../../utils/formatting/app_util.dart';
 import 'tag_item.dart';
 
 // ignore: must_be_immutable
@@ -63,7 +63,7 @@ class SearchSongItem extends StatelessWidget {
           Icon(
             song.liked ? Icons.favorite : Icons.favorite_border,
             color: ThemeColors.foreColorBW(context),
-          )
+          ),
         ].toRow(),
         const SizedBox(height: 3),
         Divider(color: ThemeColors.foreColorPrimary2(context), height: 1),

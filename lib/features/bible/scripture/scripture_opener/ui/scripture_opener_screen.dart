@@ -7,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
 import '../../../../../common/windows/window_frame.dart';
+import '../../../../../l10n/gen/app_localizations.dart';
 import '../cubit/scripture_opener_cubit.dart';
 import 'widgets/scripture_search_row.dart';
 
@@ -62,8 +63,10 @@ class _ScriptureOpenerViewState extends State<_ScriptureOpenerView> {
       return CircularProgressIndicator().center();
     }
     if (state.error != null) {
-      return Text(state.error!, textAlign: TextAlign.center).padding(all: 24)
-          .center();
+      return Text(
+        AppLocalizations.of(context)!.noBooksForBible,
+        textAlign: TextAlign.center,
+      ).padding(all: 24).center();
     }
 
     final cubit = context.read<ScriptureOpenerCubit>();
@@ -89,13 +92,12 @@ class _ScriptureOpenerViewState extends State<_ScriptureOpenerView> {
           },
         );
       },
-    )
-        .constrained(maxWidth: 640)
-        .center();
+    ).constrained(maxWidth: 640).center();
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocConsumer<ScriptureOpenerCubit, ScriptureOpenerState>(
       listenWhen: (a, b) => a.rows.length != b.rows.length,
       listener: (_, __) => _scrollToEnd(),
@@ -103,8 +105,8 @@ class _ScriptureOpenerViewState extends State<_ScriptureOpenerView> {
         appBar: WindowAppBar(
           icon: Icons.auto_stories_outlined,
           title: state.bibleName.isEmpty
-              ? 'Scripture Opener'
-              : 'Scripture Opener · ${state.bibleName}',
+              ? l10n.scriptureOpener
+              : '${l10n.scriptureOpener} · ${state.bibleName}',
         ),
         body: _body(context, state),
       ),

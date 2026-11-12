@@ -11,50 +11,23 @@ import 'package:go_router/go_router.dart';
 import 'common/navigator/app_router.dart';
 import 'common/utils/display/app_window.dart';
 import 'common/widgets/text_scale_factor.dart';
-import 'core/auth/auth_bloc.dart';
 import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
 import 'core/theme/bloc/theme_bloc.dart';
 import 'core/theme/theme_data.dart';
-import 'domain/repos/auth_repo.dart';
 import 'domain/repos/pref_repo.dart';
 import 'features/presentation/controller/presentation_controller.dart';
 import 'features/presentation/ui/presentation_host.dart';
 import 'l10n/gen/app_localizations.dart';
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => MyAppState();
-}
-
-class MyAppState extends State<MyApp> {
-  late final AuthRepo _authRepo;
-
-  @override
-  void initState() {
-    super.initState();
-    _authRepo = AuthRepo();
-  }
-
-  @override
-  void dispose() {
-    _authRepo.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: _authRepo,
-      child: BlocProvider.value(
-        value: getIt<LicenseCubit>(),
-        child: BlocProvider(
-          create: (_) => AuthBloc(authRepo: _authRepo),
-          child: const AppView(),
-        ),
-      ),
+    return BlocProvider.value(
+      value: getIt<LicenseCubit>(),
+      child: const AppView(),
     );
   }
 }
@@ -73,10 +46,7 @@ class AppViewState extends State<AppView> {
   @override
   void initState() {
     super.initState();
-    _router = buildAppRouter(
-      context.read<AuthBloc>(),
-      context.read<LicenseCubit>(),
-    );
+    _router = buildAppRouter(context.read<LicenseCubit>());
     HardwareKeyboard.instance.addHandler(_onKey);
   }
 

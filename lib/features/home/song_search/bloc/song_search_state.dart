@@ -1,72 +1,68 @@
 part of 'song_search_bloc.dart';
 
-sealed class SongSearchState extends Equatable {
-  const SongSearchState();
-
-  @override
-  List<Object?> get props => [];
+enum SongSearchStatus {
+  initial,
+  loading,
+  loaded,
+  filtering,
+  failure,
+  reset,
+  noInternet,
 }
 
-class InitialState extends SongSearchState {
-  const InitialState();
-}
+const _unsetSongSearchValue = Object();
 
-class LoadedState extends SongSearchState {
-  const LoadedState();
-}
+class SongSearchState extends Equatable {
+  const SongSearchState({
+    this.status = SongSearchStatus.initial,
+    this.books = const [],
+    this.allSongs = const [],
+    this.selectedSongs = const [],
+    this.likes = const [],
+    this.selectedBook,
+    this.feedback,
+  });
 
-class DataFetchedState extends SongSearchState {
-  const DataFetchedState(this.books, this.songs);
+  final SongSearchStatus status;
   final List<SongBook> books;
-  final List<SongExt> songs;
-
-  @override
-  List<Object?> get props => [books, songs];
-}
-
-class DataSyncedState extends SongSearchState {
-  const DataSyncedState(this.books, this.songs);
-  final List<SongBook> books;
-  final List<SongExt> songs;
-
-  @override
-  List<Object?> get props => [books, songs];
-}
-
-class FilteredState extends SongSearchState {
-  const FilteredState(this.book, this.songs, this.likes);
-  final SongBook book;
-  final List<SongExt> songs;
+  final List<SongExt> allSongs;
+  final List<SongExt> selectedSongs;
   final List<SongExt> likes;
+  final SongBook? selectedBook;
+  final String? feedback;
+
+  SongSearchState copyWith({
+    SongSearchStatus? status,
+    List<SongBook>? books,
+    List<SongExt>? allSongs,
+    List<SongExt>? selectedSongs,
+    List<SongExt>? likes,
+    Object? selectedBook = _unsetSongSearchValue,
+    Object? feedback = _unsetSongSearchValue,
+  }) {
+    return SongSearchState(
+      status: status ?? this.status,
+      books: books ?? this.books,
+      allSongs: allSongs ?? this.allSongs,
+      selectedSongs: selectedSongs ?? this.selectedSongs,
+      likes: likes ?? this.likes,
+      selectedBook: identical(selectedBook, _unsetSongSearchValue)
+          ? this.selectedBook
+          : selectedBook as SongBook?,
+      feedback: identical(feedback, _unsetSongSearchValue)
+          ? this.feedback
+          : feedback as String?,
+    );
+  }
 
   @override
-  List<Object?> get props => [book, songs, likes];
-}
-
-class FetchingState extends SongSearchState {
-  const FetchingState();
-}
-
-class FilteringState extends SongSearchState {
-  const FilteringState();
-}
-
-class SuccessState extends SongSearchState {
-  const SuccessState();
-}
-
-class ResettedState extends SongSearchState {
-  const ResettedState();
-}
-
-class FailureState extends SongSearchState {
-  const FailureState(this.feedback);
-  final String feedback;
-
-  @override
-  List<Object?> get props => [feedback];
-}
-
-class NoInternetState extends SongSearchState {
-  const NoInternetState();
+  List<Object?> get props => [
+    status,
+    books,
+    allSongs,
+    selectedSongs,
+    likes,
+    selectedBook,
+    feedback,
+  ];
 }

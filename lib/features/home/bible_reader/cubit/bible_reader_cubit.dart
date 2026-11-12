@@ -2,7 +2,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../../../common/utils/formatting/app_util.dart';
+import '../../../../common/utils/logging/app_logger.dart';
 import '../../../../common/utils/reader/bible_settings_signal.dart';
 import '../../../../common/utils/reader/reader_utils.dart';
 import '../../../../core/di/injectable.dart';
@@ -43,6 +43,13 @@ class BibleReaderCubit extends Cubit<BibleReaderState>
   final _prefs = getIt<PrefRepo>();
 
   bool _isFirstLoad = false;
+  int _loadRequestId = 0;
+  int _parallelRequestId = 0;
+
+  int _startLoadRequest() => ++_loadRequestId;
+
+  bool _isCurrentLoadRequest(int requestId) =>
+      !isClosed && requestId == _loadRequestId;
 
   void navigateChapter(int direction) {
     final current = state.activeChapter;
@@ -57,22 +64,34 @@ class BibleReaderCubit extends Cubit<BibleReaderState>
     BibleChapter chapter, {
     ScrollTarget? scrollTarget,
   }) {
+    final requestId = _startLoadRequest();
     return _loadVerses(
       state.activeBibleAbbr,
       chapter,
+      requestId: requestId,
       scrollTarget: scrollTarget,
       forceScrollToFirstVerse: scrollTarget == null,
     );
   }
 
   Future<void> selectBook(BibleBook book) async {
+    final requestId = _startLoadRequest();
     emit(
-      state.copyWith(activeBook: book, chapters: const [], verses: const []),
+      state.copyWith(
+        activeBook: book,
+        activeChapter: null,
+        chapters: const [],
+        verses: const [],
+        parallelVerses: const {},
+        isLoading: true,
+        error: null,
+      ),
     );
     await _loadChapters(
       state.activeBibleAbbr,
       book,
       '',
+      requestId: requestId,
       forceScrollToFirstVerse: true,
     );
   }
@@ -80,23 +99,28 @@ class BibleReaderCubit extends Cubit<BibleReaderState>
   Future<void> setPrimaryBible(String abbr) async {
     final chapter = state.activeChapter;
     if (chapter == null) return;
+    final requestId = _startLoadRequest();
+    final bookId = state.activeBook?.id ?? '';
     final name = firstWhereOrFirst(
       state.savedBibles,
       (b) => b.abbreviation == abbr,
     ).name;
 
     saveReaderPrimaryBible(_prefs, abbr: abbr, name: name);
-    emit(state.copyWith(activeBible: name, activeBibleAbbr: abbr));
-
-    await _loadVerses(abbr, chapter);
-    await _loadBooks(abbr, state.activeBook?.id ?? '', chapter.id);
+    emit(
+      state.copyWith(
+        activeBible: name,
+        activeBibleAbbr: abbr,
+        isLoading: true,
+        error: null,
+      ),
+    );
+    await _loadBooks(abbr, bookId, chapter.id, requestId: requestId);
   }
 
   Future<void> setMultiBibleReaderEnabled(bool enabled) async {
     saveReaderMultiBibleEnabled(_prefs, enabled);
-    emit(state.copyWith(multiBibleReaderEnabled: enabled));
-    final chapter = state.activeChapter;
-    if (chapter != null) await _loadVerses(state.activeBibleAbbr, chapter);
+    await refreshParallel();
   }
 
   void setFontSize(int size) {

@@ -9,7 +9,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 // Project imports:
-import '../utils/formatting/app_util.dart';
+import '../utils/logging/app_logger.dart';
 
 bool isDesktop = Platform.isWindows || Platform.isLinux || Platform.isMacOS;
 bool isMobile = Platform.isAndroid || Platform.isIOS || Platform.isFuchsia;
@@ -19,14 +19,17 @@ class AppConstants {
   static const kFontFamily = 'TrebuchetMS';
   static String dbName = 'ChurchLib.db';
 
-  static const fromApp = "\n\nSource: ChurchLib\nhttps://sirodevs.com/churchlib";
+  static const fromApp =
+      "\n\nSource: ChurchLib\nhttps://sirodevs.com/churchlib";
   static const siteLink = "https://sirodevs.com/churchlib/";
 
   static const appTitle = "ChurchLib";
   static const appVersionx = "v0.0.7.60";
   static const appCredits = "© Siro Devs";
-  static const IconData whatsapp =
-      IconData(0xf05a6, fontFamily: 'MaterialIcons');
+  static const IconData whatsapp = IconData(
+    0xf05a6,
+    fontFamily: 'MaterialIcons',
+  );
 
   static Future<String> get databaseFile async {
     Directory dbFolder = await getApplicationDocumentsDirectory();

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../core/theme/theme_data.dart';
+import '../../../l10n/gen/app_localizations.dart';
 
 class PresentationScaffold extends StatelessWidget {
   const PresentationScaffold({
@@ -31,11 +32,7 @@ class PresentationScaffold extends StatelessWidget {
             body: SafeArea(
               child: Column(
                 children: [
-                  _Header(
-                    title: title,
-                    onBack: onBack,
-                    actions: actions,
-                  ),
+                  _Header(title: title, onBack: onBack, actions: actions),
                   const Divider(height: 1, thickness: 1, color: Colors.white),
                   Expanded(
                     child: Row(
@@ -69,6 +66,7 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final titleSize = (MediaQuery.sizeOf(context).height * 0.05).clamp(
       28.0,
       64.0,
@@ -109,7 +107,7 @@ class _Header extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: IconButton(
-                  tooltip: 'Back (Esc)',
+                  tooltip: l10n.backEscapeTooltip,
                   iconSize: 30,
                   onPressed: onBack,
                   icon: const Icon(Icons.close),

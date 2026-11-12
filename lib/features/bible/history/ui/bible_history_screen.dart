@@ -11,6 +11,7 @@ import '../../../../common/utils/display/dialog_utils.dart';
 import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../bloc/bible_history_cubit.dart';
 
 class BibleHistoryScreen extends StatelessWidget {
@@ -49,22 +50,24 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
   }
 
   Future<void> _clearReading() async {
+    final l10n = AppLocalizations.of(context)!;
     final ok = await showConfirmDialog(
       context,
-      title: 'Clear reading history?',
-      message: "This will permanently delete your reading history. This can't be undone.",
-      confirmLabel: 'Delete',
+      title: l10n.clearReadingHistoryQuestion,
+      message: l10n.clearReadingHistoryMessage,
+      confirmLabel: l10n.deleteAction,
       destructive: true,
     );
     if (ok && mounted) await context.read<BibleHistoryCubit>().clearReading();
   }
 
   Future<void> _clearSearches() async {
+    final l10n = AppLocalizations.of(context)!;
     final ok = await showConfirmDialog(
       context,
-      title: 'Clear search history?',
-      message: "This will permanently delete your search history. This can't be undone.",
-      confirmLabel: 'Delete',
+      title: l10n.clearSearchHistoryQuestion,
+      message: l10n.clearSearchHistoryMessage,
+      confirmLabel: l10n.deleteAction,
       destructive: true,
     );
     if (ok && mounted) await context.read<BibleHistoryCubit>().clearSearches();
@@ -72,19 +75,23 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: WindowAppBar(
         icon: Icons.history,
-        title: 'History',
+        title: l10n.historyTitle,
         bottom: TabBar(
           controller: _tabController,
           labelColor: ThemeColors.primary,
           indicatorColor: ThemeColors.primary,
-          tabs: const [Tab(text: 'Reading'), Tab(text: 'Searches')],
+          tabs: [
+            Tab(text: l10n.historyReading),
+            Tab(text: l10n.historySearches),
+          ],
         ),
         actions: [
           IconButton(
-            tooltip: 'Clear',
+            tooltip: l10n.clearAction,
             icon: const Icon(Icons.delete_sweep_outlined),
             onPressed: () =>
                 _tabController.index == 0 ? _clearReading() : _clearSearches(),
@@ -99,8 +106,7 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
             children: [_readingTab(state), _searchesTab(state)],
           ),
         ),
-      )
-          .center(),
+      ).center(),
     );
   }
 
@@ -110,22 +116,21 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
     }
     if (state.reading.isEmpty) {
       return Text(
-        'No reading history yet.',
+        AppLocalizations.of(context)!.noReadingHistory,
         style: TextStyle(color: ThemeColors.mediumGrey),
-      )
-          .center();
+      ).center();
     }
     final fmt = DateFormat('h:mm a');
     return ListView(
       children: [
         for (final group in state.reading) ...[
           Text(
-            group.dateLabel,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          )
+                group.dateLabel,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
               .padding(horizontal: 16, vertical: 6)
               .decorated(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -163,10 +168,9 @@ class _BibleHistoryViewState extends State<_BibleHistoryView>
     if (state.isLoading) return const SizedBox.shrink();
     if (state.searches.isEmpty) {
       return Text(
-        'No searches yet.',
+        AppLocalizations.of(context)!.noSearchesYet,
         style: TextStyle(color: ThemeColors.mediumGrey),
-      )
-          .center();
+      ).center();
     }
     final fmt = DateFormat('MMM d, h:mm a');
     return ListView.separated(

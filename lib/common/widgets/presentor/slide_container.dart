@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../utils/formatting/app_util.dart';
 import '../../utils/theme/shape_utils.dart';
+import '../general/present_on_mobile.dart';
 import 'indicators.dart';
 
 class SlideContainer extends StatelessWidget {

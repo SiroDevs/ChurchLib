@@ -10,9 +10,9 @@ mixin ReaderAutoScrollMixin<T extends StatefulWidget> on State<T> {
 
   static const autoTick = Duration(milliseconds: 16);
   static const autoPixelsPerTick = 2.5;
-  static const autoMinSpeed = 0.25;
+  static const autoMinSpeed = 0.1;
   static const autoMaxSpeed = 4.0;
-  static const autoSpeedStep = 0.25;
+  static const autoSpeedStep = 0.1;
   Timer? autoScrollTimer;
   bool autoScrolling = false;
   double autoSpeed = autoMinSpeed;

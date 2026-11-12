@@ -1,18 +1,20 @@
 // Project imports:
 import '../../../common/constants/pref_constants.dart';
-import '../../../core/di/injectable.dart';
 import '../database_repo.dart';
 import '../pref_repo.dart';
 import 'song_selection_repo.dart';
 
 class SongSyncRepo {
-  final _prefRepo = getIt<PrefRepo>();
-  final _dbRepo = getIt<DatabaseRepo>();
-  final _selectRepo = SongSelectionRepo();
+  SongSyncRepo(this._prefRepo, this._dbRepo, this._selectRepo);
+
+  final PrefRepo _prefRepo;
+  final DatabaseRepo _dbRepo;
+  final SongSelectionRepo _selectRepo;
 
   Future<bool> syncData() async {
-    final selectedBooks =
-        _prefRepo.getPrefString(PrefConstants.selectedBooksKey);
+    final selectedBooks = _prefRepo.getPrefString(
+      PrefConstants.selectedBooksKey,
+    );
     if (selectedBooks.isEmpty) return false;
 
     final fetchedSongs = await _selectRepo.fetchSongsByBooks(selectedBooks);

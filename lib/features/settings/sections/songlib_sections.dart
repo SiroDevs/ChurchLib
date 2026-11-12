@@ -51,10 +51,8 @@ class _PresentationSectionState extends State<PresentationSection> {
         ),
         ListTile(
           leading: const Icon(Icons.list),
-          title: const Text('Verses panel'),
-          subtitle: const Text(
-            'Show every verse of the song beside the slides while presenting',
-          ),
+          title: Text(l10n.versesPanel),
+          subtitle: Text(l10n.showVersesPanel),
           trailing: Switch(value: _showVerses, onChanged: _updateVerses),
           onTap: () => _updateVerses(!_showVerses),
         ),

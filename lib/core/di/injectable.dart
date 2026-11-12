@@ -10,17 +10,22 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
+import '../../common/utils/logging/app_logger.dart';
 import '../../common/constants/app_constants.dart';
-import '../../common/utils/formatting/app_util.dart';
 import '../../data/sources/local/app_database.dart';
+import '../../data/sources/local/migrations/database_migrations.dart';
 import '../../data/sources/remote/bible/bible_api_service.dart';
 import '../../domain/repos/bible/bible_annotation_repo.dart';
 import '../../domain/repos/bible/bible_repo.dart';
 import '../../domain/repos/bible/bible_repo_impl.dart';
+import '../../domain/repos/bible/bible_selection_repo.dart';
 import '../../domain/repos/bible/bible_tracking_repo.dart';
 import '../../domain/repos/bible/scripture_repo.dart';
 import '../../domain/repos/database_repo.dart';
 import '../../domain/repos/database_repo_impl.dart';
+import '../../domain/repos/pref_repo.dart';
+import '../../domain/repos/song/song_selection_repo.dart';
+import '../../domain/repos/song/song_sync_repo.dart';
 import '../../features/bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
 import '../license/license_module.dart';
 import '../update/update_cubit.dart';
@@ -28,10 +33,7 @@ import 'injectable.config.dart';
 
 final getIt = GetIt.instance;
 
-@InjectableInit(
-  initializerName: r'initGetIt',
-  generateForDir: ['lib'],
-)
+@InjectableInit(initializerName: r'initGetIt', generateForDir: ['lib'])
 Future<void> configureDependencies(String environment) async {
   logger('Using environment: $environment');
   await getIt.initGetIt(environment: environment);
@@ -50,6 +52,7 @@ abstract class RegisterModule {
   @preResolve
   Future<AppDatabase> provideAppDatabase() async => await $FroomAppDatabase
       .databaseBuilder(await AppConstants.databaseFile)
+      .addMigrations(appDatabaseMigrations)
       .build();
 
   @lazySingleton
@@ -63,19 +66,30 @@ abstract class RegisterModule {
   BibleRepo provideBibleRepo(
     AppDatabase appDatabase,
     BibleApiService bibleApiService,
-  ) =>
-      BibleRepoImpl(appDatabase, bibleApiService);
+  ) => BibleRepoImpl(appDatabase, bibleApiService);
 
   @lazySingleton
-  BibleTrackingRepo provideBibleTrackingRepo(
-    AppDatabase appDatabase,
-  ) =>
+  BibleSelectionRepo provideBibleSelectionRepo(
+    BibleRepo bibleRepo,
+    PrefRepo prefRepo,
+  ) => BibleSelectionRepo(bibleRepo, prefRepo);
+
+  @lazySingleton
+  SongSelectionRepo provideSongSelectionRepo() => SongSelectionRepo();
+
+  @lazySingleton
+  SongSyncRepo provideSongSyncRepo(
+    PrefRepo prefRepo,
+    DatabaseRepo databaseRepo,
+    SongSelectionRepo songSelectionRepo,
+  ) => SongSyncRepo(prefRepo, databaseRepo, songSelectionRepo);
+
+  @lazySingleton
+  BibleTrackingRepo provideBibleTrackingRepo(AppDatabase appDatabase) =>
       BibleTrackingRepo(appDatabase);
 
   @lazySingleton
-  BibleAnnotationRepo provideBibleAnnotationRepo(
-    AppDatabase appDatabase,
-  ) =>
+  BibleAnnotationRepo provideBibleAnnotationRepo(AppDatabase appDatabase) =>
       BibleAnnotationRepo(appDatabase);
 
   @lazySingleton

@@ -47,7 +47,7 @@ class SongTitleBar extends StatelessWidget {
             ),
 
             IconButton(
-              tooltip: 'Copy Song',
+              tooltip: l10n.copySong,
               onPressed: () => copySongToClipboard(context, song),
               icon: const Icon(Icons.copy),
             ),

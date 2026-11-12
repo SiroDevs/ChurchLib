@@ -6,7 +6,7 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 
 // Project imports:
-import '../../common/utils/formatting/app_util.dart';
+import '../../common/utils/logging/app_logger.dart';
 import 'release_asset.dart';
 
 export 'release_asset.dart';
@@ -14,7 +14,8 @@ export 'release_asset.dart';
 const String kRepo = 'SiroDevs/ChurchLib';
 const String kRepoUrl = 'https://github.com/$kRepo';
 const String kRepoReleasesUrl = '$kRepoUrl/releases/latest';
-const String _apiLatestUrl = 'https://api.github.com/repos/$kRepo/releases/latest';
+const String _apiLatestUrl =
+    'https://api.github.com/repos/$kRepo/releases/latest';
 
 /// "v1.0.4+12" -> "1.0.4"; "1.1.0-beta.1" -> "1.1.0"
 String? normalizeVersion(String tag) =>
@@ -40,10 +41,12 @@ Future<ReleaseInfo?> fetchLatestRelease() async =>
 
 Future<ReleaseInfo?> _fromApi() async {
   try {
-    final response = await http.get(
-      Uri.parse(_apiLatestUrl),
-      headers: const {'Accept': 'application/vnd.github+json'},
-    ).timeout(const Duration(seconds: 15));
+    final response = await http
+        .get(
+          Uri.parse(_apiLatestUrl),
+          headers: const {'Accept': 'application/vnd.github+json'},
+        )
+        .timeout(const Duration(seconds: 15));
     if (response.statusCode != 200) {
       logger('Update check: GitHub API answered ${response.statusCode}');
       return null;
@@ -71,11 +74,13 @@ Future<ReleaseInfo?> _fromRedirect() async {
   try {
     final request = http.Request('HEAD', Uri.parse(kRepoReleasesUrl))
       ..followRedirects = false;
-    final response =
-        await client.send(request).timeout(const Duration(seconds: 15));
+    final response = await client
+        .send(request)
+        .timeout(const Duration(seconds: 15));
     final location = response.headers['location'] ?? '';
-    final tag =
-        RegExp(r'/releases/tag/([^/?#]+)$').firstMatch(location)?.group(1);
+    final tag = RegExp(r'/releases/tag/([^/?#]+)$')
+        .firstMatch(location)
+        ?.group(1);
     if (tag == null) return null;
     final decoded = Uri.decodeComponent(tag);
     final version = normalizeVersion(decoded);

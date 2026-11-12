@@ -12,8 +12,11 @@ import '../../../../common/utils/network/http_utils.dart';
 Future<bool> isConnectedToInternet() async {
   try {
     final connectivityResult = await Connectivity().checkConnectivity();
-    // ignore: unrelated_type_equality_checks
-    if (connectivityResult == ConnectivityResult.none) return false;
+    if (!connectivityResult.any(
+      (result) => result != ConnectivityResult.none,
+    )) {
+      return false;
+    }
 
     final result = await InternetAddress.lookup('example.com');
     return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
@@ -24,48 +27,61 @@ Future<bool> isConnectedToInternet() async {
 
 Future<http.Response> makeApiGetRequest(
   String endpoint,
-  Map<String, String> headers,
-) =>
-    sendHttpRequest('GET', ApiConstants.songliveApi + endpoint, headers);
+  Map<String, String> headers, {
+  http.Client? client,
+}) => sendHttpRequest(
+  'GET',
+  ApiConstants.songliveApi + endpoint,
+  headers,
+  client: client,
+);
 
 Future<http.Response> makeApiDeleteRequest(
   String endpoint,
-  Map<String, String> headers,
-) =>
-    sendHttpRequest('DELETE', ApiConstants.songliveApi + endpoint, headers);
+  Map<String, String> headers, {
+  http.Client? client,
+}) => sendHttpRequest(
+  'DELETE',
+  ApiConstants.songliveApi + endpoint,
+  headers,
+  client: client,
+);
 
 Future<http.Response> makeApiPostRequest(
   String endpoint,
   Map<String, String> headers,
-  dynamic requestBody,
-) =>
-    sendHttpRequest(
-      'POST',
-      ApiConstants.songliveApi + endpoint,
-      headers,
-      body: requestBody,
-    );
+  dynamic requestBody, {
+  http.Client? client,
+}) => sendHttpRequest(
+  'POST',
+  ApiConstants.songliveApi + endpoint,
+  headers,
+  body: requestBody,
+  client: client,
+);
 
 Future<http.Response> makeApiPutRequest(
   String endpoint,
   Map<String, String> headers,
-  dynamic requestBody,
-) =>
-    sendHttpRequest(
-      'PUT',
-      ApiConstants.songliveApi + endpoint,
-      headers,
-      body: requestBody,
-    );
+  dynamic requestBody, {
+  http.Client? client,
+}) => sendHttpRequest(
+  'PUT',
+  ApiConstants.songliveApi + endpoint,
+  headers,
+  body: requestBody,
+  client: client,
+);
 
 Future<http.Response> makeApiPatchRequest(
   String endpoint,
   Map<String, String> headers,
-  dynamic requestBody,
-) =>
-    sendHttpRequest(
-      'PATCH',
-      ApiConstants.songliveApi + endpoint,
-      headers,
-      body: requestBody,
-    );
+  dynamic requestBody, {
+  http.Client? client,
+}) => sendHttpRequest(
+  'PATCH',
+  ApiConstants.songliveApi + endpoint,
+  headers,
+  body: requestBody,
+  client: client,
+);

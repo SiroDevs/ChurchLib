@@ -9,8 +9,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
+import '../../common/utils/logging/app_logger.dart';
 import '../../common/constants/pref_constants.dart';
-import '../../common/utils/formatting/app_util.dart';
 
 /// A stable, anonymous id for this computer.
 ///
@@ -100,9 +100,10 @@ class MachineIdProvider {
     final existing = _prefs.getString(PrefConstants.licenseFallbackIdKey);
     if (existing != null && existing.isNotEmpty) return existing;
     final random = Random.secure();
-    final id = List<int>.generate(16, (_) => random.nextInt(256))
-        .map((b) => b.toRadixString(16).padLeft(2, '0'))
-        .join();
+    final id = List<int>.generate(
+      16,
+      (_) => random.nextInt(256),
+    ).map((b) => b.toRadixString(16).padLeft(2, '0')).join();
     _prefs.setString(PrefConstants.licenseFallbackIdKey, id);
     return id;
   }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
-import '../../../../../../common/utils/formatting/app_util.dart';
+import '../../../../../../common/utils/formatting/song_text_utils.dart';
 import '../../../../../../data/models/bible/bible_version.dart';
 
 const bibleManageResult = '__manage__';
@@ -65,19 +65,20 @@ Future<String?> showBiblePicker(
                     ),
                   ),
                   title: Text(b.name, maxLines: 2),
-                  subtitle: Text('${b.languageName.toUpperCase()} ~ ${b.description}', maxLines: 2),
+                  subtitle: Text(
+                    '${b.languageName.toUpperCase()} ~ ${b.description}',
+                    maxLines: 2,
+                  ),
                   trailing: b.abbreviation == activeAbbr
                       ? const Icon(Icons.check_circle)
                       : null,
                   onTap: () => Navigator.pop(ctx, b.abbreviation),
                 ),
             ],
-          )
-              .flexible(),
+          ).flexible(),
           const SizedBox(height: 8),
         ],
-      )
-          .constrained(maxHeight: MediaQuery.sizeOf(ctx).height * 0.7),
+      ).constrained(maxHeight: MediaQuery.sizeOf(ctx).height * 0.7),
     ),
   );
 }

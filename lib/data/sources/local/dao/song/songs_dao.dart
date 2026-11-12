@@ -23,6 +23,9 @@ abstract class SongsDao {
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertSong(Song song);
 
+  @Insert(onConflict: OnConflictStrategy.replace)
+  Future<void> insertAll(List<Song> songs);
+
   @Query(
     'UPDATE ${SongConstants.songsTable} '
     'SET title = :title, content = :content, liked = :liked, updated = :updated WHERE rid = :rid',
@@ -39,12 +42,7 @@ abstract class SongsDao {
     'UPDATE ${SongConstants.songsTable} '
     'SET title = :title, alias = :alias, content = :content WHERE songId = :songId',
   )
-  Future<void> syncSong(
-    int songId,
-    String title,
-    String alias,
-    String content,
-  );
+  Future<void> syncSong(int songId, String title, String alias, String content);
 
   @delete
   Future<void> deleteSong(Song song);
@@ -54,4 +52,12 @@ abstract class SongsDao {
 
   @Query("DELETE FROM ${SongConstants.songsTable}")
   Future<void> deleteAllSongs();
+
+  @transaction
+  Future<void> replaceSongsForBooks(List<int> bookIds, List<Song> songs) async {
+    for (final bookId in bookIds) {
+      await deleteSongsByBook(bookId);
+    }
+    await insertAll(songs);
+  }
 }

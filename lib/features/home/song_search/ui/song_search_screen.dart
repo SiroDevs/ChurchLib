@@ -1,6 +1,4 @@
 // Dart imports:
-import 'dart:async';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -10,17 +8,21 @@ import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../common/utils/formatting/feedback_messages.dart';
 import '../../../../common/navigator/route_names.dart';
 import '../../../../common/utils/display/app_window.dart';
-import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/search/search_songs_utils.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
+import '../../../../core/di/injectable.dart';
 import '../../../../data/models/models.dart';
-import '../../../../data/sources/remote/song/api_service.dart';
+import '../../../../domain/repos/database_repo.dart';
+import '../../../../domain/repos/pref_repo.dart';
+import '../../../../domain/repos/song/song_sync_repo.dart';
 import '../../../../l10n/gen/app_localizations.dart';
 import '../../../song/likes/likes_screen.dart';
 import '../../../song/songs/songs_screen.dart';
+import '../../../presentation/controller/presentation_controller.dart';
 import '../../../presentation/controller/presentation_sources.dart';
 import '../../../presentation/ui/presentation_toggle.dart';
 import '../../main/shell/app_module.dart';
@@ -30,6 +32,8 @@ import '../bloc/song_search_bloc.dart';
 import 'widgets/song_search_loading.dart';
 
 part 'widgets/search_widget.dart';
+part 'widgets/song_search_data_handlers.dart';
+part 'widgets/song_search_fullscreen_handlers.dart';
 part 'widgets/song_title_bar.dart';
 
 class SongSearchScreen extends StatefulWidget {
@@ -41,18 +45,9 @@ class SongSearchScreen extends StatefulWidget {
 
 class SongSearchScreenState extends State<SongSearchScreen> {
   late SongSearchBloc _bloc;
-  Timer? _syncTimer;
-
-  bool periodicSyncStarted = false;
-
-  bool dataReady = false;
-
   bool _presenting = false;
-  int selectedPage = 0, selectedBook = 0;
-  List<SongBook> books = [];
+  String searchQuery = '';
   late SongExt selectedSong;
-  List<SongExt> songs = [], likes = [], filtered = [];
-  PageController pageController = PageController();
 
   PageType currentPage = PageType.search;
 
@@ -62,25 +57,13 @@ class SongSearchScreenState extends State<SongSearchScreen> {
   @override
   void initState() {
     super.initState();
-    selectedSong = SongExt(0, 0, 0, 0, '', '', '', 0, 0, false, '');
+    selectedSong = _emptySong();
     AppWindow.fullScreen.addListener(_onFullScreenChanged);
-  }
-
-  void _onFullScreenChanged() {
-    if (!AppWindow.fullScreen.value || _presenting || !mounted) return;
-    final current = HomeModuleScope.maybeOf(context)?.current;
-    if (current != null && current != AppModule.songlib) return;
-    if (selectedSong.songId == 0 || books.isEmpty) {
-      AppWindow.setFullScreen(false);
-      return;
-    }
-    openFullScreenPresenter();
   }
 
   @override
   void dispose() {
     AppWindow.fullScreen.removeListener(_onFullScreenChanged);
-    _syncTimer?.cancel();
     searchFocus.dispose();
     searchController.dispose();
     super.dispose();
@@ -88,80 +71,63 @@ class SongSearchScreenState extends State<SongSearchScreen> {
 
   void selectSong(SongExt song) => setState(() => selectedSong = song);
 
-  void onSearch(String query) {
-    setState(() {
-      filtered = query.isEmpty
-          ? songs
-          : filterSongsByQuery(query.toLowerCase(), songs);
-    });
-  }
-
   Future<void> presentSelected() async {
-    final song = selectedSong;
-    if (song.songId == 0) return;
-    await presentSong(song);
+    if (selectedSong.songId == 0) return;
+    if (!PresentationController.instance.hasExtendedDisplay) {
+      PresentationController.instance.stop();
+      await openFullScreenPresenter();
+      return;
+    }
+    await presentSong(selectedSong);
   }
 
   Future<void> openFullScreenPresenter() async {
     final song = selectedSong;
     if (song.songId == 0 || books.isEmpty) return;
-    // final bloc = context.read<SongSearchBloc>();
     final book = books.firstWhere(
       (b) => b.bookId == song.book,
       orElse: () => books[0],
     );
 
     _presenting = true;
-    bool? result = await context.pushNamed<bool>(
-      RouteNames.presentor,
-      extra: (song: song, book: book, songs: songs),
-    );
-
-    _presenting = false;
-    if (result == true) {
-      // bloc.add(FilterData(book));
+    try {
+      await context.pushNamed<bool>(
+        RouteNames.presentor,
+        extra: (song: song, book: book, songs: songs),
+      );
+    } finally {
+      _presenting = false;
     }
-  }
-
-  void startPeriodicSync() {
-    periodicSyncStarted = true;
-    _syncTimer = Timer.periodic(Duration(minutes: 5), (_) async {
-      if (await isConnectedToInternet()) _bloc.add(SyncData());
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context)!;
     return BlocProvider(
-      create: (context) => SongSearchBloc()..add(FetchData()),
+      create: (context) => SongSearchBloc(
+        syncRepo: getIt<SongSyncRepo>(),
+        prefRepo: getIt<PrefRepo>(),
+        databaseRepo: getIt<DatabaseRepo>(),
+      )..add(const FetchData()),
       child: BlocConsumer<SongSearchBloc, SongSearchState>(
         listener: (context, state) {
           _bloc = context.read<SongSearchBloc>();
-          if (state is DataSyncedState) {
-            books = state.books;
-            songs = state.songs;
-            _bloc.add(FilterData(books[selectedBook]));
-          } else if (state is DataFetchedState) {
-            books = state.books;
-            songs = state.songs;
-            _bloc.add(FilterData(books[selectedBook]));
-          } else if (state is FilteredState) {
-            likes = state.likes;
-            filtered = state.songs;
-            selectedBook = books.indexOf(state.book);
-            selectedSong = state.songs[0];
-            dataReady = true;
-          } else if (state is LoadedState) {
-            dataReady = true;
-          } else if (state is FailureState) {
-            CustomSnackbar.show(context, feedbackMessage(state.feedback, l10n));
-          } else if (state is ResettedState) {
+          if (state.status == SongSearchStatus.loaded) {
+            _onSearchStateLoaded(state);
+          } else if (state.status == SongSearchStatus.failure) {
+            CustomSnackbar.show(
+              context,
+              feedbackMessage(state.feedback ?? '', l10n),
+            );
+          } else if (state.status == SongSearchStatus.reset) {
             CustomSnackbar.show(context, l10n.redirectingYou);
             context.goNamed(RouteNames.selection);
           }
         },
         builder: (context, state) {
+          if (state.status == SongSearchStatus.loaded && state.books.isEmpty) {
+            return _emptyLibrary(context, l10n);
+          }
           final onSearchPage = currentPage == PageType.search;
           final homeView = AppShell(
             module: AppModule.songlib,
@@ -187,14 +153,14 @@ class SongSearchScreenState extends State<SongSearchScreen> {
                   index: pages.indexOf(currentPage),
                   children: <Widget>[
                     SongsScreen(parent: this),
-                    LikesScreen(books: books),
+                    const LikesScreen(),
                   ],
                 ).expanded(),
               ],
             ),
           );
-          return switch (state) {
-            FailureState() => Scaffold(
+          if (state.status == SongSearchStatus.failure) {
+            return Scaffold(
               body: EmptyState(
                 title: l10n.problemDisplaySongs,
                 showRetry: true,
@@ -202,12 +168,18 @@ class SongSearchScreenState extends State<SongSearchScreen> {
                 onRetry: () =>
                     context.read<SongSearchBloc>().add(const ResetData()),
               ),
-            ),
-            FetchingState() ||
-            InitialState() => const Scaffold(body: SongSearchLoading()),
-            _ when !dataReady => const Scaffold(body: SongSearchLoading()),
-            _ => homeView,
-          };
+            );
+          }
+          if (state.status == SongSearchStatus.initial ||
+              state.status == SongSearchStatus.loading ||
+              (state.status == SongSearchStatus.filtering &&
+                  state.selectedBook == null) ||
+              (state.status == SongSearchStatus.loaded &&
+                  state.books.isNotEmpty &&
+                  state.selectedBook == null)) {
+            return const Scaffold(body: SongSearchLoading());
+          }
+          return homeView;
         },
       ),
     );

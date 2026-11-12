@@ -50,7 +50,7 @@ class SongsList extends StatelessWidget {
       itemCount: songs.length,
       physics: const ClampingScrollPhysics(),
       shrinkWrap: true,
-      separatorBuilder: (_, __) => const SizedBox(height: Sizes.xs),
+      separatorBuilder: (_, _) => const SizedBox(height: Sizes.xs),
       padding: const EdgeInsets.only(left: Sizes.xs, right: Sizes.sm),
       itemBuilder: (context, index) {
         final song = songs[index];

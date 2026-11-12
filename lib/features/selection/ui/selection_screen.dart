@@ -9,6 +9,11 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../common/navigator/route_names.dart';
 import '../../../common/widgets/theme_button.dart';
+import '../../../core/di/injectable.dart';
+import '../../../domain/repos/bible/bible_selection_repo.dart';
+import '../../../domain/repos/database_repo.dart';
+import '../../../domain/repos/pref_repo.dart';
+import '../../../domain/repos/song/song_selection_repo.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../bloc/selection_bloc.dart';
 import 'steps/bibles_step.dart';
@@ -26,7 +31,13 @@ class SelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SelectionBloc(only: only)..add(const SelectionStarted()),
+      create: (_) => SelectionBloc(
+        only: only,
+        prefRepo: getIt<PrefRepo>(),
+        databaseRepo: getIt<DatabaseRepo>(),
+        songRepo: getIt<SongSelectionRepo>(),
+        bibleRepo: getIt<BibleSelectionRepo>(),
+      )..add(const SelectionStarted()),
       child: const _SelectionView(),
     );
   }
@@ -53,12 +64,12 @@ class _SelectionView extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Set up ChurchLib'),
+            title: Text(AppLocalizations.of(context)!.setupChurchLibTitle),
             actions: [
               if (current == SelectionStepType.songs)
                 TextButton.icon(
                   icon: const Icon(Icons.refresh),
-                  label: const Text('Refresh'),
+                  label: Text(AppLocalizations.of(context)!.refreshAction),
                   onPressed: () => bloc.add(const BooksRequested()),
                 ),
               const ThemeButton(showLabel: true),
@@ -73,22 +84,16 @@ class _SelectionView extends StatelessWidget {
                   children: [
                     if (state.steps.length > 1) StepHeader(flow: state),
                     KeyedSubtree(
-                        key: ValueKey(current),
-                        child: switch (current) {
-                          SelectionStepType.modules =>
-                            const ModulesStep(),
-                          SelectionStepType.songs =>
-                            const SongsStep(),
-                          SelectionStepType.bibles =>
-                            const BiblesStep(),
-                          null => const SizedBox.shrink(),
-                        },
-                      )
-                        .expanded(),
+                      key: ValueKey(current),
+                      child: switch (current) {
+                        SelectionStepType.modules => const ModulesStep(),
+                        SelectionStepType.songs => const SongsStep(),
+                        SelectionStepType.bibles => const BiblesStep(),
+                        null => const SizedBox.shrink(),
+                      },
+                    ).expanded(),
                   ],
-                )
-                    .constrained(maxWidth: 1100)
-                    .center(),
+                ).constrained(maxWidth: 1100).center(),
               ),
               const Positioned.fill(child: SelectionProgress()),
             ],
@@ -107,32 +112,29 @@ class _SelectionView extends StatelessWidget {
     final bloc = context.read<SelectionBloc>();
     return switch (state.current) {
       SelectionStepType.modules => StepNavigationBar(
-          label: 'CONTINUE',
-          onBack: onBack,
-          onPressed: state.songlib || state.biblelib
-              ? () => bloc.add(
-                    ModulesChosen(
-                      songlib: state.songlib,
-                      biblelib: state.biblelib,
-                    ),
-                  )
-              : null,
-        ),
+        label: AppLocalizations.of(context)!.continueUpper,
+        onBack: onBack,
+        onPressed: state.songlib || state.biblelib
+            ? () => bloc.add(
+                ModulesChosen(songlib: state.songlib, biblelib: state.biblelib),
+              )
+            : null,
+      ),
       SelectionStepType.songs => StepNavigationBar(
-          label: AppLocalizations.of(context)!.proceed.toUpperCase(),
-          onBack: onBack,
-          onPressed: state.booksStatus == LoadStatus.loaded
-              ? () => confirmSongbooks(context, state)
-              : null,
-        ),
+        label: AppLocalizations.of(context)!.proceed.toUpperCase(),
+        onBack: onBack,
+        onPressed: state.booksStatus == LoadStatus.loaded
+            ? () => confirmSongbooks(context, state)
+            : null,
+      ),
       SelectionStepType.bibles => StepNavigationBar(
-          label: 'FINISH',
-          onBack: onBack,
-          onPressed: state.bibleStatus == BibleStatus.loaded &&
-                  state.canProceedBibles
-              ? () => bloc.add(const BiblesConfirmed())
-              : null,
-        ),
+        label: AppLocalizations.of(context)!.finishUpper,
+        onBack: onBack,
+        onPressed:
+            state.bibleStatus == BibleStatus.loaded && state.canProceedBibles
+            ? () => bloc.add(const BiblesConfirmed())
+            : null,
+      ),
       null => null,
     };
   }

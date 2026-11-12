@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:multiview_desktop/multiview_desktop.dart';
 
-import 'presentation_platform.dart';
+import '../../../common/utils/display/app_window.dart';
+import 'presentation_displays.dart';
 import 'presentation_session.dart';
 import '../ui/audience_screen.dart';
 
@@ -28,25 +29,14 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   bool get active => _active;
 
-  bool get _supportsDisplays => supportsMultiViewPresentation;
+  bool get _hasSecondDisplay => PresentationDisplays.extended.isNotEmpty;
 
-  bool get _hasSecondDisplay => _secondaryDisplays.isNotEmpty;
+  bool get hasExtendedDisplay => _hasSecondDisplay;
 
-  List<Display> get _secondaryDisplays {
-    if (!_supportsDisplays) return const [];
-    try {
-      final primaryId = MultiViewDesktop.screen.primary().id;
-      return MultiViewDesktop.screen
-          .all()
-          .where((display) => display.id != primaryId)
-          .toList();
-    } catch (_) {
-      return const [];
-    }
-  }
+  List<Display> get _secondaryDisplays => PresentationDisplays.extended;
 
   void _listenForDisplayChanges() {
-    if (_listeningForDisplays || !_supportsDisplays) return;
+    if (_listeningForDisplays || !hasExtendedDisplay) return;
     _listeningForDisplays = true;
     MultiViewDesktop.screen.addListener(this);
   }
@@ -59,17 +49,19 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   @override
   void onScreenEvent(String eventName) {
-    if (eventName == 'display-added' && _active) _openWindow();
-    if (eventName == 'display-removed' && _active && !_hasSecondDisplay) {
+    if (_active && !_hasSecondDisplay) {
+      _active = false;
+      _stopListeningForDisplayChanges();
       _closeWindow();
+      AppWindow.setFullScreen(true);
+    } else if (eventName == 'display-added' && _active) {
+      _openWindow();
     }
     notifyListeners();
   }
 
   Size get previewSize {
-    final displays = _secondaryDisplays;
-    if (displays.isEmpty) return const Size(1920, 1080);
-    return Size(displays.first.size.width, displays.first.size.height);
+    return PresentationDisplays.previewSize;
   }
 
   void setWindowTitle(String value) {
@@ -107,6 +99,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
   void toggle() => _active ? stop() : start();
 
   void start() {
+    if (!_hasSecondDisplay) return;
     _active = true;
     _listenForDisplayChanges();
     _openWindow();

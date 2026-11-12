@@ -9,6 +9,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../../../../common/widgets/state/skeleton.dart';
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../../../presentation/controller/presentation_controller.dart';
 import '../../../../../presentation/controller/presentation_sources.dart';
 import '../../../cubit/bible_reader_cubit.dart';
@@ -44,6 +45,17 @@ class ReaderBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.error != null && state.verses.isEmpty) {
+      final l10n = AppLocalizations.of(context)!;
+      final error = state.error!;
+      final message = switch (error) {
+        'noBiblesDownloaded' => l10n.noBiblesDownloaded,
+        'bibleDataUnavailable' => l10n.bibleDataUnavailable,
+        'versesNotCached' => l10n.versesNotCached,
+        _ when error.startsWith('noChaptersFound:') => l10n.noChaptersFound(
+          error.substring('noChaptersFound:'.length),
+        ),
+        _ => l10n.readerLoadFailed,
+      };
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -53,12 +65,12 @@ class ReaderBody extends StatelessWidget {
             color: ThemeColors.mediumGrey,
           ),
           const SizedBox(height: 16),
-          Text(state.error!, textAlign: TextAlign.center),
+          Text(message, textAlign: TextAlign.center),
           const SizedBox(height: 16),
           FilledButton(
             onPressed: () => context.read<BibleReaderCubit>().initialize(),
             style: FilledButton.styleFrom(backgroundColor: ThemeColors.primary),
-            child: const Text('Retry'),
+            child: Text(l10n.retryAction),
           ),
         ],
       ).padding(all: 32).center();

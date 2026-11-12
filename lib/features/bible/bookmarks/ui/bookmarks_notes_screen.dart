@@ -11,6 +11,7 @@ import '../../../../common/windows/window_frame.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/bible/bible_note.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../../../home/bible_reader/ui/widgets/dialogs/note_editor_dialog.dart';
 import '../bloc/bookmarks_notes_cubit.dart';
 import 'widgets/bookmarks_notes_tabs.dart';
@@ -34,8 +35,7 @@ class _BookmarksNotesView extends StatefulWidget {
   const _BookmarksNotesView({required this.initialTab});
 
   @override
-  State<_BookmarksNotesView> createState() =>
-      _BookmarksNotesViewState();
+  State<_BookmarksNotesView> createState() => _BookmarksNotesViewState();
 }
 
 class _BookmarksNotesViewState extends State<_BookmarksNotesView>
@@ -59,15 +59,16 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
   }
 
   Future<void> _deleteSelected(BookmarksNotesState state) async {
+    final l10n = AppLocalizations.of(context)!;
     final onBookmarks = _tabController.index == 0;
     final count = onBookmarks
         ? state.selectedBookmarkKeys.length
         : state.selectedNoteKeys.length;
     final ok = await showConfirmDialog(
       context,
-      title: 'Delete selected?',
-      message: "This will permanently delete $count selected item(s). This can't be undone.",
-      confirmLabel: 'Delete',
+      title: l10n.deleteSelectedQuestion,
+      message: l10n.deleteSelectedCountMessage(count),
+      confirmLabel: l10n.deleteAction,
       destructive: true,
     );
     if (!ok || !mounted) return;
@@ -80,13 +81,17 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
   }
 
   Future<void> _clearAll() async {
+    final l10n = AppLocalizations.of(context)!;
     final onBookmarks = _tabController.index == 0;
     final ok = await showConfirmDialog(
       context,
-      title: onBookmarks ? 'Clear all bookmarks?' : 'Clear all notes?',
-      message: 'This will permanently delete all your ${onBookmarks ? 'bookmarks' : 'notes'} '
-      "across every Bible. This can't be undone.",
-      confirmLabel: 'Delete',
+      title: onBookmarks
+          ? l10n.clearAllBookmarksQuestion
+          : l10n.clearAllNotesQuestion,
+      message: onBookmarks
+          ? l10n.clearBookmarksMessage
+          : l10n.clearNotesMessage,
+      confirmLabel: l10n.deleteAction,
       destructive: true,
     );
     if (!ok || !mounted) return;
@@ -99,9 +104,9 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
   }
 
   void _openInReader(String abbr, String bookId, String chapterId) {
-    Navigator.of(context).pop(
-      ReaderTarget(bibleAbbr: abbr, bookId: bookId, chapterId: chapterId),
-    );
+    Navigator.of(
+      context,
+    ).pop(ReaderTarget(bibleAbbr: abbr, bookId: bookId, chapterId: chapterId));
   }
 
   Future<void> _editNote(BibleNote note) async {
@@ -123,6 +128,7 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
   Widget build(BuildContext context) {
     return BlocBuilder<BookmarksNotesCubit, BookmarksNotesState>(
       builder: (context, state) {
+        final l10n = AppLocalizations.of(context)!;
         final selectionMode = _tabController.index == 0
             ? state.selectedBookmarkKeys.isNotEmpty
             : state.selectedNoteKeys.isNotEmpty;
@@ -130,24 +136,27 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
         return Scaffold(
           appBar: WindowAppBar(
             icon: Icons.bookmarks_outlined,
-            title: 'Bookmarks & Notes',
+            title: l10n.bookmarksNotesTitle,
             bottom: TabBar(
               controller: _tabController,
               onTap: (_) => setState(() {}),
               labelColor: ThemeColors.primary,
               indicatorColor: ThemeColors.primary,
-              tabs: const [Tab(text: 'Bookmarks'), Tab(text: 'Notes')],
+              tabs: [
+                Tab(text: l10n.bookmarksTab),
+                Tab(text: l10n.notesTab),
+              ],
             ),
             actions: [
               if (selectionMode)
                 IconButton(
-                  tooltip: 'Delete selected',
+                  tooltip: l10n.deleteSelectedTooltip,
                   icon: const Icon(Icons.delete_outline),
                   onPressed: () => _deleteSelected(state),
                 )
               else
                 IconButton(
-                  tooltip: 'Clear all',
+                  tooltip: l10n.clearAll,
                   icon: const Icon(Icons.delete_sweep_outlined),
                   onPressed: _clearAll,
                 ),
@@ -159,9 +168,7 @@ class _BookmarksNotesViewState extends State<_BookmarksNotesView>
               BookmarksTab(state: state, onOpen: _openInReader),
               NotesTab(state: state, onEdit: _editNote),
             ],
-          )
-              .constrained(maxWidth: 720)
-              .center(),
+          ).constrained(maxWidth: 720).center(),
         );
       },
     );

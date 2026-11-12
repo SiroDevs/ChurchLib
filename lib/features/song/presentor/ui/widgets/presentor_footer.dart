@@ -14,15 +14,16 @@ class PresentorFooter extends StatelessWidget {
     required this.onAlign,
   });
 
-  static const _options = <TextAlign, (IconData, String)>{
-    TextAlign.left: (Icons.format_align_left, 'Left'),
-    TextAlign.center: (Icons.format_align_center, 'Center'),
-    TextAlign.right: (Icons.format_align_right, 'Right'),
-    TextAlign.justify: (Icons.format_align_justify, 'Justified'),
+  static const _options = <TextAlign, IconData>{
+    TextAlign.left: Icons.format_align_left,
+    TextAlign.center: Icons.format_align_center,
+    TextAlign.right: Icons.format_align_right,
+    TextAlign.justify: Icons.format_align_justify,
   };
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -32,7 +33,7 @@ class PresentorFooter extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'Song #$songNo',
+                l10n.songNumberLabel(songNo),
                 style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w700,
@@ -41,7 +42,7 @@ class PresentorFooter extends StatelessWidget {
               ),
               Expanded(child: indicators),
               PopupMenuButton<TextAlign>(
-                tooltip: 'Text alignment',
+                tooltip: l10n.presentationAlign,
                 initialValue: align,
                 onSelected: onAlign,
                 itemBuilder: (context) => [
@@ -50,9 +51,9 @@ class PresentorFooter extends StatelessWidget {
                       value: e.key,
                       child: Row(
                         children: [
-                          Icon(e.value.$1, size: 20),
+                          Icon(e.value, size: 20),
                           const SizedBox(width: 12),
-                          Text(e.value.$2),
+                          Text(_alignmentLabel(l10n, e.key)),
                         ],
                       ),
                     ),
@@ -62,9 +63,12 @@ class PresentorFooter extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(_options[align]!.$1, size: 28),
+                      Icon(_options[align]!, size: 28),
                       const SizedBox(width: 8),
-                      const Text('Align', style: TextStyle(fontSize: 20)),
+                      Text(
+                        l10n.presentationAlign,
+                        style: const TextStyle(fontSize: 20),
+                      ),
                     ],
                   ),
                 ),
@@ -75,4 +79,12 @@ class PresentorFooter extends StatelessWidget {
       ],
     );
   }
+
+  String _alignmentLabel(AppLocalizations l10n, TextAlign value) =>
+      switch (value) {
+        TextAlign.left => l10n.presentationLeft,
+        TextAlign.center => l10n.presentationCenter,
+        TextAlign.right => l10n.presentationRight,
+        _ => l10n.alignmentJustified,
+      };
 }

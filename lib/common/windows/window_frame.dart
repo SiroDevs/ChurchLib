@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:styled_widget/styled_widget.dart';
 
+// Project imports:
+import '../../l10n/gen/app_localizations.dart';
+
 const double _kWindowRadius = 16;
 
 Future<T?> showAppWindow<T>(
@@ -19,7 +22,7 @@ Future<T?> showAppWindow<T>(
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     barrierColor: Colors.black54,
     transitionDuration: Duration.zero,
-    pageBuilder: (_, __, ___) => Dialog(
+    pageBuilder: (_, _, _) => Dialog(
       backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       shadowColor: Colors.transparent,
@@ -42,7 +45,9 @@ class _WindowFrame extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     final radius = BorderRadius.circular(_kWindowRadius);
 
-    final borderColor = isDark ? const Color(0xFF8E8E8E) : const Color(0xFF9E9E9E);
+    final borderColor = isDark
+        ? const Color(0xFF8E8E8E)
+        : const Color(0xFF9E9E9E);
 
     return Container(
       clipBehavior: Clip.antiAlias,
@@ -97,6 +102,7 @@ class WindowAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
     return Material(
       color: scheme.secondaryContainer,
@@ -109,7 +115,8 @@ class WindowAppBar extends StatelessWidget implements PreferredSizeWidget {
               Icon(icon, size: 18),
               const SizedBox(width: 10),
               Expanded(
-                child: titleWidget ??
+                child:
+                    titleWidget ??
                     Text(
                       title ?? '',
                       maxLines: 1,
@@ -119,15 +126,14 @@ class WindowAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               ...actions,
               IconButton(
-                tooltip: 'Close',
+                tooltip: l10n.closeAction,
                 icon: const Icon(Icons.close, size: 20),
                 onPressed: onClose ?? () => Navigator.of(context).pop(),
               ),
               const SizedBox(width: 4),
             ],
-          )
-              .constrained(height: barHeight),
-          if (bottom != null) bottom!,
+          ).constrained(height: barHeight),
+          ?bottom,
           Divider(height: 1, color: scheme.outlineVariant),
         ],
       ),

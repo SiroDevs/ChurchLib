@@ -13,16 +13,17 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return TextFormField(
       focusNode: searchFocus,
       controller: searchController,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
-        hintText: 'Search a song by title or words',
+        hintText: l10n.songSearchHint,
         isDense: true,
         prefixIcon: const Icon(Icons.search),
         suffixIcon: IconButton(
-          tooltip: 'Clear',
+          tooltip: l10n.clearAction,
           icon: const Icon(Icons.clear),
           onPressed: () {
             searchController!.clear();

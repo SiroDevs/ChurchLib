@@ -2,8 +2,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import '../../../../common/utils/logging/app_logger.dart';
 import '../../../../common/constants/pref_constants.dart';
-import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/utils/reader/bible_settings_signal.dart';
 import '../../../../common/utils/reader/reader_prefs_utils.dart';
 import '../../../../core/di/injectable.dart';
@@ -48,9 +48,9 @@ class BiblesCubit extends Cubit<BiblesState> {
     final primary = _prefs.getPrefString(PrefConstants.biblePrimaryKey);
     final owned = bibles.map((b) => b.abbreviation).toSet();
 
-    var secondary = _splitCsv(_prefs.getPrefString(PrefConstants.bibleSecondaryKey))
-        .where((a) => owned.contains(a) && a != primary)
-        .toList();
+    var secondary = _splitCsv(
+      _prefs.getPrefString(PrefConstants.bibleSecondaryKey),
+    ).where((a) => owned.contains(a) && a != primary).toList();
     if (secondary.isEmpty) {
       secondary = bibles
           .where((b) => b.abbreviation != primary)
@@ -60,18 +60,21 @@ class BiblesCubit extends Cubit<BiblesState> {
     }
     _prefs.setPrefString(PrefConstants.bibleSecondaryKey, secondary.join(','));
 
-    emit(state.copyWith(
-      bibles: bibles,
-      primaryAbbr: primary,
-      isLoading: false,
-      multiBibleEnabled: readerMultiBibleEnabled(_prefs),
-      secondaryBibles: secondary,
-    ));
+    emit(
+      state.copyWith(
+        bibles: bibles,
+        primaryAbbr: primary,
+        isLoading: false,
+        multiBibleEnabled: readerMultiBibleEnabled(_prefs),
+        secondaryBibles: secondary,
+      ),
+    );
   }
 
   bool takeFirstOpenTip() {
     final seen = _prefs.getPrefBool(PrefConstants.bibleManagementTipSeenKey);
-    if (!seen) _prefs.setPrefBool(PrefConstants.bibleManagementTipSeenKey, true);
+    if (!seen)
+      _prefs.setPrefBool(PrefConstants.bibleManagementTipSeenKey, true);
     return !seen;
   }
 
@@ -110,25 +113,26 @@ class BiblesCubit extends Cubit<BiblesState> {
     _prefs.setPrefString(PrefConstants.bibleLastBookIdKey, '');
     _prefs.setPrefString(PrefConstants.bibleLastChapterIdKey, '');
 
-    final updatedSecondary =
-        state.secondaryBibles.where((a) => a != abbr).toList();
+    final updatedSecondary = state.secondaryBibles
+        .where((a) => a != abbr)
+        .toList();
     _prefs.setPrefString(
       PrefConstants.bibleSecondaryKey,
       updatedSecondary.join(','),
     );
 
-    emit(state.copyWith(
-      primaryAbbr: abbr,
-      secondaryBibles: updatedSecondary,
-    ));
+    emit(state.copyWith(primaryAbbr: abbr, secondaryBibles: updatedSecondary));
   }
 
   Future<void> deleteBible(String abbr) async {
     await _bibleRepo.deleteBible(abbr);
 
-    final selection = BibleSelectionRepo();
+    final selection = getIt<BibleSelectionRepo>();
     final remaining = selection.selectedAbbrs.where((a) => a != abbr).toList();
-    _prefs.setPrefString(PrefConstants.bibleSelectedBiblesKey, remaining.join(','));
+    _prefs.setPrefString(
+      PrefConstants.bibleSelectedBiblesKey,
+      remaining.join(','),
+    );
     _prefs.setPrefString(
       PrefConstants.bibleSecondaryKey,
       state.secondaryBibles.where((a) => a != abbr).join(','),

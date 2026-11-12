@@ -7,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../../../core/theme/theme_colors.dart';
 import '../../../../../../data/models/bible/bible_book.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 
 const _otBookCount = 39;
 
@@ -35,6 +36,7 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final ordered = [...widget.books]
       ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
     final ot = ordered.take(_otBookCount).toList();
@@ -44,10 +46,12 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
       final q = _query.trim().toLowerCase();
       if (q.isEmpty) return src;
       return src
-          .where((b) =>
-              b.name.toLowerCase().contains(q) ||
-              b.nameLong.toLowerCase().contains(q) ||
-              b.abbreviation.toLowerCase().contains(q))
+          .where(
+            (b) =>
+                b.name.toLowerCase().contains(q) ||
+                b.nameLong.toLowerCase().contains(q) ||
+                b.abbreviation.toLowerCase().contains(q),
+          )
           .toList();
     }
 
@@ -56,7 +60,7 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
     Widget list(List<BibleBook> src) {
       final items = filter(src);
       if (items.isEmpty) {
-        return Text('No books found').center();
+        return Text(l10n.noBooksFound).center();
       }
       return ListView.separated(
         itemCount: items.length,
@@ -75,8 +79,7 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
                 fontWeight: FontWeight.bold,
                 color: ThemeColors.primary,
               ),
-            )
-                .width(36),
+            ).width(36),
             title: Text(b.name),
             onTap: () => Navigator.pop(context, b),
           );
@@ -93,22 +96,21 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
               autofocus: true,
               onChanged: (v) => setState(() => _query = v),
               decoration: InputDecoration(
-                hintText: 'Search books...',
+                hintText: l10n.searchBooksHint,
                 prefixIcon: const Icon(Icons.search),
                 isDense: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-            )
-                .padding(left: 16, top: 16, right: 16, bottom: 8),
+            ).padding(left: 16, top: 16, right: 16, bottom: 8),
             if (!singleList)
-              const TabBar(
+              TabBar(
                 labelColor: ThemeColors.primary,
                 indicatorColor: ThemeColors.primary,
                 tabs: [
-                  Tab(text: 'Old Testament'),
-                  Tab(text: 'New Testament'),
+                  Tab(text: l10n.oldTestament),
+                  Tab(text: l10n.newTestament),
                 ],
               ),
             Expanded(
@@ -118,8 +120,7 @@ class _BookPickerDialogState extends State<_BookPickerDialog> {
             ),
           ],
         ),
-      )
-          .constrained(maxWidth: 460, maxHeight: 640),
+      ).constrained(maxWidth: 460, maxHeight: 640),
     );
   }
 }

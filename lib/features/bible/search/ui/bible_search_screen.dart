@@ -9,6 +9,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../../common/windows/window_frame.dart';
 import '../../../../domain/entities/bible/bible_reader.dart';
 import '../../../../domain/entities/bible/verse_display.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 import '../cubit/bible_search_cubit.dart';
 import 'widgets/bible_search_body.dart';
 
@@ -76,12 +77,12 @@ class _BibleSearchViewState extends State<_BibleSearchView> {
               autofocus: true,
               onChanged: cubit.onQueryChanged,
               decoration: InputDecoration(
-                hintText: 'Search scriptures ...',
+                hintText: AppLocalizations.of(context)!.searchScripturesHint,
                 border: InputBorder.none,
                 suffixIcon: state.query.isEmpty
                     ? null
                     : IconButton(
-                        tooltip: 'Clear',
+                        tooltip: AppLocalizations.of(context)!.clearAction,
                         icon: const Icon(Icons.close),
                         onPressed: _clearQuery,
                       ),
@@ -98,12 +99,9 @@ class _BibleSearchViewState extends State<_BibleSearchView> {
                     _openResult(context, verse, state.selectedAbbr),
                 onTapHistory: _searchFromHistory,
                 onClearHistory: cubit.clearHistory,
-              )
-                  .expanded(),
+              ).expanded(),
             ],
-          )
-              .constrained(maxWidth: 860)
-              .center(),
+          ).constrained(maxWidth: 860).center(),
         );
       },
     );

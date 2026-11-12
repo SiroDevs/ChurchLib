@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../common/utils/formatting/app_util.dart';
+import '../../common/utils/theme/theme_mode_utils.dart';
 import '../../domain/repos/pref_repo.dart';
 import '../di/injectable.dart';
 import 'theme_builder.dart';
@@ -27,85 +27,89 @@ class AppTheme {
   static const _darkOutline = Color(0xFF3A2E2A);
 
   static ThemeData lightTheme() {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: ThemeColors.primary,
-      brightness: Brightness.light,
-    ).copyWith(
-      primary: ThemeColors.primary,
-      onPrimary: Colors.white,
-      primaryContainer: const Color(0xFFFFE2C2),
-      onPrimaryContainer: ThemeColors.primaryDark1,
-      secondary: ThemeColors.primary1,
-      onSecondary: Colors.white,
-      secondaryContainer: _lightChrome,
-      onSecondaryContainer: ThemeColors.primaryDark,
-      tertiary: ThemeColors.accent2,
-      surface: _lightSurface,
-      onSurface: const Color(0xFF1E1A18),
-      surfaceContainerLowest: _lightBg,
-      surfaceContainerLow: _lightBg,
-      surfaceContainer: _lightChrome,
-      onSurfaceVariant: const Color(0xFF6B5F58),
-      outline: const Color(0xFFB8A99B),
-      outlineVariant: _lightOutline,
-      error: ThemeColors.error,
-    );
+    final scheme =
+        ColorScheme.fromSeed(
+          seedColor: ThemeColors.primary,
+          brightness: Brightness.light,
+        ).copyWith(
+          primary: ThemeColors.primary,
+          onPrimary: Colors.white,
+          primaryContainer: const Color(0xFFFFE2C2),
+          onPrimaryContainer: ThemeColors.primaryDark1,
+          secondary: ThemeColors.primary1,
+          onSecondary: Colors.white,
+          secondaryContainer: _lightChrome,
+          onSecondaryContainer: ThemeColors.primaryDark,
+          tertiary: ThemeColors.accent2,
+          surface: _lightSurface,
+          onSurface: const Color(0xFF1E1A18),
+          surfaceContainerLowest: _lightBg,
+          surfaceContainerLow: _lightBg,
+          surfaceContainer: _lightChrome,
+          onSurfaceVariant: const Color(0xFF6B5F58),
+          outline: const Color(0xFFB8A99B),
+          outlineVariant: _lightOutline,
+          error: ThemeColors.error,
+        );
     return buildThemeData(scheme, _lightBg);
   }
 
   static ThemeData darkTheme() {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: ThemeColors.primary,
-      brightness: Brightness.dark,
-    ).copyWith(
-      primary: const Color(0xFFF0A24B),
-      onPrimary: const Color(0xFF2A1400),
-      primaryContainer: ThemeColors.primary3,
-      onPrimaryContainer: ThemeColors.accent1,
-      secondary: ThemeColors.accent3,
-      onSecondary: Colors.black,
-      secondaryContainer: _darkChrome,
-      onSecondaryContainer: ThemeColors.accent1,
-      tertiary: ThemeColors.accent2,
-      surface: _darkSurface,
-      onSurface: const Color(0xFFF3ECE6),
-      surfaceContainerLowest: _darkBg,
-      surfaceContainerLow: _darkBg,
-      surfaceContainer: _darkChrome,
-      onSurfaceVariant: const Color(0xFFBFB2A8),
-      outline: const Color(0xFF7A6A60),
-      outlineVariant: _darkOutline,
-      error: const Color(0xFFFFB4AB),
-    );
+    final scheme =
+        ColorScheme.fromSeed(
+          seedColor: ThemeColors.primary,
+          brightness: Brightness.dark,
+        ).copyWith(
+          primary: const Color(0xFFF0A24B),
+          onPrimary: const Color(0xFF2A1400),
+          primaryContainer: ThemeColors.primary3,
+          onPrimaryContainer: ThemeColors.accent1,
+          secondary: ThemeColors.accent3,
+          onSecondary: Colors.black,
+          secondaryContainer: _darkChrome,
+          onSecondaryContainer: ThemeColors.accent1,
+          tertiary: ThemeColors.accent2,
+          surface: _darkSurface,
+          onSurface: const Color(0xFFF3ECE6),
+          surfaceContainerLowest: _darkBg,
+          surfaceContainerLow: _darkBg,
+          surfaceContainer: _darkChrome,
+          onSurfaceVariant: const Color(0xFFBFB2A8),
+          outline: const Color(0xFF7A6A60),
+          outlineVariant: _darkOutline,
+          error: const Color(0xFFFFB4AB),
+        );
     return buildThemeData(scheme, _darkBg);
   }
 
-  static ThemeData presentationTheme() => _presentation ??= _buildPresentation();
+  static ThemeData presentationTheme() =>
+      _presentation ??= _buildPresentation();
 
   static ThemeData? _presentation;
 
   static ThemeData _buildPresentation() {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: ThemeColors.primary,
-      brightness: Brightness.dark,
-    ).copyWith(
-      primary: Colors.white,
-      onPrimary: Colors.black,
-      primaryContainer: const Color(0xFF2B2B2B),
-      onPrimaryContainer: Colors.white,
-      secondary: Colors.white,
-      onSecondary: Colors.black,
-      secondaryContainer: Colors.black,
-      onSecondaryContainer: Colors.white,
-      surface: Colors.black,
-      onSurface: Colors.white,
-      surfaceContainerLowest: Colors.black,
-      surfaceContainerLow: Colors.black,
-      surfaceContainer: Colors.black,
-      onSurfaceVariant: Colors.white70,
-      outline: Colors.white54,
-      outlineVariant: Colors.white24,
-    );
+    final scheme =
+        ColorScheme.fromSeed(
+          seedColor: ThemeColors.primary,
+          brightness: Brightness.dark,
+        ).copyWith(
+          primary: Colors.white,
+          onPrimary: Colors.black,
+          primaryContainer: const Color(0xFF2B2B2B),
+          onPrimaryContainer: Colors.white,
+          secondary: Colors.white,
+          onSecondary: Colors.black,
+          secondaryContainer: Colors.black,
+          onSecondaryContainer: Colors.white,
+          surface: Colors.black,
+          onSurface: Colors.white,
+          surfaceContainerLowest: Colors.black,
+          surfaceContainerLow: Colors.black,
+          surfaceContainer: Colors.black,
+          onSurfaceVariant: Colors.white70,
+          outline: Colors.white54,
+          outlineVariant: Colors.white24,
+        );
     return buildThemeData(scheme, Colors.black);
   }
 }

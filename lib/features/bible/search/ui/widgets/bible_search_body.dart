@@ -7,6 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../domain/entities/bible/verse_display.dart';
+import '../../../../../l10n/gen/app_localizations.dart';
 import '../../cubit/bible_search_cubit.dart';
 
 class BibleFilterStrip extends StatelessWidget {
@@ -60,27 +61,27 @@ class BibleSearchResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (state.bibles.isEmpty) {
-      return Text('No downloaded Bibles to search yet.').center();
+      return Text(l10n.noDownloadedBiblesToSearch).center();
     }
-    if (state.query.length < 3) return _recentSearches();
+    if (state.query.length < 3) return _recentSearches(context);
     if (state.isSearching && state.results.isEmpty) {
       return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.results.isEmpty) {
-      return Text('No results for ${state.query}').center();
+      return Text(l10n.noSearchResultsForQuery(state.query)).center();
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${state.results.length} results',
+          l10n.searchResultCount(state.results.length),
           style: const TextStyle(fontSize: 12, color: ThemeColors.grey),
-        )
-            .padding(left: 16, top: 4, right: 16, bottom: 4),
+        ).padding(left: 16, top: 4, right: 16, bottom: 4),
         ListView.separated(
           itemCount: state.results.length,
-          separatorBuilder: (_, __) => const Divider(height: 1),
+          separatorBuilder: (_, _) => const Divider(height: 1),
           itemBuilder: (context, i) {
             final verse = state.results[i];
             return SearchResultItem(
@@ -90,32 +91,33 @@ class BibleSearchResults extends StatelessWidget {
               onTap: () => onTapResult(verse),
             );
           },
-        )
-            .expanded(),
+        ).expanded(),
       ],
     );
   }
 
-  Widget _recentSearches() {
+  Widget _recentSearches(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (state.history.isEmpty) {
-      return Text('Type at least 3 letters to search.').center();
+      return Text(l10n.typeAtLeast3Letters).center();
     }
     return ListView(
       children: [
         Row(
           children: [
             Text(
-              'Recent searches',
+              l10n.recentSearches,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: ThemeColors.primary,
               ),
-            )
-                .expanded(),
-            TextButton(onPressed: onClearHistory, child: const Text('Clear')),
+            ).expanded(),
+            TextButton(
+              onPressed: onClearHistory,
+              child: Text(l10n.clearAction),
+            ),
           ],
-        )
-            .padding(left: 16, top: 12, right: 8, bottom: 0),
+        ).padding(left: 16, top: 12, right: 8, bottom: 0),
         for (final h in state.history)
           ListTile(
             dense: true,
@@ -190,8 +192,7 @@ class SearchResultItem extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ],
-      )
-          .padding(horizontal: 16, vertical: 10),
+      ).padding(horizontal: 16, vertical: 10),
     );
   }
 }

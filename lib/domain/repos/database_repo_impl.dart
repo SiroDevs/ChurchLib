@@ -71,6 +71,11 @@ class DatabaseRepoImpl implements DatabaseRepo {
   }
 
   @override
+  Future<void> replaceSongsForBooks(List<int> bookIds, List<Song> songs) {
+    return _appDB.songsDao.replaceSongsForBooks(bookIds, songs);
+  }
+
+  @override
   Future<void> updateSong(
     int rid,
     String title,
@@ -143,7 +148,8 @@ class DatabaseRepoImpl implements DatabaseRepo {
 
   @override
   Future<List<SongListExt>> fetchSongListExts() async {
-    final Stream<List<SongListExt>> streams = _appDB.songListsDao.fetchSongListExts();
+    final Stream<List<SongListExt>> streams = _appDB.songListsDao
+        .fetchSongListExts();
     return await streams.first;
   }
 
@@ -189,8 +195,8 @@ class DatabaseRepoImpl implements DatabaseRepo {
 
   @override
   Future<List<HistoryExt>> fetchHistoryExts() async {
-    final Stream<List<HistoryExt>> streams =
-        _appDB.historiesDao.fetchHistoryExts();
+    final Stream<List<HistoryExt>> streams = _appDB.historiesDao
+        .fetchHistoryExts();
     return await streams.first;
   }
 

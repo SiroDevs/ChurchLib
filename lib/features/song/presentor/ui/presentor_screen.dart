@@ -11,11 +11,13 @@ import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../common/utils/formatting/feedback_messages.dart';
+import '../../../../common/utils/formatting/song_text_utils.dart';
 import '../../../../common/constants/pref_constants.dart';
 import '../../../../common/utils/display/app_window.dart';
-import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/action/fab_widget.dart';
 import '../../../../common/widgets/app_intents.dart';
+import '../../../../common/widgets/general/present_on_mobile.dart';
 import '../../../../common/widgets/presentor/presentation_scaffold.dart';
 import '../../../../common/widgets/presentor/slide_container.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
@@ -120,7 +122,10 @@ class PresentorScreenState extends State<PresentorScreen> {
 
   void setAlign(TextAlign value) {
     setState(() => textAlign = value);
-    getIt<PrefRepo>().setPrefString(PrefConstants.presenterAlignKey, value.name);
+    getIt<PrefRepo>().setPrefString(
+      PrefConstants.presenterAlignKey,
+      value.name,
+    );
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => detailsKey.currentState?.focusNode.requestFocus(),
     );

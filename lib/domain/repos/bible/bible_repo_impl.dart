@@ -2,8 +2,8 @@
 import 'dart:convert';
 
 // Project imports:
+import '../../../common/utils/logging/app_logger.dart';
 import '../../../common/utils/async_semaphore.dart';
-import '../../../common/utils/formatting/app_util.dart';
 import '../../../data/models/bible/bible_book.dart';
 import '../../../data/models/bible/bible_chapter.dart';
 import '../../../data/models/bible/bible_verse_cache.dart';
@@ -13,6 +13,7 @@ import '../../../data/sources/remote/bible/bible_api_service.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';
 import '../../entities/bible/verse_display.dart';
 import 'bible_download_tracker.dart';
+import 'bible_download_validation.dart';
 import 'bible_repo.dart';
 import 'retry_policy.dart';
 

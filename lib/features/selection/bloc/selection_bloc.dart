@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import '../../../common/constants/pref_constants.dart';
-import '../../../common/utils/formatting/app_util.dart';
+import '../../../common/utils/logging/app_logger.dart';
 import '../../../common/utils/network/network_utils.dart';
-import '../../../core/di/injectable.dart';
 import '../../../data/models/song/song.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';
@@ -22,7 +21,17 @@ part 'selection_state.dart';
 
 class SelectionBloc extends Bloc<SelectionEvent, SelectionState>
     with SongSelectionHandlers, BibleSelectionHandlers {
-  SelectionBloc({this.only}) : super(_initial(getIt<PrefRepo>(), only)) {
+  SelectionBloc({
+    this.only,
+    required PrefRepo prefRepo,
+    required DatabaseRepo databaseRepo,
+    required SongSelectionRepo songRepo,
+    required BibleSelectionRepo bibleRepo,
+  }) : _prefRepo = prefRepo,
+       _dbRepo = databaseRepo,
+       _songRepo = songRepo,
+       _bibleRepo = bibleRepo,
+       super(_initial(prefRepo, only)) {
     on<SelectionStarted>(_onStarted);
     on<ModulesToggled>(_onModulesToggled);
     on<ModulesChosen>(_onModulesChosen);
@@ -30,7 +39,9 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState>
     on<BooksRequested>(_onBooksRequested);
     on<BookToggled>(_onBookToggled);
     on<BooksConfirmed>(_onBooksConfirmed);
-    on<SongsDownloadRetried>((_, emit) => _runSave(emit, finish: _finishAfterSave));
+    on<SongsDownloadRetried>(
+      (_, emit) => _runSave(emit, finish: _finishAfterSave),
+    );
     on<BiblesRequested>(_onBiblesRequested);
     on<BibleToggled>(_onBibleToggled);
     on<BiblesConfirmed>(_onBiblesConfirmed);
@@ -40,15 +51,16 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState>
 
   final SelectionStepType? only;
 
-  final _prefRepo = getIt<PrefRepo>();
-  final _dbRepo = getIt<DatabaseRepo>();
-  final _songRepo = SongSelectionRepo();
-  final _bibleRepo = BibleSelectionRepo();
+  final PrefRepo _prefRepo;
+  final DatabaseRepo _dbRepo;
+  final SongSelectionRepo _songRepo;
+  final BibleSelectionRepo _bibleRepo;
 
   static SelectionState _initial(PrefRepo prefs, SelectionStepType? only) {
     if (only != null) return SelectionState(steps: [only]);
 
-    final chosen = prefs.keyExists(PrefConstants.songlibModuleEnabledKey) ||
+    final chosen =
+        prefs.keyExists(PrefConstants.songlibModuleEnabledKey) ||
         prefs.keyExists(PrefConstants.biblelibModuleEnabledKey);
     if (!chosen) {
       return const SelectionState(steps: [SelectionStepType.modules]);
@@ -64,8 +76,7 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState>
       songlib: songlib,
       biblelib: biblelib,
       steps: [
-        if (songlib && !songSelected && !songLoaded)
-          SelectionStepType.songs,
+        if (songlib && !songSelected && !songLoaded) SelectionStepType.songs,
         if (biblelib && !bibleLoaded) SelectionStepType.bibles,
       ],
     );
@@ -78,7 +89,8 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState>
     SelectionStarted event,
     Emitter<SelectionState> emit,
   ) async {
-    final resume = only == null &&
+    final resume =
+        only == null &&
         _prefRepo.getPrefBool(PrefConstants.songlibModuleEnabledKey) &&
         _prefRepo.getPrefBool(PrefConstants.dataIsSelectedKey) &&
         !_prefRepo.getPrefBool(PrefConstants.dataIsLoadedKey);
@@ -99,10 +111,7 @@ class SelectionBloc extends Bloc<SelectionEvent, SelectionState>
   }
 
   void _onModulesChosen(ModulesChosen event, Emitter<SelectionState> emit) {
-    _prefRepo.setPrefBool(
-      PrefConstants.songlibModuleEnabledKey,
-      event.songlib,
-    );
+    _prefRepo.setPrefBool(PrefConstants.songlibModuleEnabledKey, event.songlib);
     _prefRepo.setPrefBool(
       PrefConstants.biblelibModuleEnabledKey,
       event.biblelib,

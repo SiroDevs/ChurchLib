@@ -12,6 +12,7 @@ import '../../../../../core/di/injectable.dart';
 import '../../../../../core/theme/theme_colors.dart';
 import '../../../../../domain/entities/bible/bible_reader.dart';
 import '../../../../../domain/repos/pref_repo.dart';
+import '../../../../../l10n/gen/app_localizations.dart';
 import '../../scripture_queue/cubit/scripture_queue_cubit.dart';
 import '../cubit/scripture_list_detail_cubit.dart';
 
@@ -33,21 +34,22 @@ class _ScriptureListDetailView extends StatelessWidget {
   const _ScriptureListDetailView({required this.listId});
 
   Future<void> _rename(BuildContext context, String currentName) async {
+    final l10n = AppLocalizations.of(context)!;
     final controller = TextEditingController(text: currentName);
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Rename list'),
+        title: Text(l10n.renameList),
         content: TextField(controller: controller, autofocus: true),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, controller.text.trim()),
             style: FilledButton.styleFrom(backgroundColor: ThemeColors.primary),
-            child: const Text('Save'),
+            child: Text(l10n.saveAction),
           ),
         ],
       ),
@@ -60,10 +62,16 @@ class _ScriptureListDetailView extends StatelessWidget {
   void _play(BuildContext context, ScriptureListDetailState state) {
     if (state.items.isEmpty) return;
     final first = state.items.first;
-    getIt<ScriptureQueueCubit>()
-        .open(listId, state.name, state.items, activeItemId: first.id);
-    getIt<PrefRepo>()
-        .setPrefString(PrefConstants.bibleLastVerseIdKey, first.verseId);
+    getIt<ScriptureQueueCubit>().open(
+      listId,
+      state.name,
+      state.items,
+      activeItemId: first.id,
+    );
+    getIt<PrefRepo>().setPrefString(
+      PrefConstants.bibleLastVerseIdKey,
+      first.verseId,
+    );
     Navigator.of(context).pop(
       ReaderTarget(
         bibleAbbr: first.bibleAbbr,
@@ -78,27 +86,28 @@ class _ScriptureListDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ScriptureListDetailCubit, ScriptureListDetailState>(
       builder: (context, state) {
+        final l10n = AppLocalizations.of(context)!;
         final ready = state.status == ScriptureListDetailStatus.loaded;
         return Scaffold(
           appBar: WindowAppBar(
             icon: Icons.list_alt,
-            title: state.name.isEmpty ? 'Scripture list' : state.name,
+            title: state.name.isEmpty ? l10n.scriptureListTitle : state.name,
             actions: [
               if (ready)
                 IconButton(
-                  tooltip: 'Rename',
+                  tooltip: l10n.renameTooltip,
                   icon: const Icon(Icons.edit_outlined),
                   onPressed: () => _rename(context, state.name),
                 ),
             ],
           ),
-          body: _body(state).constrained(maxWidth: 720).center(),
+          body: _body(context, state).constrained(maxWidth: 720).center(),
           floatingActionButton: ready
               ? FloatingActionButton.extended(
                   onPressed: () => _play(context, state),
                   backgroundColor: ThemeColors.primary,
                   icon: const Icon(Icons.play_arrow),
-                  label: const Text('Play'),
+                  label: Text(l10n.playAction),
                 )
               : null,
         );
@@ -106,16 +115,16 @@ class _ScriptureListDetailView extends StatelessWidget {
     );
   }
 
-  Widget _body(ScriptureListDetailState state) {
+  Widget _body(BuildContext context, ScriptureListDetailState state) {
     if (state.status == ScriptureListDetailStatus.loading) {
       return CircularProgressIndicator(color: ThemeColors.primary).center();
     }
     if (state.status == ScriptureListDetailStatus.error) {
-      return Text(state.error!).center();
+      return Text(AppLocalizations.of(context)!.scriptureListNotFound).center();
     }
     return ListView.separated(
       itemCount: state.items.length,
-      separatorBuilder: (_, __) => const Divider(height: 1),
+      separatorBuilder: (_, _) => const Divider(height: 1),
       itemBuilder: (context, i) {
         final item = state.items[i];
         return ListTile(

@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 // Project imports:
+import '../../../../../../l10n/gen/app_localizations.dart';
+
+// Project imports:
 import '../../../cubit/bible_reader_cubit.dart';
 import 'bible_title_bar.dart' show AaIcon;
 
@@ -47,68 +50,72 @@ class BibleBottomBar extends StatelessWidget {
     final hasPrev = idx > 0;
     final hasNext = idx >= 0 && idx < state.chapters.length - 1;
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Material(
       color: scheme.secondaryContainer,
-      child: Row(
-        children: [
-          _autoScrollControls().alignment(Alignment.centerLeft).expanded(),
-          _BarButton(
-            icon: Icons.chevron_left,
-            label: 'Previous',
-            tooltip: 'Previous chapter (Alt + ←)',
-            onTap: hasPrev ? onPrevious : null,
-          ),
-          const SizedBox(width: 4),
-          _BarButton(
-            icon: Icons.menu_book_outlined,
-            label: 'Chapter ${chapter.number}',
-            tooltip: 'Pick chapter',
-            onTap: state.chapters.isEmpty ? null : onPickChapter,
-            highlighted: true,
-          ),
-          const SizedBox(width: 4),
-          _BarButton(
-            icon: Icons.chevron_right,
-            label: 'Next',
-            tooltip: 'Next chapter (Alt + →)',
-            onTap: hasNext ? onNext : null,
-          ),
-          if (presenting)
-            _fontControls().alignment(Alignment.centerRight).expanded()
-          else
-            _BarButton(
-              icon: Icons.tune,
-              label: 'Quick Options',
-              tooltip: 'Quick Options',
-              onTap: onQuickOptions,
-            )
-                .alignment(Alignment.centerRight)
-                .expanded(),
-        ],
-      )
-          .height(64)
-          .decorated(
-            border: Border(
-              top: BorderSide(
-                color: presenting ? Colors.white : scheme.outlineVariant,
+      child:
+          Row(
+                children: [
+                  _autoScrollControls(l10n)
+                      .alignment(Alignment.centerLeft)
+                      .expanded(),
+                  _BarButton(
+                    icon: Icons.chevron_left,
+                    label: l10n.previousAction,
+                    tooltip: l10n.previousChapterTooltip,
+                    onTap: hasPrev ? onPrevious : null,
+                  ),
+                  const SizedBox(width: 4),
+                  _BarButton(
+                    icon: Icons.menu_book_outlined,
+                    label: l10n.chapterNumberLabel(int.parse(chapter.number)),
+                    tooltip: l10n.pickChapter,
+                    onTap: state.chapters.isEmpty ? null : onPickChapter,
+                    highlighted: true,
+                  ),
+                  const SizedBox(width: 4),
+                  _BarButton(
+                    icon: Icons.chevron_right,
+                    label: l10n.nextAction,
+                    tooltip: l10n.nextChapterTooltip,
+                    onTap: hasNext ? onNext : null,
+                  ),
+                  if (presenting)
+                    _fontControls(l10n)
+                        .alignment(Alignment.centerRight)
+                        .expanded()
+                  else
+                    _BarButton(
+                      icon: Icons.tune,
+                      label: l10n.quickOptions,
+                      tooltip: l10n.quickOptions,
+                      onTap: onQuickOptions,
+                    ).alignment(Alignment.centerRight).expanded(),
+                ],
+              )
+              .height(64)
+              .decorated(
+                border: Border(
+                  top: BorderSide(
+                    color: presenting ? Colors.white : scheme.outlineVariant,
+                  ),
+                ),
               ),
-            ),
-          ),
     );
   }
 
-  Widget _fontControls() {
+  Widget _fontControls(AppLocalizations l10n) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
-          tooltip: 'Smaller text (-)',
+          tooltip: l10n.smallerTextTooltip,
           onPressed: onSmallerFont,
           icon: const AaIcon(plus: false),
         ),
         IconButton(
-          tooltip: 'Larger text (=)',
+          tooltip: l10n.largerTextTooltip,
           onPressed: onBiggerFont,
           icon: const AaIcon(plus: true),
         ),
@@ -117,7 +124,7 @@ class BibleBottomBar extends StatelessWidget {
     );
   }
 
-  Widget _autoScrollControls() {
+  Widget _autoScrollControls(AppLocalizations l10n) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -126,21 +133,21 @@ class BibleBottomBar extends StatelessWidget {
           icon: autoScrolling
               ? Icons.pause_circle_outline
               : Icons.play_circle_outline,
-          label: autoScrolling ? 'Stop scroll' : 'Auto scroll',
-          tooltip: autoScrolling ? 'Stop auto scroll' : 'Start auto scroll',
+          label: autoScrolling ? l10n.stopScrollAction : l10n.autoScrollAction,
+          tooltip: autoScrolling ? l10n.stopAutoScroll : l10n.startAutoScroll,
           onTap: onToggleAutoScroll,
           highlighted: autoScrolling,
         ),
         if (autoScrolling) ...[
           IconButton(
-            tooltip: 'Slower',
+            tooltip: l10n.slower,
             visualDensity: VisualDensity.compact,
             onPressed: onSpeedDown,
             icon: const Icon(Icons.remove, size: 18),
           ),
           Text('${autoScrollSpeed.toStringAsFixed(2)}x'),
           IconButton(
-            tooltip: 'Faster',
+            tooltip: l10n.faster,
             visualDensity: VisualDensity.compact,
             onPressed: onSpeedUp,
             icon: const Icon(Icons.add, size: 18),
@@ -173,8 +180,8 @@ class _BarButton extends StatelessWidget {
     final color = !enabled
         ? scheme.onSurface.withValues(alpha: .35)
         : highlighted
-            ? scheme.primary
-            : scheme.onSurface;
+        ? scheme.primary
+        : scheme.onSurface;
     return Tooltip(
       message: tooltip,
       child: InkWell(
@@ -195,8 +202,7 @@ class _BarButton extends StatelessWidget {
               ),
             ),
           ],
-        )
-            .padding(horizontal: 14, vertical: 6),
+        ).padding(horizontal: 14, vertical: 6),
       ),
     );
   }

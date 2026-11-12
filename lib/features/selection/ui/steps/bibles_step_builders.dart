@@ -18,7 +18,7 @@ mixin BiblesStepBuilders on State<BiblesStep> {
     final search = TextField(
       onChanged: (v) => setState(() => _query = v),
       decoration: InputDecoration(
-        hintText: 'Search name, abbreviation or language',
+        hintText: AppLocalizations.of(context)!.searchBiblesHint,
         prefixIcon: const Icon(Icons.search),
         isDense: true,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -56,6 +56,7 @@ mixin BiblesStepBuilders on State<BiblesStep> {
   }
 
   Widget _buildPicker(BuildContext context, SelectionState state) {
+    final l10n = AppLocalizations.of(context)!;
     final q = _query.trim().toLowerCase();
     final filtered = state.availableBibles.where((b) {
       if (q.isEmpty) return true;
@@ -78,25 +79,24 @@ mixin BiblesStepBuilders on State<BiblesStep> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SelectionTitle(
-              title: 'Choose your Bibles',
-              noun: 'bibles',
+              title: l10n.chooseBiblesTitle,
+              noun: l10n.biblesNoun,
               count: state.selectedAbbrs.length,
               max: state.maxSelections,
             ),
             const SizedBox(height: 4),
-            const Text(
-              'Your first pick is the primary Bible',
+            Text(
+              l10n.firstPickPrimaryBible,
               style: TextStyle(fontSize: 13, color: ThemeColors.grey),
             ),
             const SizedBox(height: 12),
             _searchAndStrip(),
             const SizedBox(height: 4),
           ],
-        )
-            .padding(left: 24, top: 16, right: 24, bottom: 0),
+        ).padding(left: 24, top: 16, right: 24, bottom: 0),
         Expanded(
           child: filtered.isEmpty
-              ? Text('No Bibles match your search').center()
+              ? Text(l10n.noBiblesMatch).center()
               : buildList(context, state, entries),
         ),
       ],

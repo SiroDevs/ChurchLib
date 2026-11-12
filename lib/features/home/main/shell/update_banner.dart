@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../core/update/update_cubit.dart';
+import '../../../../l10n/gen/app_localizations.dart';
 
 class UpdateBanner extends StatefulWidget {
   const UpdateBanner({super.key});
@@ -32,6 +33,7 @@ class _UpdateBannerState extends State<UpdateBanner> {
       bloc: _cubit,
       builder: (context, state) {
         if (!state.hasUpdate) return const SizedBox.shrink();
+        final l10n = AppLocalizations.of(context)!;
         final accent = ThemeColors.primary;
         return Container(
           margin: const EdgeInsets.fromLTRB(10, 8, 10, 0),
@@ -48,14 +50,14 @@ class _UpdateBannerState extends State<UpdateBanner> {
                 children: [
                   Icon(Icons.system_update_alt, size: 18, color: accent),
                   const SizedBox(width: 8),
-                  const Text(
-                    'Update available',
+                  Text(
+                    l10n.updateAvailable,
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
               const SizedBox(height: 2),
-              Text('Version ${state.latest} is out (you have ${state.current}).'),
+              Text(l10n.versionUpdateBanner(state.latest, state.current)),
               const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
@@ -69,7 +71,9 @@ class _UpdateBannerState extends State<UpdateBanner> {
                     children: [
                       const Icon(Icons.download, size: 18),
                       const SizedBox(width: 8),
-                      Text(state.fileName.isEmpty ? 'Get the update' : 'Download'),
+                      Text(
+                        state.fileName.isEmpty ? 'Get the update' : 'Download',
+                      ),
                     ],
                   ),
                 ),

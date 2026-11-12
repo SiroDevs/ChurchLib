@@ -3,34 +3,26 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../../../../data/models/bible/bible_version.dart';
+import '../../../../../../l10n/gen/app_localizations.dart';
 
-const biblesManagementInfo =
-    'You can add a Bible to the Multi-Bible Reader by hovering over it in '
-    '"Other Bibles" and choosing "Set as secondary" — hover over it again '
-    'and choose "Remove from secondary" to take it out.\n\n'
-    'To delete a Bible from your device entirely, hover over it, choose '
-    '"Delete" and confirm.\n\n'
-    'Want more Bibles than what\'s shown here? Click "Change Selection" '
-    'below to go back to the Bible picker and add (or remove) translations '
-    'from your library.';
-
-Future<bool> confirmDeleteBible(BuildContext context, BibleVersion bible) async {
+Future<bool> confirmDeleteBible(
+  BuildContext context,
+  BibleVersion bible,
+) async {
+  final l10n = AppLocalizations.of(context)!;
   final ok = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text('Remove ${bible.name}?'),
-      content: const Text(
-        "This deletes all downloaded content for this Bible from your device. "
-        "This can't be undone.",
-      ),
+      title: Text(l10n.removeBibleQuestion(bible.name)),
+      content: Text(l10n.deleteBibleMessage),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, false),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context, true),
-          child: const Text('OKAY'),
+          child: Text(l10n.okay),
         ),
       ],
     ),
@@ -43,10 +35,11 @@ Future<String?> pickPrimaryBible(
   required List<BibleVersion> bibles,
   required String current,
 }) {
+  final l10n = AppLocalizations.of(context)!;
   return showDialog<String>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Choose primary Bible'),
+      title: Text(l10n.choosePrimaryBible),
       content: SizedBox(
         width: 380,
         child: ListView(
@@ -69,7 +62,7 @@ Future<String?> pickPrimaryBible(
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Close'),
+          child: Text(l10n.closeAction),
         ),
       ],
     ),
@@ -77,15 +70,16 @@ Future<String?> pickPrimaryBible(
 }
 
 Future<void> showBiblesInfo(BuildContext context) {
+  final l10n = AppLocalizations.of(context)!;
   return showDialog<void>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Managing your Bibles'),
-      content: const SingleChildScrollView(child: Text(biblesManagementInfo)),
+      title: Text(l10n.managingBibles),
+      content: SingleChildScrollView(child: Text(l10n.bibleManagementInfo)),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('OKAY'),
+          child: Text(l10n.okay),
         ),
       ],
     ),
@@ -93,22 +87,20 @@ Future<void> showBiblesInfo(BuildContext context) {
 }
 
 Future<void> showFirstOpenPrompt(BuildContext context) async {
+  final l10n = AppLocalizations.of(context)!;
   final show = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Would you like to know how to manage your bibles?'),
-      content: const Text(
-        'Learn how to add or remove Bibles from the Multi-Bible Reader, and '
-        'how to add more translations to your library.',
-      ),
+      title: Text(l10n.bibleManagementQuestion),
+      content: Text(l10n.bibleManagementPrompt),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, false),
-          child: const Text('No thanks'),
+          child: Text(l10n.noThanks),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context, true),
-          child: const Text('Show me'),
+          child: Text(l10n.showMe),
         ),
       ],
     ),

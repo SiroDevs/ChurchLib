@@ -25,7 +25,9 @@ class PresentationLayout extends StatelessWidget {
     final kind = module == AppModule.biblelib
         ? PresentationKind.bible
         : PresentationKind.song;
-    if (presentation.active && presentation.session.value?.kind == kind) {
+    if (presentation.active &&
+        presentation.hasExtendedDisplay &&
+        presentation.session.value?.kind == kind) {
       return;
     }
     await onPresent?.call();
@@ -50,6 +52,7 @@ class PresentationLayout extends StatelessWidget {
           children: [
             content!.expanded(flex: 6),
             if (presentation.active &&
+                presentation.hasExtendedDisplay &&
                 _isSourceForSession(presentation.session.value)) ...[
               VerticalDivider(
                 width: 1,
