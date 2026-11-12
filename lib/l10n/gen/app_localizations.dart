@@ -1305,708 +1305,1413 @@ abstract class AppLocalizations {
   String get licenseDeveloperBuild;
 
   /// Hint for searching songs
+  ///
+  /// In en, this message translates to:
+  /// **'Search a song by title or words'**
   String get songSearchHint;
 
   /// Clear action label
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
   String get clearAction;
 
   /// Song copy confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Song copied to clipboard'**
   String get songCopiedClipboard;
 
   /// Empty state for liked songs
+  ///
+  /// In en, this message translates to:
+  /// **'You have not liked a song yet.'**
   String get noLikedSongs;
 
   /// Song presentation verses panel setting
+  ///
+  /// In en, this message translates to:
+  /// **'Verses panel'**
   String get versesPanel;
 
   /// Title for module settings
+  ///
+  /// In en, this message translates to:
+  /// **'Modules'**
   String get modulesTitle;
 
   /// Add SongLib setting title
+  ///
+  /// In en, this message translates to:
+  /// **'Add SongLib'**
   String get addSonglib;
 
   /// SongLib setup description
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your church songbook'**
   String get songlibSetupSubtitle;
 
   /// Add BibleLib setting title
+  ///
+  /// In en, this message translates to:
+  /// **'Add BibleLib'**
   String get addBiblelib;
 
   /// BibleLib setup description
+  ///
+  /// In en, this message translates to:
+  /// **'Set up a Bible translation'**
   String get biblelibSetupSubtitle;
 
   /// Reset data setting title
+  ///
+  /// In en, this message translates to:
+  /// **'Reset data'**
   String get resetData;
 
   /// Reset BibleLib action
+  ///
+  /// In en, this message translates to:
+  /// **'Start over with BibleLib'**
   String get startOverBiblelib;
 
   /// Reset ChurchLib action
+  ///
+  /// In en, this message translates to:
+  /// **'Reset ChurchLib'**
   String get resetChurchlib;
 
   /// Theme dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Set the Theme'**
   String get setThemeDialogTitle;
 
   /// Settings window title
+  ///
+  /// In en, this message translates to:
+  /// **'ChurchLib Settings'**
   String get settingsWindowTitle;
 
   /// Move item up tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Move up'**
   String get moveUp;
 
   /// Move item down tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Move down'**
   String get moveDown;
 
   /// Multi-Bible reader setting
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-Bible reader'**
   String get multiBibleReader;
 
   /// Message shown when no primary Bible is set
+  ///
+  /// In en, this message translates to:
+  /// **'No primary Bible set yet.'**
   String get noPrimaryBible;
 
   /// Confirm removing a Bible
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {bibleName}?'**
   String removeBibleQuestion(String bibleName);
 
   /// Title for choosing the primary Bible
+  ///
+  /// In en, this message translates to:
+  /// **'Choose primary Bible'**
   String get choosePrimaryBible;
 
   /// Close action label
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
   String get closeAction;
 
   /// Bible management help title
+  ///
+  /// In en, this message translates to:
+  /// **'Managing your Bibles'**
   String get managingBibles;
 
   /// Bible management help prompt
+  ///
+  /// In en, this message translates to:
+  /// **'Would you like to know how to manage your Bibles?'**
   String get bibleManagementQuestion;
 
   /// Decline action label
+  ///
+  /// In en, this message translates to:
+  /// **'No thanks'**
   String get noThanks;
 
   /// Show help action label
+  ///
+  /// In en, this message translates to:
+  /// **'Show me'**
   String get showMe;
 
   /// Restart action label
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
   String get restartAction;
 
   /// Continue action label
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
   String get continueAction;
 
   /// Delete action label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
   String get deleteAction;
 
   /// Bible management help tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'How Bible management works'**
   String get howBibleManagementWorks;
 
   /// Bible management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Bibles'**
   String get manageBibles;
 
   /// Change selected Bible editions action
+  ///
+  /// In en, this message translates to:
+  /// **'Change Selection'**
   String get changeSelection;
 
   /// Confirm deleting a scripture list
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this list?'**
   String get deleteScriptureListQuestion;
 
   /// Scripture lists screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Scripture Lists'**
   String get scriptureListsTitle;
 
   /// Rename list dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Rename list'**
   String get renameList;
 
   /// Save action label
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
   String get saveAction;
 
   /// Play action label
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
   String get playAction;
 
   /// Confirm deleting selected items
+  ///
+  /// In en, this message translates to:
+  /// **'Delete selected?'**
   String get deleteSelectedQuestion;
 
   /// Bookmarks and notes screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmarks & Notes'**
   String get bookmarksNotesTitle;
 
   /// Delete selected items tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Delete selected'**
   String get deleteSelectedTooltip;
 
   /// Clear all action label
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
   String get clearAll;
 
   /// Confirm clearing reading history
+  ///
+  /// In en, this message translates to:
+  /// **'Clear reading history?'**
   String get clearReadingHistoryQuestion;
 
   /// Confirm clearing search history
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search history?'**
   String get clearSearchHistoryQuestion;
 
   /// Bible history screen title
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
   String get historyTitle;
 
   /// Bible search hint
+  ///
+  /// In en, this message translates to:
+  /// **'Search scriptures ...'**
   String get searchScripturesHint;
 
   /// Empty search state without downloaded Bibles
+  ///
+  /// In en, this message translates to:
+  /// **'No downloaded Bibles to search yet.'**
   String get noDownloadedBiblesToSearch;
 
   /// Empty Bible search results
+  ///
+  /// In en, this message translates to:
+  /// **'No results for {query}'**
   String noSearchResultsForQuery(String query);
 
   /// Minimum Bible search query hint
+  ///
+  /// In en, this message translates to:
+  /// **'Type at least 3 letters to search.'**
   String get typeAtLeast3Letters;
 
   /// Bible selection search hint
+  ///
+  /// In en, this message translates to:
+  /// **'Search name, abbreviation or language'**
   String get searchBiblesHint;
 
   /// Bible selection step title
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your Bibles'**
   String get chooseBiblesTitle;
 
   /// No Bible search matches
+  ///
+  /// In en, this message translates to:
+  /// **'No Bibles match your search'**
   String get noBiblesMatch;
 
   /// ChurchLib setup screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Set up ChurchLib'**
   String get setupChurchLibTitle;
 
   /// Refresh action label
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
   String get refreshAction;
 
   /// Back action label
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
   String get backAction;
 
   /// Finish action label
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
   String get finishAction;
 
   /// Songbook selection step title
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your Songbooks'**
   String get chooseSongbooksTitle;
 
   /// Setup progress title
+  ///
+  /// In en, this message translates to:
+  /// **'Getting everything ready…'**
   String get gettingEverythingReady;
 
   /// Song download failure title
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to download songs'**
   String get unableDownloadSongs;
 
   /// Retry action label
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
   String get retryAction;
 
   /// SongLib module description
+  ///
+  /// In en, this message translates to:
+  /// **'Church songbook & hymns, offline'**
   String get songlibDescription;
 
   /// BibleLib module description
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-translation Bible reader'**
   String get biblelibDescription;
 
   /// Previous action label
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
   String get previousAction;
 
   /// Previous chapter tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Previous chapter (Alt + ←)'**
   String get previousChapterTooltip;
 
   /// Chapter picker button label
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter {chapterNumber}'**
   String chapterNumberLabel(int chapterNumber);
 
   /// Chapter picker tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Pick chapter'**
   String get pickChapter;
 
   /// Next action label
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
   String get nextAction;
 
   /// Next chapter tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Next chapter (Alt + →)'**
   String get nextChapterTooltip;
 
   /// Quick reader options title
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Options'**
   String get quickOptions;
 
   /// Decrease reader text size action
+  ///
+  /// In en, this message translates to:
+  /// **'Smaller text'**
   String get smallerText;
 
   /// Increase reader text size action
+  ///
+  /// In en, this message translates to:
+  /// **'Larger text'**
   String get largerText;
 
   /// Decrease auto-scroll speed tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Slower'**
   String get slower;
 
   /// Increase auto-scroll speed tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Faster'**
   String get faster;
 
   /// Switch primary Bible tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Switch Your Primary Bible'**
   String get switchPrimaryBible;
 
   /// Bible book picker tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a Bible Book'**
   String get pickBibleBook;
 
   /// Scripture opener action
+  ///
+  /// In en, this message translates to:
+  /// **'Scripture Opener'**
   String get scriptureOpener;
 
   /// Close scripture queue tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Close Scripture Queue'**
   String get closeScriptureQueue;
 
   /// Previous scripture tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Previous Scripture'**
   String get previousScripture;
 
   /// Next scripture tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Next Scripture'**
   String get nextScripture;
 
   /// Highlight color dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a highlight color'**
   String get chooseHighlightColor;
 
   /// Bookmark verses dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark verses'**
   String get bookmarkVerses;
 
   /// Bookmark without adding notes
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark only'**
   String get bookmarkOnly;
 
   /// Bookmark and add notes action
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark with notes'**
   String get bookmarkWithNotes;
 
   /// Save note tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Save note'**
   String get saveNote;
 
   /// Note editor hint
+  ///
+  /// In en, this message translates to:
+  /// **'Write your thoughts on this verse...'**
   String get writeVerseThoughts;
 
   /// Empty Bible book picker state
+  ///
+  /// In en, this message translates to:
+  /// **'No books found'**
   String get noBooksFound;
 
   /// Bible book picker search hint
+  ///
+  /// In en, this message translates to:
+  /// **'Search books...'**
   String get searchBooksHint;
 
   /// Reader font size label
+  ///
+  /// In en, this message translates to:
+  /// **'Font size: {size}'**
   String fontSizeLabel(int size);
 
   /// Copy confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
   String get copyTextToClipboard;
 
   /// Cancel verse selection tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel selection (Esc)'**
   String get cancelVerseSelection;
 
   /// Bookmark or highlight tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark / highlight'**
   String get bookmarkHighlight;
 
   /// Copy action label
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
   String get copyAction;
 
   /// Back navigation button label
+  ///
+  /// In en, this message translates to:
+  /// **'BACK'**
   String get backButton;
 
   /// Available application update banner
+  ///
+  /// In en, this message translates to:
+  /// **'Version {latest} is out (you have {current}).'**
   String versionUpdateBanner(String latest, String current);
 
   /// Reader message when no Bibles are downloaded
+  ///
+  /// In en, this message translates to:
+  /// **'No Bibles downloaded yet.'**
   String get noBiblesDownloaded;
 
   /// Reader message while Bible data downloads
+  ///
+  /// In en, this message translates to:
+  /// **'Bible data is not available. Wait for the download to complete.'**
   String get bibleDataUnavailable;
 
   /// Reader message when a book has no chapters
+  ///
+  /// In en, this message translates to:
+  /// **'No chapters found for {bookName}'**
   String noChaptersFound(String bookName);
 
   /// Reader message when chapter verses are missing
+  ///
+  /// In en, this message translates to:
+  /// **'Verses are not cached. Make sure the download is complete.'**
   String get versesNotCached;
 
   /// Generic Bible reader load error
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load this Bible content. Please try again.'**
   String get readerLoadFailed;
 
   /// Scripture opener empty state
+  ///
+  /// In en, this message translates to:
+  /// **'No books found for this Bible.'**
   String get noBooksForBible;
 
   /// Scripture list loading error
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load scripture lists.'**
   String get scriptureListsFailed;
 
   /// Missing scripture list error
+  ///
+  /// In en, this message translates to:
+  /// **'This scripture list could not be found.'**
   String get scriptureListNotFound;
 
   /// Song search failure message
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to display songs'**
   String get songSearchFailed;
 
   /// Verses panel setting description
+  ///
+  /// In en, this message translates to:
+  /// **'Show every verse of the song beside the slides while presenting'**
   String get showVersesPanel;
 
   /// Confirm resetting BibleLib
+  ///
+  /// In en, this message translates to:
+  /// **'Start over with BibleLib?'**
   String get startOverBiblelibQuestion;
 
   /// Confirm resetting BibleLib message
+  ///
+  /// In en, this message translates to:
+  /// **'This deletes every downloaded Bible, bookmark and note. This can\'t be undone.'**
   String get startOverBiblelibMessage;
 
   /// Confirm resetting ChurchLib
+  ///
+  /// In en, this message translates to:
+  /// **'Reset ChurchLib?'**
   String get resetChurchlibQuestion;
 
   /// Confirm resetting ChurchLib message
+  ///
+  /// In en, this message translates to:
+  /// **'This erases everything — songbooks, Bibles, bookmarks, notes and settings — and takes you back to setup. This can\'t be undone.'**
   String get resetChurchlibMessage;
 
   /// BibleLib reset setting description
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all downloaded Bibles and choose translations again'**
   String get resetBibleSubtitle;
 
   /// ChurchLib reset setting description
+  ///
+  /// In en, this message translates to:
+  /// **'Erase everything — songbooks, Bibles, bookmarks — and start over'**
   String get resetChurchSubtitle;
 
   /// Settings appearance section title
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
   String get appearanceTitle;
 
   /// General settings section title
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
   String get generalTitle;
 
   /// Presentation settings navigation title
+  ///
+  /// In en, this message translates to:
+  /// **'Presentation'**
   String get presentationNavTitle;
 
   /// Bible settings navigation title
+  ///
+  /// In en, this message translates to:
+  /// **'Bibles'**
   String get biblesNavTitle;
 
   /// Update banner title
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
   String get updateAvailable;
 
   /// Song number label
+  ///
+  /// In en, this message translates to:
+  /// **'Song #{songNumber}'**
   String songNumberLabel(int songNumber);
 
   /// Back action tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Back (Esc)'**
   String get backEscapeTooltip;
 
   /// Stop action label
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
   String get stopAction;
 
   /// Done action label
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
   String get doneAction;
 
   /// Reorder action label
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder'**
   String get reorderAction;
 
   /// Remove a Bible from secondary translations
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from secondary'**
   String get removeFromSecondary;
 
   /// Count label for secondary Bibles
+  ///
+  /// In en, this message translates to:
+  /// **'{count} secondary Bibles'**
   String secondaryBibleCount(int count);
 
   /// One secondary Bible label
+  ///
+  /// In en, this message translates to:
+  /// **'1 secondary Bible'**
   String get oneSecondaryBible;
 
   /// Hint for removing a secondary Bible
+  ///
+  /// In en, this message translates to:
+  /// **'Hover a Bible to remove it'**
   String get hoverRemoveBible;
 
   /// Download failure status label
+  ///
+  /// In en, this message translates to:
+  /// **' · Download failed'**
   String get downloadFailedStatus;
 
   /// Download progress status label
+  ///
+  /// In en, this message translates to:
+  /// **' · Fetching verses'**
   String get fetchingVersesStatus;
 
   /// Stopped download status label
+  ///
+  /// In en, this message translates to:
+  /// **' · Download stopped'**
   String get downloadStoppedStatus;
 
   /// Primary Bible label
+  ///
+  /// In en, this message translates to:
+  /// **'{language} BIBLE • PRIMARY'**
   String biblePrimaryLabel(String language);
 
   /// Bible language label
+  ///
+  /// In en, this message translates to:
+  /// **'{language} BIBLE'**
   String bibleLanguageLabel(String language);
 
   /// Instructions for managing downloaded Bible translations
+  ///
+  /// In en, this message translates to:
+  /// **'You can add a Bible to the Multi-Bible Reader by hovering over it in \"Other Bibles\" and choosing \"Set as secondary\". Hover over it again and choose \"Remove from secondary\" to take it out.\n\nTo delete a Bible from your device, hover over it, choose \"Delete\" and confirm.\n\nTo add or remove translations from your library, choose \"Change Selection\" below.'**
   String get bibleManagementInfo;
 
   /// Confirmation message for deleting a Bible
+  ///
+  /// In en, this message translates to:
+  /// **'This deletes all downloaded content for this Bible from your device. This can\'t be undone.'**
   String get deleteBibleMessage;
 
   /// Primary Bible section label
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Bible'**
   String get primaryBible;
 
   /// Primary Bible change hint
+  ///
+  /// In en, this message translates to:
+  /// **'Click to change'**
   String get clickToChange;
 
   /// Secondary Bible section label
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary Bibles'**
   String get secondaryBiblesTitle;
 
   /// Other Bible section label
+  ///
+  /// In en, this message translates to:
+  /// **'Other Bibles'**
   String get otherBiblesTitle;
 
   /// Set a Bible as a secondary translation
+  ///
+  /// In en, this message translates to:
+  /// **'Set as secondary'**
   String get setAsSecondary;
 
   /// Rename action label
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
   String get renameAction;
 
   /// Reader theme setting label
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
   String get themeLabel;
 
   /// System theme option
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
   String get themeSystem;
 
   /// Decrease reader text size tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Smaller text (-)'**
   String get smallerTextTooltip;
 
   /// Increase reader text size tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Larger text (=)'**
   String get largerTextTooltip;
 
   /// Clear search history action
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search history'**
   String get clearSearchHistory;
 
   /// Empty Bible search history state
+  ///
+  /// In en, this message translates to:
+  /// **'No search history yet.'**
   String get noSearchHistory;
 
   /// Empty Bible reading history state
+  ///
+  /// In en, this message translates to:
+  /// **'No reading history yet.'**
   String get noReadingHistory;
 
   /// Hint for adding a secondary Bible
+  ///
+  /// In en, this message translates to:
+  /// **'Hover a Bible to set it as secondary'**
   String get hoverSetSecondary;
 
   /// Bible management prompt description
+  ///
+  /// In en, this message translates to:
+  /// **'Learn how to add or remove Bibles from the Multi-Bible Reader, and how to add translations to your library.'**
   String get bibleManagementPrompt;
 
   /// Multi-Bible reader setting description
+  ///
+  /// In en, this message translates to:
+  /// **'Read parallel translations alongside your primary text'**
   String get multiBibleDescription;
 
   /// Embedded Bible management title
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Your Bibles'**
   String get manageYourBibles;
 
   /// Reading history tab title
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
   String get historyReading;
 
   /// Search history tab title
+  ///
+  /// In en, this message translates to:
+  /// **'Searches'**
   String get historySearches;
 
   /// Empty search history state
+  ///
+  /// In en, this message translates to:
+  /// **'No searches yet.'**
   String get noSearchesYet;
 
   /// Clear reading history confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete your reading history. This can\'t be undone.'**
   String get clearReadingHistoryMessage;
 
   /// Clear search history confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete your search history. This can\'t be undone.'**
   String get clearSearchHistoryMessage;
 
   /// Recent Bible searches heading
+  ///
+  /// In en, this message translates to:
+  /// **'Recent searches'**
   String get recentSearches;
 
   /// Number of Bible search results
+  ///
+  /// In en, this message translates to:
+  /// **'{count} results'**
   String searchResultCount(int count);
 
   /// Delete scripture list confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'This can\'t be undone.'**
   String get deleteListMessage;
 
   /// Empty scripture list state
+  ///
+  /// In en, this message translates to:
+  /// **'No saved scripture lists yet.\nBuild one in Scripture Opener.'**
   String get noScriptureLists;
 
   /// Scripture count in a saved list
+  ///
+  /// In en, this message translates to:
+  /// **'{count} scriptures'**
   String scriptureCount(int count);
 
   /// Fallback scripture list title
+  ///
+  /// In en, this message translates to:
+  /// **'Scripture list'**
   String get scriptureListTitle;
 
   /// Rename list tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
   String get renameTooltip;
 
   /// Confirm clearing all bookmarks
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all bookmarks?'**
   String get clearAllBookmarksQuestion;
 
   /// Confirm clearing all notes
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all notes?'**
   String get clearAllNotesQuestion;
 
   /// Delete selected bookmarks or notes confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete {count} selected items. This can\'t be undone.'**
   String deleteSelectedCountMessage(int count);
 
   /// Clear all bookmarks confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete all your bookmarks across every Bible. This can\'t be undone.'**
   String get clearBookmarksMessage;
 
   /// Clear all notes confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete all your notes across every Bible. This can\'t be undone.'**
   String get clearNotesMessage;
 
   /// Bookmarks tab label
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmarks'**
   String get bookmarksTab;
 
   /// Notes tab label
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
   String get notesTab;
 
   /// Reading tab label
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
   String get readingTab;
 
   /// Empty scripture list state
+  ///
+  /// In en, this message translates to:
+  /// **'No saved scripture lists yet.\nBuild one in Scripture Opener.'**
   String get noSavedScriptureLists;
 
   /// First setup screen heading
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to ChurchLib'**
   String get welcomeToChurchLib;
 
   /// First setup screen description
+  ///
+  /// In en, this message translates to:
+  /// **'Choose what you\'d like set up. You can always add the other one later from Settings.'**
   String get chooseModulesPrompt;
 
   /// Selection count label
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {max} {noun} selected'**
   String biblesSelectedCount(int count, int max, String noun);
 
   /// Songbook selection noun
+  ///
+  /// In en, this message translates to:
+  /// **'songbooks'**
   String get songbooksNoun;
 
   /// Bible selection noun
+  ///
+  /// In en, this message translates to:
+  /// **'Bibles'**
   String get biblesNoun;
 
   /// Bible selection hint
+  ///
+  /// In en, this message translates to:
+  /// **'Your first pick is the primary Bible'**
   String get firstPickPrimaryBible;
 
   /// Songbook selection maximum message
+  ///
+  /// In en, this message translates to:
+  /// **'You can select up to {count} songbooks'**
   String songbookSelectionLimit(int count);
 
   /// Continue navigation button label
+  ///
+  /// In en, this message translates to:
+  /// **'CONTINUE'**
   String get continueUpper;
 
   /// Finish navigation button label
+  ///
+  /// In en, this message translates to:
+  /// **'FINISH'**
   String get finishUpper;
 
   /// Setup progress detail
+  ///
+  /// In en, this message translates to:
+  /// **'Almost there'**
   String get almostThere;
 
   /// Download progress message
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% downloaded'**
   String percentDownloaded(int percent);
 
   /// Song save progress title
+  ///
+  /// In en, this message translates to:
+  /// **'Saving your songs'**
   String get savingYourSongs;
 
   /// Song download progress title
+  ///
+  /// In en, this message translates to:
+  /// **'Fetching your songs…'**
   String get fetchingYourSongs;
 
   /// Song download progress message
+  ///
+  /// In en, this message translates to:
+  /// **'This only takes a moment'**
   String get momentOnly;
 
   /// Primary Bible download progress title
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading your primary Bible'**
   String get downloadingPrimaryBible;
 
   /// Bible progress label
+  ///
+  /// In en, this message translates to:
+  /// **'Bible'**
   String get bibleWord;
 
   /// Secondary Bible download progress message
+  ///
+  /// In en, this message translates to:
+  /// **'Your other Bibles will download in the background.'**
   String get otherBiblesBackground;
 
   /// Start auto-scroll button label
+  ///
+  /// In en, this message translates to:
+  /// **'Auto scroll'**
   String get autoScrollAction;
 
   /// Stop auto-scroll button label
+  ///
+  /// In en, this message translates to:
+  /// **'Stop scroll'**
   String get stopScrollAction;
 
   /// Start auto-scroll tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Start auto scroll'**
   String get startAutoScroll;
 
   /// Stop auto-scroll tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Stop auto scroll'**
   String get stopAutoScroll;
 
   /// Old Testament tab label
+  ///
+  /// In en, this message translates to:
+  /// **'Old Testament'**
   String get oldTestament;
 
   /// New Testament tab label
+  ///
+  /// In en, this message translates to:
+  /// **'New Testament'**
   String get newTestament;
 
   /// Multi-Bible reader enabled description
+  ///
+  /// In en, this message translates to:
+  /// **'Show your other Bibles under each verse'**
   String get showOtherBibles;
 
   /// Multi-Bible reader disabled description
+  ///
+  /// In en, this message translates to:
+  /// **'Download another Bible to use this'**
   String get downloadBibleToUse;
 
   /// Add note action label
+  ///
+  /// In en, this message translates to:
+  /// **'Add note'**
   String get addNoteAction;
 
   /// Add note selection hint
+  ///
+  /// In en, this message translates to:
+  /// **'Select a single verse to add a note'**
   String get selectSingleVerseNote;
 
   /// Selected item count
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
   String selectedCount(int count);
 
   /// Setup modules description
+  ///
+  /// In en, this message translates to:
+  /// **'Choose what you would like to set up. You can add the other module later from Settings.'**
   String get firstSetupMessage;
 
   /// Bookmark options dialog prompt
+  ///
+  /// In en, this message translates to:
+  /// **'Would you like to bookmark these verses only, or add a note as well?'**
   String get bookmarkOptionsPrompt;
 
   /// How it works sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'How {moduleName} works'**
   String howModuleWorks(String moduleName);
 
   /// Switch application module tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to {moduleName}'**
   String switchToModule(String moduleName);
 
   /// SongLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Finding a song'**
   String get songHowFindTitle;
 
   /// SongLib guide for finding songs
+  ///
+  /// In en, this message translates to:
+  /// **'Type in the search box at the top to find a song by its number, title or any words from its lyrics. Press S anywhere to jump to the box. The chips above the list narrow the songs down to one songbook.'**
   String get songHowFindBody;
 
   /// SongLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Reading a song'**
   String get songHowReadTitle;
 
   /// SongLib guide for reading songs
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a song in the list and its verses appear on the right, with the song title and songbook shown at the top of the window.'**
   String get songHowReadBody;
 
   /// SongLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Presenting'**
   String get songHowPresentTitle;
 
   /// SongLib guide for presenting songs
+  ///
+  /// In en, this message translates to:
+  /// **'Double-click a song, press Enter, or choose Present song from Quick Options to open it in the presenter. Step through the verses one slide at a time; change slide direction in Settings. Words are sized to fit the screen. The list button in the presenter title bar shows every verse in a sidebar, with the current verse highlighted. The sidebar starts open; press the button again to hide it.'**
   String get songHowPresentBody;
 
   /// SongLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Presenter keys'**
   String get songHowKeysTitle;
 
   /// SongLib presenter keyboard shortcuts
+  ///
+  /// In en, this message translates to:
+  /// **'Right or Down arrow: next slide.\nLeft or Up arrow: previous slide.\n1 to 7: jump to that verse.\nC: jump to the chorus.\nL: jump to the last slide.\n- : make the text smaller.\n= : make the text bigger, as far as the longest verse still fits.\nEsc: close the presenter.'**
   String get songHowKeysBody;
 
   /// SongLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Options'**
   String get songHowQuickTitle;
 
   /// SongLib guide for quick actions
+  ///
+  /// In en, this message translates to:
+  /// **'The Quick Options button at the bottom right collects what you can do with the selected song: copy its words, like it or present it.'**
   String get songHowQuickBody;
 
   /// SongLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Likes'**
   String get songHowLikesTitle;
 
   /// SongLib guide for liked songs
+  ///
+  /// In en, this message translates to:
+  /// **'Songs you like are gathered under Likes in the sidebar so you can open your favourites quickly.'**
   String get songHowLikesBody;
 
   /// SongLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Songbooks and updates'**
   String get songHowBooksTitle;
 
   /// SongLib guide for songbook storage and updates
+  ///
+  /// In en, this message translates to:
+  /// **'Your songbooks are stored on this device and refreshed in the background when you are online. To choose different songbooks, open Settings and use Songbooks.'**
   String get songHowBooksBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
   String get bibleHowReadingTitle;
 
   /// BibleLib guide for reading
+  ///
+  /// In en, this message translates to:
+  /// **'Use the Bible button at the top to switch translation and the chapter button to jump to another chapter. Previous and Next at the bottom move chapter by chapter, or press Alt with the left or right arrow. The Up and Down arrow keys scroll the chapter. These keys only work while BibleLib is the open app.'**
   String get bibleHowReadingBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Text size and auto scroll'**
   String get bibleHowTextTitle;
 
   /// BibleLib guide for text size and auto scroll
+  ///
+  /// In en, this message translates to:
+  /// **'Aa- and Aa+ in the title bar change the text size, or press - on your keyboard to make it smaller and = to make it bigger. Auto scroll at the bottom left scrolls the chapter for you; use the plus and minus beside it to set the speed, and touch the text to stop.'**
   String get bibleHowTextBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Parallel Bibles'**
   String get bibleHowParallelTitle;
 
   /// BibleLib guide for parallel translations
+  ///
+  /// In en, this message translates to:
+  /// **'Download more than one Bible and turn on the Multi-Bible reader in Quick Options to show your other translations under each verse.'**
   String get bibleHowParallelBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Selecting verses'**
   String get bibleHowSelectTitle;
 
   /// BibleLib guide for selecting verses
+  ///
+  /// In en, this message translates to:
+  /// **'Click verses to select them. The bar at the top then lets you bookmark or highlight them, add a note to a single verse, or copy them. Press Esc to cancel the selection.'**
   String get bibleHowSelectBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
   String get bibleHowSearchTitle;
 
   /// BibleLib guide for Bible search
+  ///
+  /// In en, this message translates to:
+  /// **'Search looks through every verse of the Bible you choose and takes you straight to the result. Earlier searches are kept for next time.'**
   String get bibleHowSearchBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
   String get bibleHowHistoryTitle;
 
   /// BibleLib guide for history
+  ///
+  /// In en, this message translates to:
+  /// **'History lists the chapters you read and the searches you made, so you can pick up where you stopped.'**
   String get bibleHowHistoryBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmarks and Notes'**
   String get bibleHowBookmarksTitle;
 
   /// BibleLib guide for bookmarks and notes
+  ///
+  /// In en, this message translates to:
+  /// **'Everything you bookmark or write a note on is collected under Bookmarks and Notes in the sidebar, across all your Bibles.'**
   String get bibleHowBookmarksBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Scripture Opener'**
   String get bibleHowOpenerTitle;
 
   /// BibleLib guide for Scripture Opener
+  ///
+  /// In en, this message translates to:
+  /// **'Scripture Opener in the title bar opens a passage by typing its book, chapter and verse. Add several passages to a queue and open them one after another.'**
   String get bibleHowOpenerBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Scripture lists'**
   String get bibleHowListsTitle;
 
   /// BibleLib guide for saved scripture lists
+  ///
+  /// In en, this message translates to:
+  /// **'Scriptures in the sidebar keeps lists of passages you reuse, such as a sermon outline. Press Play on a list to step through its verses with the queue bar at the bottom.'**
   String get bibleHowListsBody;
 
   /// BibleLib guide section title
+  ///
+  /// In en, this message translates to:
+  /// **'Managing Bibles'**
   String get bibleHowManageTitle;
 
   /// BibleLib guide for Bible management
+  ///
+  /// In en, this message translates to:
+  /// **'Add, remove or choose your main translation from Settings and Bibles, or from Choose Bible in the title bar.'**
   String get bibleHowManageBody;
 
   /// Justified presentation text alignment label
+  ///
+  /// In en, this message translates to:
+  /// **'Justified'**
   String get alignmentJustified;
 }
 

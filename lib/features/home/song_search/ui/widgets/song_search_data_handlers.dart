@@ -21,6 +21,7 @@ extension SongSearchDataHandlers on SongSearchScreenState {
 
   SongExt _emptySong() => SongExt(0, 0, 0, 0, '', '', '', 0, 0, false, '');
 
+  // ignore: invalid_use_of_protected_member
   void onSearch(String query) => setState(() => searchQuery = query);
 
   void _onSearchStateLoaded(SongSearchState state) {

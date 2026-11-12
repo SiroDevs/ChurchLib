@@ -5,7 +5,6 @@ mixin ReaderVersesMixin on Cubit<BibleReaderState> {
   BibleTrackingRepo get _tracking;
   BibleAnnotationRepo get _annotations;
   PrefRepo get _prefs;
-  int _startLoadRequest();
   bool _isCurrentLoadRequest(int requestId);
   int get _parallelRequestId;
   set _parallelRequestId(int value);

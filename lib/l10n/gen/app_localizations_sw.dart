@@ -244,7 +244,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get themeDefault => 'System Default';
 
   @override
-  String get themeLight => 'Mwanga';
+  String get themeLight => 'Angavu';
 
   @override
   String get themeDark => 'Giza';
@@ -658,761 +658,794 @@ class AppLocalizationsSw extends AppLocalizations {
   @override
   String get licenseDeveloperBuild =>
       'Toleo la msanidi: ukaguzi wa leseni umezimwa.';
+
+  @override
+  String get songSearchHint => 'Tafuta wimbo kwa jina au maneno';
+
+  @override
+  String get clearAction => 'Futa';
+
+  @override
+  String get songCopiedClipboard => 'Wimbo umenakiliwa kwenye ubao wa kunakili';
+
+  @override
+  String get noLikedSongs => 'Bado hujapenda wimbo wowote.';
+
+  @override
+  String get versesPanel => 'Kidirisha cha mistari';
+
+  @override
+  String get modulesTitle => 'Moduli';
+
+  @override
+  String get addSonglib => 'Ongeza SongLib';
+
+  @override
+  String get songlibSetupSubtitle => 'Sanidi kitabu cha nyimbo cha kanisa lako';
+
+  @override
+  String get addBiblelib => 'Ongeza BibleLib';
+
+  @override
+  String get biblelibSetupSubtitle => 'Sanidi tafsiri ya Biblia';
+
+  @override
+  String get resetData => 'Futa data';
+
+  @override
+  String get startOverBiblelib => 'Anza upya na BibleLib';
+
+  @override
+  String get resetChurchlib => 'Futa ChurchLib';
+
+  @override
+  String get setThemeDialogTitle => 'Weka mandhari';
+
+  @override
+  String get settingsWindowTitle => 'Mipangilio ya ChurchLib';
+
+  @override
+  String get moveUp => 'Sogeza juu';
+
+  @override
+  String get moveDown => 'Sogeza chini';
+
+  @override
+  String get multiBibleReader => 'Kisomaji cha Biblia nyingi';
+
+  @override
+  String get noPrimaryBible => 'Bado hujaweka Biblia kuu.';
+
+  @override
+  String removeBibleQuestion(String bibleName) {
+    return 'Uondoe $bibleName?';
+  }
+
+  @override
+  String get choosePrimaryBible => 'Chagua Biblia kuu';
+
+  @override
+  String get closeAction => 'Funga';
+
+  @override
+  String get managingBibles => 'Kusimamia Biblia zako';
+
+  @override
+  String get bibleManagementQuestion =>
+      'Je, ungependa kujua jinsi ya kusimamia Biblia zako?';
+
+  @override
+  String get noThanks => 'Hapana asante';
+
+  @override
+  String get showMe => 'Nionyeshe';
+
+  @override
+  String get restartAction => 'Anza upya';
+
+  @override
+  String get continueAction => 'Endelea';
+
+  @override
+  String get deleteAction => 'Futa';
+
+  @override
+  String get howBibleManagementWorks =>
+      'Jinsi usimamizi wa Biblia unavyofanya kazi';
+
+  @override
+  String get manageBibles => 'Simamia Biblia';
+
+  @override
+  String get changeSelection => 'Badilisha chaguo';
+
+  @override
+  String get deleteScriptureListQuestion => 'Ufute orodha hii?';
+
+  @override
+  String get scriptureListsTitle => 'Orodha za maandiko';
+
+  @override
+  String get renameList => 'Badilisha jina la orodha';
+
+  @override
+  String get saveAction => 'Hifadhi';
+
+  @override
+  String get playAction => 'Cheza';
+
+  @override
+  String get deleteSelectedQuestion => 'Ufute vilivyochaguliwa?';
+
+  @override
+  String get bookmarksNotesTitle => 'Alamisho na madokezo';
+
+  @override
+  String get deleteSelectedTooltip => 'Futa vilivyochaguliwa';
+
+  @override
+  String get clearAll => 'Futa vyote';
+
+  @override
+  String get clearReadingHistoryQuestion => 'Ufute historia ya usomaji?';
+
+  @override
+  String get clearSearchHistoryQuestion => 'Ufute historia ya utafutaji?';
+
+  @override
+  String get historyTitle => 'Historia';
+
+  @override
+  String get searchScripturesHint => 'Tafuta maandiko ...';
+
+  @override
+  String get noDownloadedBiblesToSearch =>
+      'Bado hakuna Biblia zilizopakuliwa za kutafuta.';
+
+  @override
+  String noSearchResultsForQuery(String query) {
+    return 'Hakuna matokeo ya $query';
+  }
+
+  @override
+  String get typeAtLeast3Letters => 'Andika angalau herufi 3 kutafuta.';
+
+  @override
+  String get searchBiblesHint => 'Tafuta jina, kifupi au lugha';
+
+  @override
+  String get chooseBiblesTitle => 'Chagua Biblia zako';
+
+  @override
+  String get noBiblesMatch => 'Hakuna Biblia zinazolingana na utafutaji wako';
+
+  @override
+  String get setupChurchLibTitle => 'Sanidi ChurchLib';
+
+  @override
+  String get refreshAction => 'Onyesha upya';
+
+  @override
+  String get backAction => 'Rudi';
+
+  @override
+  String get finishAction => 'Maliza';
+
+  @override
+  String get chooseSongbooksTitle => 'Chagua vitabu vyako vya nyimbo';
+
+  @override
+  String get gettingEverythingReady => 'Tunaandaa kila kitu…';
+
+  @override
+  String get unableDownloadSongs => 'Imeshindwa kupakua nyimbo';
+
+  @override
+  String get retryAction => 'Jaribu tena';
+
+  @override
+  String get songlibDescription =>
+      'Kitabu cha nyimbo na tenzi za kanisa, bila intaneti';
+
+  @override
+  String get biblelibDescription => 'Kisomaji cha Biblia chenye tafsiri nyingi';
+
+  @override
+  String get previousAction => 'Iliyotangulia';
+
+  @override
+  String get previousChapterTooltip => 'Sura iliyotangulia (Alt + ←)';
+
+  @override
+  String chapterNumberLabel(int chapterNumber) {
+    return 'Sura ya $chapterNumber';
+  }
+
+  @override
+  String get pickChapter => 'Chagua sura';
+
+  @override
+  String get nextAction => 'Inayofuata';
+
+  @override
+  String get nextChapterTooltip => 'Sura inayofuata (Alt + →)';
+
+  @override
+  String get quickOptions => 'Chaguo za haraka';
+
+  @override
+  String get smallerText => 'Maandishi madogo';
+
+  @override
+  String get largerText => 'Maandishi makubwa';
+
+  @override
+  String get slower => 'Polepole zaidi';
+
+  @override
+  String get faster => 'Haraka zaidi';
+
+  @override
+  String get switchPrimaryBible => 'Badilisha Biblia yako kuu';
+
+  @override
+  String get pickBibleBook => 'Chagua kitabu cha Biblia';
+
+  @override
+  String get scriptureOpener => 'Kifungua maandiko';
+
+  @override
+  String get closeScriptureQueue => 'Funga foleni ya maandiko';
+
+  @override
+  String get previousScripture => 'Andiko lililotangulia';
+
+  @override
+  String get nextScripture => 'Andiko linalofuata';
+
+  @override
+  String get chooseHighlightColor => 'Chagua rangi ya kuangazia';
+
+  @override
+  String get bookmarkVerses => 'Weka alamisho kwenye mistari';
+
+  @override
+  String get bookmarkOnly => 'Weka alamisho pekee';
+
+  @override
+  String get bookmarkWithNotes => 'Weka alamisho na madokezo';
+
+  @override
+  String get saveNote => 'Hifadhi dokezo';
+
+  @override
+  String get writeVerseThoughts => 'Andika mawazo yako kuhusu mstari huu...';
+
+  @override
+  String get noBooksFound => 'Hakuna vitabu vilivyopatikana';
+
+  @override
+  String get searchBooksHint => 'Tafuta vitabu...';
+
+  @override
+  String fontSizeLabel(int size) {
+    return 'Ukubwa wa herufi: $size';
+  }
+
+  @override
+  String get copyTextToClipboard => 'Imenakiliwa kwenye ubao wa kunakili';
+
+  @override
+  String get cancelVerseSelection => 'Ghairi uteuzi (Esc)';
+
+  @override
+  String get bookmarkHighlight => 'Weka alamisho / angazia';
+
+  @override
+  String get copyAction => 'Nakili';
+
+  @override
+  String get backButton => 'RUDI';
+
+  @override
+  String versionUpdateBanner(String latest, String current) {
+    return 'Toleo $latest limetoka (unatumia $current).';
+  }
+
+  @override
+  String get noBiblesDownloaded => 'Bado hakuna Biblia iliyopakuliwa.';
+
+  @override
+  String get bibleDataUnavailable =>
+      'Data ya Biblia haipatikani. Subiri upakuaji ukamilike.';
+
+  @override
+  String noChaptersFound(String bookName) {
+    return 'Hakuna sura zilizopatikana kwa $bookName';
+  }
+
+  @override
+  String get versesNotCached =>
+      'Mistari haijahifadhiwa. Hakikisha upakuaji umekamilika.';
+
+  @override
+  String get readerLoadFailed =>
+      'Imeshindwa kupakia maudhui haya ya Biblia. Tafadhali jaribu tena.';
+
+  @override
+  String get noBooksForBible => 'Hakuna vitabu vilivyopatikana kwa Biblia hii.';
+
+  @override
+  String get scriptureListsFailed => 'Imeshindwa kupakia orodha za maandiko.';
+
+  @override
+  String get scriptureListNotFound => 'Orodha hii ya maandiko haikupatikana.';
+
+  @override
+  String get songSearchFailed => 'Imeshindwa kuonyesha nyimbo';
+
+  @override
+  String get showVersesPanel =>
+      'Onyesha kila mstari wa wimbo kando ya slaidi wakati wa kuwasilisha';
+
+  @override
+  String get startOverBiblelibQuestion => 'Uanze upya na BibleLib?';
+
+  @override
+  String get startOverBiblelibMessage =>
+      'Hii itafuta Biblia zote zilizopakuliwa, alamisho na madokezo. Huwezi kutendua kitendo hiki.';
+
+  @override
+  String get resetChurchlibQuestion => 'Ufute ChurchLib?';
+
+  @override
+  String get resetChurchlibMessage =>
+      'Hii itafuta kila kitu — vitabu vya nyimbo, Biblia, alamisho, madokezo na mipangilio — na kukurudisha kwenye usanidi. Huwezi kutendua kitendo hiki.';
+
+  @override
+  String get resetBibleSubtitle =>
+      'Futa Biblia zote zilizopakuliwa na uchague tafsiri tena';
+
+  @override
+  String get resetChurchSubtitle =>
+      'Futa kila kitu — vitabu vya nyimbo, Biblia na alamisho — kisha anza upya';
+
+  @override
+  String get appearanceTitle => 'Mwonekano';
+
+  @override
+  String get generalTitle => 'Jumla';
+
+  @override
+  String get presentationNavTitle => 'Uwasilishaji';
+
+  @override
+  String get biblesNavTitle => 'Biblia';
+
+  @override
+  String get updateAvailable => 'Sasisho linapatikana';
+
+  @override
+  String songNumberLabel(int songNumber) {
+    return 'Wimbo #$songNumber';
+  }
+
+  @override
+  String get backEscapeTooltip => 'Rudi (Esc)';
+
+  @override
+  String get stopAction => 'Simamisha';
+
+  @override
+  String get doneAction => 'Imekamilika';
+
+  @override
+  String get reorderAction => 'Panga upya';
+
+  @override
+  String get removeFromSecondary => 'Ondoa kwenye Biblia za ziada';
+
+  @override
+  String secondaryBibleCount(int count) {
+    return 'Biblia $count za ziada';
+  }
+
+  @override
+  String get oneSecondaryBible => 'Biblia 1 ya ziada';
+
+  @override
+  String get hoverRemoveBible => 'Elekeza kishale kwenye Biblia ili kuiondoa';
+
+  @override
+  String get downloadFailedStatus => ' · Upakuaji umeshindwa';
+
+  @override
+  String get fetchingVersesStatus => ' · Inapakua mistari';
+
+  @override
+  String get downloadStoppedStatus => ' · Upakuaji umesimama';
+
+  @override
+  String biblePrimaryLabel(String language) {
+    return 'BIBLIA YA $language • KUU';
+  }
+
+  @override
+  String bibleLanguageLabel(String language) {
+    return 'BIBLIA YA $language';
+  }
+
+  @override
+  String get bibleManagementInfo =>
+      'Unaweza kuongeza Biblia kwenye Kisomaji cha Biblia nyingi kwa kuelekeza kishale juu yake katika \"Biblia nyingine\" na kuchagua \"Weka kama ya ziada\". Elekeza kishale tena na uchague \"Ondoa kwenye Biblia za ziada\" ili kuiondoa.\n\nIli kufuta Biblia kwenye kifaa chako, elekeza kishale juu yake, chagua \"Futa\" na uthibitishe.\n\nIli kuongeza au kuondoa tafsiri kwenye maktaba yako, chagua \"Badilisha chaguo\" hapa chini.';
+
+  @override
+  String get deleteBibleMessage =>
+      'Hii itafuta maudhui yote yaliyopakuliwa ya Biblia hii kwenye kifaa chako. Huwezi kutendua kitendo hiki.';
+
+  @override
+  String get primaryBible => 'Biblia kuu';
+
+  @override
+  String get clickToChange => 'Bofya ili kubadilisha';
+
+  @override
+  String get secondaryBiblesTitle => 'Biblia za ziada';
+
+  @override
+  String get otherBiblesTitle => 'Biblia nyingine';
+
+  @override
+  String get setAsSecondary => 'Weka kama ya ziada';
+
+  @override
+  String get renameAction => 'Badilisha jina';
+
+  @override
+  String get themeLabel => 'Mandhari';
+
+  @override
+  String get themeSystem => 'Mfumo';
+
+  @override
+  String get smallerTextTooltip => 'Maandishi madogo (-)';
+
+  @override
+  String get largerTextTooltip => 'Maandishi makubwa (=)';
+
+  @override
+  String get clearSearchHistory => 'Futa historia ya utafutaji';
+
+  @override
+  String get noSearchHistory => 'Bado hakuna historia ya utafutaji.';
+
+  @override
+  String get noReadingHistory => 'Bado hakuna historia ya usomaji.';
+
+  @override
+  String get hoverSetSecondary =>
+      'Elekeza kishale kwenye Biblia ili kuiweka kama ya ziada';
+
+  @override
+  String get bibleManagementPrompt =>
+      'Jifunze jinsi ya kuongeza au kuondoa Biblia kwenye Kisomaji cha Biblia nyingi na jinsi ya kuongeza tafsiri kwenye maktaba yako.';
+
+  @override
+  String get multiBibleDescription =>
+      'Soma tafsiri sambamba na maandishi yako makuu';
+
+  @override
+  String get manageYourBibles => 'Simamia Biblia zako';
+
+  @override
+  String get historyReading => 'Usomaji';
+
+  @override
+  String get historySearches => 'Utafutaji';
+
+  @override
+  String get noSearchesYet => 'Bado hakuna utafutaji.';
+
+  @override
+  String get clearReadingHistoryMessage =>
+      'Hii itafuta kabisa historia yako ya usomaji. Huwezi kutendua kitendo hiki.';
+
+  @override
+  String get clearSearchHistoryMessage =>
+      'Hii itafuta kabisa historia yako ya utafutaji. Huwezi kutendua kitendo hiki.';
+
+  @override
+  String get recentSearches => 'Utafutaji wa hivi karibuni';
+
+  @override
+  String searchResultCount(int count) {
+    return 'Matokeo $count';
+  }
+
+  @override
+  String get deleteListMessage => 'Huwezi kutendua kitendo hiki.';
+
+  @override
+  String get noScriptureLists =>
+      'Bado hakuna orodha za maandiko zilizohifadhiwa.\nTengeneza moja kwenye Kifungua maandiko.';
+
+  @override
+  String scriptureCount(int count) {
+    return 'Maandiko $count';
+  }
+
+  @override
+  String get scriptureListTitle => 'Orodha ya maandiko';
+
+  @override
+  String get renameTooltip => 'Badilisha jina';
+
+  @override
+  String get clearAllBookmarksQuestion => 'Ufute alamisho zote?';
+
+  @override
+  String get clearAllNotesQuestion => 'Ufute madokezo yote?';
+
+  @override
+  String deleteSelectedCountMessage(int count) {
+    return 'Hii itafuta kabisa vipengee $count vilivyochaguliwa. Huwezi kutendua kitendo hiki.';
+  }
+
+  @override
+  String get clearBookmarksMessage =>
+      'Hii itafuta kabisa alamisho zako zote katika Biblia zote. Huwezi kutendua kitendo hiki.';
+
+  @override
+  String get clearNotesMessage =>
+      'Hii itafuta kabisa madokezo yako yote katika Biblia zote. Huwezi kutendua kitendo hiki.';
+
+  @override
+  String get bookmarksTab => 'Alamisho';
+
+  @override
+  String get notesTab => 'Madokezo';
+
+  @override
+  String get readingTab => 'Usomaji';
+
+  @override
+  String get noSavedScriptureLists =>
+      'Bado hakuna orodha za maandiko zilizohifadhiwa.\nTengeneza moja kwenye Kifungua maandiko.';
+
+  @override
+  String get welcomeToChurchLib => 'Karibu ChurchLib';
+
+  @override
+  String get chooseModulesPrompt =>
+      'Chagua unachotaka kusanidi. Unaweza kuongeza kingine baadaye kwenye Mipangilio.';
+
+  @override
+  String biblesSelectedCount(int count, int max, String noun) {
+    return '$count kati ya $max $noun zimechaguliwa';
+  }
+
+  @override
+  String get songbooksNoun => 'vitabu vya nyimbo';
+
+  @override
+  String get biblesNoun => 'Biblia';
+
+  @override
+  String get firstPickPrimaryBible =>
+      'Chaguo lako la kwanza litakuwa Biblia kuu';
+
+  @override
+  String songbookSelectionLimit(int count) {
+    return 'Unaweza kuchagua hadi vitabu $count vya nyimbo';
+  }
+
+  @override
+  String get continueUpper => 'ENDELEA';
+
+  @override
+  String get finishUpper => 'MALIZA';
+
+  @override
+  String get almostThere => 'Karibu tumalize';
+
+  @override
+  String percentDownloaded(int percent) {
+    return '$percent% imepakuliwa';
+  }
+
+  @override
+  String get savingYourSongs => 'Hifadhi nyimbo zako';
+
+  @override
+  String get fetchingYourSongs => 'Inapakua nyimbo zako…';
+
+  @override
+  String get momentOnly => 'Hii itachukua muda mfupi tu';
+
+  @override
+  String get downloadingPrimaryBible => 'Inapakua Biblia yako kuu';
+
+  @override
+  String get bibleWord => 'Biblia';
+
+  @override
+  String get otherBiblesBackground =>
+      'Biblia zako nyingine zitapakuliwa chinichini.';
+
+  @override
+  String get autoScrollAction => 'Kusogeza kiotomatiki';
+
+  @override
+  String get stopScrollAction => 'Simamisha kusogeza';
+
+  @override
+  String get startAutoScroll => 'Anza kusogeza kiotomatiki';
+
+  @override
+  String get stopAutoScroll => 'Simamisha kusogeza kiotomatiki';
+
+  @override
+  String get oldTestament => 'Agano la Kale';
+
+  @override
+  String get newTestament => 'Agano Jipya';
+
+  @override
+  String get showOtherBibles =>
+      'Onyesha Biblia zako nyingine chini ya kila mstari';
+
+  @override
+  String get downloadBibleToUse =>
+      'Pakua Biblia nyingine ili kutumia chaguo hili';
+
+  @override
+  String get addNoteAction => 'Ongeza dokezo';
+
+  @override
+  String get selectSingleVerseNote => 'Chagua mstari mmoja ili kuongeza dokezo';
+
+  @override
+  String selectedCount(int count) {
+    return '$count zimechaguliwa';
+  }
+
+  @override
+  String get firstSetupMessage =>
+      'Chagua unachotaka kusanidi. Unaweza kuongeza moduli nyingine baadaye kwenye Mipangilio.';
+
+  @override
+  String get bookmarkOptionsPrompt =>
+      'Ungependa kuweka alamisho kwenye mistari hii pekee au kuongeza dokezo pia?';
+
+  @override
+  String howModuleWorks(String moduleName) {
+    return 'Jinsi $moduleName inavyofanya kazi';
+  }
+
+  @override
+  String switchToModule(String moduleName) {
+    return 'Badilisha kwenda $moduleName';
+  }
+
+  @override
+  String get songHowFindTitle => 'Kutafuta wimbo';
+
+  @override
+  String get songHowFindBody =>
+      'Andika kwenye kisanduku cha utafutaji kilicho juu ili kupata wimbo kwa nambari, jina au maneno yake. Bonyeza S popote ili kwenda kwenye kisanduku. Vichujio vilivyo juu ya orodha hupunguza nyimbo hadi kitabu kimoja cha nyimbo.';
+
+  @override
+  String get songHowReadTitle => 'Kusoma wimbo';
+
+  @override
+  String get songHowReadBody =>
+      'Chagua wimbo kwenye orodha ili mistari yake ionekane upande wa kulia. Jina la wimbo na kitabu chake vitaonekana juu ya dirisha.';
+
+  @override
+  String get songHowPresentTitle => 'Kuwasilisha';
+
+  @override
+  String get songHowPresentBody =>
+      'Bofya wimbo mara mbili, bonyeza Enter au uchague Wasilisha wimbo kwenye Chaguo za haraka ili kuufungua kwenye kioneshi. Pitia mistari slaidi moja baada ya nyingine; badilisha mwelekeo wa slaidi kwenye Mipangilio. Maneno hupangwa yatoshe skrini. Kitufe cha orodha kwenye kichwa cha kioneshi huonyesha mistari yote kwenye paneli ya pembeni na kuangazia mstari wa sasa. Paneli huanza ikiwa wazi; bonyeza kitufe tena kuificha.';
+
+  @override
+  String get songHowKeysTitle => 'Vifunguo vya kioneshi';
+
+  @override
+  String get songHowKeysBody =>
+      'Mshale wa kulia au chini: slaidi inayofuata.\nMshale wa kushoto au juu: slaidi iliyotangulia.\n1 hadi 7: nenda kwenye mstari huo.\nC: nenda kwenye kiitikio.\nL: nenda kwenye slaidi ya mwisho.\n- : punguza maandishi.\n= : ongeza maandishi kadiri mstari mrefu zaidi unavyotoshea.\nEsc: funga kioneshi.';
+
+  @override
+  String get songHowQuickTitle => 'Chaguo za haraka';
+
+  @override
+  String get songHowQuickBody =>
+      'Kitufe cha Chaguo za haraka kilicho chini kulia huonyesha unachoweza kufanya na wimbo uliochaguliwa: kunakili maneno yake, kuupenda au kuuwasilisha.';
+
+  @override
+  String get songHowLikesTitle => 'Vinavyopendwa';
+
+  @override
+  String get songHowLikesBody =>
+      'Nyimbo unazopenda hukusanywa kwenye Vinavyopendwa kwenye paneli ya pembeni ili uweze kuzifungua haraka.';
+
+  @override
+  String get songHowBooksTitle => 'Vitabu vya nyimbo na masasisho';
+
+  @override
+  String get songHowBooksBody =>
+      'Vitabu vyako vya nyimbo huhifadhiwa kwenye kifaa hiki na kusasishwa chinichini ukiwa mtandaoni. Ili kuchagua vitabu tofauti, fungua Mipangilio kisha uchague Vitabu vya nyimbo.';
+
+  @override
+  String get bibleHowReadingTitle => 'Kusoma';
+
+  @override
+  String get bibleHowReadingBody =>
+      'Tumia kitufe cha Biblia kilicho juu kubadilisha tafsiri na kitufe cha sura kwenda sura nyingine. Vilivyo chini vya Iliyotangulia na Inayofuata husogeza sura moja moja, au bonyeza Alt pamoja na mshale wa kushoto au kulia. Mishale ya juu na chini husogeza sura. Vifunguo hivi hufanya kazi tu BibleLib ikiwa wazi.';
+
+  @override
+  String get bibleHowTextTitle => 'Ukubwa wa maandishi na kusogeza kiotomatiki';
+
+  @override
+  String get bibleHowTextBody =>
+      'Aa- na Aa+ kwenye kichwa hubadilisha ukubwa wa maandishi. Unaweza pia kubonyeza - kwenye kibodi kuyapunguza na = kuyaongeza. Kusogeza kiotomatiki chini kushoto husogeza sura; tumia alama za kuongeza na kupunguza kuweka kasi, na gusa maandishi kusimamisha.';
+
+  @override
+  String get bibleHowParallelTitle => 'Biblia sambamba';
+
+  @override
+  String get bibleHowParallelBody =>
+      'Pakua Biblia zaidi ya moja na uwashe Kisomaji cha Biblia nyingi kwenye Chaguo za haraka ili kuonyesha tafsiri nyingine chini ya kila mstari.';
+
+  @override
+  String get bibleHowSelectTitle => 'Kuchagua mistari';
+
+  @override
+  String get bibleHowSelectBody =>
+      'Bofya mistari ili kuichagua. Kisha upau wa juu hukuwezesha kuiwekea alamisho au kuiangazia, kuongeza dokezo kwenye mstari mmoja au kuinakili. Bonyeza Esc kughairi uteuzi.';
+
+  @override
+  String get bibleHowSearchTitle => 'Utafutaji';
+
+  @override
+  String get bibleHowSearchBody =>
+      'Utafutaji hupitia kila mstari wa Biblia unayochagua na kukupeleka moja kwa moja kwenye matokeo. Utafutaji uliopita huhifadhiwa kwa matumizi yajayo.';
+
+  @override
+  String get bibleHowHistoryTitle => 'Historia';
+
+  @override
+  String get bibleHowHistoryBody =>
+      'Historia huorodhesha sura ulizosoma na utafutaji uliofanya ili uendelee ulipoishia.';
+
+  @override
+  String get bibleHowBookmarksTitle => 'Alamisho na madokezo';
+
+  @override
+  String get bibleHowBookmarksBody =>
+      'Kila kitu unachowekea alamisho au kuandikia dokezo hukusanywa kwenye Alamisho na madokezo katika paneli ya pembeni, kwenye Biblia zako zote.';
+
+  @override
+  String get bibleHowOpenerTitle => 'Kifungua maandiko';
+
+  @override
+  String get bibleHowOpenerBody =>
+      'Kifungua maandiko kwenye kichwa hufungua kifungu kwa kuandika kitabu, sura na mstari wake. Ongeza vifungu kadhaa kwenye foleni ili kuvifungua kimoja baada ya kingine.';
+
+  @override
+  String get bibleHowListsTitle => 'Orodha za maandiko';
+
+  @override
+  String get bibleHowListsBody =>
+      'Maandiko kwenye paneli ya pembeni huhifadhi orodha za vifungu unavyotumia tena, kama muhtasari wa mahubiri. Bonyeza Cheza kwenye orodha kupitia mistari yake kwa kutumia upau wa foleni ulio chini.';
+
+  @override
+  String get bibleHowManageTitle => 'Kusimamia Biblia';
+
+  @override
+  String get bibleHowManageBody =>
+      'Ongeza, ondoa au chagua tafsiri yako kuu kwenye Mipangilio na Biblia, au kupitia Chagua Biblia kwenye kichwa.';
+
+  @override
+  String get alignmentJustified => 'Nyoosha pande zote';
 }
-
-@override
-String get songSearchHint => 'Tafuta wimbo kwa jina au maneno';
-
-@override
-String get clearAction => 'Futa';
-
-@override
-String get songCopiedClipboard => 'Wimbo umenakiliwa kwenye ubao wa kunakili';
-
-@override
-String get noLikedSongs => 'Bado hujapenda wimbo wowote.';
-
-@override
-String get versesPanel => 'Kidirisha cha mistari';
-
-@override
-String get modulesTitle => 'Moduli';
-
-@override
-String get addSonglib => 'Ongeza SongLib';
-
-@override
-String get songlibSetupSubtitle => 'Sanidi kitabu cha nyimbo cha kanisa lako';
-
-@override
-String get addBiblelib => 'Ongeza BibleLib';
-
-@override
-String get biblelibSetupSubtitle => 'Sanidi tafsiri ya Biblia';
-
-@override
-String get resetData => 'Futa data';
-
-@override
-String get startOverBiblelib => 'Anza upya na BibleLib';
-
-@override
-String get resetChurchlib => 'Futa ChurchLib';
-
-@override
-String get setThemeDialogTitle => 'Weka mandhari';
-
-@override
-String get settingsWindowTitle => 'Mipangilio ya ChurchLib';
-
-@override
-String get moveUp => 'Sogeza juu';
-
-@override
-String get moveDown => 'Sogeza chini';
-
-@override
-String get multiBibleReader => 'Kisomaji cha Biblia nyingi';
-
-@override
-String get noPrimaryBible => 'Bado hujaweka Biblia kuu.';
-
-@override
-String removeBibleQuestion(String bibleName) => 'Uondoe ${bibleName}?';
-
-@override
-String get choosePrimaryBible => 'Chagua Biblia kuu';
-
-@override
-String get closeAction => 'Funga';
-
-@override
-String get managingBibles => 'Kusimamia Biblia zako';
-
-@override
-String get bibleManagementQuestion =>
-    'Je, ungependa kujua jinsi ya kusimamia Biblia zako?';
-
-@override
-String get noThanks => 'Hapana asante';
-
-@override
-String get showMe => 'Nionyeshe';
-
-@override
-String get restartAction => 'Anza upya';
-
-@override
-String get continueAction => 'Endelea';
-
-@override
-String get deleteAction => 'Futa';
-
-@override
-String get howBibleManagementWorks =>
-    'Jinsi usimamizi wa Biblia unavyofanya kazi';
-
-@override
-String get manageBibles => 'Simamia Biblia';
-
-@override
-String get changeSelection => 'Badilisha chaguo';
-
-@override
-String get deleteScriptureListQuestion => 'Ufute orodha hii?';
-
-@override
-String get scriptureListsTitle => 'Orodha za maandiko';
-
-@override
-String get renameList => 'Badilisha jina la orodha';
-
-@override
-String get saveAction => 'Hifadhi';
-
-@override
-String get playAction => 'Cheza';
-
-@override
-String get deleteSelectedQuestion => 'Ufute vilivyochaguliwa?';
-
-@override
-String get bookmarksNotesTitle => 'Alamisho na madokezo';
-
-@override
-String get deleteSelectedTooltip => 'Futa vilivyochaguliwa';
-
-@override
-String get clearAll => 'Futa vyote';
-
-@override
-String get clearReadingHistoryQuestion => 'Ufute historia ya usomaji?';
-
-@override
-String get clearSearchHistoryQuestion => 'Ufute historia ya utafutaji?';
-
-@override
-String get historyTitle => 'Historia';
-
-@override
-String get searchScripturesHint => 'Tafuta maandiko ...';
-
-@override
-String get noDownloadedBiblesToSearch =>
-    'Bado hakuna Biblia zilizopakuliwa za kutafuta.';
-
-@override
-String noSearchResultsForQuery(String query) => 'Hakuna matokeo ya ${query}';
-
-@override
-String get typeAtLeast3Letters => 'Andika angalau herufi 3 kutafuta.';
-
-@override
-String get searchBiblesHint => 'Tafuta jina, kifupi au lugha';
-
-@override
-String get chooseBiblesTitle => 'Chagua Biblia zako';
-
-@override
-String get noBiblesMatch => 'Hakuna Biblia zinazolingana na utafutaji wako';
-
-@override
-String get setupChurchLibTitle => 'Sanidi ChurchLib';
-
-@override
-String get refreshAction => 'Onyesha upya';
-
-@override
-String get backAction => 'Rudi';
-
-@override
-String get finishAction => 'Maliza';
-
-@override
-String get chooseSongbooksTitle => 'Chagua vitabu vyako vya nyimbo';
-
-@override
-String get gettingEverythingReady => 'Tunaandaa kila kitu…';
-
-@override
-String get unableDownloadSongs => 'Imeshindwa kupakua nyimbo';
-
-@override
-String get retryAction => 'Jaribu tena';
-
-@override
-String get songlibDescription =>
-    'Kitabu cha nyimbo na tenzi za kanisa, bila intaneti';
-
-@override
-String get biblelibDescription => 'Kisomaji cha Biblia chenye tafsiri nyingi';
-
-@override
-String get previousAction => 'Iliyotangulia';
-
-@override
-String get previousChapterTooltip => 'Sura iliyotangulia (Alt + ←)';
-
-@override
-String chapterNumberLabel(int chapterNumber) => 'Sura ya ${chapterNumber}';
-
-@override
-String get pickChapter => 'Chagua sura';
-
-@override
-String get nextAction => 'Inayofuata';
-
-@override
-String get nextChapterTooltip => 'Sura inayofuata (Alt + →)';
-
-@override
-String get quickOptions => 'Chaguo za haraka';
-
-@override
-String get smallerText => 'Maandishi madogo';
-
-@override
-String get largerText => 'Maandishi makubwa';
-
-@override
-String get slower => 'Polepole zaidi';
-
-@override
-String get faster => 'Haraka zaidi';
-
-@override
-String get switchPrimaryBible => 'Badilisha Biblia yako kuu';
-
-@override
-String get pickBibleBook => 'Chagua kitabu cha Biblia';
-
-@override
-String get scriptureOpener => 'Kifungua maandiko';
-
-@override
-String get closeScriptureQueue => 'Funga foleni ya maandiko';
-
-@override
-String get previousScripture => 'Andiko lililotangulia';
-
-@override
-String get nextScripture => 'Andiko linalofuata';
-
-@override
-String get chooseHighlightColor => 'Chagua rangi ya kuangazia';
-
-@override
-String get bookmarkVerses => 'Weka alamisho kwenye mistari';
-
-@override
-String get bookmarkOnly => 'Weka alamisho pekee';
-
-@override
-String get bookmarkWithNotes => 'Weka alamisho na madokezo';
-
-@override
-String get saveNote => 'Hifadhi dokezo';
-
-@override
-String get writeVerseThoughts => 'Andika mawazo yako kuhusu mstari huu...';
-
-@override
-String get noBooksFound => 'Hakuna vitabu vilivyopatikana';
-
-@override
-String get searchBooksHint => 'Tafuta vitabu...';
-
-@override
-String fontSizeLabel(int size) => 'Ukubwa wa herufi: ${size}';
-
-@override
-String get copyTextToClipboard => 'Imenakiliwa kwenye ubao wa kunakili';
-
-@override
-String get cancelVerseSelection => 'Ghairi uteuzi (Esc)';
-
-@override
-String get bookmarkHighlight => 'Weka alamisho / angazia';
-
-@override
-String get copyAction => 'Nakili';
-
-@override
-String get backButton => 'RUDI';
-
-@override
-String versionUpdateBanner(String latest, String current) =>
-    'Toleo ${latest} limetoka (unatumia ${current}).';
-
-@override
-String get noBiblesDownloaded => 'Bado hakuna Biblia iliyopakuliwa.';
-
-@override
-String get bibleDataUnavailable =>
-    'Data ya Biblia haipatikani. Subiri upakuaji ukamilike.';
-
-@override
-String noChaptersFound(String bookName) =>
-    'Hakuna sura zilizopatikana kwa ${bookName}';
-
-@override
-String get versesNotCached =>
-    'Mistari haijahifadhiwa. Hakikisha upakuaji umekamilika.';
-
-@override
-String get readerLoadFailed =>
-    'Imeshindwa kupakia maudhui haya ya Biblia. Tafadhali jaribu tena.';
-
-@override
-String get noBooksForBible => 'Hakuna vitabu vilivyopatikana kwa Biblia hii.';
-
-@override
-String get scriptureListsFailed => 'Imeshindwa kupakia orodha za maandiko.';
-
-@override
-String get scriptureListNotFound => 'Orodha hii ya maandiko haikupatikana.';
-
-@override
-String get songSearchFailed => 'Imeshindwa kuonyesha nyimbo';
-
-@override
-String get showVersesPanel =>
-    'Onyesha kila mstari wa wimbo kando ya slaidi wakati wa kuwasilisha';
-
-@override
-String get startOverBiblelibQuestion => 'Uanze upya na BibleLib?';
-
-@override
-String get startOverBiblelibMessage =>
-    'Hii itafuta Biblia zote zilizopakuliwa, alamisho na madokezo. Huwezi kutendua kitendo hiki.';
-
-@override
-String get resetChurchlibQuestion => 'Ufute ChurchLib?';
-
-@override
-String get resetChurchlibMessage =>
-    'Hii itafuta kila kitu — vitabu vya nyimbo, Biblia, alamisho, madokezo na mipangilio — na kukurudisha kwenye usanidi. Huwezi kutendua kitendo hiki.';
-
-@override
-String get resetBibleSubtitle =>
-    'Futa Biblia zote zilizopakuliwa na uchague tafsiri tena';
-
-@override
-String get resetChurchSubtitle =>
-    'Futa kila kitu — vitabu vya nyimbo, Biblia na alamisho — kisha anza upya';
-
-@override
-String get appearanceTitle => 'Mwonekano';
-
-@override
-String get generalTitle => 'Jumla';
-
-@override
-String get presentationNavTitle => 'Uwasilishaji';
-
-@override
-String get biblesNavTitle => 'Biblia';
-
-@override
-String get updateAvailable => 'Sasisho linapatikana';
-
-@override
-String songNumberLabel(int songNumber) => 'Wimbo #${songNumber}';
-
-@override
-String get backEscapeTooltip => 'Rudi (Esc)';
-
-@override
-String get stopAction => 'Simamisha';
-
-@override
-String get doneAction => 'Imekamilika';
-
-@override
-String get reorderAction => 'Panga upya';
-
-@override
-String get removeFromSecondary => 'Ondoa kwenye Biblia za ziada';
-
-@override
-String secondaryBibleCount(int count) => 'Biblia ${count} za ziada';
-
-@override
-String get oneSecondaryBible => 'Biblia 1 ya ziada';
-
-@override
-String get hoverRemoveBible => 'Elekeza kishale kwenye Biblia ili kuiondoa';
-
-@override
-String get downloadFailedStatus => ' · Upakuaji umeshindwa';
-
-@override
-String get fetchingVersesStatus => ' · Inapakua mistari';
-
-@override
-String get downloadStoppedStatus => ' · Upakuaji umesimama';
-
-@override
-String biblePrimaryLabel(String language) => 'BIBLIA YA ${language} • KUU';
-
-@override
-String bibleLanguageLabel(String language) => 'BIBLIA YA ${language}';
-
-@override
-String get bibleManagementInfo =>
-    'Unaweza kuongeza Biblia kwenye Kisomaji cha Biblia nyingi kwa kuelekeza kishale juu yake katika "Biblia nyingine" na kuchagua "Weka kama ya ziada". Elekeza kishale tena na uchague "Ondoa kwenye Biblia za ziada" ili kuiondoa.\n\nIli kufuta Biblia kwenye kifaa chako, elekeza kishale juu yake, chagua "Futa" na uthibitishe.\n\nIli kuongeza au kuondoa tafsiri kwenye maktaba yako, chagua "Badilisha chaguo" hapa chini.';
-
-@override
-String get deleteBibleMessage =>
-    'Hii itafuta maudhui yote yaliyopakuliwa ya Biblia hii kwenye kifaa chako. Huwezi kutendua kitendo hiki.';
-
-@override
-String get primaryBible => 'Biblia kuu';
-
-@override
-String get clickToChange => 'Bofya ili kubadilisha';
-
-@override
-String get secondaryBiblesTitle => 'Biblia za ziada';
-
-@override
-String get otherBiblesTitle => 'Biblia nyingine';
-
-@override
-String get setAsSecondary => 'Weka kama ya ziada';
-
-@override
-String get renameAction => 'Badilisha jina';
-
-@override
-String get themeLabel => 'Mandhari';
-
-@override
-String get themeSystem => 'Mfumo';
-
-@override
-String get smallerTextTooltip => 'Maandishi madogo (-)';
-
-@override
-String get largerTextTooltip => 'Maandishi makubwa (=)';
-
-@override
-String get clearSearchHistory => 'Futa historia ya utafutaji';
-
-@override
-String get noSearchHistory => 'Bado hakuna historia ya utafutaji.';
-
-@override
-String get noReadingHistory => 'Bado hakuna historia ya usomaji.';
-
-@override
-String get hoverSetSecondary =>
-    'Elekeza kishale kwenye Biblia ili kuiweka kama ya ziada';
-
-@override
-String get bibleManagementPrompt =>
-    'Jifunze jinsi ya kuongeza au kuondoa Biblia kwenye Kisomaji cha Biblia nyingi na jinsi ya kuongeza tafsiri kwenye maktaba yako.';
-
-@override
-String get multiBibleDescription =>
-    'Soma tafsiri sambamba na maandishi yako makuu';
-
-@override
-String get manageYourBibles => 'Simamia Biblia zako';
-
-@override
-String get historyReading => 'Usomaji';
-
-@override
-String get historySearches => 'Utafutaji';
-
-@override
-String get noSearchesYet => 'Bado hakuna utafutaji.';
-
-@override
-String get clearReadingHistoryMessage =>
-    'Hii itafuta kabisa historia yako ya usomaji. Huwezi kutendua kitendo hiki.';
-
-@override
-String get clearSearchHistoryMessage =>
-    'Hii itafuta kabisa historia yako ya utafutaji. Huwezi kutendua kitendo hiki.';
-
-@override
-String get recentSearches => 'Utafutaji wa hivi karibuni';
-
-@override
-String searchResultCount(int count) => 'Matokeo ${count}';
-
-@override
-String get deleteListMessage => 'Huwezi kutendua kitendo hiki.';
-
-@override
-String get noScriptureLists =>
-    'Bado hakuna orodha za maandiko zilizohifadhiwa.\nTengeneza moja kwenye Kifungua maandiko.';
-
-@override
-String scriptureCount(int count) => 'Maandiko ${count}';
-
-@override
-String get scriptureListTitle => 'Orodha ya maandiko';
-
-@override
-String get renameTooltip => 'Badilisha jina';
-
-@override
-String get clearAllBookmarksQuestion => 'Ufute alamisho zote?';
-
-@override
-String get clearAllNotesQuestion => 'Ufute madokezo yote?';
-
-@override
-String deleteSelectedCountMessage(int count) =>
-    'Hii itafuta kabisa vipengee ${count} vilivyochaguliwa. Huwezi kutendua kitendo hiki.';
-
-@override
-String get clearBookmarksMessage =>
-    'Hii itafuta kabisa alamisho zako zote katika Biblia zote. Huwezi kutendua kitendo hiki.';
-
-@override
-String get clearNotesMessage =>
-    'Hii itafuta kabisa madokezo yako yote katika Biblia zote. Huwezi kutendua kitendo hiki.';
-
-@override
-String get bookmarksTab => 'Alamisho';
-
-@override
-String get notesTab => 'Madokezo';
-
-@override
-String get readingTab => 'Usomaji';
-
-@override
-String get noSavedScriptureLists =>
-    'Bado hakuna orodha za maandiko zilizohifadhiwa.\nTengeneza moja kwenye Kifungua maandiko.';
-
-@override
-String get welcomeToChurchLib => 'Karibu ChurchLib';
-
-@override
-String get chooseModulesPrompt =>
-    'Chagua unachotaka kusanidi. Unaweza kuongeza kingine baadaye kwenye Mipangilio.';
-
-@override
-String biblesSelectedCount(int count, int max, String noun) =>
-    '${count} kati ya ${max} ${noun} zimechaguliwa';
-
-@override
-String get songbooksNoun => 'vitabu vya nyimbo';
-
-@override
-String get biblesNoun => 'Biblia';
-
-@override
-String get firstPickPrimaryBible => 'Chaguo lako la kwanza litakuwa Biblia kuu';
-
-@override
-String songbookSelectionLimit(int count) =>
-    'Unaweza kuchagua hadi vitabu ${count} vya nyimbo';
-
-@override
-String get continueUpper => 'ENDELEA';
-
-@override
-String get finishUpper => 'MALIZA';
-
-@override
-String get almostThere => 'Karibu tumalize';
-
-@override
-String percentDownloaded(int percent) => '${percent}% imepakuliwa';
-
-@override
-String get savingYourSongs => 'Hifadhi nyimbo zako';
-
-@override
-String get fetchingYourSongs => 'Inapakua nyimbo zako…';
-
-@override
-String get momentOnly => 'Hii itachukua muda mfupi tu';
-
-@override
-String get downloadingPrimaryBible => 'Inapakua Biblia yako kuu';
-
-@override
-String get bibleWord => 'Biblia';
-
-@override
-String get otherBiblesBackground =>
-    'Biblia zako nyingine zitapakuliwa chinichini.';
-
-@override
-String get autoScrollAction => 'Kusogeza kiotomatiki';
-
-@override
-String get stopScrollAction => 'Simamisha kusogeza';
-
-@override
-String get startAutoScroll => 'Anza kusogeza kiotomatiki';
-
-@override
-String get stopAutoScroll => 'Simamisha kusogeza kiotomatiki';
-
-@override
-String get oldTestament => 'Agano la Kale';
-
-@override
-String get newTestament => 'Agano Jipya';
-
-@override
-String get showOtherBibles =>
-    'Onyesha Biblia zako nyingine chini ya kila mstari';
-
-@override
-String get downloadBibleToUse =>
-    'Pakua Biblia nyingine ili kutumia chaguo hili';
-
-@override
-String get addNoteAction => 'Ongeza dokezo';
-
-@override
-String get selectSingleVerseNote => 'Chagua mstari mmoja ili kuongeza dokezo';
-
-@override
-String selectedCount(int count) => '${count} zimechaguliwa';
-
-@override
-String get firstSetupMessage =>
-    'Chagua unachotaka kusanidi. Unaweza kuongeza moduli nyingine baadaye kwenye Mipangilio.';
-
-@override
-String get bookmarkOptionsPrompt =>
-    'Ungependa kuweka alamisho kwenye mistari hii pekee au kuongeza dokezo pia?';
-
-@override
-String howModuleWorks(String moduleName) =>
-    'Jinsi ${moduleName} inavyofanya kazi';
-
-@override
-String switchToModule(String moduleName) => 'Badilisha kwenda ${moduleName}';
-
-@override
-String get songHowFindTitle => 'Kutafuta wimbo';
-
-@override
-String get songHowFindBody =>
-    'Andika kwenye kisanduku cha utafutaji kilicho juu ili kupata wimbo kwa nambari, jina au maneno yake. Bonyeza S popote ili kwenda kwenye kisanduku. Vichujio vilivyo juu ya orodha hupunguza nyimbo hadi kitabu kimoja cha nyimbo.';
-
-@override
-String get songHowReadTitle => 'Kusoma wimbo';
-
-@override
-String get songHowReadBody =>
-    'Chagua wimbo kwenye orodha ili mistari yake ionekane upande wa kulia. Jina la wimbo na kitabu chake vitaonekana juu ya dirisha.';
-
-@override
-String get songHowPresentTitle => 'Kuwasilisha';
-
-@override
-String get songHowPresentBody =>
-    'Bofya wimbo mara mbili, bonyeza Enter au uchague Wasilisha wimbo kwenye Chaguo za haraka ili kuufungua kwenye kioneshi. Pitia mistari slaidi moja baada ya nyingine; badilisha mwelekeo wa slaidi kwenye Mipangilio. Maneno hupangwa yatoshe skrini. Kitufe cha orodha kwenye kichwa cha kioneshi huonyesha mistari yote kwenye paneli ya pembeni na kuangazia mstari wa sasa. Paneli huanza ikiwa wazi; bonyeza kitufe tena kuificha.';
-
-@override
-String get songHowKeysTitle => 'Vifunguo vya kioneshi';
-
-@override
-String get songHowKeysBody =>
-    'Mshale wa kulia au chini: slaidi inayofuata.\nMshale wa kushoto au juu: slaidi iliyotangulia.\n1 hadi 7: nenda kwenye mstari huo.\nC: nenda kwenye kiitikio.\nL: nenda kwenye slaidi ya mwisho.\n- : punguza maandishi.\n= : ongeza maandishi kadiri mstari mrefu zaidi unavyotoshea.\nEsc: funga kioneshi.';
-
-@override
-String get songHowQuickTitle => 'Chaguo za haraka';
-
-@override
-String get songHowQuickBody =>
-    'Kitufe cha Chaguo za haraka kilicho chini kulia huonyesha unachoweza kufanya na wimbo uliochaguliwa: kunakili maneno yake, kuupenda au kuuwasilisha.';
-
-@override
-String get songHowLikesTitle => 'Vinavyopendwa';
-
-@override
-String get songHowLikesBody =>
-    'Nyimbo unazopenda hukusanywa kwenye Vinavyopendwa kwenye paneli ya pembeni ili uweze kuzifungua haraka.';
-
-@override
-String get songHowBooksTitle => 'Vitabu vya nyimbo na masasisho';
-
-@override
-String get songHowBooksBody =>
-    'Vitabu vyako vya nyimbo huhifadhiwa kwenye kifaa hiki na kusasishwa chinichini ukiwa mtandaoni. Ili kuchagua vitabu tofauti, fungua Mipangilio kisha uchague Vitabu vya nyimbo.';
-
-@override
-String get bibleHowReadingTitle => 'Kusoma';
-
-@override
-String get bibleHowReadingBody =>
-    'Tumia kitufe cha Biblia kilicho juu kubadilisha tafsiri na kitufe cha sura kwenda sura nyingine. Vilivyo chini vya Iliyotangulia na Inayofuata husogeza sura moja moja, au bonyeza Alt pamoja na mshale wa kushoto au kulia. Mishale ya juu na chini husogeza sura. Vifunguo hivi hufanya kazi tu BibleLib ikiwa wazi.';
-
-@override
-String get bibleHowTextTitle => 'Ukubwa wa maandishi na kusogeza kiotomatiki';
-
-@override
-String get bibleHowTextBody =>
-    'Aa- na Aa+ kwenye kichwa hubadilisha ukubwa wa maandishi. Unaweza pia kubonyeza - kwenye kibodi kuyapunguza na = kuyaongeza. Kusogeza kiotomatiki chini kushoto husogeza sura; tumia alama za kuongeza na kupunguza kuweka kasi, na gusa maandishi kusimamisha.';
-
-@override
-String get bibleHowParallelTitle => 'Biblia sambamba';
-
-@override
-String get bibleHowParallelBody =>
-    'Pakua Biblia zaidi ya moja na uwashe Kisomaji cha Biblia nyingi kwenye Chaguo za haraka ili kuonyesha tafsiri nyingine chini ya kila mstari.';
-
-@override
-String get bibleHowSelectTitle => 'Kuchagua mistari';
-
-@override
-String get bibleHowSelectBody =>
-    'Bofya mistari ili kuichagua. Kisha upau wa juu hukuwezesha kuiwekea alamisho au kuiangazia, kuongeza dokezo kwenye mstari mmoja au kuinakili. Bonyeza Esc kughairi uteuzi.';
-
-@override
-String get bibleHowSearchTitle => 'Utafutaji';
-
-@override
-String get bibleHowSearchBody =>
-    'Utafutaji hupitia kila mstari wa Biblia unayochagua na kukupeleka moja kwa moja kwenye matokeo. Utafutaji uliopita huhifadhiwa kwa matumizi yajayo.';
-
-@override
-String get bibleHowHistoryTitle => 'Historia';
-
-@override
-String get bibleHowHistoryBody =>
-    'Historia huorodhesha sura ulizosoma na utafutaji uliofanya ili uendelee ulipoishia.';
-
-@override
-String get bibleHowBookmarksTitle => 'Alamisho na madokezo';
-
-@override
-String get bibleHowBookmarksBody =>
-    'Kila kitu unachowekea alamisho au kuandikia dokezo hukusanywa kwenye Alamisho na madokezo katika paneli ya pembeni, kwenye Biblia zako zote.';
-
-@override
-String get bibleHowOpenerTitle => 'Kifungua maandiko';
-
-@override
-String get bibleHowOpenerBody =>
-    'Kifungua maandiko kwenye kichwa hufungua kifungu kwa kuandika kitabu, sura na mstari wake. Ongeza vifungu kadhaa kwenye foleni ili kuvifungua kimoja baada ya kingine.';
-
-@override
-String get bibleHowListsTitle => 'Orodha za maandiko';
-
-@override
-String get bibleHowListsBody =>
-    'Maandiko kwenye paneli ya pembeni huhifadhi orodha za vifungu unavyotumia tena, kama muhtasari wa mahubiri. Bonyeza Cheza kwenye orodha kupitia mistari yake kwa kutumia upau wa foleni ulio chini.';
-
-@override
-String get bibleHowManageTitle => 'Kusimamia Biblia';
-
-@override
-String get bibleHowManageBody =>
-    'Ongeza, ondoa au chagua tafsiri yako kuu kwenye Mipangilio na Biblia, au kupitia Chagua Biblia kwenye kichwa.';
-
-@override
-String get alignmentJustified => 'Nyoosha pande zote';
