@@ -32,8 +32,9 @@ class AppWindow {
 
   static Future<void> setFullScreen(bool value) async {
     final window = _current;
-    if (window == null) return;
-    window.setFullScreen(value);
+    try {
+      window?.setFullScreen(value);
+    } catch (_) {}
     _publish(value);
   }
 
@@ -51,9 +52,15 @@ class AppWindow {
 
   static Future<void> toggleFullScreen() async {
     final window = _current;
-    if (window == null) return;
-    final value = !window.isFullScreen();
-    window.setFullScreen(value);
+    var value = !fullScreen.value;
+    try {
+      if (window != null) {
+        value = !window.isFullScreen();
+        window.setFullScreen(value);
+      }
+    } catch (_) {
+      value = !fullScreen.value;
+    }
     _publish(value);
   }
 }

@@ -32,7 +32,9 @@ class PresentationToggle extends StatelessWidget {
       listenable: presentation,
       builder: (context, _) {
         final isCurrentSource =
-            presentation.active && presentation.session.value?.kind == kind;
+            presentation.active &&
+            presentation.hasExtendedDisplay &&
+            presentation.session.value?.kind == kind;
         final label = isCurrentSource
             ? l10n.presentationStop
             : kind == PresentationKind.bible
@@ -45,7 +47,6 @@ class PresentationToggle extends StatelessWidget {
                   return;
                 }
                 await onPresent?.call();
-                if (!presentation.active) presentation.start();
               }
             : null;
         if (iconOnly) {

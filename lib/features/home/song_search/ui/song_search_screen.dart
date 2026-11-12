@@ -21,6 +21,7 @@ import '../../../../data/sources/remote/song/api_service.dart';
 import '../../../../l10n/gen/app_localizations.dart';
 import '../../../song/likes/likes_screen.dart';
 import '../../../song/songs/songs_screen.dart';
+import '../../../presentation/controller/presentation_controller.dart';
 import '../../../presentation/controller/presentation_sources.dart';
 import '../../../presentation/ui/presentation_toggle.dart';
 import '../../main/shell/app_module.dart';
@@ -97,9 +98,13 @@ class SongSearchScreenState extends State<SongSearchScreen> {
   }
 
   Future<void> presentSelected() async {
-    final song = selectedSong;
-    if (song.songId == 0) return;
-    await presentSong(song);
+    if (selectedSong.songId == 0) return;
+    if (!PresentationController.instance.hasExtendedDisplay) {
+      PresentationController.instance.stop();
+      await openFullScreenPresenter();
+      return;
+    }
+    await presentSong(selectedSong);
   }
 
   Future<void> openFullScreenPresenter() async {
