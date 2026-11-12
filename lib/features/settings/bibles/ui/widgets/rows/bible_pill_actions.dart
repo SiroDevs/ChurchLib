@@ -8,6 +8,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../utils/bible_action.dart';
 
+/// Download controls shown inside a Bible library pill.
 class BiblePillDownloadButtons extends StatelessWidget {
   const BiblePillDownloadButtons({
     super.key,
@@ -78,6 +79,7 @@ class BiblePillDownloadButtons extends StatelessWidget {
   }
 }
 
+/// Hover actions shown for a completed Bible download.
 class BiblePillActionBar extends StatelessWidget {
   const BiblePillActionBar({
     super.key,

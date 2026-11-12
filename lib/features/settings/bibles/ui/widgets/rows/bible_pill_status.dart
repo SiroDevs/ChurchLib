@@ -9,6 +9,7 @@ import '../../../../../../data/models/bible/bible_version.dart';
 import '../../../../../../l10n/gen/app_localizations.dart';
 import '../../../utils/bible_action.dart';
 
+/// Progress or abbreviation badge for a Bible download.
 class BiblePillBadge extends StatelessWidget {
   const BiblePillBadge({
     super.key,
@@ -67,6 +68,7 @@ class BiblePillBadge extends StatelessWidget {
   }
 }
 
+/// Language and download state displayed beneath a Bible name.
 class BiblePillStatus extends StatelessWidget {
   const BiblePillStatus({
     super.key,
