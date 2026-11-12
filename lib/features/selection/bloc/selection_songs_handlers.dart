@@ -20,7 +20,7 @@ mixin SongSelectionHandlers on Bloc<SelectionEvent, SelectionState> {
     Emitter<SelectionState> emit,
   ) async {
     emit(state.copyWith(booksStatus: LoadStatus.loading));
-    if (!await NetworkUtil.hasInternetConnection()) {
+    if (!await NetworkUtil.hasNetworkConnectionNow()) {
       emit(state.copyWith(booksStatus: LoadStatus.noInternet));
       return;
     }
@@ -95,7 +95,7 @@ mixin SongSelectionHandlers on Bloc<SelectionEvent, SelectionState> {
 
   Future<bool> _saveSongs(Emitter<SelectionState> emit) async {
     emit(state.copyWith(songsPhase: SongsPhase.fetching, songsProgress: 0));
-    if (!await NetworkUtil.hasInternetConnection()) {
+    if (!await NetworkUtil.hasNetworkConnectionNow()) {
       emit(state.copyWith(songsPhase: SongsPhase.noInternet));
       return false;
     }

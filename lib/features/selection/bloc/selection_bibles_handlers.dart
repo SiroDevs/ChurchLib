@@ -20,7 +20,7 @@ mixin BibleSelectionHandlers on Bloc<SelectionEvent, SelectionState> {
     Emitter<SelectionState> emit,
   ) async {
     emit(state.copyWith(bibleStatus: BibleStatus.loading));
-    if (!await NetworkUtil.hasInternetConnection()) {
+    if (!await NetworkUtil.hasNetworkConnectionNow()) {
       emit(
         state.copyWith(
           bibleStatus: BibleStatus.error,

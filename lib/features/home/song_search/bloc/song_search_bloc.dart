@@ -30,7 +30,7 @@ class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
   final _dbRepo = getIt<DatabaseRepo>();
 
   Future<void> _onSyncData(SyncData event, Emitter<SongSearchState> emit) async {
-    if (await NetworkUtil.hasInternetConnection()) {
+    if (await NetworkUtil.hasNetworkConnectionNow()) {
       try {
         await _syncRepo.syncData();
         var books = await _dbRepo.fetchBooks();

@@ -12,8 +12,9 @@ import '../../../../common/utils/network/http_utils.dart';
 Future<bool> isConnectedToInternet() async {
   try {
     final connectivityResult = await Connectivity().checkConnectivity();
-    // ignore: unrelated_type_equality_checks
-    if (connectivityResult == ConnectivityResult.none) return false;
+    if (!connectivityResult.any((result) => result != ConnectivityResult.none)) {
+      return false;
+    }
 
     final result = await InternetAddress.lookup('example.com');
     return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
