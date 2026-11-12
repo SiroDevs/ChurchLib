@@ -20,6 +20,8 @@ abstract class DatabaseRepo {
 
   Future<void> saveSong(Song song);
 
+  Future<void> replaceSongsForBooks(List<int> bookIds, List<Song> songs);
+
   Future<void> updateSong(
     int rid,
     String title,
@@ -28,12 +30,7 @@ abstract class DatabaseRepo {
     String updated,
   );
 
-  Future<void> syncSong(
-    int rid,
-    String title,
-    String content,
-    String updated,
-  );
+  Future<void> syncSong(int rid, String title, String content, String updated);
 
   Future<void> removeSong(Song song);
 

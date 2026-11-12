@@ -280,6 +280,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noSongSelected => 'No song item has been selected';
 
   @override
+  String get noSongbooksAvailable =>
+      'No songbooks are available. Select songbooks to set up SongLib.';
+
+  @override
+  String get noSongsInSongbook => 'No songs are available in this songbook.';
+
+  @override
   String get selectSongsAfresh => 'Select Songs Afresh';
 
   @override

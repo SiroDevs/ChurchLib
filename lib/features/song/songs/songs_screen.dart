@@ -14,6 +14,7 @@ import '../../../common/widgets/list_items/search_song_item.dart';
 import '../../../core/theme/theme_styles.dart';
 import '../../../data/models/song/songbook.dart';
 import '../../../data/models/song/songext.dart';
+import '../../../l10n/gen/app_localizations.dart';
 import '../../home/main/shell/app_module.dart';
 import '../../home/main/shell/module_focus.dart';
 import '../../home/song_search/bloc/song_search_bloc.dart';
@@ -54,27 +55,34 @@ class _SongsScreenState extends State<SongsScreen> {
     return LayoutBuilder(
       builder: (context, dimens) {
         final outline = Theme.of(context).colorScheme.outlineVariant;
+        final l10n = AppLocalizations.of(context)!;
         var bigScreenView = Row(
           children: [
             Column(
-              children: [
-                BooksList(
-                  books: parent.books,
-                  selectedBook: parent.selectedBook,
-                ),
-                SongsList(
-                  selectedSong: parent.selectedSong,
-                  songs: parent.filtered,
-                  onTap: onSongSelect,
-                  isBigScreen: true,
-                ).expanded(),
-              ],
-            )
+                  children: [
+                    BooksList(
+                      books: parent.books,
+                      selectedBook: parent.selectedBook,
+                    ),
+                    if (parent.filtered.isEmpty)
+                      Text(l10n.noSongsInSongbook).center().expanded()
+                    else
+                      SongsList(
+                        selectedSong: parent.selectedSong,
+                        songs: parent.filtered,
+                        onTap: onSongSelect,
+                        isBigScreen: true,
+                      ).expanded(),
+                  ],
+                )
                 .decorated(
                   border: Border(right: BorderSide(color: outline)),
                 )
                 .expanded(),
-            SongViewer(song: parent.selectedSong).expanded(),
+            (parent.selectedSong.songId == 0
+                    ? Text(l10n.noSongSelected).center()
+                    : SongViewer(song: parent.selectedSong))
+                .expanded(),
           ],
         );
         return Shortcuts(

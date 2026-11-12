@@ -638,6 +638,18 @@ abstract class AppLocalizations {
   /// **'No song item has been selected'**
   String get noSongSelected;
 
+  /// Shown when the local song library has no songbooks
+  ///
+  /// In en, this message translates to:
+  /// **'No songbooks are available. Select songbooks to set up SongLib.'**
+  String get noSongbooksAvailable;
+
+  /// Shown when the selected songbook has no songs
+  ///
+  /// In en, this message translates to:
+  /// **'No songs are available in this songbook.'**
+  String get noSongsInSongbook;
+
   /// Action to select songs again
   ///
   /// In en, this message translates to:

@@ -361,6 +361,14 @@
     "@noSongSelected": {
         "description": "Error message when no song is selected"
     },
+    "noSongbooksAvailable": "No songbooks are available. Select songbooks to set up SongLib.",
+    "@noSongbooksAvailable": {
+        "description": "Shown when the local song library has no songbooks"
+    },
+    "noSongsInSongbook": "No songs are available in this songbook.",
+    "@noSongsInSongbook": {
+        "description": "Shown when the selected songbook has no songs"
+    },
     "selectSongsAfresh": "Select Songs Afresh",
     "@selectSongsAfresh": {
         "description": "Action to select songs again"

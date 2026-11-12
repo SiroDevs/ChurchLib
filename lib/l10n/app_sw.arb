@@ -12,6 +12,14 @@
   "@likesTitle": {
     "description": "Kichwa cha sehemu ya nyimbo zilizopendwa"
   },
+  "noSongbooksAvailable": "Hakuna vitabu vya nyimbo. Chagua vitabu vya nyimbo ili kusanidi SongLib.",
+  "@noSongbooksAvailable": {
+    "description": "Shown when the local song library has no songbooks"
+  },
+  "noSongsInSongbook": "Hakuna nyimbo kwenye kitabu hiki cha nyimbo.",
+  "@noSongsInSongbook": {
+    "description": "Shown when the selected songbook has no songs"
+  },
   "historiesTitle": "Historia",
   "@historiesTitle": {
     "description": "Kichwa cha sehemu ya historia ya nyimbo"

@@ -31,6 +31,8 @@ import '../bloc/song_search_bloc.dart';
 import 'widgets/song_search_loading.dart';
 
 part 'widgets/search_widget.dart';
+part 'widgets/song_search_data_handlers.dart';
+part 'widgets/song_search_fullscreen_handlers.dart';
 part 'widgets/song_title_bar.dart';
 
 class SongSearchScreen extends StatefulWidget {
@@ -63,19 +65,8 @@ class SongSearchScreenState extends State<SongSearchScreen> {
   @override
   void initState() {
     super.initState();
-    selectedSong = SongExt(0, 0, 0, 0, '', '', '', 0, 0, false, '');
+    selectedSong = _emptySong();
     AppWindow.fullScreen.addListener(_onFullScreenChanged);
-  }
-
-  void _onFullScreenChanged() {
-    if (!AppWindow.fullScreen.value || _presenting || !mounted) return;
-    final current = HomeModuleScope.maybeOf(context)?.current;
-    if (current != null && current != AppModule.songlib) return;
-    if (selectedSong.songId == 0 || books.isEmpty) {
-      AppWindow.setFullScreen(false);
-      return;
-    }
-    openFullScreenPresenter();
   }
 
   @override
@@ -144,18 +135,19 @@ class SongSearchScreenState extends State<SongSearchScreen> {
         listener: (context, state) {
           _bloc = context.read<SongSearchBloc>();
           if (state is DataSyncedState) {
-            books = state.books;
-            songs = state.songs;
-            _bloc.add(FilterData(books[selectedBook]));
+            _onBooksLoaded(state.books, state.songs);
           } else if (state is DataFetchedState) {
-            books = state.books;
-            songs = state.songs;
-            _bloc.add(FilterData(books[selectedBook]));
+            _onBooksLoaded(state.books, state.songs);
           } else if (state is FilteredState) {
             likes = state.likes;
             filtered = state.songs;
-            selectedBook = books.indexOf(state.book);
-            selectedSong = state.songs[0];
+            selectedBook = books.indexWhere(
+              (book) => book.bookId == state.book.bookId,
+            );
+            if (selectedBook < 0) selectedBook = 0;
+            selectedSong = state.songs.isEmpty
+                ? _emptySong()
+                : state.songs.first;
             dataReady = true;
           } else if (state is LoadedState) {
             dataReady = true;
@@ -167,6 +159,9 @@ class SongSearchScreenState extends State<SongSearchScreen> {
           }
         },
         builder: (context, state) {
+          if (dataReady && books.isEmpty) {
+            return _emptyLibrary(l10n);
+          }
           final onSearchPage = currentPage == PageType.search;
           final homeView = AppShell(
             module: AppModule.songlib,

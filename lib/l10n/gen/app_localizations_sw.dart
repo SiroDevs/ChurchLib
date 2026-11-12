@@ -280,6 +280,14 @@ class AppLocalizationsSw extends AppLocalizations {
   String get noSongSelected => 'No song item has been selected';
 
   @override
+  String get noSongbooksAvailable =>
+      'Hakuna vitabu vya nyimbo. Chagua vitabu vya nyimbo ili kusanidi SongLib.';
+
+  @override
+  String get noSongsInSongbook =>
+      'Hakuna nyimbo kwenye kitabu hiki cha nyimbo.';
+
+  @override
   String get selectSongsAfresh => 'Select Songs Afresh';
 
   @override
