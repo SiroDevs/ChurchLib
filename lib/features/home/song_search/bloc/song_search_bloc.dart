@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/utils/network/network_utils.dart';
-import '../../../../core/di/injectable.dart';
 import '../../../../data/models/models.dart';
 import '../../../../domain/repos/database_repo.dart';
 import '../../../../domain/repos/pref_repo.dart';
@@ -18,18 +17,28 @@ part 'song_search_event.dart';
 part 'song_search_state.dart';
 
 class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
-  SongSearchBloc() : super(const InitialState()) {
+  SongSearchBloc({
+    required SongSyncRepo syncRepo,
+    required PrefRepo prefRepo,
+    required DatabaseRepo databaseRepo,
+  }) : _syncRepo = syncRepo,
+       _prefRepo = prefRepo,
+       _dbRepo = databaseRepo,
+       super(const InitialState()) {
     on<SyncData>(_onSyncData);
     on<FetchData>(_onFetchData);
     on<FilterData>(_onFilterData);
     on<ResetData>(_onResetData);
   }
 
-  final _syncRepo = SongSyncRepo();
-  final _prefRepo = getIt<PrefRepo>();
-  final _dbRepo = getIt<DatabaseRepo>();
+  final SongSyncRepo _syncRepo;
+  final PrefRepo _prefRepo;
+  final DatabaseRepo _dbRepo;
 
-  Future<void> _onSyncData(SyncData event, Emitter<SongSearchState> emit) async {
+  Future<void> _onSyncData(
+    SyncData event,
+    Emitter<SongSearchState> emit,
+  ) async {
     if (await NetworkUtil.hasNetworkConnectionNow()) {
       try {
         await _syncRepo.syncData();
@@ -45,7 +54,10 @@ class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
     }
   }
 
-  Future<void> _onFetchData(FetchData event, Emitter<SongSearchState> emit) async {
+  Future<void> _onFetchData(
+    FetchData event,
+    Emitter<SongSearchState> emit,
+  ) async {
     emit(FetchingState());
     try {
       var books = await _dbRepo.fetchBooks();
@@ -57,7 +69,10 @@ class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
     }
   }
 
-  Future<void> _onFilterData(FilterData event, Emitter<SongSearchState> emit) async {
+  Future<void> _onFilterData(
+    FilterData event,
+    Emitter<SongSearchState> emit,
+  ) async {
     emit(FilteringState());
     try {
       var songs = await _dbRepo.fetchSongs(bid: event.book.bookId!);
@@ -69,7 +84,10 @@ class SongSearchBloc extends Bloc<SongSearchEvent, SongSearchState> {
     }
   }
 
-  Future<void> _onResetData(ResetData event, Emitter<SongSearchState> emit) async {
+  Future<void> _onResetData(
+    ResetData event,
+    Emitter<SongSearchState> emit,
+  ) async {
     emit(FetchingState());
     try {
       await _dbRepo.removeAllBooks();

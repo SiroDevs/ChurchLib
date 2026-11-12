@@ -1,7 +1,6 @@
 // Project imports:
 import '../../../common/constants/pref_constants.dart';
 import '../../../common/utils/formatting/app_util.dart';
-import '../../../core/di/injectable.dart';
 import '../../../data/models/bible/bible_version.dart';
 import '../../../data/sources/remote/bible/bible_dtos.dart';
 import '../pref_repo.dart';
@@ -14,12 +13,13 @@ const _defaultSecondaryBibles = 2;
 const bibleMaxSecondaryBibles = 5;
 
 class BibleSelectionRepo {
-  final BibleRepo _bibleRepo = getIt<BibleRepo>();
-  final PrefRepo _prefRepo = getIt<PrefRepo>();
+  BibleSelectionRepo(this._bibleRepo, this._prefRepo);
 
-  List<String> get selectedAbbrs => _split(
-        _prefRepo.getPrefString(PrefConstants.bibleSelectedBiblesKey),
-      );
+  final BibleRepo _bibleRepo;
+  final PrefRepo _prefRepo;
+
+  List<String> get selectedAbbrs =>
+      _split(_prefRepo.getPrefString(PrefConstants.bibleSelectedBiblesKey));
 
   bool get isFirstInstall =>
       !_prefRepo.getPrefBool(PrefConstants.biblelibDataSelectedKey);
@@ -42,7 +42,10 @@ class BibleSelectionRepo {
       PrefConstants.bibleSelectedBiblesKey,
       selected.map((e) => e.abbreviation).join(','),
     );
-    _prefRepo.setPrefString(PrefConstants.biblePrimaryKey, primary.abbreviation);
+    _prefRepo.setPrefString(
+      PrefConstants.biblePrimaryKey,
+      primary.abbreviation,
+    );
     _prefRepo.setPrefBool(PrefConstants.biblelibDataSelectedKey, true);
 
     _prefRepo.setPrefString(PrefConstants.bibleLastBibleKey, primary.name);
@@ -59,11 +62,14 @@ class BibleSelectionRepo {
     final secondary = keptSecondary.isNotEmpty
         ? keptSecondary
         : selected
-            .skip(1)
-            .take(_defaultSecondaryBibles)
-            .map((e) => e.abbreviation)
-            .toList();
-    _prefRepo.setPrefString(PrefConstants.bibleSecondaryKey, secondary.join(','));
+              .skip(1)
+              .take(_defaultSecondaryBibles)
+              .map((e) => e.abbreviation)
+              .toList();
+    _prefRepo.setPrefString(
+      PrefConstants.bibleSecondaryKey,
+      secondary.join(','),
+    );
 
     await _bibleRepo.saveBibles([
       for (var i = 0; i < selected.length; i++)
@@ -91,7 +97,10 @@ class BibleSelectionRepo {
       await persistSelection(selected);
     }
 
-    await _bibleRepo.downloadBible(primary.abbreviation, onProgress: onProgress);
+    await _bibleRepo.downloadBible(
+      primary.abbreviation,
+      onProgress: onProgress,
+    );
     _prefRepo.setPrefBool(PrefConstants.biblelibDataLoadedKey, true);
 
     _downloadSecondariesInBackground(

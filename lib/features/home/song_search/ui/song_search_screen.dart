@@ -1,6 +1,4 @@
 // Dart imports:
-import 'dart:async';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -16,8 +14,11 @@ import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/search/search_songs_utils.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
+import '../../../../core/di/injectable.dart';
 import '../../../../data/models/models.dart';
-import '../../../../data/sources/remote/song/api_service.dart';
+import '../../../../domain/repos/database_repo.dart';
+import '../../../../domain/repos/pref_repo.dart';
+import '../../../../domain/repos/song/song_sync_repo.dart';
 import '../../../../l10n/gen/app_localizations.dart';
 import '../../../song/likes/likes_screen.dart';
 import '../../../song/songs/songs_screen.dart';
@@ -43,19 +44,13 @@ class SongSearchScreen extends StatefulWidget {
 }
 
 class SongSearchScreenState extends State<SongSearchScreen> {
-  late SongSearchBloc _bloc;
-  Timer? _syncTimer;
-
-  bool periodicSyncStarted = false;
-
   bool dataReady = false;
 
   bool _presenting = false;
-  int selectedPage = 0, selectedBook = 0;
+  int selectedBook = 0;
   List<SongBook> books = [];
   late SongExt selectedSong;
-  List<SongExt> songs = [], likes = [], filtered = [];
-  PageController pageController = PageController();
+  List<SongExt> songs = [], filtered = [];
 
   PageType currentPage = PageType.search;
 
@@ -72,7 +67,6 @@ class SongSearchScreenState extends State<SongSearchScreen> {
   @override
   void dispose() {
     AppWindow.fullScreen.removeListener(_onFullScreenChanged);
-    _syncTimer?.cancel();
     searchFocus.dispose();
     searchController.dispose();
     super.dispose();
@@ -119,27 +113,22 @@ class SongSearchScreenState extends State<SongSearchScreen> {
     }
   }
 
-  void startPeriodicSync() {
-    periodicSyncStarted = true;
-    _syncTimer = Timer.periodic(Duration(minutes: 5), (_) async {
-      if (await isConnectedToInternet()) _bloc.add(SyncData());
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context)!;
     return BlocProvider(
-      create: (context) => SongSearchBloc()..add(FetchData()),
+      create: (context) => SongSearchBloc(
+        syncRepo: getIt<SongSyncRepo>(),
+        prefRepo: getIt<PrefRepo>(),
+        databaseRepo: getIt<DatabaseRepo>(),
+      )..add(const FetchData()),
       child: BlocConsumer<SongSearchBloc, SongSearchState>(
         listener: (context, state) {
-          _bloc = context.read<SongSearchBloc>();
           if (state is DataSyncedState) {
             _onBooksLoaded(state.books, state.songs);
           } else if (state is DataFetchedState) {
             _onBooksLoaded(state.books, state.songs);
           } else if (state is FilteredState) {
-            likes = state.likes;
             filtered = state.songs;
             selectedBook = books.indexWhere(
               (book) => book.bookId == state.book.bookId,

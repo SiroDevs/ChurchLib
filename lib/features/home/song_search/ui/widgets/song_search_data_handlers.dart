@@ -15,7 +15,7 @@ extension SongSearchDataHandlers on SongSearchScreenState {
     }
 
     selectedBook = selectedBook.clamp(0, books.length - 1).toInt();
-    _bloc.add(FilterData(books[selectedBook]));
+    context.read<SongSearchBloc>().add(FilterData(books[selectedBook]));
   }
 
   Widget _emptyLibrary(AppLocalizations l10n) => Scaffold(
