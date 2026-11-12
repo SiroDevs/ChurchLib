@@ -90,7 +90,7 @@ class AppViewState extends State<AppView> {
     if (event is! KeyDownEvent) return false;
     if (event.logicalKey == LogicalKeyboardKey.escape &&
         PresentationController.instance.active) {
-      PresentationController.instance.stop(byUser: true);
+      PresentationController.instance.stop();
       return true;
     }
     if (event.logicalKey == LogicalKeyboardKey.f11) {

@@ -82,7 +82,7 @@ class _PresentationPanelState extends State<PresentationPanel> {
           _jumpToLabel(intent.letter, last: intent.letter == 'L'),
     ),
     CloseIntent: CallbackAction<CloseIntent>(
-      onInvoke: (_) => _presentation.stop(byUser: true),
+      onInvoke: (_) => _presentation.stop(),
     ),
   };
 

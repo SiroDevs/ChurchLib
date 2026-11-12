@@ -102,65 +102,6 @@ class SelectionLoading extends StatelessWidget {
   }
 }
 
-class HomeLoading extends StatelessWidget {
-  const HomeLoading({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    var rowWidget = Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: Sizes.xs),
-          height: 15,
-          width: size.width - 120,
-          color: Colors.black,
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: Sizes.xs),
-          height: 30,
-          width: size.width - 50,
-          color: Colors.black,
-        ),
-        Row(
-          children: [
-            Container(
-              height: 10,
-              width: size.width / 6,
-              color: Colors.black,
-            ),
-            SizedBox(width: Sizes.xs),
-            Container(
-              height: 10,
-              width: size.width / 6,
-              color: Colors.black,
-            ),
-            SizedBox(width: Sizes.xs),
-            Container(
-              height: 10,
-              width: size.width / 5,
-              color: Colors.black,
-            ),
-          ],
-        ),
-      ],
-    )
-        .padding(left: Sizes.m, right: Sizes.m, top: Sizes.m);
-
-    return SingleChildScrollView(
-      child: SkeletonLoader(
-        builder: rowWidget,
-        items: 10,
-        period: const Duration(seconds: 5),
-        highlightColor: ThemeColors.primary,
-        direction: SkeletonDirection.ltr,
-      ),
-    );
-  }
-}
-
 class ReaderLoading extends StatelessWidget {
   const ReaderLoading({super.key});
 

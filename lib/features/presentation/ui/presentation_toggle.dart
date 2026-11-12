@@ -41,7 +41,7 @@ class PresentationToggle extends StatelessWidget {
         final onPressed = enabled || isCurrentSource
             ? () async {
                 if (isCurrentSource) {
-                  presentation.stop(byUser: true);
+                  presentation.stop();
                   return;
                 }
                 await onPresent?.call();

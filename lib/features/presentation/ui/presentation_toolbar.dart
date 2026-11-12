@@ -78,7 +78,7 @@ class PresentationToolbar extends StatelessWidget {
               icon: Icons.cancel_presentation,
               label: l10n.presentationStopAction,
               tooltip: l10n.presentationStopTooltip,
-              onPressed: () => presentation.stop(byUser: true),
+              onPressed: () => presentation.stop(),
             ),
           ],
         ),

@@ -16,7 +16,6 @@ import '../../../../common/utils/formatting/app_util.dart';
 import '../../../../common/widgets/search/search_songs_utils.dart';
 import '../../../../common/widgets/state/custom_snackbar.dart';
 import '../../../../common/widgets/state/general_progress.dart';
-import '../../../../common/widgets/state/skeleton.dart';
 import '../../../../data/models/models.dart';
 import '../../../../data/sources/remote/song/api_service.dart';
 import '../../../../l10n/gen/app_localizations.dart';
@@ -28,6 +27,7 @@ import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../../main/shell/shell_nav_item.dart';
 import '../bloc/song_search_bloc.dart';
+import 'song_search_loading.dart';
 
 part 'widgets/search_widget.dart';
 part 'widgets/song_title_bar.dart';
@@ -204,8 +204,8 @@ class HomeScreenState extends State<SongSearchScreen> {
               ),
             ),
             FetchingState() ||
-            InitialState() => const Scaffold(body: HomeLoading()),
-            _ when !dataReady => const Scaffold(body: HomeLoading()),
+            InitialState() => const Scaffold(body: SongSearchLoading()),
+            _ when !dataReady => const Scaffold(body: SongSearchLoading()),
             _ => homeView,
           };
         },

@@ -21,8 +21,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
   final align = ValueNotifier<TextAlign>(TextAlign.left);
   int? _audienceWindowId;
   bool _active = false;
-  bool _autoStart = true;
-  bool _initialized = false;
+  bool _listeningForDisplays = false;
   bool _windowOpening = false;
   String? _windowTitle;
   int _windowRequestId = 0;
@@ -46,17 +45,22 @@ class PresentationController extends ChangeNotifier with ScreenListener {
     }
   }
 
-  void init() {
-    if (_initialized || !_supportsDisplays) return;
-    _initialized = true;
+  void _listenForDisplayChanges() {
+    if (_listeningForDisplays || !_supportsDisplays) return;
+    _listeningForDisplays = true;
     MultiViewDesktop.screen.addListener(this);
-    if (_hasSecondDisplay) start();
+  }
+
+  void _stopListeningForDisplayChanges() {
+    if (!_listeningForDisplays) return;
+    _listeningForDisplays = false;
+    MultiViewDesktop.screen.removeListener(this);
   }
 
   @override
   void onScreenEvent(String eventName) {
-    if (eventName == 'display-added' && _autoStart) start();
-    if (eventName == 'display-removed' && !_hasSecondDisplay) {
+    if (eventName == 'display-added' && _active) _openWindow();
+    if (eventName == 'display-removed' && _active && !_hasSecondDisplay) {
       _closeWindow();
     }
     notifyListeners();
@@ -100,18 +104,18 @@ class PresentationController extends ChangeNotifier with ScreenListener {
     _ => TextAlign.left,
   };
 
-  void toggle() => _active ? stop(byUser: true) : start();
+  void toggle() => _active ? stop() : start();
 
   void start() {
-    _autoStart = true;
     _active = true;
+    _listenForDisplayChanges();
     _openWindow();
     notifyListeners();
   }
 
-  void stop({bool byUser = false}) {
-    if (byUser) _autoStart = false;
+  void stop() {
     _active = false;
+    _stopListeningForDisplayChanges();
     _closeWindow();
     notifyListeners();
   }
@@ -168,7 +172,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
     _audienceWindowId = null;
     _windowRequestId++;
     _active = false;
-    _autoStart = false;
+    _stopListeningForDisplayChanges();
     notifyListeners();
   }
 

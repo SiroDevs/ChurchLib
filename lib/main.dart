@@ -11,7 +11,6 @@ import 'common/utils/env/flavor_config.dart';
 import 'common/utils/formatting/app_util.dart';
 import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
-import 'features/presentation/controller/presentation_controller.dart';
 import 'features/presentation/controller/presentation_platform.dart';
 
 Future<void> main() async {
@@ -43,7 +42,4 @@ Future<void> main() async {
   } else {
     runApp(const MyApp());
   }
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    PresentationController.instance.init();
-  });
 }
