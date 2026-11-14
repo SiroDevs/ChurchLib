@@ -82,7 +82,7 @@ class AppViewState extends State<AppView> {
             themeMode: _prefRepo.getThemeMode(),
             theme: AppTheme.lightTheme(),
             darkTheme: AppTheme.darkTheme(),
-            supportedLocales: const [Locale('en'), Locale('sw')],
+            supportedLocales: AppLocalizations.supportedLocales,
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
               AppLocalizations.delegate,
