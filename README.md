@@ -2,13 +2,42 @@
 
 ChurchLib is a Flutter desktop app that brings [SongLib](https://sirodevs.com/songlib) and [BibleLib](https://sirodevs.com/biblelib) together for church services. It runs on Windows, macOS, and Linux and keeps downloaded songbooks and Bible translations available offline.
 
-## What it does
+## Features
 
-- **SongLib:** browse and search songs by title, number, alias, or lyrics; manage selected songbooks and liked songs; copy, share, and present lyrics.
-- **BibleLib:** read downloaded translations, search scripture, compare parallel translations, and manage bookmarks, highlights, notes, reading history, and scripture lists.
-- **Presentation:** present songs or Bible passages on an extended audience display, or use full-screen mode when audience mode is disabled, the display is mirrored, or no extended display is available.
-- **Local storage:** keeps downloaded content and reader data on the device so the main library features work offline after setup.
-- **Localization:** English and Swahili, with English as the default language.
+### SongLib
+
+- Choose the songbooks used by your church and browse songs by book.
+- Search by song number, title, alias, or lyric text. Search ignores case and common punctuation, accepts terms in any order, and tolerates small spelling mistakes.
+- Keep liked songs, recent history, personal song lists, and song drafts. Create and edit your own songs and lists.
+- Copy or share a complete song or an individual verse.
+- Present lyrics one verse at a time, move between verses and songs, and optionally keep a verse list visible while presenting.
+
+### BibleLib
+
+- Choose Bible translations to download, set a primary translation, and add secondary translations for parallel reading.
+- Browse books and chapters, search downloaded translations, and open passages directly with Scripture Opener.
+- Build passage queues and reusable scripture lists. Reading and search history make it easy to return to previous passages.
+- Select verses to copy, bookmark, highlight, or annotate. Bookmarks, notes, and reading history are available in the sidebar.
+- Adjust reader text size and use auto-scroll with speed changes in 0.1 steps.
+
+### Presentation and service use
+
+- Present a song or Bible passage on an extended display. The operator view keeps the source app and a slide preview, navigation controls, and (for songs) the verse list together.
+- If audience mode is turned off, the second display is mirrored, or no extended display is available, presentation opens full screen on the current display.
+- Change song slide direction, show or hide the song verse list, resize presentation text, and black out the audience output when needed.
+- Keyboard controls include slide and verse navigation, font sizing, blackout, and closing presentation. Song presentation also supports jumping to a numbered verse, the chorus, or the last slide; `Ctrl+F` returns to song search.
+
+### Setup, settings, and offline use
+
+- Choose SongLib, BibleLib, or both during setup. The other module can be added later from Settings.
+- Choose a system, light, or dark theme; toggle audience mode; and configure song presentation direction and verse-list visibility.
+- Songbooks, downloaded Bibles, bookmarks, notes, lists, drafts, and history are stored locally. Network access is needed for initial content downloads, song updates, licensing, and application version checks.
+- ChurchLib supports English (default), Swahili, Arabic, Spanish, French, and Portuguese. The app follows the operating system language when it is supported; Arabic uses right-to-left layout.
+
+### Licensing and updates
+
+- Start a free trial, check license status, redeem a license key, or submit payment details for activation.
+- Release a license from the current computer when moving it to another one. The app checks for updated license status and displays available version updates.
 
 ## Screenshots
 
