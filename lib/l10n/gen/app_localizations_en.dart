@@ -154,6 +154,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get presentationTitle => 'Song Presentation';
 
   @override
+  String get audienceModeSettingsTitle => 'Presentation display';
+
+  @override
+  String get audienceModeTitle => 'Audience mode';
+
+  @override
+  String get audienceModeDescription =>
+      'Show presentations on an extended display. Turn this off to present full screen on this display.';
+
+  @override
   String get appTheme => 'App Theme';
 
   @override

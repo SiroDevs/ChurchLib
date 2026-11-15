@@ -40,6 +40,7 @@ class PrefConstants {
   static const slideVerticalKey = 'slide_vertically';
   static const presenterVersesKey = 'presenter_show_verses';
   static const presenterAlignKey = 'presenter_text_align';
+  static const audienceModeDisabledKey = 'audience_mode_disabled';
   static const pcHintsKey = 'pc_hints';
   static const uninstallCheckKey = 'uninstall_check';
   static const donationCheckKey = 'donation_check';

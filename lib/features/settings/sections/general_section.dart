@@ -6,11 +6,30 @@ import '../../../common/constants/pref_constants.dart';
 import '../../../core/di/injectable.dart';
 import '../../../domain/repos/pref_repo.dart';
 import '../../../l10n/gen/app_localizations.dart';
+import '../../presentation/controller/presentation_controller.dart';
 import '../settings_actions.dart';
 import '../settings_card.dart';
 
-class GeneralSection extends StatelessWidget {
+class GeneralSection extends StatefulWidget {
   const GeneralSection({super.key});
+
+  @override
+  State<GeneralSection> createState() => _GeneralSectionState();
+}
+
+class _GeneralSectionState extends State<GeneralSection> {
+  late bool _audienceModeEnabled;
+
+  @override
+  void initState() {
+    super.initState();
+    _audienceModeEnabled = PresentationController.instance.audienceModeEnabled;
+  }
+
+  void _setAudienceMode(bool enabled) {
+    PresentationController.instance.setAudienceModeEnabled(enabled);
+    setState(() => _audienceModeEnabled = enabled);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +42,21 @@ class GeneralSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SettingCard(
+          title: l10n.audienceModeSettingsTitle,
+          widgets: [
+            ListTile(
+              leading: const Icon(Icons.present_to_all),
+              title: Text(l10n.audienceModeTitle),
+              subtitle: Text(l10n.audienceModeDescription),
+              trailing: Switch(
+                value: _audienceModeEnabled,
+                onChanged: _setAudienceMode,
+              ),
+              onTap: () => _setAudienceMode(!_audienceModeEnabled),
+            ),
+          ],
+        ),
         if (!songlib || !biblelib)
           SettingCard(
             title: l10n.modulesTitle,

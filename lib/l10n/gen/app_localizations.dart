@@ -386,6 +386,24 @@ abstract class AppLocalizations {
   /// **'Song Presentation'**
   String get presentationTitle;
 
+  /// Title for audience display settings
+  ///
+  /// In en, this message translates to:
+  /// **'Presentation display'**
+  String get audienceModeSettingsTitle;
+
+  /// Toggle for showing presentations on a separate display
+  ///
+  /// In en, this message translates to:
+  /// **'Audience mode'**
+  String get audienceModeTitle;
+
+  /// Explains audience mode and full-screen presentation
+  ///
+  /// In en, this message translates to:
+  /// **'Show presentations on an extended display. Turn this off to present full screen on this display.'**
+  String get audienceModeDescription;
+
   /// Label for app theme setting
   ///
   /// In en, this message translates to:

@@ -192,6 +192,18 @@
     "@presentationTitle": {
         "description": "Title for song presentation settings"
     },
+    "audienceModeSettingsTitle": "Presentation display",
+    "@audienceModeSettingsTitle": {
+        "description": "Title for audience display settings"
+    },
+    "audienceModeTitle": "Audience mode",
+    "@audienceModeTitle": {
+        "description": "Toggle for showing presentations on a separate display"
+    },
+    "audienceModeDescription": "Show presentations on an extended display. Turn this off to present full screen on this display.",
+    "@audienceModeDescription": {
+        "description": "Explains audience mode and full-screen presentation"
+    },
     "appTheme": "App Theme",
     "@appTheme": {
         "description": "Label for app theme setting"
