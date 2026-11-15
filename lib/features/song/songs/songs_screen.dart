@@ -81,13 +81,15 @@ class _SongsScreenState extends State<SongsScreen> {
         return Shortcuts(
           shortcuts: <ShortcutActivator, Intent>{
             CharacterActivator('s'): SearchIntent(),
+            const SingleActivator(LogicalKeyboardKey.keyF, control: true):
+                SearchIntent(),
             SingleActivator(LogicalKeyboardKey.enter): OpenIntent(),
             SingleActivator(LogicalKeyboardKey.escape): CloseIntent(),
           },
           child: Actions(
             actions: <Type, Action<Intent>>{
               SearchIntent: CallbackAction<SearchIntent>(
-                onInvoke: (intent) => parent.searchFocus.requestFocus(),
+                onInvoke: (intent) => parent.focusSearch(),
               ),
               OpenIntent: CallbackAction<OpenIntent>(
                 onInvoke: (intent) => onSongOpen(),

@@ -87,8 +87,12 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   void toggleBlackout() => blackout.value = !blackout.value;
 
+  void clearBlackout() => blackout.value = false;
+
   void resize(double delta) =>
       scale.value = (scale.value + delta).clamp(0.5, 2.0).toDouble();
+
+  void resetScale() => scale.value = 1;
 
   void cycleAlign() => align.value = switch (align.value) {
     TextAlign.left => TextAlign.center,
@@ -108,6 +112,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   void stop() {
     _active = false;
+    clearBlackout();
     _stopListeningForDisplayChanges();
     _closeWindow();
     notifyListeners();

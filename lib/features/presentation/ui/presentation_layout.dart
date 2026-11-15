@@ -14,11 +14,17 @@ class PresentationLayout extends StatelessWidget {
     required this.child,
     required this.module,
     this.onPresent,
+    this.onSearch,
+    this.onPreviousSong,
+    this.onNextSong,
   });
 
   final Widget child;
   final AppModule module;
   final FutureOr<void> Function()? onPresent;
+  final VoidCallback? onSearch;
+  final VoidCallback? onPreviousSong;
+  final VoidCallback? onNextSong;
 
   Future<void> _present() async {
     final presentation = PresentationController.instance;
@@ -58,7 +64,11 @@ class PresentationLayout extends StatelessWidget {
                 width: 1,
                 color: Theme.of(context).colorScheme.outlineVariant,
               ),
-              const PresentationPanel().expanded(flex: 4),
+              PresentationPanel(
+                onSearch: onSearch,
+                onPreviousSong: onPreviousSong,
+                onNextSong: onNextSong,
+              ).expanded(flex: 4),
             ],
           ],
         );

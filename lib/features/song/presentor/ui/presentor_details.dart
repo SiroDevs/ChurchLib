@@ -86,6 +86,11 @@ class PresentorDetailsState extends State<PresentorDetails> {
     focusNode.requestFocus();
   }
 
+  void resetFont() {
+    setState(() => userFontSize = null);
+    focusNode.requestFocus();
+  }
+
   void _buildSlides(List<String> newStanzas, double screenHeight) {
     if (newStanzas.isNotEmpty) {
       slides = presentorWidgets(
@@ -159,6 +164,16 @@ class PresentorDetailsState extends State<PresentorDetails> {
                 ),
                 SmallerFontIntent: CallbackAction<SmallerFontIntent>(
                   onInvoke: (intent) => resizeFont(true),
+                ),
+                ResetFontIntent: CallbackAction<ResetFontIntent>(
+                  onInvoke: (_) => resetFont(),
+                ),
+                BlackoutIntent: CallbackAction<BlackoutIntent>(
+                  onInvoke: (_) =>
+                      PresentationController.instance.toggleBlackout(),
+                ),
+                SearchIntent: CallbackAction<SearchIntent>(
+                  onInvoke: (_) => parent.requestSearch(),
                 ),
               },
               child: Focus(

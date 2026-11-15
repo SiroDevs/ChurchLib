@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../core/theme/theme_data.dart';
+import '../../../features/presentation/controller/presentation_controller.dart';
 import '../../../l10n/gen/app_localizations.dart';
 
 class PresentationScaffold extends StatelessWidget {
@@ -27,24 +28,37 @@ class PresentationScaffold extends StatelessWidget {
       data: AppTheme.presentationTheme(),
       child: Builder(
         builder: (context) {
-          return Scaffold(
-            backgroundColor: Colors.black,
-            body: SafeArea(
-              child: Column(
-                children: [
-                  _Header(title: title, onBack: onBack, actions: actions),
-                  const Divider(height: 1, thickness: 1, color: Colors.white),
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+          return ListenableBuilder(
+            listenable: PresentationController.instance.blackout,
+            builder: (context, _) => Stack(
+              children: [
+                Scaffold(
+                  backgroundColor: Colors.black,
+                  body: SafeArea(
+                    child: Column(
                       children: [
-                        Expanded(child: body),
-                        if (endPanel != null) endPanel!,
+                        _Header(title: title, onBack: onBack, actions: actions),
+                        const Divider(
+                          height: 1,
+                          thickness: 1,
+                          color: Colors.white,
+                        ),
+                        Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(child: body),
+                              if (endPanel != null) endPanel!,
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                if (PresentationController.instance.blackout.value)
+                  const Positioned.fill(child: ColoredBox(color: Colors.black)),
+              ],
             ),
           );
         },

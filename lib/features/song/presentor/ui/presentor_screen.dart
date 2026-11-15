@@ -25,6 +25,7 @@ import '../../../../core/di/injectable.dart';
 import '../../../../core/theme/theme_colors.dart';
 import '../../../../data/models/models.dart';
 import '../../../../domain/repos/pref_repo.dart';
+import '../../../presentation/controller/presentation_controller.dart';
 import '../../../../l10n/gen/app_localizations.dart';
 import '../bloc/presentor_bloc.dart';
 import '../utils/presentor_shortcuts.dart';
@@ -36,6 +37,8 @@ part 'widgets/presentor_footer.dart';
 part 'widgets/verses_panel.dart';
 part 'presentor_details.dart';
 part 'widgets/presentor_slide.dart';
+
+enum PresentorExitAction { focusSearch }
 
 class PresentorScreen extends StatefulWidget {
   final SongExt song;
@@ -105,6 +108,7 @@ class PresentorScreenState extends State<PresentorScreen> {
   @override
   void dispose() {
     AppWindow.fullScreen.removeListener(_onFullScreenChanged);
+    PresentationController.instance.clearBlackout();
     activeSlide.dispose();
     AppWindow.setFullScreen(false);
     super.dispose();
@@ -136,6 +140,9 @@ class PresentorScreenState extends State<PresentorScreen> {
       Navigator.of(context).pop(likeChanged);
     }
   }
+
+  void requestSearch() =>
+      Navigator.of(context).pop(PresentorExitAction.focusSearch);
 
   void _toggleVerses() {
     setState(() => showVerses = !showVerses);
