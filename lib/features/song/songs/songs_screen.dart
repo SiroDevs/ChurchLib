@@ -9,6 +9,7 @@ import 'package:styled_widget/styled_widget.dart';
 // Project imports:
 import '../../../common/utils/logging/app_logger.dart';
 import '../../../common/utils/formatting/song_text_utils.dart';
+import '../../../common/utils/display/app_window.dart';
 import '../../../common/widgets/app_intents.dart';
 import '../../../common/widgets/list_items/search_book_item.dart';
 import '../../../common/widgets/list_items/search_song_item.dart';
@@ -20,6 +21,7 @@ import '../../home/main/shell/app_module.dart';
 import '../../home/main/shell/module_focus.dart';
 import '../../home/song_search/bloc/song_search_bloc.dart';
 import '../../home/song_search/ui/song_search_screen.dart';
+import '../../presentation/controller/presentation_controller.dart';
 
 part 'widgets/song_viewer.dart';
 part 'widgets/list_widgets.dart';
@@ -45,67 +47,73 @@ class _SongsScreenState extends State<SongsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, dimens) {
-        final outline = Theme.of(context).colorScheme.outlineVariant;
-        final l10n = AppLocalizations.of(context)!;
-        var bigScreenView = Row(
-          children: [
-            Column(
-                  children: [
-                    BooksList(
-                      books: parent.books,
-                      selectedBook: parent.selectedBook,
-                    ),
-                    if (parent.filtered.isEmpty)
-                      Text(l10n.noSongsInSongbook).center().expanded()
-                    else
-                      SongsList(
-                        selectedSong: parent.selectedSong,
-                        songs: parent.filtered,
-                        onTap: onSongSelect,
-                        isBigScreen: true,
-                      ).expanded(),
-                  ],
-                )
-                .decorated(
-                  border: Border(right: BorderSide(color: outline)),
-                )
-                .expanded(),
-            (parent.selectedSong.songId == 0
-                    ? Text(l10n.noSongSelected).center()
-                    : SongViewer(song: parent.selectedSong))
-                .expanded(),
-          ],
-        );
-        return Shortcuts(
-          shortcuts: <ShortcutActivator, Intent>{
-            CharacterActivator('s'): SearchIntent(),
-            const SingleActivator(LogicalKeyboardKey.keyF, control: true):
-                SearchIntent(),
-            SingleActivator(LogicalKeyboardKey.enter): OpenIntent(),
-            SingleActivator(LogicalKeyboardKey.escape): CloseIntent(),
-          },
-          child: Actions(
-            actions: <Type, Action<Intent>>{
-              SearchIntent: CallbackAction<SearchIntent>(
-                onInvoke: (intent) => parent.focusSearch(),
-              ),
-              OpenIntent: CallbackAction<OpenIntent>(
-                onInvoke: (intent) => onSongOpen(),
-              ),
+    final presentation = PresentationController.instance;
+    return ListenableBuilder(
+      listenable: Listenable.merge([presentation, AppWindow.fullScreen]),
+      builder: (context, _) => LayoutBuilder(
+        builder: (context, dimens) {
+          final outline = Theme.of(context).colorScheme.outlineVariant;
+          final l10n = AppLocalizations.of(context)!;
+          final hidePreview = presentation.active || AppWindow.fullScreen.value;
+          var bigScreenView = Row(
+            children: [
+              Column(
+                    children: [
+                      BooksList(
+                        books: parent.books,
+                        selectedBook: parent.selectedBook,
+                      ),
+                      if (parent.filtered.isEmpty)
+                        Text(l10n.noSongsInSongbook).center().expanded()
+                      else
+                        SongsList(
+                          selectedSong: parent.selectedSong,
+                          songs: parent.filtered,
+                          onTap: onSongSelect,
+                          isBigScreen: true,
+                        ).expanded(),
+                    ],
+                  )
+                  .decorated(
+                    border: Border(right: BorderSide(color: outline)),
+                  )
+                  .expanded(),
+              if (!hidePreview)
+                (parent.selectedSong.songId == 0
+                        ? Text(l10n.noSongSelected).center()
+                        : SongViewer(song: parent.selectedSong))
+                    .expanded(),
+            ],
+          );
+          return Shortcuts(
+            shortcuts: <ShortcutActivator, Intent>{
+              CharacterActivator('s'): SearchIntent(),
+              const SingleActivator(LogicalKeyboardKey.keyF, control: true):
+                  SearchIntent(),
+              SingleActivator(LogicalKeyboardKey.enter): OpenIntent(),
+              SingleActivator(LogicalKeyboardKey.escape): CloseIntent(),
             },
-            child: ModuleFocus(
-              module: AppModule.songlib,
-              onKeyEvent: (node, event) {
-                logger('Key pressed: ${event.logicalKey.keyLabel}');
-                return KeyEventResult.ignored;
+            child: Actions(
+              actions: <Type, Action<Intent>>{
+                SearchIntent: CallbackAction<SearchIntent>(
+                  onInvoke: (intent) => parent.focusSearch(),
+                ),
+                OpenIntent: CallbackAction<OpenIntent>(
+                  onInvoke: (intent) => onSongOpen(),
+                ),
               },
-              child: bigScreenView,
+              child: ModuleFocus(
+                module: AppModule.songlib,
+                onKeyEvent: (node, event) {
+                  logger('Key pressed: ${event.logicalKey.keyLabel}');
+                  return KeyEventResult.ignored;
+                },
+                child: bigScreenView,
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
