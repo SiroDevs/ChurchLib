@@ -7,6 +7,8 @@ import 'presentation_platform.dart';
 class PresentationDisplays {
   PresentationDisplays._();
 
+  static const _minimumUniqueAreaRatio = 0.1;
+
   static List<Display> get extended {
     if (!supportsMultiViewPresentation) return const [];
     try {
@@ -44,10 +46,11 @@ class PresentationDisplays {
     final overlap = primaryBounds.intersect(displayBounds);
     if (overlap.isEmpty) return true;
 
-    final overlapArea = overlap.width * overlap.height;
     final primaryArea = primaryBounds.width * primaryBounds.height;
     final displayArea = displayBounds.width * displayBounds.height;
     final smallerArea = primaryArea < displayArea ? primaryArea : displayArea;
-    return overlapArea < smallerArea * 0.95;
+    final overlapArea = overlap.width * overlap.height;
+    final uniqueAreaRatio = (smallerArea - overlapArea) / smallerArea;
+    return uniqueAreaRatio >= _minimumUniqueAreaRatio;
   }
 }

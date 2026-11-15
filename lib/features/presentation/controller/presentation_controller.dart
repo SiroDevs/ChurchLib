@@ -55,7 +55,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   @override
   void onScreenEvent(String eventName) {
-    if (_active && !_hasSecondDisplay) {
+    if (_active && !hasExtendedDisplay) {
       _active = false;
       _stopListeningForDisplayChanges();
       _closeWindow();
@@ -121,7 +121,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
   }
 
   void start() {
-    if (!_hasSecondDisplay) return;
+    if (!hasExtendedDisplay) return;
     _active = true;
     _listenForDisplayChanges();
     _openWindow();
