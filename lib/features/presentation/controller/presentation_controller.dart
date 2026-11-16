@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:multiview_desktop/multiview_desktop.dart';
 
+import '../../../common/constants/pref_constants.dart';
 import '../../../common/utils/display/app_window.dart';
+import '../../../core/di/injectable.dart';
+import '../../../domain/repos/pref_repo.dart';
 import 'presentation_displays.dart';
 import 'presentation_session.dart';
 import '../ui/audience_screen.dart';
@@ -31,7 +34,10 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   bool get _hasSecondDisplay => PresentationDisplays.extended.isNotEmpty;
 
-  bool get hasExtendedDisplay => _hasSecondDisplay;
+  bool get audienceModeEnabled =>
+      !getIt<PrefRepo>().getPrefBool(PrefConstants.audienceModeDisabledKey);
+
+  bool get hasExtendedDisplay => audienceModeEnabled && _hasSecondDisplay;
 
   List<Display> get _secondaryDisplays => PresentationDisplays.extended;
 
@@ -49,7 +55,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   @override
   void onScreenEvent(String eventName) {
-    if (_active && !_hasSecondDisplay) {
+    if (_active && !hasExtendedDisplay) {
       _active = false;
       _stopListeningForDisplayChanges();
       _closeWindow();
@@ -87,8 +93,12 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   void toggleBlackout() => blackout.value = !blackout.value;
 
+  void clearBlackout() => blackout.value = false;
+
   void resize(double delta) =>
       scale.value = (scale.value + delta).clamp(0.5, 2.0).toDouble();
+
+  void resetScale() => scale.value = 1;
 
   void cycleAlign() => align.value = switch (align.value) {
     TextAlign.left => TextAlign.center,
@@ -98,8 +108,20 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   void toggle() => _active ? stop() : start();
 
+  void setAudienceModeEnabled(bool enabled) {
+    getIt<PrefRepo>().setPrefBool(
+      PrefConstants.audienceModeDisabledKey,
+      !enabled,
+    );
+    if (!enabled && _active) {
+      stop();
+    } else {
+      notifyListeners();
+    }
+  }
+
   void start() {
-    if (!_hasSecondDisplay) return;
+    if (!hasExtendedDisplay) return;
     _active = true;
     _listenForDisplayChanges();
     _openWindow();
@@ -108,6 +130,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
 
   void stop() {
     _active = false;
+    clearBlackout();
     _stopListeningForDisplayChanges();
     _closeWindow();
     notifyListeners();

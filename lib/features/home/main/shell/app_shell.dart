@@ -33,6 +33,9 @@ class AppShell extends StatelessWidget {
     required this.sidebarItems,
     required this.body,
     this.onPresent,
+    this.onSearch,
+    this.onPreviousSong,
+    this.onNextSong,
   });
 
   final AppModule module;
@@ -40,6 +43,9 @@ class AppShell extends StatelessWidget {
   final List<Widget> sidebarItems;
   final Widget body;
   final FutureOr<void> Function()? onPresent;
+  final VoidCallback? onSearch;
+  final VoidCallback? onPreviousSong;
+  final VoidCallback? onNextSong;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +58,9 @@ class AppShell extends StatelessWidget {
         child: PresentationLayout(
           module: module,
           onPresent: onPresent,
+          onSearch: onSearch,
+          onPreviousSong: onPreviousSong,
+          onNextSong: onNextSong,
           child: Column(
             children: [
               _TopBar(module: module, titleBar: titleBar),

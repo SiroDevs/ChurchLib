@@ -12,7 +12,16 @@ import 'presentation_toolbar.dart';
 import 'session_grid.dart';
 
 class PresentationPanel extends StatefulWidget {
-  const PresentationPanel({super.key});
+  const PresentationPanel({
+    super.key,
+    this.onSearch,
+    this.onPreviousSong,
+    this.onNextSong,
+  });
+
+  final VoidCallback? onSearch;
+  final VoidCallback? onPreviousSong;
+  final VoidCallback? onNextSong;
 
   @override
   State<PresentationPanel> createState() => _PresentationPanelState();
@@ -22,16 +31,14 @@ class _PresentationPanelState extends State<PresentationPanel> {
   final _focusNode = FocusNode();
   final _presentation = PresentationController.instance;
 
-  late final _shortcuts = _buildShortcuts();
-
-  Map<ShortcutActivator, Intent> _buildShortcuts() {
-    final shortcuts = Map<ShortcutActivator, Intent>.of(presentorShortcuts)
-      ..remove(const SingleActivator(LogicalKeyboardKey.arrowLeft))
-      ..remove(const SingleActivator(LogicalKeyboardKey.arrowRight));
-    shortcuts[const SingleActivator(LogicalKeyboardKey.arrowLeft)] =
-        const PreviousIntent();
-    shortcuts[const SingleActivator(LogicalKeyboardKey.arrowRight)] =
-        const NextIntent();
+  Map<ShortcutActivator, Intent> _buildShortcuts(PresentationKind? kind) {
+    final shortcuts = Map<ShortcutActivator, Intent>.of(presentorShortcuts);
+    if (kind == PresentationKind.bible) {
+      shortcuts
+        ..remove(const SingleActivator(LogicalKeyboardKey.arrowLeft))
+        ..remove(const SingleActivator(LogicalKeyboardKey.arrowRight))
+        ..remove(const SingleActivator(LogicalKeyboardKey.keyF, control: true));
+    }
     return shortcuts;
   }
 
@@ -74,6 +81,21 @@ class _PresentationPanelState extends State<PresentationPanel> {
     BiggerFontIntent: CallbackAction<BiggerFontIntent>(
       onInvoke: (_) => _presentation.resize(0.1),
     ),
+    ResetFontIntent: CallbackAction<ResetFontIntent>(
+      onInvoke: (_) => _presentation.resetScale(),
+    ),
+    BlackoutIntent: CallbackAction<BlackoutIntent>(
+      onInvoke: (_) => _presentation.toggleBlackout(),
+    ),
+    SearchIntent: CallbackAction<SearchIntent>(
+      onInvoke: (_) => widget.onSearch?.call(),
+    ),
+    PreviousSongIntent: CallbackAction<PreviousSongIntent>(
+      onInvoke: (_) => widget.onPreviousSong?.call(),
+    ),
+    NextSongIntent: CallbackAction<NextSongIntent>(
+      onInvoke: (_) => widget.onNextSong?.call(),
+    ),
     SlideNumberIntent: CallbackAction<SlideNumberIntent>(
       onInvoke: (intent) => _jumpToLabel('${intent.slideNumber}'),
     ),
@@ -89,6 +111,7 @@ class _PresentationPanelState extends State<PresentationPanel> {
   @override
   Widget build(BuildContext context) {
     final size = _presentation.previewSize;
+    final session = _presentation.session.value;
     final theme = AppTheme.presentationTheme();
     final l10n = AppLocalizations.of(context)!;
     const line = BorderSide(color: Colors.white24);
@@ -100,7 +123,7 @@ class _PresentationPanelState extends State<PresentationPanel> {
           focusNode: _focusNode,
           autofocus: true,
           child: Shortcuts(
-            shortcuts: _shortcuts,
+            shortcuts: _buildShortcuts(session?.kind),
             child: Actions(
               actions: _actions,
               child: ColoredBox(

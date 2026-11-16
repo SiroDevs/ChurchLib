@@ -1,3 +1,5 @@
+import 'dart:async';
+
 // Dart imports:
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ import '../../../song/songs/songs_screen.dart';
 import '../../../presentation/controller/presentation_controller.dart';
 import '../../../presentation/controller/presentation_sources.dart';
 import '../../../presentation/ui/presentation_toggle.dart';
+import '../../../song/presentor/ui/presentor_screen.dart';
 import '../../main/shell/app_module.dart';
 import '../../main/shell/app_shell.dart';
 import '../../main/shell/shell_nav_item.dart';
@@ -90,13 +93,40 @@ class SongSearchScreenState extends State<SongSearchScreen> {
     );
 
     _presenting = true;
+    Object? result;
     try {
-      await context.pushNamed<bool>(
+      result = await context.pushNamed<Object?>(
         RouteNames.presentor,
         extra: (song: song, book: book, songs: songs),
       );
     } finally {
       _presenting = false;
+    }
+    if (result == PresentorExitAction.focusSearch) focusSearch();
+  }
+
+  void focusSearch() {
+    if (!mounted) return;
+    if (currentPage != PageType.search) {
+      setState(() => currentPage = PageType.search);
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) searchFocus.requestFocus();
+    });
+  }
+
+  void changeSong(int direction) {
+    final bookSongs =
+        songs.where((song) => song.book == selectedSong.book).toList()
+          ..sort((a, b) => a.songNo.compareTo(b.songNo));
+    final index = bookSongs.indexWhere((song) => song.rid == selectedSong.rid);
+    final target = index + direction;
+    if (index < 0 || target < 0 || target >= bookSongs.length) return;
+
+    final nextSong = bookSongs[target];
+    selectSong(nextSong);
+    if (PresentationController.instance.active) {
+      unawaited(presentSong(nextSong));
     }
   }
 
@@ -132,6 +162,9 @@ class SongSearchScreenState extends State<SongSearchScreen> {
           final homeView = AppShell(
             module: AppModule.songlib,
             onPresent: presentSelected,
+            onSearch: focusSearch,
+            onPreviousSong: () => changeSong(-1),
+            onNextSong: () => changeSong(1),
             sidebarItems: [
               ShellNavItem(
                 Icons.search,

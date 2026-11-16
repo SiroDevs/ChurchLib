@@ -1842,6 +1842,18 @@
   "@presentationTitle": {
     "description": "Song presentation title"
   },
+  "audienceModeSettingsTitle": "Onyesho la uwasilishaji",
+  "@audienceModeSettingsTitle": {
+    "description": "Title for audience display settings"
+  },
+  "audienceModeTitle": "Hali ya hadhira",
+  "@audienceModeTitle": {
+    "description": "Toggle for showing presentations on a separate display"
+  },
+  "audienceModeDescription": "Onyesha mawasilisho kwenye skrini nyingine iliyopanuliwa. Zima ili kutumia skrini nzima kwenye skrini hii.",
+  "@audienceModeDescription": {
+    "description": "Explains audience mode and full-screen presentation"
+  },
   "problemDisplaySongs": "Kuna tatizo la kuonyesha nyimbo kwenye kitabu ulichochagua.\n\nUnaweza kurekebisha tatizo hili kwa kuchagua nyimbo tena.",
   "@problemDisplaySongs": {
     "description": "Song display error message"

@@ -58,11 +58,46 @@ class BiblerReaderViewState extends State<BiblerReaderView>
   }
 
   void _onEscape(BibleReaderCubit cubit) {
-    if (cubit.state.isSelectionMode) {
+    if (AppWindow.fullScreen.value) {
+      _closePresentation();
+    } else if (cubit.state.isSelectionMode) {
       cubit.clearSelection();
-    } else if (AppWindow.fullScreen.value) {
-      AppWindow.setFullScreen(false);
     }
+  }
+
+  void _closePresentation() {
+    PresentationController.instance.clearBlackout();
+    AppWindow.setFullScreen(false);
+  }
+
+  void _movePresentationVerse(BibleReaderCubit cubit, int direction) {
+    final verses = cubit.state.verses;
+    final viewport = viewportKey.currentContext?.findRenderObject();
+    if (verses.isEmpty || viewport is! RenderBox || !viewport.attached) return;
+
+    final viewportTop = viewport.localToGlobal(Offset.zero).dy;
+    var currentIndex = 0;
+    for (var index = 0; index < verses.length; index++) {
+      final verseContext = verseKeys[verses[index].verseId]?.currentContext;
+      final verseBox = verseContext?.findRenderObject();
+      if (verseBox is! RenderBox || !verseBox.attached) continue;
+      final verseTop = verseBox.localToGlobal(Offset.zero).dy;
+      if (verseTop + verseBox.size.height > viewportTop + 4) {
+        currentIndex = index;
+        break;
+      }
+    }
+    final targetIndex = (currentIndex + direction).clamp(0, verses.length - 1);
+    stopAutoScroll();
+    scrollToVerse(verses[targetIndex].verseId);
+  }
+
+  void _toggleBlackout() {
+    if (!AppWindow.fullScreen.value &&
+        !PresentationController.instance.active) {
+      return;
+    }
+    PresentationController.instance.toggleBlackout();
   }
 
   void _onStateChanged(BuildContext context, BibleReaderState state) {
@@ -101,16 +136,54 @@ class BiblerReaderViewState extends State<BiblerReaderView>
     final cubit = context.read<BibleReaderCubit>();
     return CallbackShortcuts(
       bindings: {
-        const SingleActivator(LogicalKeyboardKey.arrowLeft, alt: true): () =>
-            cubit.navigateChapter(-1),
-        const SingleActivator(LogicalKeyboardKey.arrowRight, alt: true): () =>
-            cubit.navigateChapter(1),
+        const SingleActivator(LogicalKeyboardKey.arrowLeft, alt: true): () {
+          if (!AppWindow.fullScreen.value) cubit.navigateChapter(-1);
+        },
+        const SingleActivator(LogicalKeyboardKey.arrowRight, alt: true): () {
+          if (!AppWindow.fullScreen.value) cubit.navigateChapter(1);
+        },
         const SingleActivator(LogicalKeyboardKey.escape): () =>
             _onEscape(cubit),
-        const SingleActivator(LogicalKeyboardKey.arrowDown): () =>
-            scrollBy(_arrowScrollStep),
-        const SingleActivator(LogicalKeyboardKey.arrowUp): () =>
-            scrollBy(-_arrowScrollStep),
+        const SingleActivator(LogicalKeyboardKey.arrowDown): () {
+          if (AppWindow.fullScreen.value) {
+            _movePresentationVerse(cubit, 1);
+          } else {
+            scrollBy(_arrowScrollStep);
+          }
+        },
+        const SingleActivator(LogicalKeyboardKey.arrowUp): () {
+          if (AppWindow.fullScreen.value) {
+            _movePresentationVerse(cubit, -1);
+          } else {
+            scrollBy(-_arrowScrollStep);
+          }
+        },
+        const SingleActivator(LogicalKeyboardKey.minus, control: true): () =>
+            _changeFontSize(cubit, -2),
+        const SingleActivator(
+          LogicalKeyboardKey.numpadSubtract,
+          control: true,
+        ): () =>
+            _changeFontSize(cubit, -2),
+        const SingleActivator(LogicalKeyboardKey.equal, control: true): () =>
+            _changeFontSize(cubit, 2),
+        const SingleActivator(
+          LogicalKeyboardKey.equal,
+          control: true,
+          shift: true,
+        ): () =>
+            _changeFontSize(cubit, 2),
+        const SingleActivator(
+          LogicalKeyboardKey.numpadAdd,
+          control: true,
+        ): () =>
+            _changeFontSize(cubit, 2),
+        const SingleActivator(LogicalKeyboardKey.digit0, control: true): () =>
+            cubit.setFontSize(readerDefaultFontSize),
+        const SingleActivator(LogicalKeyboardKey.numpad0, control: true): () =>
+            cubit.setFontSize(readerDefaultFontSize),
+        const SingleActivator(LogicalKeyboardKey.keyX, control: true):
+            _toggleBlackout,
         for (final key in smallerFontKeys)
           key: () => _changeFontSize(cubit, -2),
         for (final key in biggerFontKeys) key: () => _changeFontSize(cubit, 2),
@@ -203,7 +276,7 @@ class BiblerReaderViewState extends State<BiblerReaderView>
           state.activeChapter?.reference ?? '',
           state.activeBible,
         ].where((part) => part.isNotEmpty).join(' • '),
-        onBack: () => AppWindow.setFullScreen(false),
+        onBack: _closePresentation,
         body: content,
       );
     }

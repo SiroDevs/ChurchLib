@@ -67,13 +67,13 @@ Future<ReaderTarget?> openScriptureOpener(
 Future<void> openBibles(BuildContext context) =>
     showAppWindow<void>(context, child: const BiblesScreen(), width: 860);
 
-Future<bool?> openPresentor(
+Future<Object?> openPresentor(
   BuildContext context, {
   required SongExt song,
   required SongBook book,
   required List<SongExt> songs,
-}) => Navigator.of(context, rootNavigator: true).push<bool>(
-  MaterialPageRoute(
+}) => Navigator.of(context, rootNavigator: true).push<Object?>(
+  MaterialPageRoute<Object?>(
     builder: (_) => PresentorScreen(song: song, book: book, songs: songs),
   ),
 );

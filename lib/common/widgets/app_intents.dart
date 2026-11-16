@@ -54,14 +54,22 @@ class SmallerFontIntent extends Intent {
   const SmallerFontIntent();
 }
 
+class ResetFontIntent extends Intent {
+  const ResetFontIntent();
+}
+
+class BlackoutIntent extends Intent {
+  const BlackoutIntent();
+}
+
 class InfoIntent extends Intent {
   const InfoIntent();
 }
 
-class  SearchIntent extends Intent {
+class SearchIntent extends Intent {
   const SearchIntent();
 }
 
-class  OpenIntent extends Intent {
+class OpenIntent extends Intent {
   const OpenIntent();
 }

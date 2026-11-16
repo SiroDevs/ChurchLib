@@ -154,6 +154,16 @@ class AppLocalizationsSw extends AppLocalizations {
   String get presentationTitle => 'Uwasilishaji wa wimbo';
 
   @override
+  String get audienceModeSettingsTitle => 'Onyesho la uwasilishaji';
+
+  @override
+  String get audienceModeTitle => 'Hali ya hadhira';
+
+  @override
+  String get audienceModeDescription =>
+      'Onyesha mawasilisho kwenye skrini nyingine iliyopanuliwa. Zima ili kutumia skrini nzima kwenye skrini hii.';
+
+  @override
   String get appTheme => 'Mandhari ya programu';
 
   @override
