@@ -148,13 +148,7 @@ class _PresentationPanelState extends State<PresentationPanel> {
                       ),
                       child: AspectRatio(
                         aspectRatio: size.width / size.height,
-                        child: FittedBox(
-                          child: SizedBox(
-                            width: size.width,
-                            height: size.height,
-                            child: const AudienceCanvas(),
-                          ),
-                        ),
+                        child: AudienceCanvas(referenceHeight: size.height),
                       ),
                     ).padding(all: 5),
                     const DecoratedBox(

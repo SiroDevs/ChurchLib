@@ -7,13 +7,15 @@ import '../../../common/constants/pref_constants.dart';
 import '../../../common/utils/display/app_window.dart';
 import '../../../core/di/injectable.dart';
 import '../../../domain/repos/pref_repo.dart';
+import 'debounced_screen_listener.dart';
 import 'presentation_displays.dart';
 import 'presentation_session.dart';
 import '../ui/audience_screen.dart';
 
 export 'presentation_session.dart';
 
-class PresentationController extends ChangeNotifier with ScreenListener {
+class PresentationController extends ChangeNotifier
+    with ScreenListener, DebouncedScreenListener {
   PresentationController._();
 
   static final instance = PresentationController._();
@@ -54,13 +56,13 @@ class PresentationController extends ChangeNotifier with ScreenListener {
   }
 
   @override
-  void onScreenEvent(String eventName) {
+  void onScreenChanged() {
     if (_active && !hasExtendedDisplay) {
       _active = false;
       _stopListeningForDisplayChanges();
       _closeWindow();
       AppWindow.setFullScreen(true);
-    } else if (eventName == 'display-added' && _active) {
+    } else if (_active) {
       _openWindow();
     }
     notifyListeners();
@@ -148,6 +150,7 @@ class PresentationController extends ChangeNotifier with ScreenListener {
     try {
       final viewId = await openWindow(
         (context, viewId) {
+          if (_audienceWindowId == viewId) return const AudienceWindow();
           _audienceWindowId = viewId;
           final audienceWindow = MultiViewDesktop.fromId(viewId);
           final bounds = display.physicalBounds;
