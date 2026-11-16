@@ -1,136 +1,79 @@
-# Welcome to ChurchLib - Desktop
+# ChurchLib
 
-ChurchLib combines both [SongLib](https://sirodevs.com/songlib) and [BibleLib](https://sirodevs.com/biblelib) into one super app for your desktop: Windows, Linux, MacOS
+ChurchLib is a Flutter desktop app that brings [SongLib](https://sirodevs.com/songlib) and [BibleLib](https://sirodevs.com/biblelib) together for church services. It runs on Windows, macOS, and Linux and keeps downloaded songbooks and Bible translations available offline.
 
-## Overview
+## What it does
 
-ChurchLib combines SongLib and BibleLib into one desktop app for church use: a songbook/hymns library and a multi-translation Bible reader, sharing one local database and one setup flow. This Flutter-based application is designed so you don't have to worry about being online once you've set up the app on your device.
+- **SongLib:** browse and search songs by title, number, alias, or lyrics; manage selected songbooks and liked songs; copy, share, and present lyrics.
+- **BibleLib:** read downloaded translations, search scripture, compare parallel translations, and manage bookmarks, highlights, notes, reading history, and scripture lists.
+- **Presentation:** present songs or Bible passages on an extended audience display, or use full-screen mode when audience mode is disabled, the display is mirrored, or no extended display is available.
+- **Local storage:** keeps downloaded content and reader data on the device so the main library features work offline after setup.
+- **Localization:** English and Swahili, with English as the default language.
 
 ## Screenshots
 
-<table>
-    <tr>
-        <td>
-            <image src="./screenshots/image1.png"/>
-        </td>
-        <td>
-            <image src="./screenshots/image2.png"/>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            SongLib on the App
-        </td>
-        <td>
-            BibleLib on the App
-        </td>
-    </tr>
-</table>
+| SongLib | BibleLib |
+|:--:|:--:|
+| ![SongLib screen](screenshots/image1.png) | ![BibleLib screen](screenshots/image2.png) |
 
-## Getting Started
+## Main packages
 
-Follow this guide to set up and run ChurchLib:
+Runtime dependencies are declared in [`pubspec.yaml`](pubspec.yaml). These are the main packages and their roles:
 
-### Setting Up ChurchLib:
+| Area | Packages | Role in ChurchLib |
+|---|---|---|
+| App framework | `flutter`, `flutter_localizations`, `intl` | Desktop UI, localized strings, and date/number formatting. |
+| State and routing | `flutter_bloc`, `equatable`, `freezed_annotation`, `go_router` | Feature state, value equality, generated state types, and navigation. |
+| Dependency injection | `get_it`, `injectable` | Register and retrieve app services and repositories. |
+| Local data | `froom`, `sqflite`, `shared_preferences`, `path`, `path_provider`, `json_annotation` | SQLite models and queries, user preferences, local paths, and JSON model definitions. |
+| Network | `http`, `connectivity_plus` | Fetch song and Bible data, check connectivity, and handle update or license requests. |
+| Desktop integration | `multiview_desktop`, `device_info_plus`, `flutter_platform_alert` | Multi-window audience display, device details, and native platform alerts. |
+| Interface | `styled_widget`, `card_swiper`, `skeleton_loader`, `percent_indicator`, `textstyle_extensions`, `dartx` | Widget composition, swipeable content, loading states, progress indicators, and text/layout helpers. |
+| Licensing and updates | `crypto`, `cryptography`, `package_info_plus`, `url_launcher`, `timeago` | Device identifiers, license verification, app version checks, links, and relative dates. |
+| Export and sharing | `pdf`, `share_plus` | Create PDF output and share song content. |
 
-1. **Install Flutter and Dependencies:** Ensure Flutter is installed on your system. Download the Flutter SDK from the official website and set up your preferred IDE (e.g., Android Studio or Visual Studio Code) with the Flutter plugin.
+Development dependencies include `build_runner`, `froom_generator`, `json_serializable`, `freezed`, and `injectable_generator` for generated code; `flutter_lints` for static analysis; `flutter_test` for tests; and `import_sorter` for import organization.
 
-2. **Clone the Repository:** Clone the ChurchLib repository from GitHub using Git:
+Some packages declared in `pubspec.yaml` currently have no direct import under `lib/` or `test/`: `context_menus`, `cupertino_icons`, `flutter_svg`, `nativeapi_flutter`, `permission_handler`, `rxdart`, `sizer`, and `wakelock_plus`. They may support platform or future integrations; check their usage before removing them.
 
-   ```bash
-   git clone git@github.com:SiroDevs/ChurchLib.git
-   ```
+## Development setup
 
-3. **Install Packages:** Navigate to the project directory and run:
+Requirements: Flutter with Dart SDK `3.13.5` or newer in the `3.x` range, plus the desktop build tools for your operating system.
 
-   ```bash
-   flutter pub get
-   ```
+```bash
+git clone git@github.com:SiroDevs/ChurchLib.git
+cd ChurchLib
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter gen-l10n
+```
 
-### Running ChurchLib:
+Run the production configuration:
 
-1. **Device Setup:** Connect an emulator or physical device to your development environment. Check connected devices:
+```bash
+flutter run -t lib/main.dart
+```
 
-   ```bash
-   flutter devices
-   ```
+Run the staging configuration:
 
-2. **Update Dependencies:**
+```bash
+flutter run -t lib/main_stg.dart
+```
 
-   ```bash
-   flutter pub get
-   ```
+Run the project tests with:
 
-3. **Update Code Generated Files:**
+```bash
+flutter test
+```
 
-   ```bash
-   dart run build_runner build --delete-conflicting-outputs
-   ```
+## Build
 
-4. **Update Localization Strings:**
+Build the production desktop app for your platform:
 
-   ```bash
-   flutter gen-l10n
-   ```
+```bash
+flutter build windows -t lib/main.dart --no-tree-shake-icons
+flutter build macos -t lib/main.dart --no-tree-shake-icons
+flutter build linux -t lib/main.dart --no-tree-shake-icons
+```
 
-5. **Running ChurchLib:**
-   ```bash
-   flutter run --flavor develop -t lib/main_dev.dart --no-tree-shake-icons
-   ```
-
-### Building ChurchLib
-
-1. **Windows:**
-
-   ```
-   flutter build windows --target=lib/main.dart --no-tree-shake-icons
-   ```
-
-2. **MacOS:**
-
-   ```
-   flutter build macos -t lib/main.dart --no-tree-shake-icons
-   ```
-
-   Install create-dmg
-
-   ```
-   brew install create-dmg
-   ```
-
-   Generate DMG
-
-   ```
-   create-dmg \
-   --volname "ChurchLib" \
-   --window-pos 200 120 \
-   --window-size 800 400 \
-   --icon-size 100 \
-   --icon "ChurchLib.app" 200 190 \
-   --hide-extension "ChurchLib.app" \
-   --app-drop-link 600 185 \
-   "dist/macos/churchlib_1.0.0.dmg" \
-   "build/macos/Build/Products/Release/ChurchLib.app"
-   ```
-
-3. **Linux:**
-
-   Generate the build
-
-   ```
-   flutter build linux -t lib/main.dart --no-tree-shake-icons
-   ```
-
-   Create a deb package
-
-   ```
-   flutter_distributor package --platform linux --targets deb
-   ```
-
-   Or an rpm package
-
-   ```
-   flutter_distributor package --platform linux --targets rpm
-   ```
-
-Congratulations! You've successfully set up and run or built ChurchLib. Explore the codebase, make modifications, and contribute to creating a seamless experience for the users. Happy coding!
+Only run the build command for the platform you are targeting. Linux packages can be produced with [`flutter_distributor`](https://pub.dev/packages/flutter_distributor) when it is installed.

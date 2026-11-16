@@ -1,0 +1,1909 @@
+{
+  "@@locale": "ar",
+  "feedback": "ردود الفعل",
+  "@feedback": {
+    "description": "Label for feedback section or button"
+  },
+  "appName": "ChurchLib",
+  "@appName": {
+    "description": "The name of the application"
+  },
+  "listTitle": "قوائم الأغاني",
+  "@listTitle": {
+    "description": "Title for song lists section"
+  },
+  "searchTitle": "بحث الأغاني",
+  "@searchTitle": {
+    "description": "Title for search songs section"
+  },
+  "likesTitle": "الأغاني التي أعجبتني",
+  "@likesTitle": {
+    "description": "Title for liked songs section"
+  },
+  "historiesTitle": "تاريخ",
+  "@historiesTitle": {
+    "description": "Title for song history section"
+  },
+  "draftTitle": "مسودات الأغنية",
+  "@draftTitle": {
+    "description": "Title for song drafts section"
+  },
+  "settingsTitle": "إعدادات",
+  "@settingsTitle": {
+    "description": "Title for settings section"
+  },
+  "helpdeskTitle": "مكتب المساعدة",
+  "@helpdeskTitle": {
+    "description": "Title for help desk section"
+  },
+  "donateTitle": "كيفية التبرع",
+  "@donateTitle": {
+    "description": "Title for donation information section"
+  },
+  "merchandiseTitle": "قم بشراء بضائعنا",
+  "@merchandiseTitle": {
+    "description": "Title for merchandise section"
+  },
+  "booksTitle": "حدد كتب الأغاني",
+  "@booksTitle": {
+    "description": "Title for song book selection"
+  },
+  "booksTitleLoading": "جارٍ تحميل البيانات ...",
+  "@booksTitleLoading": {
+    "description": "Loading message while fetching song books data"
+  },
+  "homeTitle": "الصفحة الرئيسية",
+  "@homeTitle": {
+    "description": "Title for home section"
+  },
+  "listedTitle": "إضافة قائمة جديدة",
+  "@listedTitle": {
+    "description": "Title for adding new song list"
+  },
+  "editorTitle": "صياغة أغنية جديدة",
+  "@editorTitle": {
+    "description": "Title for song drafting/editing screen"
+  },
+  "songTitle": "أغنيتك في سطر واحد",
+  "@songTitle": {
+    "description": "Placeholder for song title input"
+  },
+  "songText": "بقية أغنيتك",
+  "@songText": {
+    "description": "Placeholder for song lyrics/content input"
+  },
+  "hasChorus": "مع جوقة",
+  "@hasChorus": {
+    "description": "Label for chorus toggle/checkbox"
+  },
+  "verses": "الآية",
+  "@verses": {
+    "description": "Label for song verses"
+  },
+  "addtoList": "أضف إلى القائمة",
+  "@addtoList": {
+    "description": "Action to add song to a list"
+  },
+  "addSongtoList": "أضف هذه الأغنية إلى القائمة",
+  "@addSongtoList": {
+    "description": "Action description for adding song to list"
+  },
+  "likeSong": "معجب بهذه الأغنية",
+  "@likeSong": {
+    "description": "Action to like/favorite a song"
+  },
+  "editSong": "قم بتحرير هذه الأغنية",
+  "@editSong": {
+    "description": "Action to edit a song"
+  },
+  "deleteSong": "احذف هذه الأغنية",
+  "@deleteSong": {
+    "description": "Action to delete a song"
+  },
+  "copySong": "انسخ هذه الأغنية",
+  "@copySong": {
+    "description": "Action to copy a song"
+  },
+  "deleteList": "احذف هذه القائمة",
+  "@deleteList": {
+    "description": "Action to delete a song list"
+  },
+  "shareSong": "شارك هذه الأغنية",
+  "@shareSong": {
+    "description": "Action to share a song"
+  },
+  "songCopied": "تم نسخ أغنية !",
+  "@songCopied": {
+    "description": "Success message when song is copied"
+  },
+  "copyVerse": "نسخ الآية",
+  "@copyVerse": {
+    "description": "Action to copy a verse"
+  },
+  "textCopied": " تم نسخ !",
+  "@textCopied": {
+    "description": "Success message when text is copied"
+  },
+  "shareVerse": "مشاركة الآية",
+  "@shareVerse": {
+    "description": "Action to share a verse"
+  },
+  "projectSong": "مشروع هذه الأغنية",
+  "@projectSong": {
+    "description": "Action to project/present a song"
+  },
+  "songLiked": "تم إضافة أغنية  إلى المفضلة!",
+  "@songLiked": {
+    "description": "Success message when song is added to favorites"
+  },
+  "songDisliked": "تمت إزالة أغنية  من المفضلة!",
+  "@songDisliked": {
+    "description": "Message when song is removed from favorites"
+  },
+  "songLike": "أضف هذه الأغنية إلى المفضلة!",
+  "@songLike": {
+    "description": "Tooltip or label for like action"
+  },
+  "songDislike": "قم بإزالة هذه الأغنية من المفضلة!",
+  "@songDislike": {
+    "description": "Tooltip or label for unlike action"
+  },
+  "songAddedToList": " تمت إضافة  إلى ",
+  "@songAddedToList": {
+    "description": "Success message when song is added to a list"
+  },
+  "listCreated": "تم إنشاء قائمة الأغاني !",
+  "@listCreated": {
+    "description": "Success message when list is created"
+  },
+  "listUpdated": "تم تحديث قائمة أغاني !",
+  "@listUpdated": {
+    "description": "Success message when list is updated"
+  },
+  "deleted": "تم حذف !",
+  "@deleted": {
+    "description": "Success message when item is deleted"
+  },
+  "readyShare": "جاهز للمشاركة",
+  "@readyShare": {
+    "description": "Message indicating content is ready to share"
+  },
+  "screenshotVerse": "لقطة الشاشة",
+  "@screenshotVerse": {
+    "description": "Action to take screenshot of verse"
+  },
+  "screenshoted": "لدينا لقطة الشاشة الخاصة بك!",
+  "@screenshoted": {
+    "description": "Success message when screenshot is taken"
+  },
+  "appSettings": "إعدادات",
+  "@appSettings": {
+    "description": "Title for app settings section"
+  },
+  "displayTitle": "إعدادات العرض",
+  "@displayTitle": {
+    "description": "Title for display settings section"
+  },
+  "collectionTitle": "مجموعتك",
+  "@collectionTitle": {
+    "description": "Title for user's collection section"
+  },
+  "presentationTitle": "عرض أغنية",
+  "@presentationTitle": {
+    "description": "Title for song presentation settings"
+  },
+  "audienceModeSettingsTitle": "شاشة عرض",
+  "@audienceModeSettingsTitle": {
+    "description": "Title for audience display settings"
+  },
+  "audienceModeTitle": "وضع الجمهور",
+  "@audienceModeTitle": {
+    "description": "Toggle for showing presentations on a separate display"
+  },
+  "audienceModeDescription": "عرض العروض التقديمية على شاشة موسعة. قم بإيقاف تشغيل هذا لعرض ملء الشاشة على هذه الشاشة.",
+  "@audienceModeDescription": {
+    "description": "Explains audience mode and full-screen presentation"
+  },
+  "appTheme": "موضوع التطبيق",
+  "@appTheme": {
+    "description": "Label for app theme setting"
+  },
+  "appThemeDesc": "الموضوع الحالي:",
+  "@appThemeDesc": {
+    "description": "Description showing current theme"
+  },
+  "reselectSongbooks": "اختر كتب الأغاني من جديد",
+  "@reselectSongbooks": {
+    "description": "Action to reselect songbooks"
+  },
+  "reselectSongbooksDesc": "قم بإعادة هيكلة مجموعتك مرة أخرى",
+  "@reselectSongbooksDesc": {
+    "description": "Description for reselecting songbooks"
+  },
+  "songPresentation": "اتجاه تمرير الشريحة",
+  "@songPresentation": {
+    "description": "Label for song presentation direction setting"
+  },
+  "songPresentationDesc": "شرائح الأغنية للتمرير عموديًا",
+  "@songPresentationDesc": {
+    "description": "Description for song presentation direction"
+  },
+  "presentationStart": "بدء العرض",
+  "@presentationStart": {
+    "description": "Starts presentation mode"
+  },
+  "presentationStop": "إيقاف التقديم",
+  "@presentationStop": {
+    "description": "Stops presentation mode"
+  },
+  "presentationPreview": "معاينة العرض التقديمي",
+  "@presentationPreview": {
+    "description": "Heading above the local presentation preview"
+  },
+  "presentationPrevious": "السابق",
+  "@presentationPrevious": {
+    "description": "Moves to the previous presentation slide"
+  },
+  "presentationNext": "التالي",
+  "@presentationNext": {
+    "description": "Moves to the next presentation slide"
+  },
+  "presentationSmaller": "أصغر",
+  "@presentationSmaller": {
+    "description": "Reduces presentation text size"
+  },
+  "presentationLarger": "أكبر",
+  "@presentationLarger": {
+    "description": "Increases presentation text size"
+  },
+  "presentationAlign": "محاذاة النص",
+  "@presentationAlign": {
+    "description": "Cycles presentation text alignment"
+  },
+  "presentationLeft": "اليسار",
+  "@presentationLeft": {
+    "description": "Left text alignment"
+  },
+  "presentationCenter": "مركز",
+  "@presentationCenter": {
+    "description": "Centered text alignment"
+  },
+  "presentationRight": "صحيح",
+  "@presentationRight": {
+    "description": "Right text alignment"
+  },
+  "presentationBlackout": "التعتيم",
+  "@presentationBlackout": {
+    "description": "Turns the audience screen black"
+  },
+  "presentationShow": "عرض",
+  "@presentationShow": {
+    "description": "Restores the audience screen after blackout"
+  },
+  "presentationStopAction": "توقف",
+  "@presentationStopAction": {
+    "description": "Stops the current presentation"
+  },
+  "presentationPreviousTooltip": "السابق (للأعلى)",
+  "@presentationPreviousTooltip": {
+    "description": "Tooltip for the previous slide button"
+  },
+  "presentationNextTooltip": "التالي (لأسفل)",
+  "@presentationNextTooltip": {
+    "description": "Tooltip for the next slide button"
+  },
+  "presentationSmallerTooltip": "نص أصغر (-)",
+  "@presentationSmallerTooltip": {
+    "description": "Tooltip for reducing presentation text size"
+  },
+  "presentationLargerTooltip": "نص أكبر (=)",
+  "@presentationLargerTooltip": {
+    "description": "Tooltip for increasing presentation text size"
+  },
+  "presentationBlackoutTooltip": "تعتيم الشاشة",
+  "@presentationBlackoutTooltip": {
+    "description": "Tooltip for audience screen blackout"
+  },
+  "presentationStopTooltip": "إيقاف التقديم (Esc)",
+  "@presentationStopTooltip": {
+    "description": "Tooltip for stopping presentation mode"
+  },
+  "presentationWindowTitle": "ChurchLib · الجمهور",
+  "@presentationWindowTitle": {
+    "description": "Title of the audience display window"
+  },
+  "presentationPresentBible": "الكتاب المقدس الحالي",
+  "@presentationPresentBible": {
+    "description": "Action to show the current Bible chapter on the audience display"
+  },
+  "chooseTheme": "اختر الموضوع",
+  "@chooseTheme": {
+    "description": "Title for theme selection dialog"
+  },
+  "themeDefault": "النظام الافتراضي",
+  "@themeDefault": {
+    "description": "Option for system default theme"
+  },
+  "themeLight": "ضوء",
+  "@themeLight": {
+    "description": "Option for light theme"
+  },
+  "themeDark": "داكن",
+  "@themeDark": {
+    "description": "Option for dark theme"
+  },
+  "okay": "حسنًا",
+  "@okay": {
+    "description": "Confirmation button text"
+  },
+  "cancel": "إلغاء",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "openSettings": "افتح الإعدادات",
+  "@openSettings": {
+    "description": "Action to open app settings"
+  },
+  "remind": "ذكرني لاحقًا",
+  "@remind": {
+    "description": "Button to postpone reminder"
+  },
+  "donate": "تبرع",
+  "@donate": {
+    "description": "Action to make donation"
+  },
+  "proceed": "تابع",
+  "@proceed": {
+    "description": "Action to continue/next"
+  },
+  "justAMinute": "دقيقة واحدة فقط!",
+  "@justAMinute": {
+    "description": "Attention-grabbing dialog title"
+  },
+  "supportSongLib": "دعم ChurchLib",
+  "@supportSongLib": {
+    "description": "Title for support/donation request"
+  },
+  "notificationDialog": "دعنا نذكرك",
+  "@notificationDialog": {
+    "description": "Title for reminder dialog"
+  },
+  "noSongSelected": "لم يتم تحديد أي عنصر أغنية",
+  "@noSongSelected": {
+    "description": "Error message when no song is selected"
+  },
+  "noSongbooksAvailable": "لا توجد كتب أغاني متاحة. حدد كتب الأغاني لإعداد SongLib.",
+  "@noSongbooksAvailable": {
+    "description": "Shown when the local song library has no songbooks"
+  },
+  "noSongsInSongbook": "لا توجد أغانٍ متوفرة في كتاب الأغاني هذا.",
+  "@noSongsInSongbook": {
+    "description": "Shown when the selected songbook has no songs"
+  },
+  "selectSongsAfresh": "حدد الأغاني من جديد",
+  "@selectSongsAfresh": {
+    "description": "Action to select songs again"
+  },
+  "problemDisplaySongs": "عفوًا، هناك مشكلة في عرض الأغاني ضمن الكتاب الذي حددته. \n \n يمكنك حل المشكلة عن طريق تحديدها من جديد",
+  "@problemDisplaySongs": {
+    "description": "Error message when songs cannot be displayed"
+  },
+  "donationRequest": "طلب التبرع",
+  "@donationRequest": {
+    "description": "Title for donation request"
+  },
+  "donationRequestBody": "ChurchLib لديه الكثير في طور التنفيذ وسيحتاج إلى دعمك لإنجاز ذلك.",
+  "@donationRequestBody": {
+    "description": "Body text for donation request"
+  },
+  "doneSelecting": "هل انتهيت من التحديد؟",
+  "@doneSelecting": {
+    "description": "Prompt to confirm selection completion"
+  },
+  "doneSelectingBody": "إذا كنت قد انتهيت من التحديد، فيرجى المتابعة. يمكننا دائمًا إعادتك إلى هنا لإعادة الاختيار من جديد.",
+  "@doneSelectingBody": {
+    "description": "Body text for selection completion prompt"
+  },
+  "noSelection": "عفوًا! لم يتم العثور على أي اختيار",
+  "@noSelection": {
+    "description": "Error message when no selection is made"
+  },
+  "noSelectionBody": "برجاء تحديد كتاب واحد على الأقل للانتقال إلى الخطوة التالية.",
+  "@noSelectionBody": {
+    "description": "Body text for no selection error"
+  },
+  "errorOccurred": "واه! لم يكن من المفترض أن ترى هذا!",
+  "@errorOccurred": {
+    "description": "Title for unexpected error"
+  },
+  "errorOccurredBody1": "حدث خطأ غير متوقع أثناء محاولة تقديم الأغنية إليك. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بالدعم",
+  "@errorOccurredBody1": {
+    "description": "Body text for song presentation error"
+  },
+  "errorOccurredBody": "حدث خطأ غير متوقع أثناء محاولة جلب البيانات من الخادم. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بالدعم",
+  "@errorOccurredBody": {
+    "description": "Body text for server fetch error"
+  },
+  "noConnection": "لا يوجد اتصال بالإنترنت!",
+  "@noConnection": {
+    "description": "Title for no internet connection error"
+  },
+  "noConnectionBody": "إذا كان لديك اتصال موثوق بالإنترنت، فهذا يعني أن خوادمنا معطلة أو لا يمكن الوصول إليها. \n \n إذا استمر هذا الوضع، راسلنا عبر البريد الإلكتروني: futuristicken@gmail.com مع لقطة شاشة ومعلومات جهازك.",
+  "@noConnectionBody": {
+    "description": "Body text for connection error with support email"
+  },
+  "itsEmptyHere": "واه! انها فارغة هنا",
+  "@itsEmptyHere": {
+    "description": "Empty state title for general sections"
+  },
+  "itsEmptyHere1": "واه! لا توجد قوائم هنا حتى الآن",
+  "@itsEmptyHere1": {
+    "description": "Empty state title for lists section"
+  },
+  "itsEmptyHereBody": "كل ما تم التقاطه هنا، قم بعمل مجموعة مختارة من الأغاني مرة أخرى",
+  "@itsEmptyHereBody": {
+    "description": "Empty state body for song selection"
+  },
+  "itsEmptyHereBody1": "كل ما تم التقاطه هنا، يرجى الإعجاب بأغنية أو البحث أو عرض أغنية أو من الأفضل إضافة قائمة مخصصة لمسح هذا الفراغ هنا",
+  "@itsEmptyHereBody1": {
+    "description": "Empty state body with suggestions for lists"
+  },
+  "itsEmptyHereBody2": "جميع ما تم التقاطه هنا، يرجى إضافة مسودة أغنية لمسح هذا الفراغ هنا",
+  "@itsEmptyHereBody2": {
+    "description": "Empty state body for drafts section"
+  },
+  "itsEmptyHereBody3": "جميع ما تم التقاطه هنا، يرجى الإعجاب بأغنية لمسح هذا الفراغ هنا",
+  "@itsEmptyHereBody3": {
+    "description": "Empty state body for favorites section"
+  },
+  "itsEmptyHereBody4": "كل ما تم التقاطه هنا، يمكنك إضافة قوائم شخصية وإضافة الأغاني إليها",
+  "@itsEmptyHereBody4": {
+    "description": "Empty state body with suggestion for personal lists"
+  },
+  "keyboardShortcuts": "اختصارات لوحة المفاتيح",
+  "@keyboardShortcuts": {
+    "description": "Title for keyboard shortcuts section"
+  },
+  "keyboardShortcutsTexts": "Letter I - عرض اختصارات لوحة المفاتيح \n مفتاح ESC - الخروج من عرض الأغنية \n \n سهم لأسفل - انتقل إلى الآية التالية \n سهم لأعلى - انتقل إلى الآية السابقة \n \n سهم لليمين - انتقل إلى الأغنية التالية \n سهم لليسار - اذهب إلى الأغنية السابقة \n \n Letter C - اذهب إلى جوقة الأغنية \n Letter S - اذهب إلى البيت الثاني الأخير \n Letter L - اذهب إلى البيت الأخير \n \n Numpad 1, 2, 3, 4, 5, 6, 7 - اذهب إلى البيت حسب الرقم",
+  "@keyboardShortcutsTexts": {
+    "description": "List of keyboard shortcuts with descriptions"
+  },
+  "hintsCurrentUpdate": "في هذا التحديث الأخير",
+  "@hintsCurrentUpdate": {
+    "description": "Title for current update highlights"
+  },
+  "hintsCurrentUpdateText": "1. ابحث دون القلق بشأن الفواصل أو علامات التعجب \n 2. ابحث عن كلمات لا تتبع بعضها البعض باستخدام فاصلة بينها \n على سبيل المثال، يمكن استخدام \"Jesus, sin\" للبحث في الأغنية \"Jesus pay it all\"",
+  "@hintsCurrentUpdateText": {
+    "description": "Text describing new features in current update"
+  },
+  "donationRequestReminder": "\n \n تذكر أن تدعم عملنا بتبرعك من وقت لآخر. \n توجه إلى مكتب المساعدة للتبرع",
+  "@donationRequestReminder": {
+    "description": "Reminder text about supporting with donations"
+  },
+  "availableBooks": "هنا الكتب المتاحة، يرجى اختيار العدد الذي ترغب فيه للمتابعة",
+  "@availableBooks": {
+    "description": "Instruction text for book selection"
+  },
+  "nothingHere": "نأسف لعدم عرض أي شيء هنا في الوقت الحالي.",
+  "@nothingHere": {
+    "description": "Generic empty state message"
+  },
+  "redirectingYou": "إعادة توجيهك لتحديد الأغاني من جديد",
+  "@redirectingYou": {
+    "description": "Message indicating redirection to song selection"
+  },
+  "disabled": "معطل",
+  "@disabled": {
+    "description": "Label for disabled state"
+  },
+  "enabled": "تم تمكين",
+  "@enabled": {
+    "description": "Label for enabled state"
+  },
+  "systemDefault": "النظام الافتراضي",
+  "@systemDefault": {
+    "description": "Label for system default option"
+  },
+  "verticalSlide": "عمودي (أعلى، أسفل)",
+  "@verticalSlide": {
+    "description": "Option for vertical slide direction"
+  },
+  "horizontalSlide": "أفقي (يسار، يمين)",
+  "@horizontalSlide": {
+    "description": "Option for horizontal slide direction"
+  },
+  "songbooksMgnt": "إدارة كتب الأغاني",
+  "@songbooksMgnt": {
+    "description": "Title for songbooks management section"
+  },
+  "songbooksMgntText": "أعد تحديد كتب الأغاني الخاصة بك من جديد",
+  "@songbooksMgntText": {
+    "description": "Description for songbooks management"
+  },
+  "screenAwake": "حافظ على تشغيل الشاشة في عرض الأغنية",
+  "@screenAwake": {
+    "description": "Setting to keep screen awake during song presentation"
+  },
+  "slideDirection": "اتجاه شرائح الأغنية",
+  "@slideDirection": {
+    "description": "Label for slide direction setting"
+  },
+  "setDirection": "اتجاه : {direction}",
+  "@setDirection": {
+    "description": "Message showing current slide direction with parameter",
+    "placeholders": {
+      "direction": {
+        "type": "String",
+        "example": "Vertical"
+      }
+    }
+  },
+  "themeMode": "وضع السمة",
+  "@themeMode": {
+    "description": "Label for theme mode setting"
+  },
+  "setTheme": "الموضوع: {theme}",
+  "@setTheme": {
+    "description": "Message showing current theme with parameter",
+    "placeholders": {
+      "theme": {
+        "type": "String",
+        "example": "Dark"
+      }
+    }
+  },
+  "defaultMode": "الافتراضي",
+  "@defaultMode": {
+    "description": "Label for default mode"
+  },
+  "lightMode": "ضوء",
+  "@lightMode": {
+    "description": "Label for light mode"
+  },
+  "darkMode": "داكن",
+  "@darkMode": {
+    "description": "Label for dark mode"
+  },
+  "labelError0": "حدث خطأ غير معروف.",
+  "@labelError0": {
+    "description": "Generic unknown error message"
+  },
+  "labelError404": "لا يمكننا توصيلك بخادمنا في الوقت الحالي.",
+  "@labelError404": {
+    "description": "Error message for 404 (not found) server error"
+  },
+  "labelError500": "أنت غير قادر على الاتصال بخادمنا في الوقت الحالي.",
+  "@labelError500": {
+    "description": "Error message for 500 (server) error"
+  },
+  "labelError504": "لقد انتهت مهلة طلبك لخادمنا.",
+  "@labelError504": {
+    "description": "Error message for 504 (timeout) error"
+  },
+  "labelError999": "قام خادمنا بإرجاع استجابة غير صالحة.",
+  "@labelError999": {
+    "description": "Error message for invalid server response"
+  },
+  "labelError1000": "لا يمكننا إرسال طلبك.",
+  "@labelError1000": {
+    "description": "Error message for request submission failure"
+  },
+  "labelFeedback0": "حدث خطأ غير معروف.",
+  "@labelFeedback0": {
+    "description": "Generic unknown error for feedback"
+  },
+  "labelFeedback404": "لا يمكننا توصيلك بخادمنا في الوقت الحالي بسبب مشكلة فنية من جانبنا. يرجى محاولة الاتصال مرة أخرى، إذا استمرت المشكلة، اتصل بنا على: thesonglibapp@gmail.com",
+  "@labelFeedback404": {
+    "description": "Detailed 404 error message with support contact for feedback"
+  },
+  "labelFeedback500": "لا يمكننا توصيلك بخادمنا في الوقت الحالي بسبب مشكلة فنية من جانبك. يرجى محاولة التبديل إلى خدمة إنترنت موثوقة والمحاولة مرة أخرى. إذا استمرت المشكلة، فاتصل بنا على: thesonglibapp@gmail.com",
+  "@labelFeedback500": {
+    "description": "Detailed 500 error message with troubleshooting steps for feedback"
+  },
+  "labelFeedback504": "لقد انتهت مهلة طلبك لخادمنا.",
+  "@labelFeedback504": {
+    "description": "Timeout error message for feedback"
+  },
+  "labelFeedback999": "قام خادمنا بإرجاع استجابة غير صالحة.",
+  "@labelFeedback999": {
+    "description": "Invalid response error for feedback"
+  },
+  "labelFeedback1000": "لا يمكننا إرسال طلبك.",
+  "@labelFeedback1000": {
+    "description": "Request submission failure for feedback"
+  },
+  "labelPermissionTitle": "مطلوب إذن",
+  "@labelPermissionTitle": {
+    "description": "Title for permission request dialog"
+  },
+  "labelPermissionText": "يتطلب هذا التطبيق هذه الأذونات ليعمل بشكل صحيح.",
+  "@labelPermissionText": {
+    "description": "Explanation text for why permissions are needed"
+  },
+  "misc": "متنوعات",
+  "@misc": {
+    "description": "Miscellaneous category label"
+  },
+  "licenseTitle": "ترخيص",
+  "@licenseTitle": {
+    "description": "Title of the license section"
+  },
+  "licenseTrialActive": "تجربة مجانية",
+  "@licenseTrialActive": {
+    "description": "Label shown while the free trial is running"
+  },
+  "licenseDayLeft": "باقي يوم واحد",
+  "@licenseDayLeft": {
+    "description": "Shown when one trial day remains"
+  },
+  "licenseDaysLeft": "{days} يوم متبقي",
+  "@licenseDaysLeft": {
+    "description": "Shown when several trial days remain",
+    "placeholders": {
+      "days": {
+        "type": "String",
+        "example": "5"
+      }
+    }
+  },
+  "licenseBuy": "شراء الترخيص",
+  "@licenseBuy": {
+    "description": "Button that opens the purchase window"
+  },
+  "licenseUnlock": "فتح ChurchLib",
+  "@licenseUnlock": {
+    "description": "Title of the purchase window"
+  },
+  "licenseTrialEndedTitle": "لقد انتهت الفترة التجريبية المجانية الخاصة بك",
+  "@licenseTrialEndedTitle": {
+    "description": "Heading when the trial is over"
+  },
+  "licenseTrialEndedBody": "قم بفتح ChurchLib مرة واحدة واستخدمه للأبد على هذا الكمبيوتر.",
+  "@licenseTrialEndedBody": {
+    "description": "Explains what buying a license gives"
+  },
+  "licenseRevokedTitle": "هذا الترخيص لم يعد فعالا",
+  "@licenseRevokedTitle": {
+    "description": "Heading when the license was withdrawn"
+  },
+  "licenseRevokedBody": "يرجى الاتصال بالدعم وسنساعدك.",
+  "@licenseRevokedBody": {
+    "description": "Asks the person to contact support"
+  },
+  "licenseConnectTitle": "اتصل بالإنترنت",
+  "@licenseConnectTitle": {
+    "description": "Heading when the first online check could not happen"
+  },
+  "licenseConnectBody": "يحتاج  ChurchLib إلى الاتصال بالإنترنت مرة واحدة لبدء النسخة التجريبية المجانية. بعد ذلك يعمل دون اتصال.",
+  "@licenseConnectBody": {
+    "description": "Explains why internet is needed once"
+  },
+  "licenseClockTitle": "تحقق من تاريخ ووقت جهاز الكمبيوتر الخاص بك",
+  "@licenseClockTitle": {
+    "description": "Heading when the clock looks wrong"
+  },
+  "licenseClockBody": "الساعة تبدو خاطئة. قم بتصحيحه، ثم حاول مرة أخرى.",
+  "@licenseClockBody": {
+    "description": "Asks the person to fix the clock"
+  },
+  "licenseNotConfigured": "لم يتم إعداد خادم الترخيص في هذا الإصدار من ChurchLib.",
+  "@licenseNotConfigured": {
+    "description": "Shown by builds that have no license server configured"
+  },
+  "licenseChecking": "جارٍ التحقق من الترخيص الخاص بك...",
+  "@licenseChecking": {
+    "description": "Shown while the license is being checked"
+  },
+  "licenseRetry": "حاول مرة أخرى",
+  "@licenseRetry": {
+    "description": "Retry button"
+  },
+  "licensePriceLine": "{local} أو {usd}، مرة واحدة، لهذا الكمبيوتر",
+  "@licensePriceLine": {
+    "description": "Price line with both currencies",
+    "placeholders": {
+      "local": {
+        "type": "String",
+        "example": "KES 5,000"
+      },
+      "usd": {
+        "type": "String",
+        "example": "$40"
+      }
+    }
+  },
+  "licenseHowToPay": "كيفية الدفع",
+  "@licenseHowToPay": {
+    "description": "Heading above the payment instructions"
+  },
+  "licenseSendTo": "أرسل {amount} إلى",
+  "@licenseSendTo": {
+    "description": "Instruction before the payment number or email",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "KES 5,000"
+      }
+    }
+  },
+  "licenseAfterPaying": "ثم أدخل رمز المعاملة أدناه. نحن نوافق عليه ويفتح ChurchLib.",
+  "@licenseAfterPaying": {
+    "description": "Explains what happens after paying"
+  },
+  "licenseNameLabel": "الاسم المستخدم للدفع",
+  "@licenseNameLabel": {
+    "description": "Form field label"
+  },
+  "licensePhoneLabel": "رقم الهاتف",
+  "@licensePhoneLabel": {
+    "description": "Form field label"
+  },
+  "licenseCodeMpesa": "رمز التأكيد  M-Pesa",
+  "@licenseCodeMpesa": {
+    "description": "Form field label"
+  },
+  "licenseCodePaypal": "معرف معاملة PayPal",
+  "@licenseCodePaypal": {
+    "description": "Form field label"
+  },
+  "licenseSubmitPayment": "أرسل الدفع",
+  "@licenseSubmitPayment": {
+    "description": "Button that sends the payment details"
+  },
+  "licenseCodeInvalid": "أدخل 8 إلى 20 حرفًا ورقمًا من رسالتك أو إيصالك",
+  "@licenseCodeInvalid": {
+    "description": "Validation message for the transaction code"
+  },
+  "licenseNameInvalid": "أدخل الاسم المستخدم للدفع",
+  "@licenseNameInvalid": {
+    "description": "Validation message for the name"
+  },
+  "licensePhoneInvalid": "أدخل رقم الهاتف",
+  "@licensePhoneInvalid": {
+    "description": "Validation message for the phone number"
+  },
+  "licensePaymentPendingTitle": "تم استلام الدفعة",
+  "@licensePaymentPendingTitle": {
+    "description": "Heading while a payment waits for approval"
+  },
+  "licensePaymentPendingBody": "نحن نتحقق منه. وهذا عادة ما يستغرق بضع ساعات. يتم فتح ChurchLib من تلقاء نفسه بمجرد الموافقة عليه.",
+  "@licensePaymentPendingBody": {
+    "description": "Explains the wait for approval"
+  },
+  "licenseCheckAgain": "تحقق مرة أخرى",
+  "@licenseCheckAgain": {
+    "description": "Button that checks the payment status"
+  },
+  "licenseHaveKey": "هل لديك مفتاح ترخيص؟",
+  "@licenseHaveKey": {
+    "description": "Link that reveals the license key box"
+  },
+  "licenseKeyLabel": "مفتاح الترخيص",
+  "@licenseKeyLabel": {
+    "description": "Label for the license key"
+  },
+  "licenseRedeem": "استخدم المفتاح",
+  "@licenseRedeem": {
+    "description": "Button that applies a license key"
+  },
+  "licenseActivated": "تم تفعيل ترخيص . شكرًا لك!",
+  "@licenseActivated": {
+    "description": "Success message after unlocking"
+  },
+  "licenseComputerId": "هذا الكمبيوتر",
+  "@licenseComputerId": {
+    "description": "Label for the short computer id"
+  },
+  "licenseCopy": "نسخة",
+  "@licenseCopy": {
+    "description": "Copy button tooltip"
+  },
+  "licenseCopied": "تم نسخ",
+  "@licenseCopied": {
+    "description": "Shown after copying"
+  },
+  "licenseSupport": "هل تحتاج إلى مساعدة؟",
+  "@licenseSupport": {
+    "description": "Label before the support links"
+  },
+  "licenseStatusLicensed": "مرخص",
+  "@licenseStatusLicensed": {
+    "description": "Status of a paid license"
+  },
+  "licenseSince": "منذ {date}",
+  "@licenseSince": {
+    "description": "Date the license was issued",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "13 Oct 2026"
+      }
+    }
+  },
+  "licenseLastChecked": "آخر فحص {when}",
+  "@licenseLastChecked": {
+    "description": "When the server was last asked",
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "5 minutes ago"
+      }
+    }
+  },
+  "licenseNeverChecked": "لم يتم التحقق منه بعد",
+  "@licenseNeverChecked": {
+    "description": "Shown before the first check"
+  },
+  "licenseCheckNow": "تحقق الآن",
+  "@licenseCheckNow": {
+    "description": "Button that asks the server now"
+  },
+  "licenseMoveTitle": "انتقل إلى كمبيوتر آخر",
+  "@licenseMoveTitle": {
+    "description": "Title of the release-license action"
+  },
+  "licenseMoveDesc": "قم بتحرير هذا الترخيص هنا حتى تتمكن من استخدامه على جهاز كمبيوتر جديد.",
+  "@licenseMoveDesc": {
+    "description": "Explains the release-license action"
+  },
+  "licenseMoveConfirm": "سيعود هذا الكمبيوتر إلى النسخة التجريبية المجانية. ثم أدخل مفتاح الترخيص الخاص بك على الكمبيوتر الجديد.",
+  "@licenseMoveConfirm": {
+    "description": "Confirmation text before releasing a license"
+  },
+  "licenseRelease": "الإصدار",
+  "@licenseRelease": {
+    "description": "Confirm button of the release dialog"
+  },
+  "licenseTrialEndedBanner": "انتهت النسخة التجريبية المجانية من . سيطلب ChurchLib ترخيصًا في المرة القادمة التي تفتحه فيها.",
+  "@licenseTrialEndedBanner": {
+    "description": "Sidebar banner after the trial ended"
+  },
+  "licenseDeveloperBuild": "إصدار المطور : تم إيقاف عمليات التحقق من الترخيص.",
+  "@licenseDeveloperBuild": {
+    "description": "Shown in debug builds without a license server"
+  },
+  "songSearchHint": "ابحث عن أغنية حسب العنوان أو الكلمات",
+  "@songSearchHint": {
+    "description": "Hint for searching songs"
+  },
+  "clearAction": "واضح",
+  "@clearAction": {
+    "description": "Clear action label"
+  },
+  "songCopiedClipboard": "تم نسخ الأغنية  إلى الحافظة",
+  "@songCopiedClipboard": {
+    "description": "Song copy confirmation"
+  },
+  "noLikedSongs": "لم تعجبك أغنية بعد.",
+  "@noLikedSongs": {
+    "description": "Empty state for liked songs"
+  },
+  "versesPanel": "لوحة الآيات",
+  "@versesPanel": {
+    "description": "Song presentation verses panel setting"
+  },
+  "modulesTitle": "وحدات",
+  "@modulesTitle": {
+    "description": "Title for module settings"
+  },
+  "addSonglib": "إضافة SongLib",
+  "@addSonglib": {
+    "description": "Add SongLib setting title"
+  },
+  "songlibSetupSubtitle": "قم بإعداد كتاب ترانيم الكنيسة الخاص بك",
+  "@songlibSetupSubtitle": {
+    "description": "SongLib setup description"
+  },
+  "addBiblelib": "إضافة BibleLib",
+  "@addBiblelib": {
+    "description": "Add BibleLib setting title"
+  },
+  "biblelibSetupSubtitle": "قم بإعداد ترجمة للكتاب المقدس",
+  "@biblelibSetupSubtitle": {
+    "description": "BibleLib setup description"
+  },
+  "resetData": "إعادة تعيين البيانات",
+  "@resetData": {
+    "description": "Reset data setting title"
+  },
+  "startOverBiblelib": "ابدأ من جديد مع BibleLib",
+  "@startOverBiblelib": {
+    "description": "Reset BibleLib action"
+  },
+  "resetChurchlib": "إعادة تعيين ChurchLib",
+  "@resetChurchlib": {
+    "description": "Reset ChurchLib action"
+  },
+  "setThemeDialogTitle": "قم بتعيين السمة",
+  "@setThemeDialogTitle": {
+    "description": "Theme dialog title"
+  },
+  "settingsWindowTitle": "إعدادات  ChurchLib",
+  "@settingsWindowTitle": {
+    "description": "Settings window title"
+  },
+  "moveUp": "تحرك لأعلى",
+  "@moveUp": {
+    "description": "Move item up tooltip"
+  },
+  "moveDown": "تحرك للأسفل",
+  "@moveDown": {
+    "description": "Move item down tooltip"
+  },
+  "multiBibleReader": "قارئ الكتاب المقدس المتعدد",
+  "@multiBibleReader": {
+    "description": "Multi-Bible reader setting"
+  },
+  "noPrimaryBible": "لم يتم تعيين الكتاب المقدس الأساسي حتى الآن.",
+  "@noPrimaryBible": {
+    "description": "Message shown when no primary Bible is set"
+  },
+  "removeBibleQuestion": "هل تريد إزالة {bibleName}؟",
+  "@removeBibleQuestion": {
+    "description": "Confirm removing a Bible",
+    "placeholders": {
+      "bibleName": {
+        "type": "String"
+      }
+    }
+  },
+  "choosePrimaryBible": "اختر الكتاب المقدس الأساسي",
+  "@choosePrimaryBible": {
+    "description": "Title for choosing the primary Bible"
+  },
+  "closeAction": "إغلاق",
+  "@closeAction": {
+    "description": "Close action label"
+  },
+  "managingBibles": "إدارة كتبك المقدسة",
+  "@managingBibles": {
+    "description": "Bible management help title"
+  },
+  "bibleManagementQuestion": "هل ترغب في معرفة كيفية إدارة كتبك المقدسة؟",
+  "@bibleManagementQuestion": {
+    "description": "Bible management help prompt"
+  },
+  "noThanks": "لا، شكرًا",
+  "@noThanks": {
+    "description": "Decline action label"
+  },
+  "showMe": "أرني",
+  "@showMe": {
+    "description": "Show help action label"
+  },
+  "restartAction": "إعادة تشغيل",
+  "@restartAction": {
+    "description": "Restart action label"
+  },
+  "continueAction": "متابعة",
+  "@continueAction": {
+    "description": "Continue action label"
+  },
+  "deleteAction": "حذف",
+  "@deleteAction": {
+    "description": "Delete action label"
+  },
+  "howBibleManagementWorks": "كيف تعمل إدارة الكتاب المقدس",
+  "@howBibleManagementWorks": {
+    "description": "Bible management help tooltip"
+  },
+  "manageBibles": "إدارة الأناجيل",
+  "@manageBibles": {
+    "description": "Bible management screen title"
+  },
+  "changeSelection": "تغيير التحديد",
+  "@changeSelection": {
+    "description": "Change selected Bible editions action"
+  },
+  "deleteScriptureListQuestion": "هل تريد حذف هذه القائمة؟",
+  "@deleteScriptureListQuestion": {
+    "description": "Confirm deleting a scripture list"
+  },
+  "scriptureListsTitle": "قوائم الكتاب المقدس",
+  "@scriptureListsTitle": {
+    "description": "Scripture lists screen title"
+  },
+  "renameList": "قائمة إعادة التسمية",
+  "@renameList": {
+    "description": "Rename list dialog title"
+  },
+  "saveAction": "حفظ",
+  "@saveAction": {
+    "description": "Save action label"
+  },
+  "playAction": "تشغيل",
+  "@playAction": {
+    "description": "Play action label"
+  },
+  "deleteSelectedQuestion": "هل تريد حذف التحديد؟",
+  "@deleteSelectedQuestion": {
+    "description": "Confirm deleting selected items"
+  },
+  "bookmarksNotesTitle": "الإشارات المرجعية والملاحظات",
+  "@bookmarksNotesTitle": {
+    "description": "Bookmarks and notes screen title"
+  },
+  "deleteSelectedTooltip": "حذف المحدد",
+  "@deleteSelectedTooltip": {
+    "description": "Delete selected items tooltip"
+  },
+  "clearAll": "مسح الكل",
+  "@clearAll": {
+    "description": "Clear all action label"
+  },
+  "clearReadingHistoryQuestion": "هل تريد مسح سجل القراءة؟",
+  "@clearReadingHistoryQuestion": {
+    "description": "Confirm clearing reading history"
+  },
+  "clearSearchHistoryQuestion": "هل تريد مسح سجل البحث؟",
+  "@clearSearchHistoryQuestion": {
+    "description": "Confirm clearing search history"
+  },
+  "historyTitle": "تاريخ",
+  "@historyTitle": {
+    "description": "Bible history screen title"
+  },
+  "searchScripturesHint": "البحث في الكتب المقدسة ...",
+  "@searchScripturesHint": {
+    "description": "Bible search hint"
+  },
+  "noDownloadedBiblesToSearch": "لم يتم تنزيل أي كتب مقدسة للبحث عنها بعد.",
+  "@noDownloadedBiblesToSearch": {
+    "description": "Empty search state without downloaded Bibles"
+  },
+  "noSearchResultsForQuery": "لا توجد نتائج لـ {query}",
+  "@noSearchResultsForQuery": {
+    "description": "Empty Bible search results",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "typeAtLeast3Letters": "اكتب 3 أحرف على الأقل للبحث.",
+  "@typeAtLeast3Letters": {
+    "description": "Minimum Bible search query hint"
+  },
+  "searchBiblesHint": "ابحث عن الاسم أو الاختصار أو اللغة",
+  "@searchBiblesHint": {
+    "description": "Bible selection search hint"
+  },
+  "chooseBiblesTitle": "اختر أناجيلك",
+  "@chooseBiblesTitle": {
+    "description": "Bible selection step title"
+  },
+  "noBiblesMatch": "لا توجد كتب مقدسة تطابق بحثك",
+  "@noBiblesMatch": {
+    "description": "No Bible search matches"
+  },
+  "setupChurchLibTitle": "قم بإعداد ChurchLib",
+  "@setupChurchLibTitle": {
+    "description": "ChurchLib setup screen title"
+  },
+  "refreshAction": "تحديث",
+  "@refreshAction": {
+    "description": "Refresh action label"
+  },
+  "backAction": "العودة",
+  "@backAction": {
+    "description": "Back action label"
+  },
+  "finishAction": "لمسة نهائية",
+  "@finishAction": {
+    "description": "Finish action label"
+  },
+  "chooseSongbooksTitle": "اختر كتب الأغاني الخاصة بك",
+  "@chooseSongbooksTitle": {
+    "description": "Songbook selection step title"
+  },
+  "gettingEverythingReady": "جارٍ تجهيز كل شيء…",
+  "@gettingEverythingReady": {
+    "description": "Setup progress title"
+  },
+  "unableDownloadSongs": "غير قادر على تنزيل الأغاني",
+  "@unableDownloadSongs": {
+    "description": "Song download failure title"
+  },
+  "retryAction": "إعادة المحاولة",
+  "@retryAction": {
+    "description": "Retry action label"
+  },
+  "songlibDescription": "كتاب ترانيم وتراتيل الكنيسة، غير متصل",
+  "@songlibDescription": {
+    "description": "SongLib module description"
+  },
+  "biblelibDescription": "قارئ الكتاب المقدس متعدد الترجمة",
+  "@biblelibDescription": {
+    "description": "BibleLib module description"
+  },
+  "previousAction": "السابق",
+  "@previousAction": {
+    "description": "Previous action label"
+  },
+  "previousChapterTooltip": "الفصل السابق (Alt + ←)",
+  "@previousChapterTooltip": {
+    "description": "Previous chapter tooltip"
+  },
+  "chapterNumberLabel": "الفصل {chapterNumber}",
+  "@chapterNumberLabel": {
+    "description": "Chapter picker button label",
+    "placeholders": {
+      "chapterNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "pickChapter": "اختيار الفصل",
+  "@pickChapter": {
+    "description": "Chapter picker tooltip"
+  },
+  "nextAction": "التالي",
+  "@nextAction": {
+    "description": "Next action label"
+  },
+  "nextChapterTooltip": "الفصل التالي (Alt + →)",
+  "@nextChapterTooltip": {
+    "description": "Next chapter tooltip"
+  },
+  "quickOptions": "خيارات سريعة",
+  "@quickOptions": {
+    "description": "Quick reader options title"
+  },
+  "smallerText": "نص أصغر",
+  "@smallerText": {
+    "description": "Decrease reader text size action"
+  },
+  "largerText": "نص أكبر",
+  "@largerText": {
+    "description": "Increase reader text size action"
+  },
+  "slower": "أبطأ",
+  "@slower": {
+    "description": "Decrease auto-scroll speed tooltip"
+  },
+  "faster": "أسرع",
+  "@faster": {
+    "description": "Increase auto-scroll speed tooltip"
+  },
+  "switchPrimaryBible": "قم بتبديل كتابك المقدس الأساسي",
+  "@switchPrimaryBible": {
+    "description": "Switch primary Bible tooltip"
+  },
+  "pickBibleBook": "اختر كتابًا من الكتاب المقدس",
+  "@pickBibleBook": {
+    "description": "Bible book picker tooltip"
+  },
+  "scriptureOpener": "فتاحة الكتاب المقدس",
+  "@scriptureOpener": {
+    "description": "Scripture opener action"
+  },
+  "closeScriptureQueue": "إغلاق قائمة انتظار الكتاب المقدس",
+  "@closeScriptureQueue": {
+    "description": "Close scripture queue tooltip"
+  },
+  "previousScripture": "الكتاب المقدس السابق",
+  "@previousScripture": {
+    "description": "Previous scripture tooltip"
+  },
+  "nextScripture": "الكتاب المقدس التالي",
+  "@nextScripture": {
+    "description": "Next scripture tooltip"
+  },
+  "chooseHighlightColor": "اختر لون التمييز",
+  "@chooseHighlightColor": {
+    "description": "Highlight color dialog title"
+  },
+  "bookmarkVerses": "الآيات المرجعية",
+  "@bookmarkVerses": {
+    "description": "Bookmark verses dialog title"
+  },
+  "bookmarkOnly": "الإشارة المرجعية فقط",
+  "@bookmarkOnly": {
+    "description": "Bookmark without adding notes"
+  },
+  "bookmarkWithNotes": "إشارة مرجعية مع الملاحظات",
+  "@bookmarkWithNotes": {
+    "description": "Bookmark and add notes action"
+  },
+  "saveNote": "حفظ الملاحظة",
+  "@saveNote": {
+    "description": "Save note tooltip"
+  },
+  "writeVerseThoughts": "اكتب رأيك في هذه الآية...",
+  "@writeVerseThoughts": {
+    "description": "Note editor hint"
+  },
+  "noBooksFound": "لم يتم العثور على كتب",
+  "@noBooksFound": {
+    "description": "Empty Bible book picker state"
+  },
+  "searchBooksHint": "البحث في الكتب...",
+  "@searchBooksHint": {
+    "description": "Bible book picker search hint"
+  },
+  "fontSizeLabel": "حجم الخط: {size}",
+  "@fontSizeLabel": {
+    "description": "Reader font size label",
+    "placeholders": {
+      "size": {
+        "type": "int"
+      }
+    }
+  },
+  "copyTextToClipboard": "تم نسخ  إلى الحافظة",
+  "@copyTextToClipboard": {
+    "description": "Copy confirmation"
+  },
+  "cancelVerseSelection": "إلغاء التحديد (Esc)",
+  "@cancelVerseSelection": {
+    "description": "Cancel verse selection tooltip"
+  },
+  "bookmarkHighlight": "إشارة مرجعية / تسليط الضوء",
+  "@bookmarkHighlight": {
+    "description": "Bookmark or highlight tooltip"
+  },
+  "copyAction": "نسخة",
+  "@copyAction": {
+    "description": "Copy action label"
+  },
+  "backButton": "العودة",
+  "@backButton": {
+    "description": "Back navigation button label"
+  },
+  "versionUpdateBanner": "الإصدار {latest} خارج (لديك {current}).",
+  "@versionUpdateBanner": {
+    "description": "Available application update banner",
+    "placeholders": {
+      "latest": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "noBiblesDownloaded": "لم يتم تنزيل أي كتب مقدسة حتى الآن.",
+  "@noBiblesDownloaded": {
+    "description": "Reader message when no Bibles are downloaded"
+  },
+  "bibleDataUnavailable": "بيانات الكتاب المقدس  غير متوفرة. انتظر حتى يكتمل التنزيل.",
+  "@bibleDataUnavailable": {
+    "description": "Reader message while Bible data downloads"
+  },
+  "noChaptersFound": "لم يتم العثور على فصول لـ {bookName}",
+  "@noChaptersFound": {
+    "description": "Reader message when a book has no chapters",
+    "placeholders": {
+      "bookName": {
+        "type": "String"
+      }
+    }
+  },
+  "versesNotCached": "لم يتم تخزين الآيات  مؤقتًا. تأكد من اكتمال التنزيل.",
+  "@versesNotCached": {
+    "description": "Reader message when chapter verses are missing"
+  },
+  "readerLoadFailed": "غير قادر على تحميل محتوى الكتاب المقدس هذا. يرجى المحاولة مرة أخرى.",
+  "@readerLoadFailed": {
+    "description": "Generic Bible reader load error"
+  },
+  "noBooksForBible": "لم يتم العثور على كتب لهذا الكتاب المقدس.",
+  "@noBooksForBible": {
+    "description": "Scripture opener empty state"
+  },
+  "scriptureListsFailed": "فشل في تحميل قوائم النصوص المقدسة.",
+  "@scriptureListsFailed": {
+    "description": "Scripture list loading error"
+  },
+  "scriptureListNotFound": "لا يمكن العثور على قائمة الكتب المقدسة هذه.",
+  "@scriptureListNotFound": {
+    "description": "Missing scripture list error"
+  },
+  "songSearchFailed": "غير قادر على عرض الأغاني",
+  "@songSearchFailed": {
+    "description": "Song search failure message"
+  },
+  "showVersesPanel": "إظهار كل مقطع من الأغنية بجوار الشرائح أثناء العرض",
+  "@showVersesPanel": {
+    "description": "Verses panel setting description"
+  },
+  "startOverBiblelibQuestion": "البدء من جديد مع BibleLib؟",
+  "@startOverBiblelibQuestion": {
+    "description": "Confirm resetting BibleLib"
+  },
+  "startOverBiblelibMessage": "يؤدي هذا إلى حذف كل الكتاب المقدس والإشارات المرجعية والملاحظات التي تم تنزيلها. لا يمكن التراجع عن هذا.",
+  "@startOverBiblelibMessage": {
+    "description": "Confirm resetting BibleLib message"
+  },
+  "resetChurchlibQuestion": "إعادة تعيين ChurchLib؟",
+  "@resetChurchlibQuestion": {
+    "description": "Confirm resetting ChurchLib"
+  },
+  "resetChurchlibMessage": "يؤدي هذا إلى مسح كل شيء — كتب الأغاني والأناجيل والإشارات المرجعية والملاحظات والإعدادات — ويعيدك إلى الإعداد. لا يمكن التراجع عن هذا.",
+  "@resetChurchlibMessage": {
+    "description": "Confirm resetting ChurchLib message"
+  },
+  "resetBibleSubtitle": "احذف جميع الكتب المقدسة التي تم تنزيلها واختر الترجمات مرة أخرى",
+  "@resetBibleSubtitle": {
+    "description": "BibleLib reset setting description"
+  },
+  "resetChurchSubtitle": "امسح كل شيء — كتب الأغاني، الأناجيل، الإشارات المرجعية — وابدأ من جديد",
+  "@resetChurchSubtitle": {
+    "description": "ChurchLib reset setting description"
+  },
+  "appearanceTitle": "مظهر",
+  "@appearanceTitle": {
+    "description": "Settings appearance section title"
+  },
+  "generalTitle": "عام",
+  "@generalTitle": {
+    "description": "General settings section title"
+  },
+  "presentationNavTitle": "عرض",
+  "@presentationNavTitle": {
+    "description": "Presentation settings navigation title"
+  },
+  "biblesNavTitle": "الأناجيل",
+  "@biblesNavTitle": {
+    "description": "Bible settings navigation title"
+  },
+  "updateAvailable": "يتوفر تحديث",
+  "@updateAvailable": {
+    "description": "Update banner title"
+  },
+  "songNumberLabel": "الأغنية رقم {songNumber}",
+  "@songNumberLabel": {
+    "description": "Song number label",
+    "placeholders": {
+      "songNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "backEscapeTooltip": "للخلف (خروج)",
+  "@backEscapeTooltip": {
+    "description": "Back action tooltip"
+  },
+  "stopAction": "توقف",
+  "@stopAction": {
+    "description": "Stop action label"
+  },
+  "doneAction": "تم",
+  "@doneAction": {
+    "description": "Done action label"
+  },
+  "reorderAction": "إعادة الترتيب",
+  "@reorderAction": {
+    "description": "Reorder action label"
+  },
+  "removeFromSecondary": "إزالة من الثانوية",
+  "@removeFromSecondary": {
+    "description": "Remove a Bible from secondary translations"
+  },
+  "secondaryBibleCount": "{count} الأناجيل الثانوية",
+  "@secondaryBibleCount": {
+    "description": "Count label for secondary Bibles",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "oneSecondaryBible": "1 الكتاب المقدس الثانوي",
+  "@oneSecondaryBible": {
+    "description": "One secondary Bible label"
+  },
+  "hoverRemoveBible": "مرر مؤشر الماوس فوق الكتاب المقدس لإزالته",
+  "@hoverRemoveBible": {
+    "description": "Hint for removing a secondary Bible"
+  },
+  "downloadFailedStatus": " · فشل التنزيل",
+  "@downloadFailedStatus": {
+    "description": "Download failure status label"
+  },
+  "fetchingVersesStatus": " · جلب الآيات",
+  "@fetchingVersesStatus": {
+    "description": "Download progress status label"
+  },
+  "downloadStoppedStatus": " · توقف التنزيل",
+  "@downloadStoppedStatus": {
+    "description": "Stopped download status label"
+  },
+  "biblePrimaryLabel": "{language} الكتاب المقدس • الابتدائية",
+  "@biblePrimaryLabel": {
+    "description": "Primary Bible label",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "bibleLanguageLabel": "{language} الكتاب المقدس",
+  "@bibleLanguageLabel": {
+    "description": "Bible language label",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "bibleManagementInfo": "يمكنك إضافة كتاب مقدس إلى قارئ الكتاب المقدس المتعدد عن طريق المرور فوقه في \"أناجيل أخرى\" واختيار \"تعيين كثانوي\". قم بالتمرير فوقه مرة أخرى واختر \"إزالة من الثانوية\" لإزالته. \n \n لحذف الكتاب المقدس من جهازك، قم بالتمرير فوقه، ثم اختر \"حذف\" وأكد ذلك. \n \n لإضافة ترجمات أو إزالتها من مكتبتك، اختر \"تغيير التحديد\" أدناه.",
+  "@bibleManagementInfo": {
+    "description": "Instructions for managing downloaded Bible translations"
+  },
+  "deleteBibleMessage": "يؤدي هذا إلى حذف كافة المحتويات التي تم تنزيلها لهذا الكتاب المقدس من جهازك. لا يمكن التراجع عن هذا.",
+  "@deleteBibleMessage": {
+    "description": "Confirmation message for deleting a Bible"
+  },
+  "primaryBible": "الكتاب المقدس الأساسي",
+  "@primaryBible": {
+    "description": "Primary Bible section label"
+  },
+  "clickToChange": "انقر للتغيير",
+  "@clickToChange": {
+    "description": "Primary Bible change hint"
+  },
+  "secondaryBiblesTitle": "الأناجيل الثانوية",
+  "@secondaryBiblesTitle": {
+    "description": "Secondary Bible section label"
+  },
+  "otherBiblesTitle": "أناجيل أخرى",
+  "@otherBiblesTitle": {
+    "description": "Other Bible section label"
+  },
+  "setAsSecondary": "تم تعيينه كثانوي",
+  "@setAsSecondary": {
+    "description": "Set a Bible as a secondary translation"
+  },
+  "renameAction": "إعادة تسمية",
+  "@renameAction": {
+    "description": "Rename action label"
+  },
+  "themeLabel": "موضوع",
+  "@themeLabel": {
+    "description": "Reader theme setting label"
+  },
+  "themeSystem": "نظام",
+  "@themeSystem": {
+    "description": "System theme option"
+  },
+  "smallerTextTooltip": "نص أصغر (-)",
+  "@smallerTextTooltip": {
+    "description": "Decrease reader text size tooltip"
+  },
+  "largerTextTooltip": "نص أكبر (=)",
+  "@largerTextTooltip": {
+    "description": "Increase reader text size tooltip"
+  },
+  "clearSearchHistory": "مسح سجل البحث",
+  "@clearSearchHistory": {
+    "description": "Clear search history action"
+  },
+  "noSearchHistory": "لا يوجد سجل بحث حتى الآن.",
+  "@noSearchHistory": {
+    "description": "Empty Bible search history state"
+  },
+  "noReadingHistory": "لا يوجد سجل للقراءة حتى الآن.",
+  "@noReadingHistory": {
+    "description": "Empty Bible reading history state"
+  },
+  "hoverSetSecondary": "قم بتمرير الماوس فوق الكتاب المقدس لتعيينه كثانوي",
+  "@hoverSetSecondary": {
+    "description": "Hint for adding a secondary Bible"
+  },
+  "bibleManagementPrompt": "تعرف على كيفية إضافة أو إزالة الكتب المقدسة من قارئ الكتاب المقدس المتعدد، وكيفية إضافة الترجمات إلى مكتبتك.",
+  "@bibleManagementPrompt": {
+    "description": "Bible management prompt description"
+  },
+  "multiBibleDescription": "اقرأ الترجمات الموازية بجانب النص الأساسي",
+  "@multiBibleDescription": {
+    "description": "Multi-Bible reader setting description"
+  },
+  "manageYourBibles": "إدارة الأناجيل الخاصة بك",
+  "@manageYourBibles": {
+    "description": "Embedded Bible management title"
+  },
+  "historyReading": "القراءة",
+  "@historyReading": {
+    "description": "Reading history tab title"
+  },
+  "historySearches": "عمليات البحث",
+  "@historySearches": {
+    "description": "Search history tab title"
+  },
+  "noSearchesYet": "لا توجد عمليات بحث حتى الآن.",
+  "@noSearchesYet": {
+    "description": "Empty search history state"
+  },
+  "clearReadingHistoryMessage": "سيؤدي هذا إلى حذف سجل القراءة الخاص بك نهائيًا. لا يمكن التراجع عن هذا.",
+  "@clearReadingHistoryMessage": {
+    "description": "Clear reading history confirmation"
+  },
+  "clearSearchHistoryMessage": "سيؤدي هذا إلى حذف سجل البحث الخاص بك نهائيًا. لا يمكن التراجع عن هذا.",
+  "@clearSearchHistoryMessage": {
+    "description": "Clear search history confirmation"
+  },
+  "recentSearches": "عمليات البحث الأخيرة",
+  "@recentSearches": {
+    "description": "Recent Bible searches heading"
+  },
+  "searchResultCount": "{count} النتائج",
+  "@searchResultCount": {
+    "description": "Number of Bible search results",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "deleteListMessage": "لا يمكن التراجع عن هذا.",
+  "@deleteListMessage": {
+    "description": "Delete scripture list confirmation"
+  },
+  "noScriptureLists": "لا توجد قوائم الكتب المقدسة المحفوظة حتى الآن. \n قم ببناء واحد في فتاحة الكتاب المقدس.",
+  "@noScriptureLists": {
+    "description": "Empty scripture list state"
+  },
+  "scriptureCount": "{count} الكتب المقدسة",
+  "@scriptureCount": {
+    "description": "Scripture count in a saved list",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scriptureListTitle": "قائمة الكتاب المقدس",
+  "@scriptureListTitle": {
+    "description": "Fallback scripture list title"
+  },
+  "renameTooltip": "إعادة تسمية",
+  "@renameTooltip": {
+    "description": "Rename list tooltip"
+  },
+  "clearAllBookmarksQuestion": "هل تريد مسح كافة الإشارات المرجعية؟",
+  "@clearAllBookmarksQuestion": {
+    "description": "Confirm clearing all bookmarks"
+  },
+  "clearAllNotesQuestion": "هل تريد مسح كافة الملاحظات؟",
+  "@clearAllNotesQuestion": {
+    "description": "Confirm clearing all notes"
+  },
+  "deleteSelectedCountMessage": "سيؤدي هذا إلى حذف {count} من العناصر المحددة نهائيًا. لا يمكن التراجع عن هذا.",
+  "@deleteSelectedCountMessage": {
+    "description": "Delete selected bookmarks or notes confirmation",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clearBookmarksMessage": "سيؤدي هذا إلى حذف جميع الإشارات المرجعية الخاصة بك في كل كتاب مقدس بشكل دائم. لا يمكن التراجع عن هذا.",
+  "@clearBookmarksMessage": {
+    "description": "Clear all bookmarks confirmation"
+  },
+  "clearNotesMessage": "سيؤدي هذا إلى حذف جميع ملاحظاتك بشكل دائم في كل كتاب مقدس. لا يمكن التراجع عن هذا.",
+  "@clearNotesMessage": {
+    "description": "Clear all notes confirmation"
+  },
+  "bookmarksTab": "الإشارات المرجعية",
+  "@bookmarksTab": {
+    "description": "Bookmarks tab label"
+  },
+  "notesTab": "ملاحظات",
+  "@notesTab": {
+    "description": "Notes tab label"
+  },
+  "readingTab": "قراءة",
+  "@readingTab": {
+    "description": "Reading tab label"
+  },
+  "noSavedScriptureLists": "لا توجد قوائم الكتب المقدسة المحفوظة حتى الآن. \n قم ببناء واحد في فتاحة الكتاب المقدس.",
+  "@noSavedScriptureLists": {
+    "description": "Empty scripture list state"
+  },
+  "welcomeToChurchLib": "مرحبًا بك في ChurchLib",
+  "@welcomeToChurchLib": {
+    "description": "First setup screen heading"
+  },
+  "chooseModulesPrompt": "اختر ما تريد إعداده. يمكنك دائمًا إضافة الآخر لاحقًا من الإعدادات.",
+  "@chooseModulesPrompt": {
+    "description": "First setup screen description"
+  },
+  "biblesSelectedCount": "{count} من {max} {noun} محدد",
+  "@biblesSelectedCount": {
+    "description": "Selection count label",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      },
+      "noun": {
+        "type": "String"
+      }
+    }
+  },
+  "songbooksNoun": "كتب الأغاني",
+  "@songbooksNoun": {
+    "description": "Songbook selection noun"
+  },
+  "biblesNoun": "الأناجيل",
+  "@biblesNoun": {
+    "description": "Bible selection noun"
+  },
+  "firstPickPrimaryBible": "اختيارك الأول هو الكتاب المقدس الأساسي",
+  "@firstPickPrimaryBible": {
+    "description": "Bible selection hint"
+  },
+  "songbookSelectionLimit": "يمكنك اختيار ما يصل إلى {count} من كتب الأغاني",
+  "@songbookSelectionLimit": {
+    "description": "Songbook selection maximum message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "continueUpper": "تابع",
+  "@continueUpper": {
+    "description": "Continue navigation button label"
+  },
+  "finishUpper": "تشطيب",
+  "@finishUpper": {
+    "description": "Finish navigation button label"
+  },
+  "almostThere": "أوشكت على الانتهاء",
+  "@almostThere": {
+    "description": "Setup progress detail"
+  },
+  "percentDownloaded": "تم تنزيل  بنسبة {percent}%",
+  "@percentDownloaded": {
+    "description": "Download progress message",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "savingYourSongs": "حفظ الأغاني الخاصة بك",
+  "@savingYourSongs": {
+    "description": "Song save progress title"
+  },
+  "fetchingYourSongs": "جارٍ جلب الأغاني...",
+  "@fetchingYourSongs": {
+    "description": "Song download progress title"
+  },
+  "momentOnly": "يستغرق هذا لحظة واحدة فقط",
+  "@momentOnly": {
+    "description": "Song download progress message"
+  },
+  "downloadingPrimaryBible": "تنزيل الكتاب المقدس الأساسي",
+  "@downloadingPrimaryBible": {
+    "description": "Primary Bible download progress title"
+  },
+  "bibleWord": "الكتاب المقدس",
+  "@bibleWord": {
+    "description": "Bible progress label"
+  },
+  "otherBiblesBackground": "سيتم تنزيل كتبك المقدسة الأخرى في الخلفية.",
+  "@otherBiblesBackground": {
+    "description": "Secondary Bible download progress message"
+  },
+  "autoScrollAction": "التمرير التلقائي",
+  "@autoScrollAction": {
+    "description": "Start auto-scroll button label"
+  },
+  "stopScrollAction": "إيقاف التمرير",
+  "@stopScrollAction": {
+    "description": "Stop auto-scroll button label"
+  },
+  "startAutoScroll": "بدء التمرير التلقائي",
+  "@startAutoScroll": {
+    "description": "Start auto-scroll tooltip"
+  },
+  "stopAutoScroll": "إيقاف التمرير التلقائي",
+  "@stopAutoScroll": {
+    "description": "Stop auto-scroll tooltip"
+  },
+  "oldTestament": "العهد القديم",
+  "@oldTestament": {
+    "description": "Old Testament tab label"
+  },
+  "newTestament": "العهد الجديد",
+  "@newTestament": {
+    "description": "New Testament tab label"
+  },
+  "showOtherBibles": "أظهر أناجيلك الأخرى تحت كل آية",
+  "@showOtherBibles": {
+    "description": "Multi-Bible reader enabled description"
+  },
+  "downloadBibleToUse": "قم بتنزيل كتاب مقدس آخر لاستخدامه",
+  "@downloadBibleToUse": {
+    "description": "Multi-Bible reader disabled description"
+  },
+  "addNoteAction": "إضافة ملاحظة",
+  "@addNoteAction": {
+    "description": "Add note action label"
+  },
+  "selectSingleVerseNote": "حدد آية واحدة لإضافة ملاحظة",
+  "@selectSingleVerseNote": {
+    "description": "Add note selection hint"
+  },
+  "selectedCount": "تم تحديد  {count}.",
+  "@selectedCount": {
+    "description": "Selected item count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "firstSetupMessage": "اختر ما تريد إعداده. يمكنك إضافة الوحدة الأخرى لاحقًا من الإعدادات.",
+  "@firstSetupMessage": {
+    "description": "Setup modules description"
+  },
+  "bookmarkOptionsPrompt": "هل ترغب في وضع إشارة مرجعية على هذه الآيات فقط، أو إضافة ملاحظة أيضًا؟",
+  "@bookmarkOptionsPrompt": {
+    "description": "Bookmark options dialog prompt"
+  },
+  "howModuleWorks": "كيف يعمل {moduleName}.",
+  "@howModuleWorks": {
+    "description": "How it works sheet title",
+    "placeholders": {
+      "moduleName": {
+        "type": "String"
+      }
+    }
+  },
+  "switchToModule": "قم بالتبديل إلى {moduleName}",
+  "@switchToModule": {
+    "description": "Switch application module tooltip",
+    "placeholders": {
+      "moduleName": {
+        "type": "String"
+      }
+    }
+  },
+  "songHowFindTitle": "العثور على أغنية",
+  "@songHowFindTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowFindBody": "اكتب في مربع البحث بالأعلى للعثور على الأغنية حسب رقمها أو عنوانها أو أي كلمات من كلماتها. اضغط S في أي مكان للانتقال إلى المربع. تقوم الرقائق الموجودة أعلى القائمة بتضييق نطاق الأغاني إلى كتاب أغاني واحد.",
+  "@songHowFindBody": {
+    "description": "SongLib guide for finding songs"
+  },
+  "songHowReadTitle": "قراءة أغنية",
+  "@songHowReadTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowReadBody": "اختر أغنية من القائمة وستظهر أبياتها على اليمين، مع ظهور عنوان الأغنية وكتاب الأغاني في أعلى النافذة.",
+  "@songHowReadBody": {
+    "description": "SongLib guide for reading songs"
+  },
+  "songHowPresentTitle": "تقديم",
+  "@songHowPresentTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowPresentBody": "انقر نقرًا مزدوجًا فوق الأغنية، واضغط على Enter، أو اختر تقديم الأغنية من الخيارات السريعة لفتحها في مقدم العرض. انتقل عبر الآيات شريحة واحدة في كل مرة؛ تغيير اتجاه الشريحة في الإعدادات. يتم حجم الكلمات لتناسب الشاشة. يعرض زر القائمة الموجود في شريط عنوان المقدم كل آية في الشريط الجانبي، مع تمييز الآية الحالية. يبدأ الشريط الجانبي مفتوحًا؛ اضغط على الزر مرة أخرى لإخفائه.",
+  "@songHowPresentBody": {
+    "description": "SongLib guide for presenting songs"
+  },
+  "songHowKeysTitle": "مفاتيح العرض",
+  "@songHowKeysTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowKeysBody": "سهم لليمين أو لأسفل: الشريحة التالية. \n سهم لليسار أو لأعلى: الشريحة السابقة. \n من 1 إلى 7: انتقل إلى تلك الآية. \n C: انتقل إلى الجوقة. \n L: انتقل إلى الشريحة الأخيرة. \n - : لتصغير النص. \n = : تكبير النص، بقدر ما يناسب أطول بيت. \n Esc: أغلق مقدم العرض.",
+  "@songHowKeysBody": {
+    "description": "SongLib presenter keyboard shortcuts"
+  },
+  "songHowQuickTitle": "خيارات سريعة",
+  "@songHowQuickTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowQuickBody": "يجمع زر الخيارات السريعة الموجود في الجزء السفلي الأيمن ما يمكنك فعله بالأغنية المحددة: نسخ كلماتها أو الإعجاب بها أو تقديمها.",
+  "@songHowQuickBody": {
+    "description": "SongLib guide for quick actions"
+  },
+  "songHowLikesTitle": "إعجابات",
+  "@songHowLikesTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowLikesBody": "يتم جمع الأغاني التي تفضلها ضمن \"الإعجابات\" في الشريط الجانبي حتى تتمكن من فتح مفضلاتك بسرعة.",
+  "@songHowLikesBody": {
+    "description": "SongLib guide for liked songs"
+  },
+  "songHowBooksTitle": "كتب الأغاني والتحديثات",
+  "@songHowBooksTitle": {
+    "description": "SongLib guide section title"
+  },
+  "songHowBooksBody": "يتم تخزين كتب الأغاني الخاصة بك على هذا الجهاز ويتم تحديثها في الخلفية عندما تكون متصلاً بالإنترنت. لاختيار كتب أغاني مختلفة، افتح الإعدادات واستخدم كتب الأغاني.",
+  "@songHowBooksBody": {
+    "description": "SongLib guide for songbook storage and updates"
+  },
+  "bibleHowReadingTitle": "القراءة",
+  "@bibleHowReadingTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowReadingBody": "استخدم زر الكتاب المقدس في الأعلى لتبديل الترجمة وزر الفصل للانتقال إلى فصل آخر. السابق والتالي في الأسفل، قم بتحريك الفصل تلو الآخر، أو اضغط على Alt باستخدام السهم لليسار أو لليمين. يقوم مفتاحا السهمين لأعلى ولأسفل بتمرير الفصل. تعمل هذه المفاتيح فقط عندما يكون تطبيق BibleLib مفتوحًا.",
+  "@bibleHowReadingBody": {
+    "description": "BibleLib guide for reading"
+  },
+  "bibleHowTextTitle": "حجم النص والتمرير التلقائي",
+  "@bibleHowTextTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowTextBody": "Aa- وAa+ في شريط العنوان يغيران حجم النص، أو اضغط على - في لوحة المفاتيح لتصغيره و = لتكبيره. يقوم التمرير التلقائي في الجزء السفلي الأيسر بتمرير الفصل نيابةً عنك؛ استخدم علامة الزائد والناقص بجانبه لضبط السرعة، ثم المس النص للتوقف.",
+  "@bibleHowTextBody": {
+    "description": "BibleLib guide for text size and auto scroll"
+  },
+  "bibleHowParallelTitle": "الأناجيل الموازية",
+  "@bibleHowParallelTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowParallelBody": "قم بتنزيل أكثر من كتاب مقدس واحد وقم بتشغيل قارئ الكتاب المقدس المتعدد في الخيارات السريعة لإظهار ترجماتك الأخرى تحت كل آية.",
+  "@bibleHowParallelBody": {
+    "description": "BibleLib guide for parallel translations"
+  },
+  "bibleHowSelectTitle": "اختيار الآيات",
+  "@bibleHowSelectTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowSelectBody": "انقر على الآيات لتحديدها. يتيح لك الشريط الموجود في الأعلى وضع إشارة مرجعية عليها أو تمييزها أو إضافة ملاحظة إلى آية واحدة أو نسخها. اضغط على Esc لإلغاء التحديد.",
+  "@bibleHowSelectBody": {
+    "description": "BibleLib guide for selecting verses"
+  },
+  "bibleHowSearchTitle": "بحث",
+  "@bibleHowSearchTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowSearchBody": "يبحث  Search في كل آية من الكتاب المقدس التي تختارها ويأخذك مباشرة إلى النتيجة. يتم الاحتفاظ بعمليات البحث السابقة في المرة القادمة.",
+  "@bibleHowSearchBody": {
+    "description": "BibleLib guide for Bible search"
+  },
+  "bibleHowHistoryTitle": "تاريخ",
+  "@bibleHowHistoryTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowHistoryBody": "يسرد  History الفصول التي قرأتها وعمليات البحث التي أجريتها، حتى تتمكن من المتابعة من حيث توقفت.",
+  "@bibleHowHistoryBody": {
+    "description": "BibleLib guide for history"
+  },
+  "bibleHowBookmarksTitle": "الإشارات المرجعية والملاحظات",
+  "@bibleHowBookmarksTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowBookmarksBody": "كل ما تضع إشارة مرجعية عليه أو تكتب ملاحظة عليه يتم جمعه ضمن الإشارات المرجعية والملاحظات في الشريط الجانبي، عبر جميع كتبك المقدسة.",
+  "@bibleHowBookmarksBody": {
+    "description": "BibleLib guide for bookmarks and notes"
+  },
+  "bibleHowOpenerTitle": "فتاحة الكتاب المقدس",
+  "@bibleHowOpenerTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowOpenerBody": "Scripture Opener في شريط العنوان يفتح مقطعًا عن طريق كتابة الكتاب والفصل والآية. أضف عدة مقاطع إلى قائمة الانتظار وافتحها واحدة تلو الأخرى.",
+  "@bibleHowOpenerBody": {
+    "description": "BibleLib guide for Scripture Opener"
+  },
+  "bibleHowListsTitle": "قوائم الكتاب المقدس",
+  "@bibleHowListsTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowListsBody": "تحتفظ النصوص المقدسة الموجودة في الشريط الجانبي بقوائم المقاطع التي تعيد استخدامها، مثل مخطط الخطبة. اضغط على \"تشغيل\" في القائمة للتنقل بين أبياتها مع وجود شريط الانتظار في الأسفل.",
+  "@bibleHowListsBody": {
+    "description": "BibleLib guide for saved scripture lists"
+  },
+  "bibleHowManageTitle": "إدارة الأناجيل",
+  "@bibleHowManageTitle": {
+    "description": "BibleLib guide section title"
+  },
+  "bibleHowManageBody": "قم بإضافة أو إزالة أو اختيار ترجمتك الرئيسية من الإعدادات والأناجيل، أو من اختيار الكتاب المقدس في شريط العنوان.",
+  "@bibleHowManageBody": {
+    "description": "BibleLib guide for Bible management"
+  },
+  "alignmentJustified": "مبرر",
+  "@alignmentJustified": {
+    "description": "Justified presentation text alignment label"
+  }
+}
