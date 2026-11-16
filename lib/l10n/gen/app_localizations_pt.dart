@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -159,7 +160,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get audienceModeTitle => 'Modo público';
 
   @override
-  String get audienceModeDescription => 'Mostre apresentações em um display estendido. Desligue para apresentar tela inteira nesta tela.';
+  String get audienceModeDescription =>
+      'Mostre apresentações em um display estendido. Desligue para apresentar tela inteira nesta tela.';
 
   @override
   String get appTheme => 'Tema do aplicativo';
@@ -177,7 +179,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get songPresentation => 'Direção de rolagem do slide';
 
   @override
-  String get songPresentationDesc => 'A música desliza para rolar verticalmente';
+  String get songPresentationDesc =>
+      'A música desliza para rolar verticalmente';
 
   @override
   String get presentationStart => 'Comece a apresentar';
@@ -288,49 +291,58 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noSongSelected => 'Nenhum item de música foi selecionado';
 
   @override
-  String get noSongbooksAvailable => 'Nenhum cancioneiro está disponível. Selecione songbooks para configurar o SongLib.';
+  String get noSongbooksAvailable =>
+      'Nenhum cancioneiro está disponível. Selecione songbooks para configurar o SongLib.';
 
   @override
-  String get noSongsInSongbook => 'Nenhuma música está disponível neste cancioneiro.';
+  String get noSongsInSongbook =>
+      'Nenhuma música está disponível neste cancioneiro.';
 
   @override
   String get selectSongsAfresh => 'Selecionar músicas novamente';
 
   @override
-  String get problemDisplaySongs => 'Ops, há um problema ao exibir as músicas do livro selecionado. \n \n Você pode corrigir o problema selecionando-os novamente';
+  String get problemDisplaySongs =>
+      'Ops, há um problema ao exibir as músicas do livro selecionado. \n \n Você pode corrigir o problema selecionando-os novamente';
 
   @override
   String get donationRequest => 'Solicitação de doação';
 
   @override
-  String get donationRequestBody => 'ChurchLib tem muitas coisas em andamento e precisará do seu apoio para conseguir isso.';
+  String get donationRequestBody =>
+      'ChurchLib tem muitas coisas em andamento e precisará do seu apoio para conseguir isso.';
 
   @override
   String get doneSelecting => 'Concluiu a seleção?';
 
   @override
-  String get doneSelectingBody => 'Se você concluiu a seleção, prossiga. Sempre podemos trazê-lo de volta aqui para selecionar novamente.';
+  String get doneSelectingBody =>
+      'Se você concluiu a seleção, prossiga. Sempre podemos trazê-lo de volta aqui para selecionar novamente.';
 
   @override
   String get noSelection => 'Ops! Nenhuma seleção encontrada';
 
   @override
-  String get noSelectionBody => 'Selecione pelo menos 1 livro para prosseguir para a próxima etapa.';
+  String get noSelectionBody =>
+      'Selecione pelo menos 1 livro para prosseguir para a próxima etapa.';
 
   @override
   String get errorOccurred => 'Uau! Você não deveria ver isso!';
 
   @override
-  String get errorOccurredBody1 => 'Ocorreu um erro inesperado ao tentar apresentar a música para você. Tente novamente mais tarde ou entre em contato com o suporte';
+  String get errorOccurredBody1 =>
+      'Ocorreu um erro inesperado ao tentar apresentar a música para você. Tente novamente mais tarde ou entre em contato com o suporte';
 
   @override
-  String get errorOccurredBody => 'Ocorreu um erro inesperado ao tentar buscar dados do servidor. Tente novamente mais tarde ou entre em contato com o suporte';
+  String get errorOccurredBody =>
+      'Ocorreu um erro inesperado ao tentar buscar dados do servidor. Tente novamente mais tarde ou entre em contato com o suporte';
 
   @override
   String get noConnection => 'Sem conexão com a internet!';
 
   @override
-  String get noConnectionBody => 'Se você tiver uma conexão confiável com a Internet, nossos servidores estão inativos ou inacessíveis. \n \n Se esta situação persistir, envie-nos um email para: futuristicken@gmail.com com uma captura de tela e informações do seu dispositivo.';
+  String get noConnectionBody =>
+      'Se você tiver uma conexão confiável com a Internet, nossos servidores estão inativos ou inacessíveis. \n \n Se esta situação persistir, envie-nos um email para: futuristicken@gmail.com com uma captura de tela e informações do seu dispositivo.';
 
   @override
   String get itsEmptyHere => 'Uau! Está vazio aqui';
@@ -339,43 +351,54 @@ class AppLocalizationsPt extends AppLocalizations {
   String get itsEmptyHere1 => 'Uau! Nenhuma lista aqui ainda';
 
   @override
-  String get itsEmptyHereBody => 'Todos pegos aqui, façam uma seleção de músicas mais uma vez';
+  String get itsEmptyHereBody =>
+      'Todos pegos aqui, façam uma seleção de músicas mais uma vez';
 
   @override
-  String get itsEmptyHereBody1 => 'Todos capturados aqui, curta uma música, pesquise ou veja uma música ou melhor ainda, adicione uma lista personalizada para limpar esse vazio aqui';
+  String get itsEmptyHereBody1 =>
+      'Todos capturados aqui, curta uma música, pesquise ou veja uma música ou melhor ainda, adicione uma lista personalizada para limpar esse vazio aqui';
 
   @override
-  String get itsEmptyHereBody2 => 'Todos capturados aqui, adicione um rascunho de música para limpar esse vazio aqui';
+  String get itsEmptyHereBody2 =>
+      'Todos capturados aqui, adicione um rascunho de música para limpar esse vazio aqui';
 
   @override
-  String get itsEmptyHereBody3 => 'Todos pegos aqui, por favor, curtam uma música para limpar esse vazio aqui';
+  String get itsEmptyHereBody3 =>
+      'Todos pegos aqui, por favor, curtam uma música para limpar esse vazio aqui';
 
   @override
-  String get itsEmptyHereBody4 => 'Tudo capturado aqui, você pode adicionar listas pessoais e adicionar músicas a elas';
+  String get itsEmptyHereBody4 =>
+      'Tudo capturado aqui, você pode adicionar listas pessoais e adicionar músicas a elas';
 
   @override
   String get keyboardShortcuts => 'Atalhos de teclado';
 
   @override
-  String get keyboardShortcutsTexts => 'Letra I - Mostrar atalhos de teclado \n Tecla ESC - Sair da apresentação da música \n \n Seta PARA BAIXO - Ir para o próximo verso \n Seta PARA CIMA - Ir para o verso anterior \n \n Seta PARA A DIREITA - Ir para a próxima música \n Seta para a ESQUERDA - Ir para a música anterior \n \n Letra C - Vá para o refrão da música \n Letra S - Vá para o penúltimo verso \n Letra L - Vá para o último verso \n \n Numpad 1, 2, 3, 4, 5, 6, 7 - Vá para o verso por número';
+  String get keyboardShortcutsTexts =>
+      'Letra I - Mostrar atalhos de teclado \n Tecla ESC - Sair da apresentação da música \n \n Seta PARA BAIXO - Ir para o próximo verso \n Seta PARA CIMA - Ir para o verso anterior \n \n Seta PARA A DIREITA - Ir para a próxima música \n Seta para a ESQUERDA - Ir para a música anterior \n \n Letra C - Vá para o refrão da música \n Letra S - Vá para o penúltimo verso \n Letra L - Vá para o último verso \n \n Numpad 1, 2, 3, 4, 5, 6, 7 - Vá para o verso por número';
 
   @override
   String get hintsCurrentUpdate => 'nesta última atualização';
 
   @override
-  String get hintsCurrentUpdateText => '1. Pesquise sem se preocupar com vírgulas ou exclamações \n 2. Pesquise com palavras que não se sucedem usando uma vírgula entre elas \n Por exemplo, \'Jesus, sin\' pode ser usado para pesquisar a música \'Jesus pagou tudo\'';
+  String get hintsCurrentUpdateText =>
+      '1. Pesquise sem se preocupar com vírgulas ou exclamações \n 2. Pesquise com palavras que não se sucedem usando uma vírgula entre elas \n Por exemplo, \'Jesus, sin\' pode ser usado para pesquisar a música \'Jesus pagou tudo\'';
 
   @override
-  String get donationRequestReminder => '\n \n Lembre-se de apoiar nosso trabalho com sua doação de tempos em tempos. \n Vá até o Help Desk para doar';
+  String get donationRequestReminder =>
+      '\n \n Lembre-se de apoiar nosso trabalho com sua doação de tempos em tempos. \n Vá até o Help Desk para doar';
 
   @override
-  String get availableBooks => 'Aqui estão os livros disponíveis, selecione quantos desejar para prosseguir';
+  String get availableBooks =>
+      'Aqui estão os livros disponíveis, selecione quantos desejar para prosseguir';
 
   @override
-  String get nothingHere => 'Desculpe, não há nada para mostrar aqui no momento.';
+  String get nothingHere =>
+      'Desculpe, não há nada para mostrar aqui no momento.';
 
   @override
-  String get redirectingYou => 'Redirecionando você para selecionar músicas novamente';
+  String get redirectingYou =>
+      'Redirecionando você para selecionar músicas novamente';
 
   @override
   String get disabled => 'Desativado';
@@ -430,10 +453,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get labelError0 => 'Ocorreu um erro desconhecido.';
 
   @override
-  String get labelError404 => 'Não podemos conectá-lo ao nosso servidor no momento.';
+  String get labelError404 =>
+      'Não podemos conectá-lo ao nosso servidor no momento.';
 
   @override
-  String get labelError500 => 'Você não consegue se conectar ao nosso servidor no momento.';
+  String get labelError500 =>
+      'Você não consegue se conectar ao nosso servidor no momento.';
 
   @override
   String get labelError504 => 'Sua solicitação para nosso servidor expirou.';
@@ -448,16 +473,19 @@ class AppLocalizationsPt extends AppLocalizations {
   String get labelFeedback0 => 'Ocorreu um erro desconhecido.';
 
   @override
-  String get labelFeedback404 => 'Não podemos conectá-lo ao nosso servidor no momento devido a um problema técnico de nossa parte. Tente conectar-se novamente, se o problema persistir, entre em contato conosco: thesonglibapp@gmail.com';
+  String get labelFeedback404 =>
+      'Não podemos conectá-lo ao nosso servidor no momento devido a um problema técnico de nossa parte. Tente conectar-se novamente, se o problema persistir, entre em contato conosco: thesonglibapp@gmail.com';
 
   @override
-  String get labelFeedback500 => 'Não podemos conectá-lo ao nosso servidor no momento devido a um problema técnico de sua parte. Tente mudar para um serviço de Internet confiável e tente novamente. Se o problema persistir, entre em contato conosco: thesonglibapp@gmail.com';
+  String get labelFeedback500 =>
+      'Não podemos conectá-lo ao nosso servidor no momento devido a um problema técnico de sua parte. Tente mudar para um serviço de Internet confiável e tente novamente. Se o problema persistir, entre em contato conosco: thesonglibapp@gmail.com';
 
   @override
   String get labelFeedback504 => 'Sua solicitação para nosso servidor expirou.';
 
   @override
-  String get labelFeedback999 => 'Nosso servidor retornou uma resposta inválida.';
+  String get labelFeedback999 =>
+      'Nosso servidor retornou uma resposta inválida.';
 
   @override
   String get labelFeedback1000 => 'Não foi possível enviar sua solicitação.';
@@ -466,7 +494,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get labelPermissionTitle => 'Permissão  necessária';
 
   @override
-  String get labelPermissionText => 'Este aplicativo requer essas permissões para funcionar corretamente.';
+  String get labelPermissionText =>
+      'Este aplicativo requer essas permissões para funcionar corretamente.';
 
   @override
   String get misc => 'diversos';
@@ -495,28 +524,33 @@ class AppLocalizationsPt extends AppLocalizations {
   String get licenseTrialEndedTitle => 'Seu teste gratuito terminou';
 
   @override
-  String get licenseTrialEndedBody => 'Desbloqueie ChurchLib uma vez e use-o definitivamente neste computador.';
+  String get licenseTrialEndedBody =>
+      'Desbloqueie ChurchLib uma vez e use-o definitivamente neste computador.';
 
   @override
   String get licenseRevokedTitle => 'Esta licença não está mais ativa';
 
   @override
-  String get licenseRevokedBody => 'Entre em contato com o suporte e nós o ajudaremos.';
+  String get licenseRevokedBody =>
+      'Entre em contato com o suporte e nós o ajudaremos.';
 
   @override
   String get licenseConnectTitle => 'Conecte-se à Internet';
 
   @override
-  String get licenseConnectBody => 'ChurchLib precisa ficar online uma vez para iniciar seu teste gratuito. Depois disso, funciona offline.';
+  String get licenseConnectBody =>
+      'ChurchLib precisa ficar online uma vez para iniciar seu teste gratuito. Depois disso, funciona offline.';
 
   @override
   String get licenseClockTitle => 'Verifique a data e hora do seu computador';
 
   @override
-  String get licenseClockBody => 'O relógio parece errado. Corrija e tente novamente.';
+  String get licenseClockBody =>
+      'O relógio parece errado. Corrija e tente novamente.';
 
   @override
-  String get licenseNotConfigured => 'O servidor de licença não está configurado nesta versão do ChurchLib.';
+  String get licenseNotConfigured =>
+      'O servidor de licença não está configurado nesta versão do ChurchLib.';
 
   @override
   String get licenseChecking => 'Verificando sua licença…';
@@ -538,7 +572,8 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get licenseAfterPaying => 'Em seguida, insira o código de transação abaixo. Nós aprovamos e o ChurchLib é desbloqueado.';
+  String get licenseAfterPaying =>
+      'Em seguida, insira o código de transação abaixo. Nós aprovamos e o ChurchLib é desbloqueado.';
 
   @override
   String get licenseNameLabel => 'Nome usado para pagamento';
@@ -556,7 +591,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get licenseSubmitPayment => 'Enviar pagamento';
 
   @override
-  String get licenseCodeInvalid => 'Insira de 8 a 20 letras e números de sua mensagem ou recibo';
+  String get licenseCodeInvalid =>
+      'Insira de 8 a 20 letras e números de sua mensagem ou recibo';
 
   @override
   String get licenseNameInvalid => 'Insira o nome usado para pagamento';
@@ -568,7 +604,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get licensePaymentPendingTitle => 'Pagamento recebido';
 
   @override
-  String get licensePaymentPendingBody => 'Estamos verificando. Isso geralmente leva algumas horas. ChurchLib é desbloqueado sozinho assim que é aprovado.';
+  String get licensePaymentPendingBody =>
+      'Estamos verificando. Isso geralmente leva algumas horas. ChurchLib é desbloqueado sozinho assim que é aprovado.';
 
   @override
   String get licenseCheckAgain => 'Verifique novamente';
@@ -620,19 +657,23 @@ class AppLocalizationsPt extends AppLocalizations {
   String get licenseMoveTitle => 'Mover para outro computador';
 
   @override
-  String get licenseMoveDesc => 'Libere esta licença aqui para que você possa usá-la em um novo computador.';
+  String get licenseMoveDesc =>
+      'Libere esta licença aqui para que você possa usá-la em um novo computador.';
 
   @override
-  String get licenseMoveConfirm => 'Este computador voltará para a avaliação gratuita. Em seguida, insira sua chave de licença no novo computador.';
+  String get licenseMoveConfirm =>
+      'Este computador voltará para a avaliação gratuita. Em seguida, insira sua chave de licença no novo computador.';
 
   @override
   String get licenseRelease => 'Versão';
 
   @override
-  String get licenseTrialEndedBanner => 'A avaliação gratuita terminou. ChurchLib solicitará uma licença na próxima vez que você abri-lo.';
+  String get licenseTrialEndedBanner =>
+      'A avaliação gratuita terminou. ChurchLib solicitará uma licença na próxima vez que você abri-lo.';
 
   @override
-  String get licenseDeveloperBuild => 'Compilação do desenvolvedor: as verificações de licença estão desativadas.';
+  String get licenseDeveloperBuild =>
+      'Compilação do desenvolvedor: as verificações de licença estão desativadas.';
 
   @override
   String get songSearchHint => 'Pesquise uma música por título ou palavras';
@@ -641,7 +682,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get clearAction => 'Transparente';
 
   @override
-  String get songCopiedClipboard => 'Música copiada para a área de transferência';
+  String get songCopiedClipboard =>
+      'Música copiada para a área de transferência';
 
   @override
   String get noLikedSongs => 'Você ainda não gostou de nenhuma música.';
@@ -706,7 +748,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get managingBibles => 'Gerenciando suas Bíblias';
 
   @override
-  String get bibleManagementQuestion => 'Gostaria de saber como administrar suas Bíblias?';
+  String get bibleManagementQuestion =>
+      'Gostaria de saber como administrar suas Bíblias?';
 
   @override
   String get noThanks => 'Não, obrigado';
@@ -724,7 +767,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get deleteAction => 'Excluir';
 
   @override
-  String get howBibleManagementWorks => 'Como funciona o gerenciamento da Bíblia';
+  String get howBibleManagementWorks =>
+      'Como funciona o gerenciamento da Bíblia';
 
   @override
   String get manageBibles => 'Gerenciar Bíblias';
@@ -772,7 +816,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get searchScripturesHint => 'Pesquise as escrituras ...';
 
   @override
-  String get noDownloadedBiblesToSearch => 'Nenhuma Bíblia baixada para pesquisar ainda.';
+  String get noDownloadedBiblesToSearch =>
+      'Nenhuma Bíblia baixada para pesquisar ainda.';
 
   @override
   String noSearchResultsForQuery(String query) {
@@ -780,7 +825,8 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get typeAtLeast3Letters => 'Digite pelo menos 3 letras para pesquisar.';
+  String get typeAtLeast3Letters =>
+      'Digite pelo menos 3 letras para pesquisar.';
 
   @override
   String get searchBiblesHint => 'Pesquisar nome, abreviatura ou idioma';
@@ -890,7 +936,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get saveNote => 'Salvar nota';
 
   @override
-  String get writeVerseThoughts => 'Escreva seus pensamentos sobre este versículo...';
+  String get writeVerseThoughts =>
+      'Escreva seus pensamentos sobre este versículo...';
 
   @override
   String get noBooksFound => 'Nenhum livro encontrado';
@@ -927,7 +974,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noBiblesDownloaded => 'Nenhuma Bíblia baixada ainda.';
 
   @override
-  String get bibleDataUnavailable => 'Os dados da Bíblia  não estão disponíveis. Aguarde a conclusão do download.';
+  String get bibleDataUnavailable =>
+      'Os dados da Bíblia  não estão disponíveis. Aguarde a conclusão do download.';
 
   @override
   String noChaptersFound(String bookName) {
@@ -935,10 +983,12 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get versesNotCached => 'Os versos não são armazenados em cache. Certifique-se de que o download esteja completo.';
+  String get versesNotCached =>
+      'Os versos não são armazenados em cache. Certifique-se de que o download esteja completo.';
 
   @override
-  String get readerLoadFailed => 'Não foi possível carregar este conteúdo bíblico. Por favor, tente novamente.';
+  String get readerLoadFailed =>
+      'Não foi possível carregar este conteúdo bíblico. Por favor, tente novamente.';
 
   @override
   String get noBooksForBible => 'Nenhum livro encontrado para esta Bíblia.';
@@ -947,31 +997,37 @@ class AppLocalizationsPt extends AppLocalizations {
   String get scriptureListsFailed => 'Falha ao carregar listas de escrituras.';
 
   @override
-  String get scriptureListNotFound => 'Esta lista de escrituras não foi localizada.';
+  String get scriptureListNotFound =>
+      'Esta lista de escrituras não foi localizada.';
 
   @override
   String get songSearchFailed => 'Não é possível exibir músicas';
 
   @override
-  String get showVersesPanel => 'Mostre todos os versos da música ao lado dos slides durante a apresentação';
+  String get showVersesPanel =>
+      'Mostre todos os versos da música ao lado dos slides durante a apresentação';
 
   @override
   String get startOverBiblelibQuestion => 'Recomeçar com BibleLib?';
 
   @override
-  String get startOverBiblelibMessage => 'Isso exclui todas as Bíblias, marcadores e notas baixadas. Isso não pode ser desfeito.';
+  String get startOverBiblelibMessage =>
+      'Isso exclui todas as Bíblias, marcadores e notas baixadas. Isso não pode ser desfeito.';
 
   @override
   String get resetChurchlibQuestion => 'Redefinir ChurchLib?';
 
   @override
-  String get resetChurchlibMessage => 'Isso apaga tudo – cancioneiros, Bíblias, marcadores, notas e configurações – e leva você de volta à configuração. Isso não pode ser desfeito.';
+  String get resetChurchlibMessage =>
+      'Isso apaga tudo – cancioneiros, Bíblias, marcadores, notas e configurações – e leva você de volta à configuração. Isso não pode ser desfeito.';
 
   @override
-  String get resetBibleSubtitle => 'Exclua todas as Bíblias baixadas e escolha as traduções novamente';
+  String get resetBibleSubtitle =>
+      'Exclua todas as Bíblias baixadas e escolha as traduções novamente';
 
   @override
-  String get resetChurchSubtitle => 'Apague tudo – cancioneiros, Bíblias, marcadores – e recomece';
+  String get resetChurchSubtitle =>
+      'Apague tudo – cancioneiros, Bíblias, marcadores – e recomece';
 
   @override
   String get appearanceTitle => 'Aparência';
@@ -1017,7 +1073,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get oneSecondaryBible => '1 Bíblia secundária';
 
   @override
-  String get hoverRemoveBible => 'Passe o mouse sobre uma Bíblia para removê-la';
+  String get hoverRemoveBible =>
+      'Passe o mouse sobre uma Bíblia para removê-la';
 
   @override
   String get downloadFailedStatus => ' · Falha no download';
@@ -1039,10 +1096,12 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get bibleManagementInfo => 'Você pode adicionar uma Bíblia ao Multi-Bible Reader passando o mouse sobre ela em \"Outras Bíblias\" e escolhendo \"Definir como secundária\". Passe o mouse sobre ele novamente e escolha “Remover do secundário” para retirá-lo. \n \n Para excluir uma Bíblia do seu dispositivo, passe o mouse sobre ela, escolha “Excluir” e confirme. \n \n Para adicionar ou remover traduções da sua biblioteca, escolha \"Alterar seleção\" abaixo.';
+  String get bibleManagementInfo =>
+      'Você pode adicionar uma Bíblia ao Multi-Bible Reader passando o mouse sobre ela em \"Outras Bíblias\" e escolhendo \"Definir como secundária\". Passe o mouse sobre ele novamente e escolha “Remover do secundário” para retirá-lo. \n \n Para excluir uma Bíblia do seu dispositivo, passe o mouse sobre ela, escolha “Excluir” e confirme. \n \n Para adicionar ou remover traduções da sua biblioteca, escolha \"Alterar seleção\" abaixo.';
 
   @override
-  String get deleteBibleMessage => 'Isso exclui todo o conteúdo baixado desta Bíblia do seu dispositivo. Isso não pode ser desfeito.';
+  String get deleteBibleMessage =>
+      'Isso exclui todo o conteúdo baixado desta Bíblia do seu dispositivo. Isso não pode ser desfeito.';
 
   @override
   String get primaryBible => 'Bíblia Primária';
@@ -1084,13 +1143,16 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noReadingHistory => 'Ainda não há histórico de leitura.';
 
   @override
-  String get hoverSetSecondary => 'Passe o mouse sobre uma Bíblia para defini-la como secundária';
+  String get hoverSetSecondary =>
+      'Passe o mouse sobre uma Bíblia para defini-la como secundária';
 
   @override
-  String get bibleManagementPrompt => 'Aprenda como adicionar ou remover Bíblias do Multi-Bible Reader e como adicionar traduções à sua biblioteca.';
+  String get bibleManagementPrompt =>
+      'Aprenda como adicionar ou remover Bíblias do Multi-Bible Reader e como adicionar traduções à sua biblioteca.';
 
   @override
-  String get multiBibleDescription => 'Leia traduções paralelas junto com seu texto principal';
+  String get multiBibleDescription =>
+      'Leia traduções paralelas junto com seu texto principal';
 
   @override
   String get manageYourBibles => 'Gerencie suas Bíblias';
@@ -1105,10 +1167,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noSearchesYet => 'Nenhuma pesquisa ainda.';
 
   @override
-  String get clearReadingHistoryMessage => 'Isso excluirá permanentemente seu histórico de leitura. Isso não pode ser desfeito.';
+  String get clearReadingHistoryMessage =>
+      'Isso excluirá permanentemente seu histórico de leitura. Isso não pode ser desfeito.';
 
   @override
-  String get clearSearchHistoryMessage => 'Isso excluirá permanentemente seu histórico de pesquisa. Isso não pode ser desfeito.';
+  String get clearSearchHistoryMessage =>
+      'Isso excluirá permanentemente seu histórico de pesquisa. Isso não pode ser desfeito.';
 
   @override
   String get recentSearches => 'Pesquisas recentes';
@@ -1122,7 +1186,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get deleteListMessage => 'Isso não pode ser desfeito.';
 
   @override
-  String get noScriptureLists => 'Ainda não há listas de escrituras salvas. \n Construa um no Abridor de Escrituras.';
+  String get noScriptureLists =>
+      'Ainda não há listas de escrituras salvas. \n Construa um no Abridor de Escrituras.';
 
   @override
   String scriptureCount(int count) {
@@ -1147,10 +1212,12 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get clearBookmarksMessage => 'Isso excluirá permanentemente todos os seus favoritos em todas as Bíblias. Isso não pode ser desfeito.';
+  String get clearBookmarksMessage =>
+      'Isso excluirá permanentemente todos os seus favoritos em todas as Bíblias. Isso não pode ser desfeito.';
 
   @override
-  String get clearNotesMessage => 'Isso excluirá permanentemente todas as suas anotações em todas as Bíblias. Isso não pode ser desfeito.';
+  String get clearNotesMessage =>
+      'Isso excluirá permanentemente todas as suas anotações em todas as Bíblias. Isso não pode ser desfeito.';
 
   @override
   String get bookmarksTab => 'Marcadores';
@@ -1162,13 +1229,15 @@ class AppLocalizationsPt extends AppLocalizations {
   String get readingTab => 'Leitura';
 
   @override
-  String get noSavedScriptureLists => 'Ainda não há listas de escrituras salvas. \n Construa um no Abridor de Escrituras.';
+  String get noSavedScriptureLists =>
+      'Ainda não há listas de escrituras salvas. \n Construa um no Abridor de Escrituras.';
 
   @override
   String get welcomeToChurchLib => 'Bem-vindo ao ChurchLib';
 
   @override
-  String get chooseModulesPrompt => 'Escolha o que você deseja configurar. Você sempre pode adicionar o outro posteriormente em Configurações.';
+  String get chooseModulesPrompt =>
+      'Escolha o que você deseja configurar. Você sempre pode adicionar o outro posteriormente em Configurações.';
 
   @override
   String biblesSelectedCount(int count, int max, String noun) {
@@ -1182,7 +1251,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get biblesNoun => 'Bíblias';
 
   @override
-  String get firstPickPrimaryBible => 'Sua primeira escolha é a Bíblia principal';
+  String get firstPickPrimaryBible =>
+      'Sua primeira escolha é a Bíblia principal';
 
   @override
   String songbookSelectionLimit(int count) {
@@ -1219,7 +1289,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get bibleWord => 'Bíblia';
 
   @override
-  String get otherBiblesBackground => 'Suas outras Bíblias serão baixadas em segundo plano.';
+  String get otherBiblesBackground =>
+      'Suas outras Bíblias serão baixadas em segundo plano.';
 
   @override
   String get autoScrollAction => 'Rolagem automática';
@@ -1249,7 +1320,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get addNoteAction => 'Adicionar nota';
 
   @override
-  String get selectSingleVerseNote => 'Selecione um único verso para adicionar uma nota';
+  String get selectSingleVerseNote =>
+      'Selecione um único verso para adicionar uma nota';
 
   @override
   String selectedCount(int count) {
@@ -1257,10 +1329,12 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get firstSetupMessage => 'Escolha o que você gostaria de configurar. Você pode adicionar o outro módulo posteriormente em Configurações.';
+  String get firstSetupMessage =>
+      'Escolha o que você gostaria de configurar. Você pode adicionar o outro módulo posteriormente em Configurações.';
 
   @override
-  String get bookmarkOptionsPrompt => 'Gostaria de marcar apenas estes versículos ou adicionar uma nota também?';
+  String get bookmarkOptionsPrompt =>
+      'Gostaria de marcar apenas estes versículos ou adicionar uma nota também?';
 
   @override
   String howModuleWorks(String moduleName) {
@@ -1276,103 +1350,120 @@ class AppLocalizationsPt extends AppLocalizations {
   String get songHowFindTitle => 'Encontrando uma música';
 
   @override
-  String get songHowFindBody => 'Digite na caixa de pesquisa na parte superior para encontrar uma música pelo número, título ou qualquer palavra da letra. Pressione S em qualquer lugar para pular para a caixa. As fichas acima da lista restringem as músicas a um cancioneiro.';
+  String get songHowFindBody =>
+      'Digite na caixa de pesquisa na parte superior para encontrar uma música pelo número, título ou qualquer palavra da letra. Pressione S em qualquer lugar para pular para a caixa. As fichas acima da lista restringem as músicas a um cancioneiro.';
 
   @override
   String get songHowReadTitle => 'Lendo uma música';
 
   @override
-  String get songHowReadBody => 'Escolha uma música na lista e seus versos aparecerão à direita, com o título da música e o cancioneiro mostrados na parte superior da janela.';
+  String get songHowReadBody =>
+      'Escolha uma música na lista e seus versos aparecerão à direita, com o título da música e o cancioneiro mostrados na parte superior da janela.';
 
   @override
   String get songHowPresentTitle => 'Apresentando';
 
   @override
-  String get songHowPresentBody => 'Clique duas vezes em uma música, pressione Enter ou escolha Apresentar música em Opções rápidas para abri-la no apresentador. Percorra os versículos, um slide de cada vez; altere a direção do slide em Configurações. As palavras são dimensionadas para caber na tela. O botão de lista na barra de título do apresentador mostra cada versículo em uma barra lateral, com o versículo atual destacado. A barra lateral começa aberta; pressione o botão novamente para ocultá-lo.';
+  String get songHowPresentBody =>
+      'Clique duas vezes em uma música, pressione Enter ou escolha Apresentar música em Opções rápidas para abri-la no apresentador. Percorra os versículos, um slide de cada vez; altere a direção do slide em Configurações. As palavras são dimensionadas para caber na tela. O botão de lista na barra de título do apresentador mostra cada versículo em uma barra lateral, com o versículo atual destacado. A barra lateral começa aberta; pressione o botão novamente para ocultá-lo.';
 
   @override
   String get songHowKeysTitle => 'Chaves do apresentador';
 
   @override
-  String get songHowKeysBody => 'Seta para a direita ou para baixo: próximo slide. \n Seta para esquerda ou para cima: slide anterior. \n 1 a 7: pule para esse versículo. \n C: pule para o refrão. \n L: salta para o último slide. \n -: diminui o texto. \n = : aumenta o texto, até onde couber o versículo mais longo. \n Esc: fecha o apresentador.';
+  String get songHowKeysBody =>
+      'Seta para a direita ou para baixo: próximo slide. \n Seta para esquerda ou para cima: slide anterior. \n 1 a 7: pule para esse versículo. \n C: pule para o refrão. \n L: salta para o último slide. \n -: diminui o texto. \n = : aumenta o texto, até onde couber o versículo mais longo. \n Esc: fecha o apresentador.';
 
   @override
   String get songHowQuickTitle => 'Opções rápidas';
 
   @override
-  String get songHowQuickBody => 'O botão Opções rápidas no canto inferior direito coleta o que você pode fazer com a música selecionada: copiar sua letra, curtir ou apresentá-la.';
+  String get songHowQuickBody =>
+      'O botão Opções rápidas no canto inferior direito coleta o que você pode fazer com a música selecionada: copiar sua letra, curtir ou apresentá-la.';
 
   @override
   String get songHowLikesTitle => 'Curtidas';
 
   @override
-  String get songHowLikesBody => 'As músicas que você gosta ficam reunidas em Curtidas na barra lateral para que você possa abrir suas favoritas rapidamente.';
+  String get songHowLikesBody =>
+      'As músicas que você gosta ficam reunidas em Curtidas na barra lateral para que você possa abrir suas favoritas rapidamente.';
 
   @override
   String get songHowBooksTitle => 'Songbooks e atualizações';
 
   @override
-  String get songHowBooksBody => 'Seus cancioneiros são armazenados neste dispositivo e atualizados em segundo plano quando você está online. Para escolher diferentes songbooks, abra Configurações e use Songbooks.';
+  String get songHowBooksBody =>
+      'Seus cancioneiros são armazenados neste dispositivo e atualizados em segundo plano quando você está online. Para escolher diferentes songbooks, abra Configurações e use Songbooks.';
 
   @override
   String get bibleHowReadingTitle => 'Leitura';
 
   @override
-  String get bibleHowReadingBody => 'Use o botão Bíblia na parte superior para mudar a tradução e o botão capítulo para pular para outro capítulo. Anterior e Próximo na parte inferior, mova capítulo por capítulo ou pressione Alt com a seta para a esquerda ou para a direita. As teclas de seta para cima e para baixo rolam o capítulo. Essas chaves só funcionam enquanto BibleLib é o aplicativo aberto.';
+  String get bibleHowReadingBody =>
+      'Use o botão Bíblia na parte superior para mudar a tradução e o botão capítulo para pular para outro capítulo. Anterior e Próximo na parte inferior, mova capítulo por capítulo ou pressione Alt com a seta para a esquerda ou para a direita. As teclas de seta para cima e para baixo rolam o capítulo. Essas chaves só funcionam enquanto BibleLib é o aplicativo aberto.';
 
   @override
   String get bibleHowTextTitle => 'Tamanho do texto e rolagem automática';
 
   @override
-  String get bibleHowTextBody => 'Aa- e Aa+ na barra de título alteram o tamanho do texto ou pressione - no teclado para diminuí-lo e = para aumentá-lo. A rolagem automática no canto inferior esquerdo rola o capítulo para você; use o sinal de mais e de menos ao lado para definir a velocidade e toque no texto para parar.';
+  String get bibleHowTextBody =>
+      'Aa- e Aa+ na barra de título alteram o tamanho do texto ou pressione - no teclado para diminuí-lo e = para aumentá-lo. A rolagem automática no canto inferior esquerdo rola o capítulo para você; use o sinal de mais e de menos ao lado para definir a velocidade e toque no texto para parar.';
 
   @override
   String get bibleHowParallelTitle => 'Bíblias Paralelas';
 
   @override
-  String get bibleHowParallelBody => 'Baixe mais de uma Bíblia e ative o leitor Multi-Bíblia em Opções Rápidas para mostrar suas outras traduções em cada versículo.';
+  String get bibleHowParallelBody =>
+      'Baixe mais de uma Bíblia e ative o leitor Multi-Bíblia em Opções Rápidas para mostrar suas outras traduções em cada versículo.';
 
   @override
   String get bibleHowSelectTitle => 'Selecionando versos';
 
   @override
-  String get bibleHowSelectBody => 'Clique nos versículos para selecioná-los. A barra na parte superior permite marcá-los ou destacá-los, adicionar uma nota a um único versículo ou copiá-los. Pressione Esc para cancelar a seleção.';
+  String get bibleHowSelectBody =>
+      'Clique nos versículos para selecioná-los. A barra na parte superior permite marcá-los ou destacá-los, adicionar uma nota a um único versículo ou copiá-los. Pressione Esc para cancelar a seleção.';
 
   @override
   String get bibleHowSearchTitle => 'Pesquisa';
 
   @override
-  String get bibleHowSearchBody => 'A pesquisa examina cada versículo da Bíblia que você escolhe e leva você direto ao resultado. As pesquisas anteriores são mantidas para a próxima vez.';
+  String get bibleHowSearchBody =>
+      'A pesquisa examina cada versículo da Bíblia que você escolhe e leva você direto ao resultado. As pesquisas anteriores são mantidas para a próxima vez.';
 
   @override
   String get bibleHowHistoryTitle => 'História';
 
   @override
-  String get bibleHowHistoryBody => 'O histórico lista os capítulos que você leu e as pesquisas que fez, para que você possa continuar de onde parou.';
+  String get bibleHowHistoryBody =>
+      'O histórico lista os capítulos que você leu e as pesquisas que fez, para que você possa continuar de onde parou.';
 
   @override
   String get bibleHowBookmarksTitle => 'Marcadores e notas';
 
   @override
-  String get bibleHowBookmarksBody => 'Tudo o que você marca como favorito ou escreve uma nota é coletado em Marcadores e Notas na barra lateral, em todas as suas Bíblias.';
+  String get bibleHowBookmarksBody =>
+      'Tudo o que você marca como favorito ou escreve uma nota é coletado em Marcadores e Notas na barra lateral, em todas as suas Bíblias.';
 
   @override
   String get bibleHowOpenerTitle => 'Abridor de Escrituras';
 
   @override
-  String get bibleHowOpenerBody => 'Abridor de Escrituras na barra de título abre uma passagem digitando seu livro, capítulo e versículo. Adicione várias passagens a uma fila e abra-as uma após a outra.';
+  String get bibleHowOpenerBody =>
+      'Abridor de Escrituras na barra de título abre uma passagem digitando seu livro, capítulo e versículo. Adicione várias passagens a uma fila e abra-as uma após a outra.';
 
   @override
   String get bibleHowListsTitle => 'Listas de Escrituras';
 
   @override
-  String get bibleHowListsBody => 'As Escrituras na barra lateral mantêm listas de passagens que você reutiliza, como o esboço de um sermão. Pressione Play em uma lista para percorrer seus versículos com a barra da fila na parte inferior.';
+  String get bibleHowListsBody =>
+      'As Escrituras na barra lateral mantêm listas de passagens que você reutiliza, como o esboço de um sermão. Pressione Play em uma lista para percorrer seus versículos com a barra da fila na parte inferior.';
 
   @override
   String get bibleHowManageTitle => 'Gerenciamento de Bíblias';
 
   @override
-  String get bibleHowManageBody => 'Adicione, remova ou escolha sua tradução principal em Configurações e Bíblias ou em Escolher Bíblia na barra de título.';
+  String get bibleHowManageBody =>
+      'Adicione, remova ou escolha sua tradução principal em Configurações e Bíblias ou em Escolher Bíblia na barra de título.';
 
   @override
   String get alignmentJustified => 'Justificado';

@@ -27,7 +27,9 @@ class _AudienceWindowState extends State<AudienceWindow> with WindowListener {
 }
 
 class AudienceCanvas extends StatelessWidget {
-  const AudienceCanvas({super.key});
+  const AudienceCanvas({super.key, this.referenceHeight});
+
+  final double? referenceHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +53,18 @@ class AudienceCanvas extends StatelessWidget {
             );
           }
           return LayoutBuilder(
-            builder: (context, constraints) => session.slide(
-              presentation.activeSlideIndex.value,
-              constraints.maxHeight,
-              PresentationStyle(
-                presentation.scale.value,
-                presentation.align.value,
-              ),
-            ),
+            builder: (context, constraints) {
+              final height = constraints.maxHeight;
+              final fullHeight = referenceHeight ?? height;
+              return session.slide(
+                presentation.activeSlideIndex.value,
+                fullHeight,
+                PresentationStyle(
+                  presentation.scale.value * (height / fullHeight),
+                  presentation.align.value,
+                ),
+              );
+            },
           );
         },
       ),
