@@ -9,7 +9,9 @@ class UpdateState extends Equatable {
     this.latest = '',
     this.downloadUrl = '',
     this.fileName = '',
+    this.checksumUrl = '',
     this.releaseUrl = '',
+    this.checkSequence = 0,
   });
 
   final UpdateStatus status;
@@ -23,11 +25,25 @@ class UpdateState extends Equatable {
   /// Name of the file [downloadUrl] points to. Empty when it is just the release page.
   final String fileName;
 
+  /// URL of the release checksum manifest.
+  final String checksumUrl;
+
   final String releaseUrl;
+
+  /// Changes after each completed check so settings changes can reprocess a release.
+  final int checkSequence;
 
   bool get hasUpdate => status == UpdateStatus.available;
 
   @override
-  List<Object?> get props =>
-      [status, current, latest, downloadUrl, fileName, releaseUrl];
+  List<Object?> get props => [
+    status,
+    current,
+    latest,
+    downloadUrl,
+    fileName,
+    checksumUrl,
+    releaseUrl,
+    checkSequence,
+  ];
 }

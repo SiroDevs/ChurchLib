@@ -21,9 +21,15 @@ abstract class PrefRepo {
   int getPrefInt(String settingsKey);
   String getPrefString(String settingsKey);
 
+  /// Returns whether release packages are downloaded automatically.
+  bool getAutoDownloadUpdates();
+
   void setPrefBool(String settingsKey, bool settingsValue);
   void setPrefInt(String settingsKey, int settingsValue);
   void setPrefString(String settingsKey, String settingsValue);
+
+  /// Saves the automatic update download preference.
+  void setAutoDownloadUpdates(bool enabled);
 
   void clearData();
   void removeKeyPair(String settingsKey);
@@ -93,6 +99,10 @@ class LocalStorageImp implements PrefRepo {
   }
 
   @override
+  bool getAutoDownloadUpdates() =>
+      sharedPrefs.getBool(PrefConstants.autoDownloadUpdatesKey) ?? true;
+
+  @override
   void setPrefBool(String settingsKey, bool settingsValue) {
     if (!settingsValue) {
       sharedPrefs.remove(settingsKey);
@@ -117,5 +127,10 @@ class LocalStorageImp implements PrefRepo {
       return;
     }
     sharedPrefs.setString(settingsKey, settingsValue);
+  }
+
+  @override
+  void setAutoDownloadUpdates(bool enabled) {
+    sharedPrefs.setBool(PrefConstants.autoDownloadUpdatesKey, enabled);
   }
 }

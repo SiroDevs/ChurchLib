@@ -1475,4 +1475,51 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get alignmentJustified => 'Justifié';
+
+  @override
+  String get updatesTitle => 'Mises à jour';
+
+  @override
+  String get settingsAutoDownloadUpdates =>
+      'Télécharger les mises à jour automatiquement';
+
+  @override
+  String get settingsAutoDownloadUpdatesHelp =>
+      'Télécharge les paquets de mise à jour et demande confirmation avant d’ouvrir le programme d’installation. Désactivez cette option pour recevoir uniquement des notifications.';
+
+  @override
+  String get updateNotificationTitle => 'Mise à jour ChurchLib disponible';
+
+  @override
+  String updateNotificationBody(String version) {
+    return 'La version $version est prête à être téléchargée.';
+  }
+
+  @override
+  String get updateOpenReleaseAction => 'Ouvrir la version';
+
+  @override
+  String get updateInstallTitle => 'Installer la mise à jour ?';
+
+  @override
+  String updateInstallBody(String version) {
+    return 'La version $version a été téléchargée. Ouvrir le programme d’installation maintenant ?';
+  }
+
+  @override
+  String get updateDownloadFailed =>
+      'Impossible de télécharger la mise à jour. Vérifiez votre connexion et réessayez plus tard.';
+
+  @override
+  String get updateLaterAction => 'Plus tard';
+
+  @override
+  String get updateInstallAction => 'Installer maintenant';
+
+  @override
+  String get updateInstallerFailed =>
+      'Impossible d’ouvrir le programme d’installation. Le téléchargement se trouve dans le dossier des mises à jour.';
+
+  @override
+  String get updateDownloadAction => 'Télécharger';
 }

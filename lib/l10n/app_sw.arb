@@ -1905,5 +1905,20 @@
   "alignmentJustified": "Nyoosha pande zote",
   "@alignmentJustified": {
     "description": "Justified presentation text alignment label"
-  }
+  },
+  "updatesTitle": "Masasisho",
+  "settingsAutoDownloadUpdates": "Pakua masasisho kiotomatiki",
+  "settingsAutoDownloadUpdatesHelp": "Pakua vifurushi vya sasisho na uulizwe kabla ya kufungua kisakinishi. Zima ili upokee arifa pekee.",
+  "updateNotificationTitle": "Sasisho la ChurchLib linapatikana",
+  "updateNotificationBody": "Toleo {version} liko tayari kupakuliwa.",
+  "@updateNotificationBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateOpenReleaseAction": "Fungua toleo",
+  "updateInstallTitle": "Sakinisha sasisho?",
+  "updateInstallBody": "Toleo {version} limepakuliwa. Ungependa kufungua kisakinishi sasa?",
+  "@updateInstallBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateDownloadFailed": "Sasisho halikuweza kupakuliwa. Angalia muunganisho wako na ujaribu tena baadaye.",
+  "updateLaterAction": "Baadaye",
+  "updateInstallAction": "Sakinisha sasa",
+  "updateInstallerFailed": "Kisakinishi hakikuweza kufunguliwa. Faili lililopakuliwa limehifadhiwa kwenye folda ya masasisho.",
+  "updateDownloadAction": "Pakua"
 }

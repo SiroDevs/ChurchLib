@@ -29,6 +29,7 @@ import '../../domain/repos/song/song_sync_repo.dart';
 import '../../features/bible/scripture/scripture_queue/cubit/scripture_queue_cubit.dart';
 import '../license/license_module.dart';
 import '../update/update_cubit.dart';
+import '../update/update_service.dart';
 import 'injectable.config.dart';
 
 final getIt = GetIt.instance;
@@ -40,6 +41,7 @@ Future<void> configureDependencies(String environment) async {
   await getIt.allReady();
   registerLicenseDependencies(getIt);
   getIt.registerLazySingleton<UpdateCubit>(UpdateCubit.new);
+  getIt.registerLazySingleton<UpdateService>(UpdateService.new);
 }
 
 @module

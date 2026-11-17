@@ -1,9 +1,13 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../common/constants/pref_constants.dart';
 import '../../../core/di/injectable.dart';
+import '../../../core/update/update_cubit.dart';
 import '../../../domain/repos/pref_repo.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../presentation/controller/presentation_controller.dart';
@@ -19,16 +23,25 @@ class GeneralSection extends StatefulWidget {
 
 class _GeneralSectionState extends State<GeneralSection> {
   late bool _audienceModeEnabled;
+  late bool _autoDownloadUpdates;
 
   @override
   void initState() {
     super.initState();
     _audienceModeEnabled = PresentationController.instance.audienceModeEnabled;
+    _autoDownloadUpdates = getIt<PrefRepo>().getAutoDownloadUpdates();
   }
 
   void _setAudienceMode(bool enabled) {
     PresentationController.instance.setAudienceModeEnabled(enabled);
     setState(() => _audienceModeEnabled = enabled);
+  }
+
+  /// Persists the update download preference and refreshes the release check.
+  void _setAutoDownloadUpdates(bool enabled) {
+    getIt<PrefRepo>().setAutoDownloadUpdates(enabled);
+    setState(() => _autoDownloadUpdates = enabled);
+    unawaited(getIt<UpdateCubit>().check());
   }
 
   @override
@@ -42,6 +55,21 @@ class _GeneralSectionState extends State<GeneralSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SettingCard(
+          title: l10n.updatesTitle,
+          widgets: [
+            ListTile(
+              leading: const Icon(Icons.system_update_alt),
+              title: Text(l10n.settingsAutoDownloadUpdates),
+              subtitle: Text(l10n.settingsAutoDownloadUpdatesHelp),
+              trailing: Switch(
+                value: _autoDownloadUpdates,
+                onChanged: _setAutoDownloadUpdates,
+              ),
+              onTap: () => _setAutoDownloadUpdates(!_autoDownloadUpdates),
+            ),
+          ],
+        ),
         SettingCard(
           title: l10n.audienceModeSettingsTitle,
           widgets: [

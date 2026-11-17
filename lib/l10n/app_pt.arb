@@ -1905,5 +1905,20 @@
   "alignmentJustified": "Justificado",
   "@alignmentJustified": {
     "description": "Justified presentation text alignment label"
-  }
+  },
+  "updatesTitle": "Atualizações",
+  "settingsAutoDownloadUpdates": "Baixar atualizações automaticamente",
+  "settingsAutoDownloadUpdatesHelp": "Baixa os pacotes e pede confirmação antes de abrir o instalador. Desative para receber apenas notificações.",
+  "updateNotificationTitle": "Atualização do ChurchLib disponível",
+  "updateNotificationBody": "A versão {version} está pronta para baixar.",
+  "@updateNotificationBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateOpenReleaseAction": "Abrir versão",
+  "updateInstallTitle": "Instalar atualização?",
+  "updateInstallBody": "A versão {version} foi baixada. Abrir o instalador agora?",
+  "@updateInstallBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateDownloadFailed": "Não foi possível baixar a atualização. Verifique sua conexão e tente novamente mais tarde.",
+  "updateLaterAction": "Mais tarde",
+  "updateInstallAction": "Instalar agora",
+  "updateInstallerFailed": "Não foi possível abrir o instalador. O download está na pasta de atualizações.",
+  "updateDownloadAction": "Baixar"
 }

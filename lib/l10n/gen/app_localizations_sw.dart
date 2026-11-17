@@ -1458,4 +1458,50 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get alignmentJustified => 'Nyoosha pande zote';
+
+  @override
+  String get updatesTitle => 'Masasisho';
+
+  @override
+  String get settingsAutoDownloadUpdates => 'Pakua masasisho kiotomatiki';
+
+  @override
+  String get settingsAutoDownloadUpdatesHelp =>
+      'Pakua vifurushi vya sasisho na uulizwe kabla ya kufungua kisakinishi. Zima ili upokee arifa pekee.';
+
+  @override
+  String get updateNotificationTitle => 'Sasisho la ChurchLib linapatikana';
+
+  @override
+  String updateNotificationBody(String version) {
+    return 'Toleo $version liko tayari kupakuliwa.';
+  }
+
+  @override
+  String get updateOpenReleaseAction => 'Fungua toleo';
+
+  @override
+  String get updateInstallTitle => 'Sakinisha sasisho?';
+
+  @override
+  String updateInstallBody(String version) {
+    return 'Toleo $version limepakuliwa. Ungependa kufungua kisakinishi sasa?';
+  }
+
+  @override
+  String get updateDownloadFailed =>
+      'Sasisho halikuweza kupakuliwa. Angalia muunganisho wako na ujaribu tena baadaye.';
+
+  @override
+  String get updateLaterAction => 'Baadaye';
+
+  @override
+  String get updateInstallAction => 'Sakinisha sasa';
+
+  @override
+  String get updateInstallerFailed =>
+      'Kisakinishi hakikuweza kufunguliwa. Faili lililopakuliwa limehifadhiwa kwenye folda ya masasisho.';
+
+  @override
+  String get updateDownloadAction => 'Pakua';
 }

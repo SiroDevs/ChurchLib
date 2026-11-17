@@ -1454,4 +1454,50 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get alignmentJustified => 'مبرر';
+
+  @override
+  String get updatesTitle => 'التحديثات';
+
+  @override
+  String get settingsAutoDownloadUpdates => 'تنزيل التحديثات تلقائيًا';
+
+  @override
+  String get settingsAutoDownloadUpdatesHelp =>
+      'نزّل حزم التحديث واطلب التأكيد قبل فتح برنامج التثبيت. عطّل هذا الخيار لتلقي الإشعارات فقط.';
+
+  @override
+  String get updateNotificationTitle => 'يتوفر تحديث لـ ChurchLib';
+
+  @override
+  String updateNotificationBody(String version) {
+    return 'الإصدار $version جاهز للتنزيل.';
+  }
+
+  @override
+  String get updateOpenReleaseAction => 'فتح الإصدار';
+
+  @override
+  String get updateInstallTitle => 'تثبيت التحديث؟';
+
+  @override
+  String updateInstallBody(String version) {
+    return 'تم تنزيل الإصدار $version. هل تريد فتح برنامج التثبيت الآن؟';
+  }
+
+  @override
+  String get updateDownloadFailed =>
+      'تعذر تنزيل التحديث. تحقق من اتصالك وحاول مرة أخرى لاحقًا.';
+
+  @override
+  String get updateLaterAction => 'لاحقًا';
+
+  @override
+  String get updateInstallAction => 'ثبّت الآن';
+
+  @override
+  String get updateInstallerFailed =>
+      'تعذر فتح برنامج التثبيت. يمكنك العثور على التنزيل في مجلد التحديثات.';
+
+  @override
+  String get updateDownloadAction => 'تنزيل';
 }

@@ -24,6 +24,7 @@ class AppConstants {
   static const siteLink = "https://sirodevs.com/churchlib/";
 
   static const appTitle = "ChurchLib";
+  static const windowsAppUserModelId = 'com.sirodevs.ChurchLib';
   static const appVersionx = "v0.0.7.60";
   static const appCredits = "© Siro Devs";
   static const IconData whatsapp = IconData(

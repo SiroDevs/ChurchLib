@@ -15,6 +15,9 @@ import 'core/di/injectable.dart';
 import 'core/license/license_cubit.dart';
 import 'core/theme/bloc/theme_bloc.dart';
 import 'core/theme/theme_data.dart';
+import 'core/update/update_cubit.dart';
+import 'core/update/update_prompt_host.dart';
+import 'core/update/update_service.dart';
 import 'domain/repos/pref_repo.dart';
 import 'features/presentation/controller/presentation_controller.dart';
 import 'features/presentation/ui/presentation_host.dart';
@@ -90,8 +93,13 @@ class AppViewState extends State<AppView> {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            builder: (context, child) => PresentationHost(
-              child: TextScaleFactor(child: child ?? const SizedBox.shrink()),
+            builder: (context, child) => UpdatePromptHost(
+              cubit: getIt<UpdateCubit>(),
+              preferences: _prefRepo,
+              service: getIt<UpdateService>(),
+              child: PresentationHost(
+                child: TextScaleFactor(child: child ?? const SizedBox.shrink()),
+              ),
             ),
           );
         },
