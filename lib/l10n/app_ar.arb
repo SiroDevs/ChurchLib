@@ -1905,5 +1905,20 @@
   "alignmentJustified": "مبرر",
   "@alignmentJustified": {
     "description": "Justified presentation text alignment label"
-  }
+  },
+  "updatesTitle": "التحديثات",
+  "settingsAutoDownloadUpdates": "تنزيل التحديثات تلقائيًا",
+  "settingsAutoDownloadUpdatesHelp": "نزّل حزم التحديث واطلب التأكيد قبل فتح برنامج التثبيت. عطّل هذا الخيار لتلقي الإشعارات فقط.",
+  "updateNotificationTitle": "يتوفر تحديث لـ ChurchLib",
+  "updateNotificationBody": "الإصدار {version} جاهز للتنزيل.",
+  "@updateNotificationBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateOpenReleaseAction": "فتح الإصدار",
+  "updateInstallTitle": "تثبيت التحديث؟",
+  "updateInstallBody": "تم تنزيل الإصدار {version}. هل تريد فتح برنامج التثبيت الآن؟",
+  "@updateInstallBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateDownloadFailed": "تعذر تنزيل التحديث. تحقق من اتصالك وحاول مرة أخرى لاحقًا.",
+  "updateLaterAction": "لاحقًا",
+  "updateInstallAction": "ثبّت الآن",
+  "updateInstallerFailed": "تعذر فتح برنامج التثبيت. يمكنك العثور على التنزيل في مجلد التحديثات.",
+  "updateDownloadAction": "تنزيل"
 }

@@ -1905,5 +1905,20 @@
   "alignmentJustified": "Justifié",
   "@alignmentJustified": {
     "description": "Justified presentation text alignment label"
-  }
+  },
+  "updatesTitle": "Mises à jour",
+  "settingsAutoDownloadUpdates": "Télécharger les mises à jour automatiquement",
+  "settingsAutoDownloadUpdatesHelp": "Télécharge les paquets de mise à jour et demande confirmation avant d’ouvrir le programme d’installation. Désactivez cette option pour recevoir uniquement des notifications.",
+  "updateNotificationTitle": "Mise à jour ChurchLib disponible",
+  "updateNotificationBody": "La version {version} est prête à être téléchargée.",
+  "@updateNotificationBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateOpenReleaseAction": "Ouvrir la version",
+  "updateInstallTitle": "Installer la mise à jour ?",
+  "updateInstallBody": "La version {version} a été téléchargée. Ouvrir le programme d’installation maintenant ?",
+  "@updateInstallBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateDownloadFailed": "Impossible de télécharger la mise à jour. Vérifiez votre connexion et réessayez plus tard.",
+  "updateLaterAction": "Plus tard",
+  "updateInstallAction": "Installer maintenant",
+  "updateInstallerFailed": "Impossible d’ouvrir le programme d’installation. Le téléchargement se trouve dans le dossier des mises à jour.",
+  "updateDownloadAction": "Télécharger"
 }

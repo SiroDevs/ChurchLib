@@ -1467,4 +1467,51 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get alignmentJustified => 'Justificado';
+
+  @override
+  String get updatesTitle => 'Atualizações';
+
+  @override
+  String get settingsAutoDownloadUpdates =>
+      'Baixar atualizações automaticamente';
+
+  @override
+  String get settingsAutoDownloadUpdatesHelp =>
+      'Baixa os pacotes e pede confirmação antes de abrir o instalador. Desative para receber apenas notificações.';
+
+  @override
+  String get updateNotificationTitle => 'Atualização do ChurchLib disponível';
+
+  @override
+  String updateNotificationBody(String version) {
+    return 'A versão $version está pronta para baixar.';
+  }
+
+  @override
+  String get updateOpenReleaseAction => 'Abrir versão';
+
+  @override
+  String get updateInstallTitle => 'Instalar atualização?';
+
+  @override
+  String updateInstallBody(String version) {
+    return 'A versão $version foi baixada. Abrir o instalador agora?';
+  }
+
+  @override
+  String get updateDownloadFailed =>
+      'Não foi possível baixar a atualização. Verifique sua conexão e tente novamente mais tarde.';
+
+  @override
+  String get updateLaterAction => 'Mais tarde';
+
+  @override
+  String get updateInstallAction => 'Instalar agora';
+
+  @override
+  String get updateInstallerFailed =>
+      'Não foi possível abrir o instalador. O download está na pasta de atualizações.';
+
+  @override
+  String get updateDownloadAction => 'Baixar';
 }

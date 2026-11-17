@@ -72,7 +72,9 @@ class _UpdateBannerState extends State<UpdateBanner> {
                       const Icon(Icons.download, size: 18),
                       const SizedBox(width: 8),
                       Text(
-                        state.fileName.isEmpty ? 'Get the update' : 'Download',
+                        state.fileName.isEmpty
+                            ? l10n.updateOpenReleaseAction
+                            : l10n.updateDownloadAction,
                       ),
                     ],
                   ),

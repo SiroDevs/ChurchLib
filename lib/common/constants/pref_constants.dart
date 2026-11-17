@@ -52,4 +52,8 @@ class PrefConstants {
   static const licenseLastSeenKey = 'license_last_seen';
   static const licenseMetaKey = 'license_meta';
   static const licenseFallbackIdKey = 'license_fallback_id';
+
+  static const autoDownloadUpdatesKey = 'auto_download_updates';
+  static const lastNotifiedUpdateKey = 'last_notified_update';
+  static const dismissedUpdateKey = 'dismissed_update';
 }

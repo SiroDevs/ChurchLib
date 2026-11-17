@@ -2739,6 +2739,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Justified'**
   String get alignmentJustified;
+
+  /// No description provided for @updatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates'**
+  String get updatesTitle;
+
+  /// No description provided for @settingsAutoDownloadUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Download updates automatically'**
+  String get settingsAutoDownloadUpdates;
+
+  /// No description provided for @settingsAutoDownloadUpdatesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Download update packages and ask before opening the installer. Turn off to receive update notifications only.'**
+  String get settingsAutoDownloadUpdatesHelp;
+
+  /// No description provided for @updateNotificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ChurchLib update available'**
+  String get updateNotificationTitle;
+
+  /// No description provided for @updateNotificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} is ready to download.'**
+  String updateNotificationBody(String version);
+
+  /// No description provided for @updateOpenReleaseAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Open release'**
+  String get updateOpenReleaseAction;
+
+  /// No description provided for @updateInstallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Install update?'**
+  String get updateInstallTitle;
+
+  /// No description provided for @updateInstallBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} has been downloaded. Open the installer now?'**
+  String updateInstallBody(String version);
+
+  /// No description provided for @updateDownloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The update could not be downloaded. Check your connection and try again later.'**
+  String get updateDownloadFailed;
+
+  /// No description provided for @updateLaterAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get updateLaterAction;
+
+  /// No description provided for @updateInstallAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Install now'**
+  String get updateInstallAction;
+
+  /// No description provided for @updateInstallerFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The installer could not be opened. You can find the download in the updates folder.'**
+  String get updateInstallerFailed;
+
+  /// No description provided for @updateDownloadAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get updateDownloadAction;
 }
 
 class _AppLocalizationsDelegate

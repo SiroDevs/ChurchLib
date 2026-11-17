@@ -14,8 +14,9 @@ part 'update_state.dart';
 class UpdateCubit extends Cubit<UpdateState> {
   UpdateCubit() : super(const UpdateState());
 
-  static const _every = Duration(hours: 6);
+  static const _every = Duration(hours: 12);
   Timer? _timer;
+  int _checkSequence = 0;
 
   void start() {
     if (_timer != null) return;
@@ -28,27 +29,44 @@ class UpdateCubit extends Cubit<UpdateState> {
     if (release == null || isClosed) return;
     final current = (await PackageInfo.fromPlatform()).version;
     if (isClosed) return;
+    final checkSequence = ++_checkSequence;
 
     if (!isNewerVersion(release.version, current)) {
-      emit(UpdateState(
-        status: UpdateStatus.upToDate,
-        current: current,
-        latest: release.version,
-        releaseUrl: release.pageUrl,
-      ));
+      emit(
+        UpdateState(
+          status: UpdateStatus.upToDate,
+          current: current,
+          latest: release.version,
+          releaseUrl: release.pageUrl,
+          checkSequence: checkSequence,
+        ),
+      );
       return;
     }
 
     final host = HostPlatform.detect();
     final asset = host == null ? null : pickAsset(release.assets, host);
-    emit(UpdateState(
-      status: UpdateStatus.available,
-      current: current,
-      latest: release.version,
-      downloadUrl: asset?.url ?? release.pageUrl,
-      fileName: asset?.name ?? '',
-      releaseUrl: release.pageUrl,
-    ));
+    final checksum = _findChecksum(release.assets);
+    emit(
+      UpdateState(
+        status: UpdateStatus.available,
+        current: current,
+        latest: release.version,
+        downloadUrl: asset?.url ?? release.pageUrl,
+        fileName: asset?.name ?? '',
+        checksumUrl: checksum?.url ?? '',
+        releaseUrl: release.pageUrl,
+        checkSequence: checkSequence,
+      ),
+    );
+  }
+
+  /// Finds the checksum manifest attached to a release.
+  ReleaseAsset? _findChecksum(List<ReleaseAsset> assets) {
+    for (final asset in assets) {
+      if (asset.name == 'SHA256SUMS.txt') return asset;
+    }
+    return null;
   }
 
   @override

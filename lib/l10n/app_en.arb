@@ -1905,5 +1905,20 @@
     "alignmentJustified": "Justified",
     "@alignmentJustified": {
         "description": "Justified presentation text alignment label"
-    }
+    },
+    "updatesTitle": "Updates",
+    "settingsAutoDownloadUpdates": "Download updates automatically",
+    "settingsAutoDownloadUpdatesHelp": "Download update packages and ask before opening the installer. Turn off to receive update notifications only.",
+    "updateNotificationTitle": "ChurchLib update available",
+    "updateNotificationBody": "Version {version} is ready to download.",
+    "@updateNotificationBody": {"placeholders": {"version": {"type": "String"}}},
+    "updateOpenReleaseAction": "Open release",
+    "updateInstallTitle": "Install update?",
+    "updateInstallBody": "Version {version} has been downloaded. Open the installer now?",
+    "@updateInstallBody": {"placeholders": {"version": {"type": "String"}}},
+    "updateDownloadFailed": "The update could not be downloaded. Check your connection and try again later.",
+    "updateLaterAction": "Later",
+    "updateInstallAction": "Install now",
+    "updateInstallerFailed": "The installer could not be opened. You can find the download in the updates folder.",
+    "updateDownloadAction": "Download"
 }

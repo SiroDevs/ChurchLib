@@ -1905,5 +1905,20 @@
   "alignmentJustified": "Justificado",
   "@alignmentJustified": {
     "description": "Justified presentation text alignment label"
-  }
+  },
+  "updatesTitle": "Actualizaciones",
+  "settingsAutoDownloadUpdates": "Descargar actualizaciones automáticamente",
+  "settingsAutoDownloadUpdatesHelp": "Descarga los paquetes y pregunta antes de abrir el instalador. Desactívalo para recibir solo notificaciones.",
+  "updateNotificationTitle": "Actualización de ChurchLib disponible",
+  "updateNotificationBody": "La versión {version} está lista para descargar.",
+  "@updateNotificationBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateOpenReleaseAction": "Abrir versión",
+  "updateInstallTitle": "¿Instalar actualización?",
+  "updateInstallBody": "La versión {version} se descargó. ¿Abrir el instalador ahora?",
+  "@updateInstallBody": {"placeholders": {"version": {"type": "String"}}},
+  "updateDownloadFailed": "No se pudo descargar la actualización. Comprueba tu conexión e inténtalo más tarde.",
+  "updateLaterAction": "Más tarde",
+  "updateInstallAction": "Instalar ahora",
+  "updateInstallerFailed": "No se pudo abrir el instalador. La descarga está en la carpeta de actualizaciones.",
+  "updateDownloadAction": "Descargar"
 }
