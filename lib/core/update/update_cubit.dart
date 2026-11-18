@@ -27,7 +27,10 @@ class UpdateCubit extends Cubit<UpdateState> {
   Future<void> check() async {
     final release = await fetchLatestRelease();
     if (release == null || isClosed) return;
-    final current = (await PackageInfo.fromPlatform()).version;
+    final packageInfo = await PackageInfo.fromPlatform();
+    final version = packageInfo.version.split('+').first;
+    final buildNumber = packageInfo.buildNumber;
+    final current = buildNumber.isEmpty ? version : '$version+$buildNumber';
     if (isClosed) return;
     final checkSequence = ++_checkSequence;
 

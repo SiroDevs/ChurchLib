@@ -17,7 +17,7 @@ class ReleaseInfo {
     required this.assets,
   });
 
-  /// "1.0.5" (no leading "v", no build suffix).
+  /// "1.0.5+12" or "1.0.5" for older tags (no leading "v").
   final String version;
 
   /// The human-readable release page (notes, all files).
@@ -25,8 +25,8 @@ class ReleaseInfo {
   final List<ReleaseAsset> assets;
 }
 
-/// Release assets are named ChurchLib_{version}_{arch}.{ext}, the same convention
-/// the ChurchLib-Admin landing page relies on:
+/// Release assets are named ChurchLib_{version}_{arch}.{ext} with the build suffix.
+/// The ChurchLib-Admin landing page uses this same naming convention:
 ///   x64.exe (Windows installer), x64.zip (Windows portable), {x64,arm64}.dmg,
 ///   {x64,arm64}.{deb,rpm,tar.gz}
 List<String> knownAssetNames(String version) => [
