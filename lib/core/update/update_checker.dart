@@ -17,20 +17,41 @@ const String kRepoReleasesUrl = '$kRepoUrl/releases/latest';
 const String _apiLatestUrl =
     'https://api.github.com/repos/$kRepo/releases/latest';
 
-/// "v1.0.4+12" -> "1.0.4"; "1.1.0-beta.1" -> "1.1.0"
-String? normalizeVersion(String tag) =>
-    RegExp(r'(\d+(?:\.\d+)*)').firstMatch(tag)?.group(1);
+/// Keeps an optional build number while removing a tag prefix and prerelease suffix.
+String? normalizeVersion(String tag) {
+  final match = RegExp(r'^v?(\d+(?:\.\d+)*)(?:-[0-9A-Za-z.-]+)?(?:\+(\d+))?$')
+      .firstMatch(tag);
+  if (match == null) return null;
+  final version = match.group(1)!;
+  final buildNumber = match.group(2);
+  return buildNumber == null ? version : '$version+$buildNumber';
+}
 
 bool isNewerVersion(String latest, String current) {
-  List<int> parts(String v) =>
-      v.split('.').map((p) => int.tryParse(p) ?? 0).toList();
-  final a = parts(latest), b = parts(current);
-  for (var i = 0; i < max(a.length, b.length); i++) {
-    final x = i < a.length ? a[i] : 0;
-    final y = i < b.length ? b[i] : 0;
-    if (x != y) return x > y;
+  List<int> parts(String version) => version
+      .split('+')
+      .first
+      .split('.')
+      .map((part) => int.tryParse(part) ?? 0)
+      .toList();
+  int buildNumber(String version) {
+    final separator = version.indexOf('+');
+    return separator < 0
+        ? 0
+        : int.tryParse(version.substring(separator + 1)) ?? 0;
   }
-  return false;
+
+  final latestParts = parts(latest), currentParts = parts(current);
+  for (
+    var index = 0;
+    index < max(latestParts.length, currentParts.length);
+    index++
+  ) {
+    final latestPart = index < latestParts.length ? latestParts[index] : 0;
+    final currentPart = index < currentParts.length ? currentParts[index] : 0;
+    if (latestPart != currentPart) return latestPart > currentPart;
+  }
+  return buildNumber(latest) > buildNumber(current);
 }
 
 /// The newest published (non-draft, non-prerelease) GitHub release.
