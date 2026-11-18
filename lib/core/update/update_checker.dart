@@ -17,10 +17,11 @@ const String kRepoReleasesUrl = '$kRepoUrl/releases/latest';
 const String _apiLatestUrl =
     'https://api.github.com/repos/$kRepo/releases/latest';
 
-/// Keeps an optional build number while removing a tag prefix and prerelease suffix.
+/// Normalizes dotted or plus-delimited build tags to Flutter's version format.
 String? normalizeVersion(String tag) {
-  final match = RegExp(r'^v?(\d+(?:\.\d+)*)(?:-[0-9A-Za-z.-]+)?(?:\+(\d+))?$')
-      .firstMatch(tag);
+  final match = RegExp(
+    r'^v?(\d+\.\d+\.\d+)(?:-[0-9A-Za-z.-]+)?(?:[.+](\d+))?$',
+  ).firstMatch(tag);
   if (match == null) return null;
   final version = match.group(1)!;
   final buildNumber = match.group(2);
@@ -107,11 +108,12 @@ Future<ReleaseInfo?> _fromRedirect() async {
     final version = normalizeVersion(decoded);
     if (version == null) return null;
     final base = '$kRepoUrl/releases/download/$decoded';
+    final releaseTag = decoded.replaceFirst(RegExp(r'^v'), '');
     return ReleaseInfo(
       version: version,
       pageUrl: '$kRepoUrl/releases/tag/$decoded',
       assets: [
-        for (final name in knownAssetNames(version))
+        for (final name in knownAssetNames(releaseTag))
           ReleaseAsset(name, '$base/$name'),
       ],
     );

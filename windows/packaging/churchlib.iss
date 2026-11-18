@@ -32,7 +32,7 @@
 ; Must stay different from SongLib's {884424F7-F8DD-4CF6-8BC3-5E8126A7893D}
 AppId={{9B6E2B7D-7B3B-4E9E-9E2F-2E7B7B6B7B3F}
 AppName={#MyAppName}
-AppVersion={#MyAppVersion}+{#MyAppBuildNumber}
+AppVersion={#MyAppVersion}.{#MyAppBuildNumber}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -47,7 +47,7 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 #endif
 OutputDir={#OutputDir}
-OutputBaseFilename={#MyAppName}_{#MyAppVersion}+{#MyAppBuildNumber}_{#Arch}
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}.{#MyAppBuildNumber}_{#Arch}
 ; One installer: defaults to a per-user install, and offers
 ; "Install for all users" (UAC prompt) at the start of the wizard.
 PrivilegesRequired=lowest

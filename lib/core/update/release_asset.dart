@@ -25,7 +25,7 @@ class ReleaseInfo {
   final List<ReleaseAsset> assets;
 }
 
-/// Release assets are named ChurchLib_{version}_{arch}.{ext} with the build suffix.
+/// Release assets use dotted build suffixes in their version strings.
 /// The ChurchLib-Admin landing page uses this same naming convention:
 ///   x64.exe (Windows installer), x64.zip (Windows portable), {x64,arm64}.dmg,
 ///   {x64,arm64}.{deb,rpm,tar.gz}
